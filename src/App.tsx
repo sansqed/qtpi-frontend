@@ -1,12 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Login from './Pages/Login/Login';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import { isLoggedIn } from './Helpers/UserFunctions';
 
+import Login from './Pages/Login/Login';
+import Dashboard from './Pages/Dashboard/Dashboard';
 function App() {
+
+
+
   return (
     <div className="App">
-      <Login/>
+      <BrowserRouter>
+        <Routes>
+          <Route>
+          <Route 
+              path="/" 
+              element={isLoggedIn()? <Dashboard/>:<Login/>}  
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
