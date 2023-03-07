@@ -1,0 +1,12 @@
+.sidebar-custombutton button[type="submit"]{
+    font-weight: 700;
+    font-size: 16px;
+    font-family: 'Outfit', sans-serif;
+    color: white;
+    border: none;
+    border-radius: 1.15rem;
+    width: 40%;
+    height: 2.8rem;
+    background-color: orange;
+    cursor: pointer;
+}
