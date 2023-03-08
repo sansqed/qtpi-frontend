@@ -1,12 +1,12 @@
-.sidebar-custombutton button[type="submit"]{
-    font-weight: 700;
-    font-size: 16px;
-    font-family: 'Outfit', sans-serif;
-    color: white;
+.button {
+    background-color: #4CAF50; /* Green */
     border: none;
-    border-radius: 1.15rem;
-    width: 40%;
-    height: 2.8rem;
-    background-color: orange;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-}
+  }

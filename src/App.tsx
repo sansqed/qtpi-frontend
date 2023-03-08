@@ -5,6 +5,8 @@ import { isLoggedIn } from './Helpers/UserFunctions';
 
 import Login from './Pages/Login/Login';
 import Dashboard from './Pages/Dashboard/Dashboard';
+import Employees from './Pages/Employee/Employees'
+
 function App() {
 
 
@@ -19,6 +21,10 @@ function App() {
               element={isLoggedIn()? <Dashboard/>:<Login/>}  
             />
           </Route>
+          <Route
+              path="/employees"
+              element={<Employees/>}
+          />
         </Routes>
       </BrowserRouter>
     </div>

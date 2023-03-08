@@ -1,30 +1,21 @@
 import React, { FC } from "react";
 
-// CSS file
-// import "./CustomButton.css"
-
-// const CustomButton = (props) => {
-//   return (
-//     <div className={props.divClassName}>
-//       <button className={props.className}type={props.type} onClick={props.onClick}  role={props.role} name={props.name}>
-//         {props.title}
-//       </button>
-//     </div>
-//   );
-// }
 
 interface ButtonProps{
   onClick: () => void;
+  className: string,
   children?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
   onClick,
+  className,
   children,
   }) =>{
   return (
     <button 
       onClick = {onClick}
+      className = {className}
     >
     {children}
     </button>

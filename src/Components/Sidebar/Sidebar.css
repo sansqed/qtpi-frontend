@@ -1,0 +1,29 @@
+.sidebar-container{
+    display:flex;
+}
+
+.sidebar-actual{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    padding: 16px;
+}
+
+
+.sidebar-header {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.sidebar-header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.sidebar-header p {
+    font-size: 12px;
+    margin: 0;
+    color: #999;
+}
