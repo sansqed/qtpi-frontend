@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
+import Button from "../Button/Button";
 
 const Sidebar: React.FC = () => {
-    const [currentTime, setCurrentTime] = useState<string>(new Date().toLocaleTimeString());
-    const [currentDate, setCurrentDate] = useState<string>(new Date().toLocaleDateString());
+    const [currentTime, setCurrentTime] = useState<string>(new Date().toLocaleTimeString(
+        [], { hour12: true, hour: '2-digit', minute: '2-digit' }
+    ));
+    const [currentDate, setCurrentDate] = useState<string>(new Date().toLocaleDateString([], { month: 'long', day: 'numeric', year: 'numeric' }));
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setCurrentTime(new Date().toLocaleTimeString());
+            setCurrentTime(new Date().toLocaleTimeString([], { hour12: true, hour: '2-digit', minute: '2-digit' }));
+            setCurrentDate(new Date().toLocaleDateString([], { month: 'long', day: 'numeric', year: 'numeric' }));
         }, 1000);
 
         return () => clearInterval(intervalId)
     }, []);
+
+    
 
     return (
         <div className="sidebar-container">
@@ -20,8 +26,28 @@ const Sidebar: React.FC = () => {
                     <h1>{currentTime}</h1>
                     <p>{currentDate}</p>
                 </div>
-                <div className="sidebar-test-content">
-                    <p> test </p>
+                <div className="sidebar-menu-container">
+                    <div className="sidebar-menu">
+                        <div className="sidebar-employees">
+                            <p>Employees</p>
+                        </div>
+                        <div className="sidebar-expenses">
+                            <p>Expenses</p>
+                        </div>
+                        <hr className="sidebar-line" />
+                        <div className="sidebar-users">
+                            <p>USERS</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="sidebar-logout-container">
+                    <Button 
+                        handleClick={()=>{}}
+                        className="sidebar-logout-button"  
+                        type= "button"
+                    >
+                        Log out
+                    </Button>
                 </div>
             </div>
         </div>

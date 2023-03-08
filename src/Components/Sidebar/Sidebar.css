@@ -1,11 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap'); */
+
 .sidebar-container{
+    font-family: "Poppins", sans-serif;
     display:flex;
 }
 
 .sidebar-actual{
     position: fixed;
     top: 0;
-    left: 0;
+    left: 1vh;
     bottom: 0;
     width: 200px;
     padding: 16px;
@@ -13,17 +18,60 @@
 
 
 .sidebar-header {
-    margin-bottom: 16px;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
     text-align: center;
 }
 
 .sidebar-header h1 {
-    font-size: 24px;
+    font-size: 40px;
     margin: 0;
 }
 
 .sidebar-header p {
-    font-size: 12px;
+    font-size: 21px;
     margin: 0;
-    color: #999;
+    color: #fff;
+}
+
+.sidebar-menu-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 72vh /* subtract the height of the header and footer */
+}
+
+.sidebar-menu{
+    margin-left: 2vh;
+    font-size: 25px;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    text-align: left;
+}
+
+.sidebar-expenses{
+    margin-bottom: 4vh;
+}
+
+.sidebar-line{
+    height: 1px;
+    width: 17vh;
+    border:none;
+    background-color: rgba(0, 0, 0, 0.3); 
+}
+
+.sidebar-logout-container{
+    margin-top: auto;
+}
+
+.sidebar-logout-button{
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    border:none;
+    color: #003459;
+    cursor: pointer;
+    height: 5vh;
+    width: 17.5vh;
+    border-radius: 1vh;
 }

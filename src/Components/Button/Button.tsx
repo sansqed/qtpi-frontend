@@ -2,20 +2,23 @@ import React, { FC } from "react";
 
 
 interface ButtonProps{
-  onClick: () => void;
+  handleClick: () => void;
   className: string,
+  type: "submit" | "reset" | "button"
   children?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  onClick,
   className,
+  handleClick,
+  type,
   children,
   }) =>{
   return (
     <button 
-      onClick = {onClick}
+      onClick = {handleClick}
       className = {className}
+      type={type}
     >
     {children}
     </button>
