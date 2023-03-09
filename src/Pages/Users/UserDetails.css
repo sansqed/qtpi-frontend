@@ -3,6 +3,16 @@
 }
 
 .ud-container{
+    font-family: "Poppins", sans-serif;
+    background-color: #003459;
+    color:white;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    /* align-items: center; */
+}
+
+.ud-content-wrapper{
     float: left;
     margin-left: 20vw;
     margin-top: 2vw;

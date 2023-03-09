@@ -3,10 +3,10 @@ import "./Button.css"
 
 interface ButtonProps{
   handleClick: () => void;
-  className: string,
+  className?: string,
   type: "submit" | "reset" | "button" | "add",
   children?: React.ReactNode,
-  text: string,
+  text?: string,
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,7 +19,10 @@ const Button: React.FC<ButtonProps> = ({
 
     if (type === "add"){
       return(
-        <button className="btn-add">
+        <button 
+          className="btn-add"
+          onClick = {handleClick}
+        >
           {text}
         </button>
       )

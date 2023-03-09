@@ -18,18 +18,37 @@
     padding-top: 1vh;
     padding-left: 3vh;
     color:#003459;
-    display:flex;
+    /* display:flex; */
     margin-left: 30vh;
-    height: 90vh;
+    height: 95vh;
     width: 37vh;
     background-color: white;
     border: none;
     border-radius: 1vh;
+    text-align: left;
 }
 
 .user-list-header{
     font-size: 28;
     font-weight: 700;
+    display:flex;
+    /* width: 110%; */
+}
+
+.user-list-header .btn-add{
+    height: fit-content;
+    margin-top: 2.5em;
+    margin-left: 1.5em;
+}
+
+.user-list-body{
+    overflow-y: scroll;
+    height: 80vh;
+    margin-right: 2vh;
+}
+
+.user-info{
+    margin: 0;
 }
   
   

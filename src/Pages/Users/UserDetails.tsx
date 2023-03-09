@@ -16,9 +16,9 @@ const UserDetails = () => {
         ]
     }
     return(
-        <div className="users-page">
+        <div className="ud-container">
             <Sidebar/>
-            <div className="ud-container">
+            <div className="ud-content-wrapper">
                 <p className="ud-back"><NavLink to={"/users"}>&lt; Back to user list</NavLink></p>
 
                 <div className="ud-section">
