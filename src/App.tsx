@@ -8,8 +8,9 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import Employees from './Pages/Employee/Employees'
 import Users from './Pages/Users/Users';
 import AddUsers from './Pages/Users/AddUser';
+import UserDetails from './Pages/Users/UserDetails';
 
-function App() {
+function App() {  
 
 
 
@@ -17,12 +18,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route>
           <Route 
               path="/" 
               element={isLoggedIn()? <Dashboard/>:<Login/>}  
             />
-          </Route>
           <Route
               path="/employees"
               element={<Employees/>}
@@ -34,6 +33,10 @@ function App() {
           <Route
             path="/users/add"
             element={<AddUsers/>}
+          />
+          <Route
+            path="/users/:userid"
+            element={isLoggedIn()? <UserDetails/>:<Login/>}  
           />
         </Routes>
       </BrowserRouter>

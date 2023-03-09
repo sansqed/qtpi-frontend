@@ -1,0 +1,27 @@
+.ud-container .H1{
+    width: 100%;
+}
+
+.ud-container{
+    float: left;
+    margin-left: 20vw;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    background-color: white;
+    border-radius: 10px;
+    border-color: transparent;
+    height: 42vw;
+    width: 20vw;
+    padding: 2vw 3vw;
+    color: #003459;
+    white-space: pre-wrap;
+    text-align: left;
+}
+
+.ud-section{
+    margin: 1vw 0vw;
+}
+
+.ud-container p{
+    margin: 0;
+}
