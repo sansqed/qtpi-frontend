@@ -4,7 +4,7 @@ import "./Button.css"
 interface ButtonProps{
   handleClick: () => void;
   className?: string,
-  type: "submit" | "reset" | "button" | "add",
+  type: "submit" | "reset" | "button" | "add" | "sign-in",
   children?: React.ReactNode,
   text?: string,
 }
@@ -28,6 +28,16 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
+    if (type === "sign-in"){
+      return(
+        <button 
+          className="btn-sign-in"
+          onClick = {handleClick}
+        >
+          <b>SIGN IN</b>
+        </button>
+      )
+    }
     return (
       <button 
         onClick = {handleClick}

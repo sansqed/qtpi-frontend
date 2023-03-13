@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 // import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import Sidebar from "../../Components/Sidebar/Sidebar"
 import "./Users.css"
 import Button from "../../Components/Button/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { getUsers } from "../../ApiCalls/UsersApi";
+
 
 const Users: React.FC = () => {
     const navigate = useNavigate()
-    const users = [
+
+    const [users, setUsers] = useState([])
+
+    const tempUsers = [
         {
             id: "1",
             username: "gb",
@@ -23,115 +28,28 @@ const Users: React.FC = () => {
         },
         {
             id: "4",
-            username: "gb",
+            username: "gb2",
         },
         {
             id: "5",
-            username: "kyle",
+            username: "kyle2",
         },
         {
             id: "6",
-            username: "admin",
+            username: "admin2",
         },
         {
             id: "7",
-            username: "gb",
+            username: "gb3",
         },
-        {
-            id: "2",
-            username: "kyle",
-        },
-        {
-            id: "3",
-            username: "admin",
-        },
-        {
-            id: "1",
-            username: "gb",
-        },
-        {
-            id: "2",
-            username: "kyle",
-        },
-        {
-            id: "3",
-            username: "admin",
-        },
-        {
-            id: "1",
-            username: "gb",
-        },
-        {
-            id: "2",
-            username: "kyle",
-        },
-        {
-            id: "3",
-            username: "admin",
-        },
-        {
-            id: "1",
-            username: "gb",
-        },
-        {
-            id: "2",
-            username: "kyle",
-        },
-        {
-            id: "3",
-            username: "admin",
-        },
-        {
-            id: "1",
-            username: "gb",
-        },
-        {
-            id: "2",
-            username: "kyle",
-        },
-        {
-            id: "3",
-            username: "admin",
-        },
-        {
-            id: "1",
-            username: "gb",
-        },
-        {
-            id: "2",
-            username: "kyle",
-        },
-        {
-            id: "3",
-            username: "admin",
-        },
-        {
-            id: "1",
-            username: "gb",
-        },
-        {
-            id: "2",
-            username: "kyle",
-        },
-        {
-            id: "3",
-            username: "admin",
-        },
-        {
-            id: "1",
-            username: "gb",
-        },
-        {
-            id: "2",
-            username: "kyle",
-        },
-        {
-            id: "3",
-            username: "admin",
-        },
-
-        
     ]
+
+    // FETCH USERS DATA
+    useEffect(()=>{
+       getUsers().then((response:any)=>{
+            setUsers(response.data.data.users)
+       }) 
+    },[])
 
     return (
         <div className="users-container">
@@ -149,7 +67,7 @@ const Users: React.FC = () => {
                         </NavLink>
                     </div>
                     <div className="user-list-body">
-                        {users.map(({id, username}) => 
+                        {tempUsers.map(({id, username}) => 
                             <p className="user-info" key={id}><NavLink to={"/users/userid="+id}>{username}</NavLink></p>
                         )}
 
