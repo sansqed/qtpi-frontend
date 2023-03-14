@@ -13,7 +13,7 @@ const UserDetails = () => {
     const [user, setUser] = useState({})
 
     const tempUser = {
-        username: "GB",
+        username: "gb",
         Role: "Admin",
         contact_no: "09123456789",
         address: "Sa eskina",
@@ -30,26 +30,26 @@ const UserDetails = () => {
     },[])
 
     return(
-        <div className="ud-container">
+        <div className="user-details-container">
             <Sidebar/>
-            <div className="ud-content-wrapper">
-                <p className="ud-back"><NavLink to={"/users"}>&lt; Back to user list</NavLink></p>
+            <div className="user-details-content-wrapper">
+                <p className="user-details-back"><NavLink to={"/users"}>&lt; Back to user list</NavLink></p>
 
-                <div className="ud-section">
+                <div className="user-details-section">
                     <H1 text={tempUser.username}/>
-                    <p className="ud-info">{tempUser.Role}</p>
+                    <p className="user-details-info">{tempUser.Role}</p>
                 </div>
 
-                <div className="ud-section">
-                    <p className="ud-info">Address: {tempUser.address}</p>
-                    <p className="ud-info">Contact No.: {tempUser.contact_no}</p>
+                <div className="user-details-section">
+                    <p className="user-details-info">Address: {tempUser.address}</p>
+                    <p className="user-details-info">Contact No.: {tempUser.contact_no}</p>
                 </div>
 
-                <hr className="ud-hr"/>
+                <hr className="user-details-hr"/>
 
-                <div className="ud-section">
+                <div className="user-details-section">
                     <H2 text="ACCESS LOGS"/>
-                    {tempUser.access_logs.map((log)=><p className="ud-info">{log}</p>)}
+                    {tempUser.access_logs.map((log)=><p className="user-details-info">{log}</p>)}
                 </div>
                 
             

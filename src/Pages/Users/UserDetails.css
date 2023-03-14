@@ -1,20 +1,16 @@
-.ud-container .H1{
-    width: 100%;
-}
 
-.ud-container{
-    font-family: "Poppins", sans-serif;
+.user-details-container{
     background-color: #003459;
     color:white;
     height: 100vh;
     width: 100vw;
     display: flex;
-    /* align-items: center; */
+    align-items: center;
 }
 
-.ud-content-wrapper{
+.user-details-content-wrapper{
     float: left;
-    margin-left: 20vw;
+    margin-left: 15vw;
     margin-top: 2vw;
     margin-bottom: 2vw;
     background-color: white;
@@ -28,10 +24,10 @@
     text-align: left;
 }
 
-.ud-section{
+.user-details-section{
     margin: 1vw 0vw;
 }
 
-.ud-container p{
+.user-details-content-wrapper p{
     margin: 0;
 }

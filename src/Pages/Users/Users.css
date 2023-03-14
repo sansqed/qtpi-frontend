@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 .users-container {
-    font-family: "Poppins", sans-serif;
     background-color: #003459;
     color:white;
     height: 100vh;
@@ -20,7 +19,7 @@
     color:#003459;
     /* display:flex; */
     margin-left: 30vh;
-    height: 95vh;
+    height: 91vh;
     width: 37vh;
     background-color: white;
     border: none;
