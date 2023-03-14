@@ -75,3 +75,9 @@
     width: 17.5vh;
     border-radius: 1vh;
 }
+
+.sidebar-employees,
+.sidebar-expenses,
+.sidebar-users{
+    cursor: pointer;
+}

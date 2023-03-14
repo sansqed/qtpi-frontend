@@ -124,11 +124,16 @@
 
 }
 
+.add-user-role-pw-container{
+    display: flex;
+}
+
 .add-user-role-pw-container p{
     font-weight: 700;
 }
 
 .add-user-role-input-container form{
+    /* font-family: "Poppins", sans-serif;
     width: 90%;
     height: 5vh;
     border: none;
@@ -137,16 +142,35 @@
     background-color: #E1E1E1;
     font-size: 1.1em;
     font-family: 'Outfit';
-    letter-spacing: 0.5px;
+    letter-spacing: 0.5px; */
 }
 
 .add-user-role-input-container select{
     position: absolute;
     color: #5C5C5C;
-    left: 27%;
-    top: 20%;
+    width: 27vw;
+    height: 5.5vh;
     font-size: 1em;
     display: block;
     text-transform: uppercase;
     transition: 0.4s;
+    border:none;
+    border-radius:1vh;
+    background-color: #E1E1E1;
+    padding: 15px 15px 15px 15px;
+}
+
+.add-user-submit-button{
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-left: 42vw;
+    margin-top: 35vh;
+    border:none;
+    color: #fff;
+    background-color: #003459;
+    cursor: pointer;
+    height: 3.5vh;
+    width: 17.5vh;
+    border-radius: 1vh;
 }

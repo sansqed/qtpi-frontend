@@ -17,6 +17,16 @@ const Sidebar: React.FC = () => {
         return () => clearInterval(intervalId)
     }, []);
 
+    function redirectEmp(){
+        window.location.href="/employees"
+    }
+
+    function redirectExp(){
+        window.location.href="/expenses"
+    }
+    function redirectUsers(){
+        window.location.href="/users"
+    }
     
 
     return (
@@ -28,14 +38,14 @@ const Sidebar: React.FC = () => {
                 </div>
                 <div className="sidebar-menu-container">
                     <div className="sidebar-menu">
-                        <div className="sidebar-employees">
+                        <div className="sidebar-employees" onClick={redirectEmp}>
                             <p>Employees</p>
                         </div>
-                        <div className="sidebar-expenses">
+                        <div className="sidebar-expenses" onClick={redirectExp}>
                             <p>Expenses</p>
                         </div>
-                        <hr className="sidebar-line" />
-                        <div className="sidebar-users">
+                        <hr className="sidebar-line"/>
+                        <div className="sidebar-users" onClick={redirectUsers}>
                             <p>USERS</p>
                         </div>
                     </div>

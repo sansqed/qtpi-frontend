@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar"
 import "./AddUser.css"
+import Button from "../../Components/Button/Button";
 
 const AddUsers: React.FC = () => {
     const [loginCreds, setLoginCreds] = useState({
@@ -119,7 +120,7 @@ const AddUsers: React.FC = () => {
                                 <p>ROLE (temp)</p>
                                 <div className="add-user-role-input-box">
                                     <form>
-                                        <select value={role} onChange={handleRoleChange}>
+                                        <select className="add-user-role-dropdown" value={role} onChange={handleRoleChange}>
                                             <option value=""></option>
                                             <option value="admin">Admin</option>
                                             <option value="employee">Employee</option>
@@ -128,8 +129,44 @@ const AddUsers: React.FC = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="add-user-pw-input-container">
+                            <p>PASSWORD</p>
+                            <div className="add-user-input-box-container">
+                                <div className="add-user-input-box">
+                                <input 
+                                    type="text" 
+                                    required={true} 
+                                    id="contactNumber"
+                                    name="contactNumber"
+                                    onChange={(e) => handleChange(e)}
+                                />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="add-user-conf-pw-input-container">
+                            <p>CONFIRM PASSWORD</p>
+                            <div className="add-user-input-box-container">
+                                <div className="add-user-input-box">
+                                <input 
+                                    type="text" 
+                                    required={true} 
+                                    id="contactNumber"
+                                    name="contactNumber"
+                                    onChange={(e) => handleChange(e)}
+                                />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                
+                    <div className="add-user-submit-container">
+                        <Button 
+                            handleClick={()=>{}}
+                            className="add-user-submit-button"  
+                            type= "button"
+                        >
+                            SUBMIT
+                        </Button>
+                    </div>
                 </div>
                 {/* sidebar sibling level */}
             </div>
