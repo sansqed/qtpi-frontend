@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar"
+
 import "./AddUser.css"
 import Button from "../../Components/Button/Button";
 
@@ -10,6 +11,9 @@ const AddUsers: React.FC = () => {
         lastName: "",
         contactNumber: "",
         address: "",
+        role: "",
+        password: "",
+        confirmPassword: "",
     });
 
     const [role, setRole] = useState('');
