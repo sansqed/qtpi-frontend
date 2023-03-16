@@ -27,6 +27,11 @@ const Sidebar: React.FC = () => {
     function redirectUsers(){
         window.location.href="/users"
     }
+
+    const handleLogout = () => {
+        localStorage.setItem("loggedIn", "0")
+        window.location.reload();
+    }
     
 
     return (
@@ -52,7 +57,7 @@ const Sidebar: React.FC = () => {
                 </div>
                 <div className="sidebar-logout-container">
                     <Button 
-                        handleClick={()=>{}}
+                        handleClick={()=>{handleLogout()}}
                         className="sidebar-logout-button"  
                         type= "button"
                     >

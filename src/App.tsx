@@ -5,15 +5,13 @@ import { isLoggedIn } from './Helpers/UserFunctions';
 
 import Login from './Pages/Login/Login';
 import Dashboard from './Pages/Dashboard/Dashboard';
-import Employees from './Pages/Employee/Employees'
+import Employees from './Pages/Employees/Employees'
 import Users from './Pages/Users/Users';
 import AddUsers from './Pages/Users/AddUser';
 import UserDetails from './Pages/Users/UserDetails';
 
 function App() {  
-
-
-
+  
   return (
     <div className="App">
       <BrowserRouter>
@@ -24,15 +22,15 @@ function App() {
             />
           <Route
               path="/employees"
-              element={<Employees/>}
+              element={isLoggedIn()? <Employees/>:<Login/>}
           />
           <Route
             path="/users"
-              element={<Users/>}
+              element={isLoggedIn()? <Users/>:<Login/>}
           />
           <Route
             path="/users/add"
-            element={<AddUsers/>}
+            element={isLoggedIn()? <AddUsers/>:<Login/>}
           />
           <Route
             path="/users/:userid"

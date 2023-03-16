@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 import "./Button.css"
+import userEditIcon from "../../Assets/Icons/user-edit.svg"
+import userDeleteIcon from "../../Assets/Icons/user-delete.svg"
 
 interface ButtonProps{
   handleClick: () => void;
   className?: string,
-  type: "submit" | "reset" | "button" | "add" | "sign-in",
+  type: string,
   children?: React.ReactNode,
   text?: string,
 }
@@ -38,11 +40,37 @@ const Button: React.FC<ButtonProps> = ({
         </button>
       )
     }
+
+    if (type === "user-edit"){
+      return(
+        <button 
+          className="btn-user-icons dark"
+          onClick = {handleClick}
+        >
+          <img src={userEditIcon} className="user-icon"/>
+          edit
+        </button>
+      )
+    }
+
+    if (type === "user-delete"){
+      return(
+        <button 
+          className="btn-user-icons light"
+          onClick = {handleClick}
+        >
+          <img src={userDeleteIcon} className="user-icon"/>
+          <text>delete</text>
+        </button>
+      )
+    }
+
+
     return (
       <button 
         onClick = {handleClick}
         className = {className}
-        type={type}
+        // type={type}
       >
       {children}
       </button>

@@ -19,19 +19,23 @@ const Login = () => {
         if(name === "username")
             setUsername(value)
         else if (name === "password")
-            setUsername(value)
+            setPassword(value)
     }
 
     const signIn = async() => {
         const response:any = await LoginApi(username, password)
+        console.log(response)
+        localStorage.setItem("loggedIn", "1");
+        window.location.reload();
+        // if (response.status === 200){
+        //     localStorage.setItem("role", JSON.stringify(response.data.data.role));
+        //     localStorage.setItem("username", JSON.stringify(response.data.data.role));
+        // } else {
 
-        if (response.status === 200){
-            localStorage.setItem("role", JSON.stringify(response.data.data.role));
-            localStorage.setItem("username", JSON.stringify(response.data.data.role));
-        } else {
-
-        }
+        // }
     }
+
+    console.log(username, password)
 
     return(
         <div className="login-container">

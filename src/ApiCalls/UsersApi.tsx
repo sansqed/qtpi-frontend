@@ -2,7 +2,7 @@ import { postAPICall, URL } from "./CommonApi"
 
 export const LoginApi = async(username: string, password: string) => {
     try {
-        const response = await postAPICall(URL+"", {
+        const response = await postAPICall(URL+"/logins", {
             username: username,
             password: password
         })
