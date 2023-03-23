@@ -1,0 +1,8 @@
+.edit-user-container {
+    background-color: #003459;
+    color:white;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+}

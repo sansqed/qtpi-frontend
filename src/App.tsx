@@ -9,6 +9,7 @@ import Employees from './Pages/Employees/Employees'
 import Users from './Pages/Users/Users';
 import AddUsers from './Pages/Users/AddUser';
 import UserDetails from './Pages/Users/UserDetails';
+import EditUser from './Pages/Users/EditUser';
 
 function App() {  
   
@@ -35,6 +36,10 @@ function App() {
           <Route
             path="/users/:userid"
             element={isLoggedIn()? <UserDetails/>:<Login/>}  
+          />
+          <Route
+            path="/users/edit/:userid"
+            element={isLoggedIn()? <EditUser/>:<Login/>}  
           />
         </Routes>
       </BrowserRouter>
