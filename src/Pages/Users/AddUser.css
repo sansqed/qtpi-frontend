@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+*{
+    font-family: "Poppins", sans-serif;
+}
+
 .add-users-container {
     font-family: "Poppins", sans-serif;
     background-color: #003459;
     color:white;
     height: 100vh;
     width: 100vw;
-    display: flex;
+    /* display: flex; */
     align-items: center;
 }
 
@@ -15,18 +19,18 @@
 }
 
 .add-users-content-wrapper {
-    display: flex;
+    /* display: flex; */
 }
 
 .add-user-container {
-    display:flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    /* display:flex; */
+    /* flex-direction: column;
+    justify-content: flex-start; */
     text-align: left;
     padding-top: 1vh;
     padding-left: 3vh;
     color:#003459;
-    display:flex;
+    /* display:flex; */
     margin-left: 30vh;
     height: 90vh;
     width: 170vh;
@@ -42,98 +46,21 @@
 }
 
 .add-user-input-box{
-    position: relative;
-    width: 35vh;
-    height: 6.5vh;
-    top: 8%;
-
-}
-
-.add-user-address-input-box{
-    position: relative;
-    width: 76vh;
-    height: 6.5vh;
-    top: 8%;
-
-}
-
-.add-user-address-input-box input{
-    width: 90%;
+    width: 18vw;
     height: 5vh;
     border: none;
     background-color: transparent;
     border-radius: 5px;
     background-color: #E1E1E1;
     font-size: 1.1em;
-    font-family: 'Outfit';
-    letter-spacing: 0.5px;
-
-}
-
-.add-user-name-container{
-    display:flex;
-    flex-direction: row;
-}
-
-.add-user-input-box input{
-    width: 90%;
-    height: 5vh;
-    border: none;
-    background-color: transparent;
-    border-radius: 5px;
-    background-color: #E1E1E1;
-    font-size: 1.1em;
-    font-family: 'Outfit';
+    font-family: "Poppins", sans-serif;
     letter-spacing: 0.5px;
     padding-left: 2vh;
-}
-
-.add-user-input-box span{
-    position: absolute;
-    color: #5C5C5C;
-    left: 0;
-    padding: 19px 15px;
-    bottom: 5%;
-    font-size: 1em;
-    pointer-events: none;
-    display: block;
-    text-transform: uppercase;
-    transition: 0.4s;
-}
-
-.add-user-input-box input:valid ~ span,
-.add-user-input-box input:focus ~ span
-{
-    color: transparent;
+    margin-right: 1vw;
 }
 
 
-.add-user-contact-loc-container{
-    display:flex;
-}
-
-.add-user-contact-loc-container p{
-    font-weight:700;
-}
-
-.add-user-role-input-box{
-    position: relative;
-    width: 35vh;
-    height: 6.5vh;
-    top: 8%;
-
-}
-
-.add-user-role-pw-container{
-    display: flex;
-}
-
-.add-user-role-pw-container p{
-    font-weight: 700;
-}
-
-.add-user-role-input-container form{
-    /* font-family: "Poppins", sans-serif;
+/* .add-user-address-input-box input{
     width: 90%;
     height: 5vh;
     border: none;
@@ -142,7 +69,31 @@
     background-color: #E1E1E1;
     font-size: 1.1em;
     font-family: 'Outfit';
-    letter-spacing: 0.5px; */
+    letter-spacing: 0.5px;
+
+} */
+
+.add-user-name-container{
+    margin-bottom: 3vh;
+}
+
+
+.add-user-input-label{
+    text-align: left;
+    font-weight: 600;
+}
+
+/* .add-user-role-input-container form{
+    font-family: "Poppins", sans-serif;
+    width: 90%;
+    height: 5vh;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    background-color: #E1E1E1;
+    font-size: 1.1em;
+    font-family: 'Outfit';
+    letter-spacing: 0.5px; 
 }
 
 .add-user-role-input-container select{
@@ -158,13 +109,13 @@
     border-radius:1vh;
     background-color: #E1E1E1;
     padding: 15px 15px 15px 15px;
-}
+} */
 
 .add-user-submit-button{
     font-family: "Poppins", sans-serif;
     font-weight: 700;
     font-size: 20px;
-    margin-left: 42vw;
+    margin-left: 51vw;
     margin-top: 35vh;
     border:none;
     color: #fff;

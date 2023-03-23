@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar"
+import { Form, FormGroup, FormLabel, } from "react-bootstrap"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 
 import "./AddUser.css"
 import Button from "../../Components/Button/Button";
@@ -16,12 +19,6 @@ const AddUsers: React.FC = () => {
         confirmPassword: "",
     });
 
-    const [role, setRole] = useState('');
-
-    const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setRole(event.target.value);
-      };
-
     const handleChange = (e: { target: { name: any; value: any } }) => {
         const { name, value } = e.target;
         setLoginCreds((prevState) => ({
@@ -35,59 +32,83 @@ const AddUsers: React.FC = () => {
             <div className="add-users-content-wrapper">
                 <Sidebar/>
                 <div className="add-user-container">
+                <Form>
                     <div className="add-user-header">
                         <h1>ADD USER</h1>
                     </div>
-                    <div className="detail-header">
-                        <p>NAME</p>
-                    </div>
-                    <div className="add-user-name-container">
-                        <div className="add-user-first-name-container">
-                            <div className="add-user-input-box-container">
-                                <div className="add-user-input-box">
-                                <input 
-                                    type="text" 
+                    <Row className="add-user-name-container">
+                        <Col>
+                        <FormGroup className="add-user-name-input">
+                            <FormLabel className="add-user-input-label">
+                                NAME
+                            </FormLabel>
+
+                            <Form.Control 
+                                type="text" 
+                                required={true} 
+                                id="firstName"
+                                name="firstName"
+                                onChange={(e) => handleChange(e)}
+                                className="add-user-input-box"
+                                placeholder="FIRST NAME"
+                            />
+                            <Form.Control 
+                                type="text" 
+                                required={true} 
+                                id="middleName"
+                                name="middleName"
+                                onChange={(e) => handleChange(e)}
+                                className="add-user-input-box"
+                                placeholder="MIDDLE NAME"
+                            />
+                            <Form.Control 
+                                type="text" 
+                                required={true} 
+                                id="lastName"
+                                name="lastName"
+                                onChange={(e) => handleChange(e)}
+                                className="add-user-input-box"
+                                placeholder="LAST NAME"
+                            />
+                            {/* </div> */}
+                        </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row className="add-user-input-second-row">
+                        <Col>
+                    <Form.Label className="add-user-input-label">
+                                    USERNAME
+                                </Form.Label>
+                                <Form.Label className="add-user-input-label">
+                                    USERNAME
+                                </Form.Label>
+                                </Col>
+                        <Col>
+                                
+                                <Form.Control 
+                                    type="username" 
                                     required={true} 
-                                    id="firstName"
-                                    name="firstName"
+                                    id="username"
+                                    name="username"
                                     onChange={(e) => handleChange(e)}
-                                    className="test"
+                                    className="add-user-input-box"
+                                    placeholder=""
                                 />
-                                <span>FIRST</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="add-user-middle-name-container">
-                            <div className="add-user-input-box-container">
-                                <div className="add-user-input-box">
-                                <input 
-                                    type="text" 
-                                    required={true} 
-                                    id="middleName"
-                                    name="middleName"
-                                    onChange={(e) => handleChange(e)}
-                                />
-                                <span>MIDDLE</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="add-user-last-name-container">
-                            <div className="add-user-input-box-container">
-                                <div className="add-user-input-box">
-                                <input 
-                                    type="text" 
-                                    required={true} 
-                                    id="lastName"
-                                    name="lastName"
-                                    onChange={(e) => handleChange(e)}
-                                />
-                                <span>LAST</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                
                     
-                    <div className="add-user-contact-loc-container">
+                                <Form.Control 
+                                    type="address" 
+                                    required={true} 
+                                    id="address"
+                                    name="address"
+                                    onChange={(e) => handleChange(e)}
+                                    className="add-user-input-box"
+                                />
+                        </Col>
+                    </Row>
+                    
+                    
+                    {/* <div className="add-user-contact-loc-container">
                         <div className="add-user-contact-number-container">
                             <p>CONTACT NO.</p>
                             <div className="add-user-input-box-container">
@@ -124,10 +145,10 @@ const AddUsers: React.FC = () => {
                                 <p>ROLE (temp)</p>
                                 <div className="add-user-role-input-box">
                                     <form>
-                                        <select className="add-user-role-dropdown" value={role} onChange={handleRoleChange}>
+                                        <select required={true} className="add-user-role-dropdown" name="role" onChange={(e) => handleChange(e)}>
                                             <option value=""></option>
                                             <option value="admin">Admin</option>
-                                            <option value="employee">Employee</option>
+                                            <option value="employee">Accounting</option>
                                         </select>
                                     </form>
                                 </div>
@@ -161,7 +182,7 @@ const AddUsers: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="add-user-submit-container">
                         <Button 
                             handleClick={()=>{}}
@@ -171,6 +192,7 @@ const AddUsers: React.FC = () => {
                             SUBMIT
                         </Button>
                     </div>
+                </Form>
                 </div>
                 {/* sidebar sibling level */}
             </div>

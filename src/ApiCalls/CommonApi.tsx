@@ -1,6 +1,10 @@
 import axios from "axios";
 
-export const URL = "https://cf65-49-146-230-12.ap.ngrok.io/"
+export const URL = "http://qtpi.ninja/"
+
+axios.defaults.headers.common = {
+  "api-key": "448b450c-83b0-48b8-bab6-a15d58111050"
+};
 
 export const postAPICall = (url:string, data:object) => {
     return axios.post(url, data);
