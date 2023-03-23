@@ -25,14 +25,14 @@ const Login = () => {
     const signIn = async() => {
         const response:any = await LoginApi(username, password)
         console.log(response)
-        localStorage.setItem("loggedIn", "1");
-        window.location.reload();
-        // if (response.status === 200){
-        //     localStorage.setItem("role", JSON.stringify(response.data.data.role));
-        //     localStorage.setItem("username", JSON.stringify(response.data.data.role));
-        // } else {
+        if (response.data.status === 200){
+            localStorage.setItem("loggedIn", "1");
+            localStorage.setItem("role", JSON.stringify(response.data.data.role));
+            localStorage.setItem("username", JSON.stringify(response.data.data.role));
+            window.location.reload();
+        } else {
 
-        // }
+        }
     }
 
     console.log(username, password)
