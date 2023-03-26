@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   type,
   children,
   text,
-  }) =>{5
+  }) =>{
 
     if (type === "add"){
       return(
