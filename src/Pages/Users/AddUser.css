@@ -34,7 +34,7 @@
     /* display:flex; */
     margin-left: 30vh;
     height: 90vh;
-    width: 170vh;
+    width: 80vw;
     background-color: white;
     border: none;
     border-radius: 1vh;
@@ -60,7 +60,7 @@
     font-size: 1.5em;
     font-family: "Poppins", sans-serif;
     letter-spacing: 0.5px;
-    padding-left: 2vh;
+    padding-left: 1vw;
     margin-right: 1vw;
 }
 
@@ -90,17 +90,31 @@
     margin-right: 12.8vw;
 }
 
-.add-user-submit-button{
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    margin-left: 51vw;
-    margin-top: 35vh;
-    border:none;
-    color: #fff;
-    background-color: #003459;
-    cursor: pointer;
-    height: 3.5vh;
-    width: 17.5vh;
-    border-radius: 1vh;
+.add-user-third-row-label{
+    display:flex;
+    flex-direction: row;
 }
+
+.add-user-third-row-label-role{
+    margin-right: 17.7vw;
+}
+
+.add-user-third-row-label-password{
+    margin-right: 14.001vw;
+}
+
+.add-user-role-menu{
+    width: 19vw;
+    height: 5vh;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    background-color: #E1E1E1;
+    font-size: 1.5em;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.5px;
+    padding-left: 2vh;
+    margin-right: 1vw;
+}
+
+

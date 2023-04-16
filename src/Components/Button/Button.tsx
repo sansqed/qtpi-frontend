@@ -41,6 +41,17 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
+    if (type === "submit"){
+        return(
+        <button
+          className="btn-submit"
+          onClick = {handleClick}
+        >
+          <b> SUBMIT </b>
+        </button>
+        )
+      }
+
     if (type === "user-edit"){
       return(
         <button 

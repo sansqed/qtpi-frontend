@@ -110,14 +110,48 @@ const AddUsers: React.FC = () => {
 
                             </Form.Group>
                         </Row>
+                        <Row>
+                          <Form.Group>
+                            <div className="add-user-third-row-label">
+                               <h1 className="add-user-third-row-label-role">ROLE</h1>
+                               <h1 className="add-user-third-row-label-password">PASSWORD</h1>
+                               <h1 className="add-user-third-row-label-confirm-password">CONFIRM PASSWORD</h1>
+                            </div>
+                          </Form.Group>
+                          <Form.Select 
+                            className="add-user-role-menu"
+                            id="role"
+                            name="role"
+                            onChange={(e) => handleChange(e)}
+                            >
+                            <option value="None"></option>
+                            <option value="Admin">Admin</option>
+                            <option value="Employee">Employee</option>
+                          </Form.Select>
+                          <Form.Control
+                            type="text"
+                            required={true}
+                            id="password"
+                            name="password"
+                            onChange={(e) => handleChange(e)}
+                            className="add-user-input-box"
+                          />
+                          <Form.Control
+                            type="text"
+                            required={true}
+                            id="confirm-password"
+                            name="confirm-password"
+                            onChange={(e) => handleChange(e)}
+                            className="add-user-input-box"
+                          />
+                        </Row>
 
                     </Form>
 
                     <div className="add-user-submit-container">
                         <Button 
                             handleClick={()=>{}}
-                            className="add-user-submit-button"  
-                            type= "button"
+                            type= "submit"
                         >
                             SUBMIT
                         </Button>
