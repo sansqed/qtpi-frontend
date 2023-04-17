@@ -2,7 +2,10 @@ import "./Login.css"
 import { Form, FormGroup, FormLabel, FormControl } from "react-bootstrap"
 import Button from "../../Components/Button/Button"
 import React, { useState } from 'react';
-import { LoginApi } from "../../ApiCalls/UsersApi";
+import { LoginApi } from "../../ApiCalls/AuthApi";
+import toast from 'react-hot-toast';
+import toasterConfig from "../../Helpers/ToasterConfig";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Login = () => {
     const [username, setUsername] = useState("")
@@ -25,17 +28,28 @@ const Login = () => {
     const signIn = async() => {
         const response:any = await LoginApi(username, password)
         console.log(response)
+        
+        toast.loading("Logging in...")
         if (response.data.status === 200){
             localStorage.setItem("loggedIn", "1");
-            localStorage.setItem("role", JSON.stringify(response.data.data.role));
-            localStorage.setItem("username", JSON.stringify(response.data.data.role));
-            window.location.reload();
-        } else {
+            // localStorage.setItem("role", JSON.stringify(response.data.data.role));
+            // localStorage.setItem("username", JSON.stringify(response.data.data.role));
+            localStorage.setItem("token", JSON.stringify(response.data.data.token));
+            toast.dismiss()
+            toast.success('Login Sucess!', toasterConfig);
 
+            setTimeout(()=>{
+                window.location.reload();
+            }, 2000)
+        } else {
+            toast.dismiss()
+            toast.error('Login Failed.', toasterConfig);
         }
     }
 
-    console.log(username, password)
+    
+
+    // console.log(username, password)
 
     return(
         <div className="login-container">
@@ -53,6 +67,7 @@ const Login = () => {
                                 className="login-input"
                                 name="username"
                                 onChange={(e)=>{handleChange(e)}}
+                                autoComplete="off"
                             />
                         </FormGroup>
                         <FormGroup className="login-form">  
@@ -65,6 +80,7 @@ const Login = () => {
                                 className="login-input"
                                 name="password"
                                 onChange={(e)=>{handleChange(e)}}
+                                autoComplete="false"
                             />
                         </FormGroup>
                     </Form>
@@ -72,6 +88,7 @@ const Login = () => {
                         type="sign-in"
                         handleClick={()=>{signIn()}}
                     />
+                    
                 </div>
             </div>
         </div>

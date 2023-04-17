@@ -4,6 +4,7 @@ import Sidebar from "../../Components/Sidebar/Sidebar";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { getUsers } from "../../ApiCalls/UsersApi";
 import Button from "../../Components/Button/Button";
+import User, { emptyUser } from "../../Types/User";
 
 import "./UserDetails.css"
 
@@ -12,16 +13,9 @@ const UserDetails = () => {
     const navigate = useNavigate()
     const urlHeader = "/users/userid="
     const userID = String(location.pathname.substring(urlHeader.length));
-    const [user, setUser] = useState({})
-
+    const [user, setUser] = useState<User>(emptyUser)
+    console.log(userID)
     const tempUser = {
-        first_name: "Gil Brian",
-        middle_name: "",
-        last_name: "Perez",
-        username: "gb",
-        role: "Admin",
-        contact_no: "09123456789",
-        address: "Sa eskina",
         access_logs: [
             "December 30, 2022 7:00",
             "December 31, 2022 7:00",
@@ -29,9 +23,11 @@ const UserDetails = () => {
     }
 
     useEffect(()=>{
-        getUsers(userID).then((response:any) => {
-            setUser(response.data.data.users[0])
-        })
+        getUsers(userID)
+            .then((response:any) => {
+                console.log(response.data.data.users[0])
+                setUser(response.data.data.users[0])
+            })
     },[])
 
     const handleDelete = () => {
@@ -45,14 +41,14 @@ const UserDetails = () => {
                 <p className="user-details-back"><NavLink to={"/users"}>&lt; Back to user list</NavLink></p>
 
                 <div className="user-details-section">
-                    <H1 text={tempUser.first_name + " " + tempUser.middle_name + " " + tempUser.last_name}/>
-                    <p className="user-details-info">{tempUser.role}</p>
+                    <H1 text={user.first_name + " " + user.middle_name + " " + user.last_name}/>
+                    <p className="user-details-info">{user.role_id}</p>
                 </div>
 
                 <div className="user-details-section">
-                    <p className="user-details-info">Username: {tempUser.username}</p>
-                    <p className="user-details-info">Address: {tempUser.address}</p>
-                    <p className="user-details-info">Contact No.: {tempUser.contact_no}</p>
+                    <p className="user-details-info">Username: {user.username}</p>
+                    <p className="user-details-info">Address: {user.address}</p>
+                    <p className="user-details-info">Contact No.: {user.contact_no}</p>
                 </div>
 
                 <div className="user-details-section">

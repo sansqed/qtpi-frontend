@@ -1,4 +1,5 @@
 export const isLoggedIn = () => {
-    // return localStorage.getItem("loggedIn")==="1"? true:false
-    return true
+
+    return localStorage.getItem("token")!=="undefined"? true:false
+    // return true
 }

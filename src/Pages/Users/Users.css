@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 .users-container {
-    background-color: #003459;
+    background-color: var(--secondary-color);
     color:white;
     height: 100vh;
     width: 100vw;
@@ -20,8 +20,8 @@
     /* display:flex; */
     margin-left: 30vh;
     height: 91vh;
-    width: 37vh;
-    background-color: white;
+    width: 50vh;
+    background-color: var(--primary-color);
     border: none;
     border-radius: 1vh;
     text-align: left;
@@ -42,13 +42,29 @@
 
 .user-list-body{
     overflow-y: scroll;
+    
     height: 80vh;
     margin-right: 2vh;
+    display: block;
+    /* color: var(--secondary-color); */
 }
+
 
 .user-info{
     margin: 0;
 }
-  
+
+.user-list-content{
+    margin: 3% 0%;
+}
+
+.user-list-link:link, .user-list-link:visited{
+    color: var(--secondary-color);  
+    text-decoration: none;
+}
+
+.user-list-name{
+    font-weight: 700;
+}
   
   

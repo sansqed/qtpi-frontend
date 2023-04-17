@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import "./Button.css"
 import userEditIcon from "../../Assets/Icons/user-edit.svg"
 import userDeleteIcon from "../../Assets/Icons/user-delete.svg"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface ButtonProps{
   handleClick: () => void;
@@ -19,13 +20,14 @@ const Button: React.FC<ButtonProps> = ({
   text,
   }) =>{
 
-    if (type === "add"){
+    if (type === "add-user"){
       return(
         <button 
-          className="btn-add"
+          className="btn-add-user"
           onClick = {handleClick}
         >
-          {text}
+          <FontAwesomeIcon icon={["fas","user-plus"]} className="add-user-icon"/>
+          ADD USER
         </button>
       )
     }

@@ -5,17 +5,21 @@ button{
   font-family: "Poppins", sans-serif;
 }
 
-
-
-.btn-add{
+.btn-add-user{
   border-radius: 5px;
   background-color: white;
   color: #003459;
   border: 1.5px solid #003459;
   padding: 0.25vw 1vw;
+  margin-left: 0.5vw;
+  margin-top: 3vh;
 }
 
-.btn-add:hover{
+.add-user-icon{
+  margin-right: 0.5vw;
+}
+
+.btn-add-user:hover{
   box-shadow: 0 0 0 0.25rem #A0B4C3;
 }
 

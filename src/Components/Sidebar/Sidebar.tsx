@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 import Button from "../Button/Button";
+import { toast } from 'react-hot-toast';
+import toasterConfig from '../../Helpers/ToasterConfig';
 
 const Sidebar: React.FC = () => {
     const [currentTime, setCurrentTime] = useState<string>(new Date().toLocaleTimeString(
@@ -29,7 +31,8 @@ const Sidebar: React.FC = () => {
     }
 
     const handleLogout = () => {
-        localStorage.setItem("loggedIn", "0")
+        localStorage.setItem("token", "undefined")
+        toast.success("Logged out", toasterConfig)
         window.location.reload();
     }
     

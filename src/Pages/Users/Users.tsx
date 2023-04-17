@@ -6,50 +6,25 @@ import "./Users.css"
 import Button from "../../Components/Button/Button";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getUsers } from "../../ApiCalls/UsersApi";
+import User, { emptyUser } from "../../Types/User";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const Users: React.FC = () => {
     const navigate = useNavigate()
 
-    const [users, setUsers] = useState([])
-
-    const tempUsers = [
-        {
-            id: "1",
-            username: "gb",
-        },
-        {
-            id: "2",
-            username: "kyle",
-        },
-        {
-            id: "3",
-            username: "admin",
-        },
-        {
-            id: "4",
-            username: "gb2",
-        },
-        {
-            id: "5",
-            username: "kyle2",
-        },
-        {
-            id: "6",
-            username: "admin2",
-        },
-        {
-            id: "7",
-            username: "gb3",
-        },
-    ]
+    const [users, setUsers] = useState<[User]>([emptyUser])
 
     // FETCH USERS DATA
     useEffect(()=>{
-       getUsers().then((response:any)=>{
-            setUsers(response.data.data.users)
-       }) 
+        getUsers()
+            .then((response)=>{
+                console.log(response.data.data.users)
+                setUsers(response.data.data.users)
+            })
+
     },[])
+
 
     return (
         <div className="users-container">
@@ -60,15 +35,20 @@ const Users: React.FC = () => {
                         <h1>USER LIST</h1>
                         <NavLink to={"/users/add"}>
                             <Button
-                                type="add"
+                                type="add-user"
                                 handleClick={()=>{}}
-                                text="ADD USER"
                             />
+                            
                         </NavLink>
                     </div>
                     <div className="user-list-body">
-                        {tempUsers.map(({id, username}) => 
-                            <p className="user-info" key={id}><NavLink to={"/users/userid="+id}>{username}</NavLink></p>
+                        {users.map(({id, username, first_name, middle_name, last_name}) => 
+                            <div className="user-list-content">
+                                <NavLink to={"/users/userid="+id} className="user-list-link">
+                                    <text className="user-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</text>
+                                    <text className="user-list-username">{" (" + username + ")"}</text>
+                                </NavLink>
+                            </div>
                         )}
 
                     </div>

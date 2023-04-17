@@ -10,11 +10,17 @@ import Users from './Pages/Users/Users';
 import AddUsers from './Pages/Users/AddUser';
 import UserDetails from './Pages/Users/UserDetails';
 import EditUser from './Pages/Users/EditUser';
+import { Toaster } from 'react-hot-toast';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 function App() {  
-  
+  library.add(fas)
   return (
     <div className="App">
+      
+      <Toaster position="bottom-center" reverseOrder={false}/>
       <BrowserRouter>
         <Routes>
           <Route 
@@ -42,6 +48,7 @@ function App() {
             element={isLoggedIn()? <EditUser/>:<Login/>}  
           />
         </Routes>
+        
       </BrowserRouter>
     </div>
   );
