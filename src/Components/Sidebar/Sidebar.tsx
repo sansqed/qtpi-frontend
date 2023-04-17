@@ -60,12 +60,9 @@ const Sidebar: React.FC = () => {
                 </div>
                 <div className="sidebar-logout-container">
                     <Button 
+                        type= "logout"
                         handleClick={()=>{handleLogout()}}
-                        className="sidebar-logout-button"  
-                        type= "button"
-                    >
-                        Log out
-                    </Button>
+                    />
                 </div>
             </div>
         </div>

@@ -78,6 +78,17 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
+    if (type === "logout"){
+      return(
+        <button 
+          className="btn-logout light"
+          onClick = {handleClick}
+        >
+          Logout
+        </button>
+      )
+    }
+
 
     return (
       <button 
