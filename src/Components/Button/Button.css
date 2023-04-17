@@ -7,9 +7,9 @@ button{
 
 .btn-add-user{
   border-radius: 5px;
-  background-color: white;
-  color: #003459;
-  border: 1.5px solid #003459;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: 1.5px solid var(--secondary-color);
   padding: 0.25vw 1vw;
   margin-left: 0.5vw;
   margin-top: 3vh;
@@ -20,12 +20,12 @@ button{
 }
 
 .btn-add-user:hover{
-  box-shadow: 0 0 0 0.25rem #A0B4C3;
+  box-shadow: 0 0 0 0.25rem var(--tertiary-color);
 }
 
 .btn-sign-in{
-  background-color: #003459;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   padding: 1em 1.5em;
   border-radius: 10px;
   margin: 1vw;
@@ -33,8 +33,8 @@ button{
 }
 
 .btn-submit{
-  background-color: #003459;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);;
   border-radius: 10px;
   border-color: transparent;
   font-size: 20px;
@@ -45,7 +45,7 @@ button{
 }
 
 .btn-sign-in:hover{
-  box-shadow: 0 0 0 0.25rem #A0B4C3;
+  box-shadow: 0 0 0 0.25rem var(--tertiary-color);
 }
 
 .btn-user-icons{
@@ -55,21 +55,21 @@ button{
 }
 
 .btn-user-icons:hover{
-  box-shadow: 0 0 0 0.25rem #A0B4C3;
+  box-shadow: 0 0 0 0.25rem var(--tertiary-color);
 }
 
 .dark{
-  background-color: #003459;
+  background-color: var(--secondary-color);
   border-color: transparent;
-  color: white;
+  color: var(--primary-color);;
 }
 
 .light{
-  background-color: white;
-  border-color: #003459;
+  background-color: var(--primary-color);;
+  border-color: var(--secondary-color);
   border-style: solid;
   /* border-width: 2px; */
-  color: #003459;
+  color: var(--secondary-color);
 }
 
 .user-icon{

@@ -1,6 +1,6 @@
 .edit-user-container {
-    background-color: #003459;
-    color:white;
+    background-color: var(--secondary-color);
+    color:var(--primary-color);
     height: 100vh;
     width: 100vw;
     display: flex;

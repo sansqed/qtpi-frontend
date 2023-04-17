@@ -1,7 +1,7 @@
 
 .user-details-container{
-    background-color: #003459;
-    color:white;
+    background-color: var(--secondary-color);
+    color:var(--primary-color);
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -13,13 +13,13 @@
     margin-left: 15vw;
     margin-top: 2vw;
     margin-bottom: 2vw;
-    background-color: white;
+    background-color: var(--primary-color);
     border-radius: 10px;
     border-color: transparent;
     height: 42vw;
     width: 20vw;
     padding: 2vw 3vw;
-    color: #003459;
+    color: var(--secondary-color);
     white-space: pre-wrap;
     text-align: left;
 }

@@ -2,7 +2,7 @@
 
 .users-container {
     background-color: var(--secondary-color);
-    color:white;
+    color: var(--primary-color);
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -16,7 +16,7 @@
 .user-list-container {
     padding-top: 1vh;
     padding-left: 3vh;
-    color:#003459;
+    color: var(--secondary-color);
     /* display:flex; */
     margin-left: 30vh;
     height: 91vh;
