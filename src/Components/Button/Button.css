@@ -48,13 +48,14 @@ button{
   box-shadow: 0 0 0 0.25rem var(--tertiary-color);
 }
 
-.btn-user-icons{
+.btn-user{
   border-radius: 10px;
   padding: 5px 10px;
   margin-right: 1vh;
+  margin-top: 0.5vh;
 }
 
-.btn-user-icons:hover{
+.btn-user:hover{
   box-shadow: 0 0 0 0.25rem var(--tertiary-color);
 }
 

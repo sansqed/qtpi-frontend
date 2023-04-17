@@ -23,10 +23,10 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "add-user"){
       return(
         <button 
-          className="btn-add-user"
+          className="btn-user light"
           onClick = {handleClick}
         >
-          <FontAwesomeIcon icon={["fas","user-plus"]} className="add-user-icon"/>
+          <FontAwesomeIcon icon={["fas","user-plus"]} className="user-icon"/>
           ADD USER
         </button>
       )
@@ -57,11 +57,11 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "user-edit"){
       return(
         <button 
-          className="btn-user-icons dark"
+          className="btn-user dark"
           onClick = {handleClick}
         >
-          <img src={userEditIcon} className="user-icon"/>
-          edit
+          <FontAwesomeIcon icon={["fas","user-pen"]} className="user-icon"/>
+          Edit
         </button>
       )
     }
@@ -69,11 +69,11 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "user-delete"){
       return(
         <button 
-          className="btn-user-icons light"
+          className="btn-user light"
           onClick = {handleClick}
         >
-          <img src={userDeleteIcon} className="user-icon"/>
-          <text>delete</text>
+          <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>
+          <text>Delete</text>
         </button>
       )
     }

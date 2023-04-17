@@ -38,7 +38,7 @@ const UserDetails = () => {
         <div className="user-details-container">
             <Sidebar/>
             <div className="user-details-content-wrapper">
-                <p className="user-details-back"><NavLink to={"/users"}>&lt; Back to user list</NavLink></p>
+                <p className="user-details-back"><NavLink to={"/users"} className={"user-details-back"}>&lt; Back to user list</NavLink></p>
 
                 <div className="user-details-section">
                     <H1 text={user.first_name + " " + user.middle_name + " " + user.last_name}/>

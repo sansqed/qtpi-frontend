@@ -8,6 +8,11 @@
     align-items: center;
 }
 
+.user-details-back:link, .user-details-back:visited{
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
 .user-details-content-wrapper{
     float: left;
     margin-left: 15vw;

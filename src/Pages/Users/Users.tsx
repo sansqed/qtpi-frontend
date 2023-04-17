@@ -7,13 +7,12 @@ import Button from "../../Components/Button/Button";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getUsers } from "../../ApiCalls/UsersApi";
 import User, { emptyUser } from "../../Types/User";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const Users: React.FC = () => {
     const navigate = useNavigate()
 
-    const [users, setUsers] = useState<[User]>([emptyUser])
+    const [users, setUsers] = useState<[User]>()
 
     // FETCH USERS DATA
     useEffect(()=>{
@@ -42,14 +41,14 @@ const Users: React.FC = () => {
                         </NavLink>
                     </div>
                     <div className="user-list-body">
-                        {users.map(({id, username, first_name, middle_name, last_name}) => 
+                        {users && users.length? users.map(({id, username, first_name, middle_name, last_name}) => 
                             <div className="user-list-content">
                                 <NavLink to={"/users/userid="+id} className="user-list-link">
                                     <text className="user-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</text>
                                     <text className="user-list-username">{" (" + username + ")"}</text>
                                 </NavLink>
                             </div>
-                        )}
+                        ):<></>}
 
                     </div>
                 </div>
