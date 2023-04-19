@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { LoginApi } from "../../ApiCalls/AuthApi";
 import toast from 'react-hot-toast';
 import toasterConfig from "../../Helpers/ToasterConfig";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Login = () => {
     const [username, setUsername] = useState("")

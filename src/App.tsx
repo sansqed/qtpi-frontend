@@ -13,7 +13,6 @@ import EditUser from './Pages/Users/EditUser';
 import { Toaster } from 'react-hot-toast';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 function App() {  
   library.add(fas)

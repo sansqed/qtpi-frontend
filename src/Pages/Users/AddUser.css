@@ -6,8 +6,8 @@
 
 .add-users-container {
     font-family: "Poppins", sans-serif;
-    background-color: var(--secondary-color);
-    color:var(--primary-color);
+    background-color: #003459;
+    color:white;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -30,12 +30,12 @@
     text-align: left;
     padding-top: 1vh;
     padding-left: 3vh;
-    color:var(--secondary-color);
+    color:#003459;
     /* display:flex; */
     margin-left: 30vh;
     height: 90vh;
     width: 80vw;
-    background-color: var(--primary-color);
+    background-color: white;
     border: none;
     border-radius: 1vh;
 }
@@ -56,7 +56,7 @@
     border: none;
     background-color: transparent;
     border-radius: 5px;
-    background-color: var(--primary-color);
+    background-color: #E1E1E1;
     font-size: 1.5em;
     font-family: "Poppins", sans-serif;
     letter-spacing: 0.5px;
@@ -109,12 +109,11 @@
     border: none;
     background-color: transparent;
     border-radius: 5px;
-    background-color: var(--primary-color);
+    background-color: #E1E1E1;
     font-size: 1.5em;
     font-family: "Poppins", sans-serif;
     letter-spacing: 0.5px;
     padding-left: 2vh;
     margin-right: 1vw;
 }
-
 
