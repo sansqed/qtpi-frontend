@@ -3,30 +3,49 @@ import Sidebar from "../../Components/Sidebar/Sidebar"
 import { Form, FormGroup, FormLabel, } from "react-bootstrap"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
+import Button from "../../Components/Button/Button";
+import { createUser } from "../../ApiCalls/UsersApi";
+import User, { emptyUser, defaultUserError, UserError } from "../../Types/User";
+import toasterConfig from "../../Helpers/ToasterConfig";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import ValidateUsers from "../../Helpers/Validations/ValidateUsers"
 
 import "./AddUser.css"
-import Button from "../../Components/Button/Button";
 
 const AddUsers: React.FC = () => {
-    const [loginCreds, setLoginCreds] = useState({
-        firstName: "",
-        middleName: "",
-        lastName: "",
-        username: "",
-        contactNumber: "",
-        address: "",
-        role: "",
-        password: "",
-        confirmPassword: "",
-    });
+    const [user, setUser] = useState<User>(emptyUser);
+    const [error, setError] = useState<UserError>(defaultUserError);
+
+    const navigate = useNavigate()
 
     const handleChange = (e: { target: { name: any; value: any } }) => {
         const { name, value } = e.target;
-        setLoginCreds((prevState) => ({
+        setUser((prevState) => ({
             ...prevState,
             [name]: value,
         }));
     };
+
+    const handleSubmit = () => {
+        console.log(user)
+        
+        if (ValidateUsers(user, setError)){
+            createUser(user)
+                .then((response)=>{
+                    if (response.data.status === "201"){
+                        toast.success(response.data.message, toasterConfig);
+                        navigate("/users")
+                    } else {
+                        toast.error(response.data.message, toasterConfig);
+                    }
+                })
+        } else {
+            toast.error("Invalid user details.", toasterConfig);
+            console.log(error)
+        }
+    }
+
 
     return (
         <div className="add-users-container">
@@ -47,8 +66,8 @@ const AddUsers: React.FC = () => {
                                 <Form.Control 
                                     type="text" 
                                     required={true} 
-                                    id="firstName"
-                                    name="firstName"
+                                    id="first_name"
+                                    name="first_name"
                                     onChange={(e) => handleChange(e)}
                                     className="add-user-input-box"
                                     placeholder="FIRST NAME"
@@ -57,8 +76,8 @@ const AddUsers: React.FC = () => {
                                 <Form.Control 
                                     type="text" 
                                     required={true} 
-                                    id="middleName"
-                                    name="middleName"
+                                    id="middle_name"
+                                    name="middle_name"
                                     onChange={(e) => handleChange(e)}
                                     className="add-user-input-box"
                                     placeholder="MIDDLE NAME"
@@ -66,8 +85,8 @@ const AddUsers: React.FC = () => {
                                 <Form.Control 
                                     type="text" 
                                     required={true} 
-                                    id="lastName"
-                                    name="lastName"
+                                    id="last_name"
+                                    name="last_name"
                                     onChange={(e) => handleChange(e)}
                                     className="add-user-input-box"
                                     placeholder="LAST NAME"
@@ -94,8 +113,8 @@ const AddUsers: React.FC = () => {
                                 <Form.Control 
                                     type="text" 
                                     required={true} 
-                                    id="contactNumber"
-                                    name="contactNumber"
+                                    id="contact_number"
+                                    name="contact_number"
                                     onChange={(e) => handleChange(e)}
                                     className="add-user-input-box"
                                 />
@@ -124,12 +143,11 @@ const AddUsers: React.FC = () => {
                             name="role"
                             onChange={(e) => handleChange(e)}
                             >
-                            <option value="None"></option>
                             <option value="Admin">Admin</option>
-                            <option value="Employee">Employee</option>
+                            <option value="Employee">Accounting</option>
                           </Form.Select>
                           <Form.Control
-                            type="text"
+                            type="password"
                             required={true}
                             id="password"
                             name="password"
@@ -137,10 +155,10 @@ const AddUsers: React.FC = () => {
                             className="add-user-input-box"
                           />
                           <Form.Control
-                            type="text"
+                            type="password"
                             required={true}
-                            id="confirm-password"
-                            name="confirm-password"
+                            id="confirm_password"
+                            name="confirm_password"
                             onChange={(e) => handleChange(e)}
                             className="add-user-input-box"
                           />
@@ -150,8 +168,9 @@ const AddUsers: React.FC = () => {
 
                     <div className="add-user-submit-container">
                         <Button 
-                            handleClick={()=>{}}
+                            handleClick={handleSubmit}
                             type= "submit"
+                            
                         >
                             SUBMIT
                         </Button>

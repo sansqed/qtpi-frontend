@@ -1,8 +1,119 @@
-.edit-user-container {
-    background-color: var(--secondary-color);
-    color:var(--primary-color);
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    font-family: "Poppins", sans-serif;
+}
+
+.edit-users-container {
+    font-family: "Poppins", sans-serif;
+    background-color: #003459;
+    color:white;
     height: 100vh;
     width: 100vw;
     display: flex;
     align-items: center;
 }
+
+.edit-users-content-wrapper {
+    display: flex;
+}
+
+.edit-user-form-labels{
+    display:flex;
+    margin-right:vw;
+}
+
+.edit-user-form-container {
+    /* display:flex; */
+    /* flex-direction: column;
+    justify-content: flex-start; */
+    text-align: left;
+    padding-top: 1vh;
+    padding-left: 3vh;
+    color:#003459;
+    /* display:flex; */
+    margin-left: 30vh;
+    height: 90vh;
+    width: 80vw;
+    background-color: white;
+    border: none;
+    border-radius: 1vh;
+}
+
+.edit-user-header h1{
+    font-size: 3em;
+    margin-bottom:0;
+}
+
+.testing-flex Col{
+    display:flex;
+    flex-direction: row;
+}
+
+.edit-user-input-box{
+    width: 18vw;
+    height: 5vh;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    background-color: #E1E1E1;
+    font-size: 1.5em;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.5px;
+    padding-left: 1vw;
+    margin-right: 1vw;
+}
+
+
+.edit-user-name-container{
+    margin-bottom: 3vh;
+}
+
+.edit-user-input-label{
+    text-align: left;
+    font-size: 2em;
+    font-weight: 700;
+    display:flex;
+    flex-direction: row;
+}
+
+.edit-user-second-row-label{
+    display:flex;
+    flex-direction: row;
+}
+
+.edit-user-second-row-label-username{
+    margin-right: 14.5vw;
+}
+
+.edit-user-second-row-label-contact{
+    margin-right: 12.8vw;
+}
+
+.edit-user-third-row-label{
+    display:flex;
+    flex-direction: row;
+}
+
+.edit-user-third-row-label-role{
+    margin-right: 17.7vw;
+}
+
+.edit-user-third-row-label-password{
+    margin-right: 14.001vw;
+}
+
+.edit-user-role-menu{
+    width: 19vw;
+    height: 5vh;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    background-color: #E1E1E1;
+    font-size: 1.5em;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.5px;
+    padding-left: 2vh;
+    margin-right: 1vw;
+}
+

@@ -89,6 +89,18 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
+    if (type === "back"){
+      return(
+        <button 
+          className="btn-back light"
+          onClick = {handleClick}
+          name="back"
+        >
+          Back
+        </button>
+      )
+    }
+
 
     return (
       <button 

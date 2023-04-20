@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react"
 import { H1,H2 } from "../../Components/Headers/Headers";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { getUsers } from "../../ApiCalls/UsersApi";
+import { getUsers, deleteUser } from "../../ApiCalls/UsersApi";
 import Button from "../../Components/Button/Button";
 import User, { emptyUser } from "../../Types/User";
+import { toast } from "react-hot-toast";
+import toasterConfig from "../../Helpers/ToasterConfig";
 
 import "./UserDetails.css"
 
@@ -12,9 +14,8 @@ const UserDetails = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const urlHeader = "/users/userid="
-    const userID = String(location.pathname.substring(urlHeader.length));
+    const user_id = String(location.pathname.substring(urlHeader.length));
     const [user, setUser] = useState<User>(emptyUser)
-    console.log(userID)
     const tempUser = {
         access_logs: [
             "December 30, 2022 7:00",
@@ -23,15 +24,23 @@ const UserDetails = () => {
     }
 
     useEffect(()=>{
-        getUsers(userID)
-            .then((response:any) => {
+        getUsers(user_id)
+            .then((response) => {
                 console.log(response.data.data.users[0])
                 setUser(response.data.data.users[0])
             })
     },[])
 
-    const handleDelete = () => {
-        console.log("deleting")
+    const handleDelete = async() => {
+        deleteUser(user_id)
+            .then((response)=>{
+                if (response.data.status === "200"){
+                    toast.success(response.data.message, toasterConfig)
+                    navigate("/users")
+                } else {
+                    toast.error(response.data.message, toasterConfig)
+                }
+            })
     }
 
     return(
@@ -54,7 +63,7 @@ const UserDetails = () => {
                 <div className="user-details-section">
                     <Button
                         type="user-edit"
-                        handleClick={()=>{navigate("/users/edit/userid="+userID)}}
+                        handleClick={()=>{navigate("/users/edit/userid="+user_id)}}
                     />
 
                     <Button
