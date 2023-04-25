@@ -6,6 +6,7 @@ import { isLoggedIn } from './Helpers/UserFunctions';
 import Login from './Pages/Login/Login';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Employees from './Pages/Employees/Employees'
+import AddEmployees from './Pages/Employees/AddEmployee'
 import Users from './Pages/Users/Users';
 import AddUsers from './Pages/Users/AddUser';
 import UserDetails from './Pages/Users/UserDetails';
@@ -31,9 +32,13 @@ function App() {
               element={isLoggedIn()? <Employees/>:<Login/>}
           />
           <Route
+              path="/employees/add"
+              element={isLoggedIn()? <AddEmployees/>:<Login/>}
+          />
+          <Route
             path="/users"
               element={isLoggedIn()? <Users/>:<Login/>}
-          />
+          /> 
           <Route
             path="/users/add"
             element={isLoggedIn()? <AddUsers/>:<Login/>}
