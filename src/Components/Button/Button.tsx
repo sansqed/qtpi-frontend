@@ -32,6 +32,18 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
+    if (type === "add-employee"){
+      return(
+        <button 
+          className="btn-user light"
+          onClick = {handleClick}
+        >
+          <FontAwesomeIcon icon={["fas","user-plus"]} className="user-icon"/>
+          ADD EMPLOYEE
+        </button>
+      )
+    }
+
     if (type === "sign-in"){
       return(
         <button 
