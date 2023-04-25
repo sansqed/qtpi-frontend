@@ -4,7 +4,7 @@ import { Form, FormGroup, FormLabel, } from "react-bootstrap"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Button from "../../Components/Button/Button";
-import { getUsers } from "../../ApiCalls/UsersApi";
+import { getUsers, updateUser } from "../../ApiCalls/UsersApi";
 import User, { emptyUser } from "../../Types/User";
 import toasterConfig from "../../Helpers/ToasterConfig";
 import { toast } from "react-hot-toast";
@@ -38,7 +38,19 @@ const EditUser: React.FC = () => {
     };
 
     const handleSubmit = async() => {
+        updateUser(user)
+            .then((response)=>{
+                if (response.data.status === "200"){
+                    toast.success("Update success", toasterConfig)
+                    navigate("users/userid="+user_id)
+                } else {
+                    toast.error("Update failed", toasterConfig)
+                }
+            })
+    }
 
+    const handleBack = () => {
+        navigate("/users")
     }
 
     return (
@@ -169,7 +181,7 @@ const EditUser: React.FC = () => {
                     <div className="edit-user-submit-container">
                         <Button
                             type="back"
-                            handleClick={()=>{}}
+                            handleClick={handleBack}
                         />
                         <Button 
                             handleClick={handleSubmit}

@@ -46,10 +46,10 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "submit"){
         return(
         <button
-          className="btn-submit"
+          className="btn-submit btn-large"
           onClick = {handleClick}
         >
-          <b> SUBMIT </b>
+          SUBMIT
         </button>
         )
       }
@@ -92,7 +92,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "back"){
       return(
         <button 
-          className="btn-back light"
+          className="btn-back btn-large light"
           onClick = {handleClick}
           name="back"
         >

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar"
-import { Form, FormGroup, FormLabel, } from "react-bootstrap"
+import { Form, InputGroup } from "react-bootstrap"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Button from "../../Components/Button/Button";
@@ -46,6 +46,10 @@ const AddUsers: React.FC = () => {
         }
     }
 
+    const handleBack = () => {
+        navigate("/users")
+    }
+
 
     return (
         <div className="add-users-container">
@@ -62,35 +66,38 @@ const AddUsers: React.FC = () => {
                                 <Form.Label className="add-user-input-label">
                                     NAME
                                 </Form.Label>
-
-                                <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="first_name"
-                                    name="first_name"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-user-input-box"
-                                    placeholder="FIRST NAME"
-                                />
                                 
-                                <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="middle_name"
-                                    name="middle_name"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-user-input-box"
-                                    placeholder="MIDDLE NAME"
-                                />
-                                <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="last_name"
-                                    name="last_name"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-user-input-box"
-                                    placeholder="LAST NAME"
-                                />
+                                    <Form.Control 
+                                        type="text" 
+                                        required={true} 
+                                        id="first_name"
+                                        name="first_name"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box"
+                                        placeholder="FIRST NAME"
+                                        autoComplete={"off"}
+                                    />
+                                    
+                                    <Form.Control 
+                                        type="text" 
+                                        // required={true} 
+                                        id="middle_name"
+                                        name="middle_name"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box"
+                                        autoComplete={"off"}
+                                        placeholder="MIDDLE NAME"
+                                    />
+                                    <Form.Control 
+                                        type="text" 
+                                        required={true} 
+                                        id="last_name"
+                                        name="last_name"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box"
+                                        placeholder="LAST NAME"
+                                        autoComplete={"off"}
+                                    />
                                 {/* </div> */}
                             </Form.Group>
                         </Row>
@@ -102,14 +109,15 @@ const AddUsers: React.FC = () => {
                                     <h1 className="add-user-second-row-label-contact">CONTACT NO.</h1>
                                     <h1 className="add-user-second-row-label-address">ADDRESS</h1>
                                 </div>
-                                <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="username"
-                                    name="username"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-user-input-box"
-                                />
+                                    <Form.Control 
+                                        type="text" 
+                                        required={true} 
+                                        id="username"
+                                        name="username"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box"
+                                        autoComplete={"off"}
+                                    />
                                 <Form.Control 
                                     type="text" 
                                     required={true} 
@@ -117,6 +125,7 @@ const AddUsers: React.FC = () => {
                                     name="contact_number"
                                     onChange={(e) => handleChange(e)}
                                     className="add-user-input-box"
+                                    autoComplete={"off"}
                                 />
                                  <Form.Control 
                                     type="text" 
@@ -125,6 +134,7 @@ const AddUsers: React.FC = () => {
                                     name="address"
                                     onChange={(e) => handleChange(e)}
                                     className="add-user-input-box"
+                                    autoComplete={"off"}
                                 />
 
                             </Form.Group>
@@ -166,7 +176,11 @@ const AddUsers: React.FC = () => {
 
                     </Form>
 
-                    <div className="add-user-submit-container">
+                    <div className="add-user-button-container">
+                        <Button
+                            type="back"
+                            handleClick={handleBack}
+                        />
                         <Button 
                             handleClick={handleSubmit}
                             type= "submit"

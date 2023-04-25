@@ -41,8 +41,8 @@
 }
 
 .add-user-header h1{
-    font-size: 3em;
-    margin-bottom:0;
+    font-size: 2em;
+    margin-bottom: 2vh;
 }
 
 .testing-flex Col{
@@ -57,7 +57,7 @@
     background-color: transparent;
     border-radius: 5px;
     background-color: #E1E1E1;
-    font-size: 1.5em;
+    font-size: 1em;
     font-family: "Poppins", sans-serif;
     letter-spacing: 0.5px;
     padding-left: 1vw;
@@ -66,12 +66,12 @@
 
 
 .add-user-name-container{
-    margin-bottom: 3vh;
+    margin-bottom: 1vh;
 }
 
 .add-user-input-label{
     text-align: left;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 700;
     display:flex;
     flex-direction: row;
@@ -82,25 +82,33 @@
     flex-direction: row;
 }
 
+.add-user-second-row-label h1{
+    font-size: 1.5em;
+}
+
 .add-user-second-row-label-username{
-    margin-right: 14.5vw;
+    margin-right: 13vw;
 }
 
 .add-user-second-row-label-contact{
-    margin-right: 12.8vw;
+    margin-right: 11vw;
 }
 
 .add-user-third-row-label{
     display:flex;
-    flex-direction: row;
+    flex-direction: row;    
+}
+
+.add-user-third-row-label h1{
+    font-size: 1.5em;
 }
 
 .add-user-third-row-label-role{
-    margin-right: 17.7vw;
+    margin-right: 17vw;
 }
 
 .add-user-third-row-label-password{
-    margin-right: 14.001vw;
+    margin-right: 12.5vw;
 }
 
 .add-user-role-menu{
@@ -110,10 +118,17 @@
     background-color: transparent;
     border-radius: 5px;
     background-color: #E1E1E1;
-    font-size: 1.5em;
+    font-size: 1em;
     font-family: "Poppins", sans-serif;
     letter-spacing: 0.5px;
     padding-left: 2vh;
+    padding-right: 5vh;
     margin-right: 1vw;
+}
+
+.add-user-button-container{
+    float: right;
+    margin-right: 21vw;
+    margin-top: 35vh;
 }
 

@@ -38,9 +38,7 @@ button{
   border-radius: 10px;
   border-color: transparent;
   font-size: 20px;
-  margin-left: 51vw;
-  margin-top: 35vh;
-  height: 3.5vh;
+  height: 4vh;
   width: 17.5vh;
 }
 
@@ -92,12 +90,16 @@ button{
   box-shadow: 0 0 0 0.25rem var(--tertiary-color);
 }
 
-.btn-back{
-  border-radius: 5px;
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-  border: 1.5px solid var(--secondary-color);
-  padding: 0.25vw 1vw;
-  margin-left: 0.5vw;
-  margin-top: 3vh;
+.btn-large{
+  height: 4vh;
+  width: 17.5vh;
+  border-radius: 1vh;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 1vw;
+}
+
+.btn-large:hover{
+  box-shadow: 0 0 0 0.25rem var(--tertiary-color);
 }
