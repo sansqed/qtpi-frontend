@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar"
 import "./Employees.css"
 
-import { NavLink } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import Button from "../../Components/Button/Button";
 
 import Employee, { emptyEmployee } from "../../Types/Employee";
@@ -10,7 +10,6 @@ import Employee, { emptyEmployee } from "../../Types/Employee";
 import { getEmployees } from "../../ApiCalls/EmployeesApi";
 
 const Employees: React.FC = () => {
-
     const [employees, setUsers] = useState<[Employee]>()
 
     // FETCH USERS DATA
@@ -42,7 +41,7 @@ const Employees: React.FC = () => {
                     <div className="employee-list-body">
                         {employees && employees.length? employees.map(({id, username, first_name, middle_name, last_name}) => 
                             <div className="employee-list-content">
-                                <NavLink to={"/employees/employeeid="+id} className="employee-list-link">
+                                <NavLink to={"/employees/employeeid="+id} className="employee-list-link" reloadDocument= {true}>
                                     <text className="employee-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</text>
                                     {/* <text className="employee-list-username">{" (" + username + ")"}</text> */}
                                 </NavLink>
@@ -50,6 +49,8 @@ const Employees: React.FC = () => {
                         ):<></>}
 
                     </div>
+
+
                 </div>
             </div>
         </div>      
