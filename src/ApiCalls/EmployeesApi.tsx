@@ -22,8 +22,10 @@ export const createEmployee = async(employee:Employee)=>{
             role_id: 1,
             contact_no: employee.contact_no,
             address: employee.address,
-            username: employee.username,
-            password: employee.password,
+            position: employee.position,
+            rate: employee.rate,
+            rate_unit: employee.rate_unit,
+            // sss: employee.sss,
         })
         return { data: response.data};
     } catch (error) {

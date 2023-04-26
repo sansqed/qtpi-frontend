@@ -135,9 +135,9 @@ const AddEmployees: React.FC = () => {
                         <Row>
                           <Form.Group>
                             <div className="add-employee-third-row-label">
-                               <h1 className="add-employee-third-row-label-role">POSITION</h1>
-                               <h1 className="add-employee-third-row-label-password">RATE</h1>
-                               <h1 className="add-employee-third-row-label-confirm-password">RATE UNIT</h1>
+                               <h1 className="add-employee-third-row-label-position">POSITION</h1>
+                               <h1 className="add-employee-third-row-label-rate">RATE</h1>
+                               <h1 className="add-employee-third-row-label-rate-unit">RATE UNIT</h1>
                             </div>
                           <Form.Control
                             type="position"

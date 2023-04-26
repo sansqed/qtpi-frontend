@@ -4,11 +4,11 @@ type Employee = {
     middle_name:        string,
     last_name:          string
     address:            string,
-    contact_no:         string,
-    password:           string,
-    role_id:            string,
-    username:           string,
-    confirm_password:   string,
+    contact_no:         number,
+    position:           string,
+    rate: number,
+    rate_unit: string,
+    sss: number,
 };
 
 export type EmployeeError = {
@@ -18,23 +18,23 @@ export type EmployeeError = {
     last_name:          boolean
     address:            boolean,
     contact_no:         boolean,
-    password:           boolean,
-    role_id:            boolean,
-    username:           boolean,
-    confirm_password:   boolean,
+    position:           boolean,
+    rate:               boolean,
+    rate_unit:          boolean,
+    sss:                boolean,
 }
 
 export const emptyEmployee = {
     address: "",
-    contact_no: "",
+    contact_no: 0,
     first_name: "",
     id: "",
     middle_name: "",
     last_name: "",
-    password: "",
-    role_id: "",
-    username: "",
-    confirm_password: "",
+    position: "",
+    rate: 0,
+    rate_unit: "",
+    sss: 0,
 }
 
 export const defaultEmployeeError = {
@@ -44,10 +44,10 @@ export const defaultEmployeeError = {
     address: false,
     contact_no: false,
     id: false,
-    password: false,
-    role_id: false,
-    username: false,
-    confirm_password: false,
+    position: false,
+    rate: false,
+    rate_unit: false,
+    sss: false,
 }
 
 export default Employee;
