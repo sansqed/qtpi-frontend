@@ -81,7 +81,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "user-delete"){
       return(
         <button 
-          className="btn-user light"
+          className="btn-user btn-delete light"
           onClick = {handleClick}
         >
           <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>

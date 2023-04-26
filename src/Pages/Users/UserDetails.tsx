@@ -36,7 +36,10 @@ const UserDetails = () => {
             .then((response)=>{
                 if (response.data.status === "200"){
                     toast.success(response.data.message, toasterConfig)
-                    navigate("/users")
+
+                    setTimeout(()=>{
+                        navigate("/users")
+                    }, 2000)
                 } else {
                     toast.error(response.data.message, toasterConfig)
                 }

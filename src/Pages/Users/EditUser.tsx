@@ -42,7 +42,9 @@ const EditUser: React.FC = () => {
             .then((response)=>{
                 if (response.data.status === "200"){
                     toast.success("Update success", toasterConfig)
-                    navigate("users/userid="+user_id)
+                    setTimeout(()=>{
+                        navigate("/users/userid="+user_id)
+                    }, 2000)
                 } else {
                     toast.error("Update failed", toasterConfig)
                 }
@@ -132,8 +134,8 @@ const EditUser: React.FC = () => {
                                  <Form.Control 
                                     type="text" 
                                     required={true} 
-                                    id="editress"
-                                    name="editress"
+                                    id="address"
+                                    name="address"
                                     onChange={(e) => handleChange(e)}
                                     className="edit-user-input-box"
                                     defaultValue={user.address}

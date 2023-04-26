@@ -20,8 +20,9 @@ function App() {
   library.add(fas)
   return (
     <div className="App">
-      
-      <Toaster position="bottom-center" reverseOrder={false}/>
+      <div className='toaster-container'>
+        <Toaster position="bottom-center" reverseOrder={false}/>
+      </div>
       <BrowserRouter>
         <Routes>
           <Route 

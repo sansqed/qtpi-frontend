@@ -34,8 +34,12 @@ const AddUsers: React.FC = () => {
             createUser(user)
                 .then((response)=>{
                     if (response.data.status === "201"){
-                        toast.success(response.data.message, toasterConfig);
-                        navigate("/users")
+                        toast.success("User Created Successfully", toasterConfig);
+
+                        setTimeout(()=>{
+                            navigate("/users")
+                        }, 2000)
+
                     } else {
                         toast.error(response.data.message, toasterConfig);
                     }
@@ -121,8 +125,8 @@ const AddUsers: React.FC = () => {
                                 <Form.Control 
                                     type="text" 
                                     required={true} 
-                                    id="contact_number"
-                                    name="contact_number"
+                                    id="contact_no"
+                                    name="contact_no"
                                     onChange={(e) => handleChange(e)}
                                     className="add-user-input-box"
                                     autoComplete={"off"}

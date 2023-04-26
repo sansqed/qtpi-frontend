@@ -33,7 +33,10 @@ const Sidebar: React.FC = () => {
     const handleLogout = () => {
         localStorage.setItem("token", "undefined")
         toast.success("Logged out", toasterConfig)
-        window.location.reload();
+
+        setTimeout(()=>{
+            window.location.reload();
+        }, 2000)
     }
     
 

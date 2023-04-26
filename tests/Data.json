@@ -1,0 +1,33 @@
+{
+    "validSignInCreds": {
+        "username": "test",
+        "password": "test"
+    },
+
+    "invalidSignInCreds": {
+        "username": "1234",
+        "password": "1234"
+    },
+
+    "addUserDetails": {
+        "first_name": "First",
+        "middle_name": "Middle",
+        "last_name": "Last",
+        "username": "user1",
+        "contact_no": "112341234",
+        "address": "Cebu",
+        "password": "1234567",
+        "confirm_password": "1234567"
+    },   
+
+    "editUserDetails": {
+        "first_name": "First",
+        "address": "Cebu",
+        "password": "1234567",
+        "confirm_password": "1234567"
+    },
+
+    "editUserId": "10",
+
+    "deleteUserId": "34"
+}
