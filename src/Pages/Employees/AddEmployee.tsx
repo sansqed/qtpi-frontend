@@ -135,9 +135,9 @@ const AddEmployees: React.FC = () => {
                         <Row>
                           <Form.Group>
                             <div className="add-employee-third-row-label">
-                               <h1 className="add-employee-third-row-label-role">POSITION</h1>
-                               <h1 className="add-employee-third-row-label-password">RATE</h1>
-                               <h1 className="add-employee-third-row-label-confirm-password">RATE UNIT</h1>
+                               <h1 className="add-employee-third-row-label-position">POSITION</h1>
+                               <h1 className="add-employee-third-row-label-rate">RATE</h1>
+                               <h1 className="add-employee-third-row-label-rate-unit">RATE UNIT</h1>
                             </div>
                           <Form.Control
                             type="position"
@@ -153,8 +153,8 @@ const AddEmployees: React.FC = () => {
                             name="rate"
                             onChange={(e) => handleChange(e)}
                             >
-                            <option value="500">500</option>
-                            <option value="1000">1000</option>
+                            <option value={500}>500</option>
+                            <option value={1000}>1000</option>
                           </Form.Select>
                           <Form.Control
                             type="rate_unit"

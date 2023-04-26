@@ -1,35 +1,35 @@
 import Employee from "../../Types/Employee";
 import { setErrorTrue } from "./Common"
 
-const ValidateEmployees = (user:Employee, setError:Function) => {
+const ValidateEmployees = (employee:Employee, setError:Function) => {
     let isValid = true;
-    if (user.confirm_password !== user.password || user.password === ""){
-        setErrorTrue("password", true, setError);
-        isValid = false
-    } else {
-        setErrorTrue("password", false, setError);
-    }
+    // if (user.confirm_password !== user.password || user.password === ""){
+    //     setErrorTrue("password", true, setError);
+    //     isValid = false
+    // } else {
+    //     setErrorTrue("password", false, setError);
+    // }
     
-    if (user.first_name === ""){
+    if (employee.first_name === ""){
         setErrorTrue("first_name", true, setError)
         isValid = false
     } else {
         setErrorTrue("first_name", false, setError);
     }
 
-    if (user.last_name === ""){
+    if (employee.last_name === ""){
         setErrorTrue("last_name", true, setError)
         isValid = false
     } else {
         setErrorTrue("last_name", false, setError);
     }
 
-    if (user.username === ""){
-        setErrorTrue("username", true, setError)
-        isValid = false
-    } else {
-        setErrorTrue("username", false, setError);
-    }
+    // if (employee.username === ""){
+    //     setErrorTrue("username", true, setError)
+    //     isValid = false
+    // } else {
+    //     setErrorTrue("username", false, setError);
+    // }
 
     // if (user.role_id === ""){
     //     setErrorTrue("role_id", setError)
