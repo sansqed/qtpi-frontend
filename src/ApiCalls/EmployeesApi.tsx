@@ -52,13 +52,14 @@ export const createEmployee = async(employee:Employee)=>{
 //     }
 // }
 
-// export const deleteUser = async(user_id:string) => {
-//     try {
-//         const response = await postAPICall(URL+"users/delete/"+String(user_id), {
-//             requester: 1
-//         })
-//         return { data: response.data};
-//     } catch (error) {
-//         return { data: error };
-//     }
-// }
+export const deleteEmployee = async(employee_id:string) => {
+    try {
+        const response = await postAPICall(URL+"employees/delete/"+String(employee_id), {
+            requester: 1
+        })
+        return { data: response.data};
+    } catch (error) {
+        return { data: error };
+    }
+}
+

@@ -14,6 +14,7 @@ import EditUser from './Pages/Users/EditUser';
 import { Toaster } from 'react-hot-toast';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import EmployeeDetails from './Pages/Employees/EmployeeDetails';
 
 function App() {  
   library.add(fas)
@@ -30,6 +31,10 @@ function App() {
           <Route
               path="/employees"
               element={isLoggedIn()? <Employees/>:<Login/>}
+          />
+          <Route
+              path="/employees/:employeeid"
+              element={isLoggedIn()? <EmployeeDetails/>:<Login/>}
           />
           <Route
               path="/employees/add"
