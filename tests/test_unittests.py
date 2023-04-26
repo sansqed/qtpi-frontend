@@ -10,6 +10,7 @@ class Test_Auth(unittest.TestCase):
 
 
         wb.pressLogoutBtn()
+        sleep(5)
         wb.enterSignInCredsValid()
         wb.pressSignInBtn()
 
@@ -57,7 +58,7 @@ class test_UsersModule(unittest.TestCase):
         self.assertTrue(isSuccess)
         
     def test_EditUser(self):
-        f = open("Data.json")
+        f = open("tests/Data.json")
         data = json.load(f)
         f.close()
         
@@ -72,7 +73,7 @@ class test_UsersModule(unittest.TestCase):
         self.assertTrue(isSuccess)
     
     def test_DeleteUser(self):
-        f = open("Data.json")
+        f = open("tests/Data.json")
         data = json.load(f)
         f.close()
         

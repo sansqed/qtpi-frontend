@@ -1,6 +1,6 @@
 import json
 
-f = open("Data.json")
+f = open("tests/Data.json")
 data = json.load(f)
 f.close()
 
