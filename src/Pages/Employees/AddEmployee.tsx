@@ -153,8 +153,8 @@ const AddEmployees: React.FC = () => {
                             name="rate"
                             onChange={(e) => handleChange(e)}
                             >
-                            <option value="500">500</option>
-                            <option value="1000">1000</option>
+                            <option value={500}>500</option>
+                            <option value={1000}>1000</option>
                           </Form.Select>
                           <Form.Control
                             type="rate_unit"
