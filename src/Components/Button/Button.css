@@ -55,6 +55,8 @@ button{
 
 .btn-user:hover{
   box-shadow: 0 0 0 0.25rem var(--tertiary-color);
+  transition: ease-in;
+  transition-duration: 0.2s;
 }
 
 .dark{

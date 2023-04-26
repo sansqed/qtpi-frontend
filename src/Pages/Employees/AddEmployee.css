@@ -4,7 +4,7 @@
     font-family: "Poppins", sans-serif;
 }
 
-.add-users-container {
+.add-employees-container {
     font-family: "Poppins", sans-serif;
     background-color: #003459;
     color:white;
@@ -14,16 +14,16 @@
     align-items: center;
 }
 
-.add-users-content-wrapper {
+.add-employees-content-wrapper {
     display: flex;
 }
 
-.add-user-form-labels{
+.add-employee-form-labels{
     display:flex;
     margin-right:vw;
 }
 
-.add-user-form-container {
+.add-employee-form-container {
     /* display:flex; */
     /* flex-direction: column;
     justify-content: flex-start; */
@@ -40,7 +40,23 @@
     border-radius: 1vh;
 }
 
-.add-user-header h1{
+.add-employee-photo-container{
+  background-color: #D9D9D9;
+  width: 14vw;
+  height: 25vh;
+  display: flex;
+  align-items: center;
+  border: none;
+  z-index: 10000000000000000;
+}
+
+.camera-icon{
+  width: 5vw; 
+  height: 10vh;
+  margin-left: 4.5vw;
+}
+
+.add-employee-header h1{
     font-size: 2em;
     margin-bottom:0;
 }
@@ -50,7 +66,7 @@
     flex-direction: row;
 }
 
-.add-user-input-box{
+.add-employee-input-box, .add-employee-address-box{
     width: 18vw;
     height: 5vh;
     border: none;
@@ -64,12 +80,16 @@
     margin-right: 1vw;
 }
 
+.add-employee-address-box{
+  width: 38vw;
+}
 
-.add-user-name-container{
+.add-employee-name-container{
+    margin-top: 1vh;
     margin-bottom: 1vh;
 }
 
-.add-user-input-label{
+.add-employee-input-label{
     text-align: left;
     font-size: 1.2em;
     font-weight: 700;
@@ -78,41 +98,37 @@
     color: #0A1929
 }
 
-.add-user-second-row-label{
+.add-employee-second-row-label{
     display:flex;
     flex-direction: row;
     font-size: 0.8em;
     color: #0A1929;
 }
 
-.add-user-second-row-label h1{
+.add-employee-second-row-label h1{
     font-size: 1.5em;
 }
 
-.add-user-second-row-label-username{
-    margin-right: 14.7vw;
-}
-
-.add-user-second-row-label-contact{
+.add-employee-second-row-label-contact{
     margin-right: 13vw;
 }
 
-.add-user-third-row-label{
+.add-employee-third-row-label{
     display:flex;
     flex-direction: row;
     font-size: 0.6em;
-    color: #0A1929
+    color: #0A1929;
 }
 
-.add-user-third-row-label-role{
-    margin-right: 17.6vw;
+.add-employee-third-row-label-position{
+    margin-right: 15.3vw;
 }
 
-.add-user-third-row-label-password{
-    margin-right: 14.2vw;
+.add-employee-third-row-label-rate{
+    margin-right: 17.5vw;
 }
 
-.add-user-role-menu{
+.add-employee-rate-menu{
     width: 19vw;
     height: 5vh;
     border: none;
@@ -127,9 +143,16 @@
     margin-right: 1vw;
 }
 
-.add-user-button-container{
+.add-employee-fourth-row-label{
+    display:flex;
+    flex-direction: row;
+    font-size: 0.6em;
+    color: #0A1929;
+}
+
+.add-employee-button-container{
     float: right;
     margin-right: 21vw;
-    margin-top: 35vh;
+    margin-top:8vh;
 }
 

@@ -12,37 +12,39 @@ export const getEmployees = async(employee_id?:string)=>{
     }
 }
 
-// export const createUser = async(user:User)=>{
-//     try {
-//         const response = await postAPICall(URL+"users/create", {
-//             requester: 1,
-//             first_name: user.first_name,
-//             middle_name: user.middle_name,
-//             last_name: user.last_name,
-//             role_id: 1,
-//             contact_no: user.contact_no,
-//             address: user.address,
-//             username: user.username,
-//             password: user.password,
-//         })
-//         return { data: response.data};
-//     } catch (error) {
-//         return { data: error };
-//     }
-// }
+export const createEmployee = async(employee:Employee)=>{
+    try {
+        const response = await postAPICall(URL+"employees/create", {
+            requester: 1,
+            first_name: employee.first_name,
+            middle_name: employee.middle_name,
+            last_name: employee.last_name,
+            role_id: 1,
+            contact_no: employee.contact_no,
+            address: employee.address,
+            position: employee.position,
+            rate: employee.rate,
+            rate_unit: employee.rate_unit,
+            // sss: employee.sss,
+        })
+        return { data: response.data};
+    } catch (error) {
+        return { data: error };
+    }
+}
 
-// export const updateUser = async(user:User)=>{
+// export const updateUser = async(employee:employee)=>{
 //     try {
-//         const response = await postAPICall(URL+"users/update/"+String(user.id), {
+//         const response = await postAPICall(URL+"users/update/"+String(employee.id), {
 //             requester: 1,
-//             first_name: user.first_name,
-//             middle_name: user.middle_name,
-//             last_name: user.last_name,
+//             first_name: employee.first_name,
+//             middle_name: employee.middle_name,
+//             last_name: employee.last_name,
 //             role_id: 1,
-//             contact_no: user.contact_no,
-//             address: user.address,
-//             username: user.username,
-//             password: user.password,
+//             contact_no: employee.contact_no,
+//             address: employee.address,
+//             username: employee.username,
+//             password: employee.password,
 //         })
 //         return { data: response.data};
 //     } catch (error) {
@@ -60,3 +62,4 @@ export const deleteEmployee = async(employee_id:string) => {
         return { data: error };
     }
 }
+
