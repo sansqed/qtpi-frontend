@@ -24,3 +24,5 @@ yarn-error.log*
 
 tests/__pycache__
 .pyc
+tests/__pycache__/test_unittests.cpython-311.pyc
+tests/__pycache__/WebDriver.cpython-311.pyc
