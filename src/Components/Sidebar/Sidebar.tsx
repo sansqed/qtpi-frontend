@@ -31,7 +31,8 @@ const Sidebar: React.FC = () => {
     }
 
     const handleLogout = () => {
-        localStorage.setItem("token", "undefined")
+        localStorage.removeItem("token")
+        console.log(localStorage.getItem("token"))
         toast.success("Logged out", toasterConfig)
 
         setTimeout(()=>{

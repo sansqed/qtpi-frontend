@@ -18,7 +18,7 @@ class WebDriver():
         self.driver = webdriver.Chrome()
         
         # f = open("Data.json")
-        f = open("Data.json")
+        f = open("tests/Data.json")
         self.data = json.load(f)
         f.close()
     
