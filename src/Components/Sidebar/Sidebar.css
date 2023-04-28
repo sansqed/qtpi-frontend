@@ -43,23 +43,37 @@
 
 .sidebar-menu{
     margin-left: 2vh;
+    /* width: 100%; */
     font-size: 25px;
     flex-wrap: nowrap;
     flex-direction: column;
     text-align: left;
 }
 
-.sidebar-expenses{
-    margin-bottom: 4vh;
+.sidebar-menu > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* adjust the margin as desired */
 }
 
-.sidebar-line{
-    height: 1px;
-    width: 17vh;
-    border:none;
-    background-color: rgba(0, 0, 0, 0.3); 
+.sidebar-link{
+  color: rgba(242,242,242,0.2); 
+  transition: color 0.2s;
+  text-decoration: none;
 }
 
+.sidebar-link:focus,
+.sidebar-link:active{
+  color: rgba(242,242,242,1); 
+  outline:none;
+}
+
+.sidebar-employees-icon,
+.sidebar-expenses-icon,
+.sidebar-user-icon {
+  margin-right: 5px; /* adjust the margin as desired */
+  width: 2vw;
+}
 .sidebar-logout-container{
     margin-top: auto;
 }
@@ -76,8 +90,16 @@
     border-radius: 1vh;
 }
 
+.sidebar-expenses-icon,
+.sidebar-user-icon,
+.sidebar-employees-icon{
+  /* margin-right: 0.5vw; */
+  color: black;
+}
+
 .sidebar-employees,
 .sidebar-expenses,
 .sidebar-users{
+    flex-direction: row;
     cursor: pointer;
 }

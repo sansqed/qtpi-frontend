@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 import Button from "../Button/Button";
 import { toast } from 'react-hot-toast';
+import { NavLink } from "react-router-dom"
 import toasterConfig from '../../Helpers/ToasterConfig';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar: React.FC = () => {
     const [currentTime, setCurrentTime] = useState<string>(new Date().toLocaleTimeString(
@@ -50,16 +52,24 @@ const Sidebar: React.FC = () => {
                 </div>
                 <div className="sidebar-menu-container">
                     <div className="sidebar-menu">
-                        <div className="sidebar-employees" onClick={redirectEmp}>
-                            <p>Employees</p>
-                        </div>
+                        <NavLink to={"/employees"} className="sidebar-link" reloadDocument= {true}>
+                          <div className="sidebar-employees" onClick={redirectEmp}>
+                              <FontAwesomeIcon icon={["fas","users"]} className="sidebar-employees-icon"/>
+                              Employees
+                          </div>
+                        </NavLink>
+                        <NavLink to={"/expenses"} className="sidebar-link" reloadDocument= {true}>
                         <div className="sidebar-expenses" onClick={redirectExp}>
-                            <p>Expenses</p>
+                            <FontAwesomeIcon icon={["fas","money-check-dollar"]} className="sidebar-expenses-icon"/>
+                            Expenses
                         </div>
-                        <hr className="sidebar-line"/>
+                        </NavLink>
+                        <NavLink to={"/users"} className="sidebar-link" reloadDocument= {true}>
                         <div className="sidebar-users" onClick={redirectUsers}>
-                            <p>USERS</p>
+                            <FontAwesomeIcon icon={["fas","user"]} className="sidebar-user-icon"/>
+                            Users
                         </div>
+                        </NavLink>
                     </div>
                 </div>
                 <div className="sidebar-logout-container">
