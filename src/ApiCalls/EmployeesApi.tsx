@@ -1,6 +1,7 @@
 import { getAPICall, postAPICall, URL } from "./CommonApi"
 import Employee from "../Types/Employee"
 import { getRequester, getToken } from "../Helpers/UserFunctions"
+import { request } from "http"
 
 var token = getToken()
 var requester = getRequester()
@@ -42,24 +43,26 @@ export const createEmployee = async(employee:Employee)=>{
     }
 }
 
-// export const updateUser = async(employee:employee)=>{
-//     try {
-//         const response = await postAPICall(URL+"users/update/"+String(employee.id), {
-//             requester: 1,
-//             first_name: employee.first_name,
-//             middle_name: employee.middle_name,
-//             last_name: employee.last_name,
-//             role_id: 1,
-//             contact_no: employee.contact_no,
-//             address: employee.address,
-//             username: employee.username,
-//             password: employee.password,
-//         })
-//         return { data: response.data};
-//     } catch (error) {
-//         return { data: error };
-//     }
-// }
+export const updateEmployee = async(employee:Employee)=>{
+    try {
+        const response = await postAPICall(URL+"employees/update/"+String(employee.id), {
+            requester: requester,
+            first_name: employee.first_name,
+            middle_name: employee.middle_name,
+            last_name: employee.last_name,
+            // role_id: 1,
+            contact_no: employee.contact_no,
+            address: employee.address,
+            position: employee.position,
+            rate: employee.rate,
+            rate_unit: employee.rate_unit,
+            // sss: employee.sss,
+        })
+        return { data: response.data};
+    } catch (error) {
+        return { data: error };
+    }
+}
 
 export const deleteEmployee = async(employee_id:string) => {
     try {
