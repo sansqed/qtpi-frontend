@@ -9,8 +9,8 @@ class Test_Auth(unittest.TestCase):
         wb.driver.get("http://localhost:3000/")
 
 
-        wb.pressLogoutBtn()
-        sleep(5)
+        # wb.pressLogoutBtn()
+        # sleep(5)
         wb.enterSignInCredsValid()
         wb.pressSignInBtn()
 
@@ -22,9 +22,9 @@ class Test_Auth(unittest.TestCase):
         wb = WebDriver()
         wb.driver.get("http://localhost:3000/")
 
-        wb.pressLogoutBtn()
+        # wb.pressLogoutBtn()
         
-        sleep(5)
+        # sleep(5)
         wb.enterSignInCredsInvalid()
         wb.pressSignInBtn()
 
@@ -35,7 +35,10 @@ class Test_Auth(unittest.TestCase):
     def test_Logout(self):
         wb = WebDriver()
         wb.driver.get("http://localhost:3000/")
+        wb.enterSignInCredsValid()
+        wb.pressSignInBtn()
 
+        sleep(5)
         wb.pressLogoutBtn()
 
         sleep(0.5)
