@@ -1,10 +1,17 @@
-import { postAPICall, URL } from "./CommonApi"
+import { getAPICall, postAPICall, URL } from "./CommonApi"
 import User from "../Types/User"
+import { getRequester, getToken } from "../Helpers/UserFunctions"
+
+var token = getToken()
+var requester = getRequester()
 
 export const getUsers = async(user_id?:string)=>{
+    // URL+"users/get?requester="+requester+"&token=".concat("",token)+"&user_id="
+    if (user_id == undefined)
+        user_id = ""
+
     try {
-        const response = await postAPICall(URL+"users/get", {
-            user_id: user_id,
+        const response = await getAPICall(URL+"users/get?requester="+requester+"&token=".concat("",token)+"&user_id=" + user_id,{
         })
         return { data: response.data};
     } catch (error) {
@@ -15,7 +22,8 @@ export const getUsers = async(user_id?:string)=>{
 export const createUser = async(user:User)=>{
     try {
         const response = await postAPICall(URL+"users/create", {
-            requester: 1,
+            requester: requester,
+            token: token,
             first_name: user.first_name,
             middle_name: user.middle_name,
             last_name: user.last_name,
@@ -34,7 +42,8 @@ export const createUser = async(user:User)=>{
 export const updateUser = async(user:User)=>{
     try {
         const response = await postAPICall(URL+"users/update/"+String(user.id), {
-            requester: 1,
+            requester: requester,
+            token: token,
             first_name: user.first_name,
             middle_name: user.middle_name,
             last_name: user.last_name,
@@ -53,7 +62,8 @@ export const updateUser = async(user:User)=>{
 export const deleteUser = async(user_id:string) => {
     try {
         const response = await postAPICall(URL+"users/delete/"+String(user_id), {
-            requester: 1
+            requester: requester,
+            token: token,
         })
         return { data: response.data};
     } catch (error) {

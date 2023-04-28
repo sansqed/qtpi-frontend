@@ -16,6 +16,7 @@ const Employees: React.FC = () => {
     useEffect(()=>{
         getEmployees()
             .then((response)=>{
+                console.log(response)
                 console.log(response.data.data.employees)
                 setUsers(response.data.data.employees)
             })

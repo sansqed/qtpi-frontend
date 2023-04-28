@@ -9,3 +9,7 @@ axios.defaults.headers.common = {
 export const postAPICall = (url:string, data:object) => {
     return axios.post(url, data);
   };
+
+export const getAPICall = (url:string, data:object) => {
+  return axios.get(url, data);
+};
