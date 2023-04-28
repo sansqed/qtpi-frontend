@@ -50,7 +50,8 @@ const AddEmployees: React.FC = () => {
         navigate("/employees")
     }
 
-
+    console.log(employee.rate)
+  
     return (
         <div className="add-employees-container">
             <div className="add-employees-content-wrapper">
