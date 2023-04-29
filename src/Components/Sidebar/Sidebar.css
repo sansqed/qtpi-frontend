@@ -12,7 +12,7 @@
     top: 0;
     left: 1vh;
     bottom: 0;
-    width: 200px;
+    width: 18vw;
     padding: 16px;
 }
 
@@ -44,7 +44,7 @@
 .sidebar-menu{
     margin-left: 2vh;
     /* width: 100%; */
-    font-size: 25px;
+    font-size: 1.6em;
     flex-wrap: nowrap;
     flex-direction: column;
     text-align: left;
@@ -71,8 +71,9 @@
 .sidebar-employees-icon,
 .sidebar-expenses-icon,
 .sidebar-user-icon {
-  margin-right: 5px; /* adjust the margin as desired */
-  width: 2vw;
+  margin-right: 1vw; /* adjust the margin as desired */
+  height: 2.0vw;
+  width: 2.5vw;
 }
 .sidebar-logout-container{
     margin-top: auto;

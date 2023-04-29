@@ -20,18 +20,6 @@ const Sidebar: React.FC = () => {
 
         return () => clearInterval(intervalId)
     }, []);
-
-    function redirectEmp(){
-        window.location.href="/employees"
-    }
-
-    function redirectExp(){
-        window.location.href="/expenses"
-    }
-    function redirectUsers(){
-        window.location.href="/users"
-    }
-
     const handleLogout = () => {
         localStorage.removeItem("token")
         console.log(localStorage.getItem("token"))
@@ -46,38 +34,60 @@ const Sidebar: React.FC = () => {
     return (
         <div className="sidebar-container">
             <div className="sidebar-actual">
+                
                 <div className="sidebar-header">
                     <h1>{currentTime}</h1>
                     <p>{currentDate}</p>
                 </div>
+
                 <div className="sidebar-menu-container">
                     <nav id="sidebar" className="sidebar-menu">
+
+                        <NavLink to={"/"} className="sidebar-link" reloadDocument= {true}>
+                          <div className="sidebar-dashboard">
+                            <FontAwesomeIcon icon={["fas","gauge-high"]} className="sidebar-employees-icon"/>
+                            Dashboard 
+                          </div>
+                        </NavLink>                       
+
                         <NavLink to={"/employees"} className="sidebar-link" reloadDocument= {true}>
-                          <div className="sidebar-employees" onClick={redirectEmp}>
-                              <FontAwesomeIcon icon={["fas","users"]} className="sidebar-employees-icon"/>
-                              Employees
+                          <div className="sidebar-employees">
+                            <FontAwesomeIcon icon={["fas","users"]} className="sidebar-employees-icon"/>
+                            Employees
                           </div>
                         </NavLink>
+
+                        <NavLink to={"/payroll"} className="sidebar-link" reloadDocument= {true}>
+                          <div className="sidebar-payroll">
+                            <FontAwesomeIcon icon={["fas","calculator"]} className="sidebar-employees-icon"/>
+                            Payroll 
+                          </div>
+                        </NavLink>
+
                         <NavLink to={"/expenses"} className="sidebar-link" reloadDocument= {true}>
-                        <div className="sidebar-expenses" onClick={redirectExp}>
+                          <div className="sidebar-expenses">
                             <FontAwesomeIcon icon={["fas","money-check-dollar"]} className="sidebar-expenses-icon"/>
                             Expenses
-                        </div>
+                          </div>
                         </NavLink>
+
                         <NavLink to={"/users"} className="sidebar-link" reloadDocument= {true}>
-                        <div className="sidebar-users" onClick={redirectUsers}>
+                          <div className="sidebar-users">
                             <FontAwesomeIcon icon={["fas","user"]} className="sidebar-user-icon"/>
                             Users
-                        </div>
+                          </div>
                         </NavLink>
+                    
                     </nav>
                 </div>
+
                 <div className="sidebar-logout-container">
                     <Button 
                         type= "logout"
                         handleClick={()=>{handleLogout()}}
                     />
                 </div>
+
             </div>
         </div>
     );
