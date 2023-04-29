@@ -51,8 +51,12 @@ class Test_Auth(unittest.TestCase):
 class test_UsersModule(unittest.TestCase):
     def test_AddUser(self):
         wb = WebDriver()
-        wb.driver.get("http://localhost:3000/users/add")
         
+        wb.driver.get("http://localhost:3000/users/add")
+        wb.enterSignInCredsValid()
+        wb.pressSignInBtn()
+
+        sleep(3)
         wb.enterAddUserDetails()
         wb.pressSubmitBtn()
         
@@ -67,7 +71,10 @@ class test_UsersModule(unittest.TestCase):
         
         wb = WebDriver()
         wb.driver.get("http://localhost:3000/users/edit/userid="+data["editUserId"])
-        
+        wb.enterSignInCredsValid()
+        wb.pressSignInBtn()
+
+        sleep(3)
         wb.enterEditUserDetails()
         wb.pressSubmitBtn()
         
@@ -82,7 +89,10 @@ class test_UsersModule(unittest.TestCase):
         
         wb = WebDriver()
         wb.driver.get("http://localhost:3000/users/userid="+data["deleteUserId"])
-        
+        wb.enterSignInCredsValid()
+        wb.pressSignInBtn()
+
+        sleep(3)
         wb.pressDeleteBtn()
         
         sleep(1)
