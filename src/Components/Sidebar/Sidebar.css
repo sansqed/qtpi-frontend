@@ -63,7 +63,7 @@
 }
 
 .sidebar-link:focus,
-.sidebar-link:active{
+.sidebar-menu a.active{
   color: rgba(242,242,242,1); 
   outline:none;
 }

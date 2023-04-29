@@ -51,7 +51,7 @@ const Sidebar: React.FC = () => {
                     <p>{currentDate}</p>
                 </div>
                 <div className="sidebar-menu-container">
-                    <div className="sidebar-menu">
+                    <nav id="sidebar" className="sidebar-menu">
                         <NavLink to={"/employees"} className="sidebar-link" reloadDocument= {true}>
                           <div className="sidebar-employees" onClick={redirectEmp}>
                               <FontAwesomeIcon icon={["fas","users"]} className="sidebar-employees-icon"/>
@@ -70,7 +70,7 @@ const Sidebar: React.FC = () => {
                             Users
                         </div>
                         </NavLink>
-                    </div>
+                    </nav>
                 </div>
                 <div className="sidebar-logout-container">
                     <Button 
