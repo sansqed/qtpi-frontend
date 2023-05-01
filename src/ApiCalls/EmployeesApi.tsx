@@ -35,7 +35,7 @@ export const createEmployee = async(employee:Employee)=>{
             position: employee.position,
             rate: employee.rate,
             rate_unit: employee.rate_unit,
-            // sss: employee.sss,
+            sss: employee.sss,
         })
         return { data: response.data};
     } catch (error) {
