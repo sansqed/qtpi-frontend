@@ -17,7 +17,7 @@ class WebDriver():
         self.driver = webdriver.Chrome()
         
         # f = open("Data.json")
-        f = open("Data.json")
+        f = open("tests/Data.json")
         self.data = json.load(f)
         f.close()
     
@@ -118,7 +118,34 @@ class WebDriver():
             return toaster.text == "Logged out"
         except:
             return False
+    
+    # GET VALUES
+    
+    def getLatestEmployee(self):
+        self.driver.get("http://localhost:3000/employees")
+        self.enterSignInCredsValid()
+        self.pressSignInBtn()
+        sleep(3)
         
+        empployeeList = self.driver.find_elements(By.CLASS_NAME, 'employee-list-link')
+        returnValue = empployeeList[-1].get_attribute("href")[-2:]
+        # print(returnValue)
+        sleep(3)
+        
+        return returnValue
+    
+    def getLatestUser(self):
+        self.driver.get("http://localhost:3000/users")
+        self.enterSignInCredsValid()
+        self.pressSignInBtn()
+        sleep(3)
+        
+        empployeeList = self.driver.find_elements(By.CLASS_NAME, 'user-list-link')
+        returnValue = empployeeList[-1].get_attribute("href")[-2:]
+        # print(returnValue)
+        sleep(3)
+        
+        return returnValue
     def preventClose(self):
         while 1:
             pass

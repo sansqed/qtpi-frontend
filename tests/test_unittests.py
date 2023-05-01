@@ -49,7 +49,7 @@ class Test_Auth(unittest.TestCase):
     
 
 class test_UsersModule(unittest.TestCase):
-    def test_AddUser(self):
+    def test_1AddUser(self):
         wb = WebDriver()
         
         wb.driver.get("http://localhost:3000/users/add")
@@ -64,15 +64,17 @@ class test_UsersModule(unittest.TestCase):
         isSuccess = wb.verifyCreateUserSuccess()
         self.assertTrue(isSuccess)
         
-    def test_EditUser(self):
-        f = open("Data.json")
-        data = json.load(f)
-        f.close()
+    def test_2EditUser(self):
+        # f = open("Data.json")
+        # data = json.load(f)
+        # f.close()
         
         wb = WebDriver()
-        wb.driver.get("http://localhost:3000/users/edit/userid="+data["editUserId"])
-        wb.enterSignInCredsValid()
-        wb.pressSignInBtn()
+        
+        latestUserID = wb.getLatestUser()
+        wb.driver.get("http://localhost:3000/users/edit/userid="+latestUserID)
+        # wb.enterSignInCredsValid()
+        # wb.pressSignInBtn()
 
         sleep(3)
         wb.enterEditUserDetails()
@@ -82,15 +84,18 @@ class test_UsersModule(unittest.TestCase):
         isSuccess = wb.verifyEditSuccess()
         self.assertTrue(isSuccess)
     
-    def test_DeleteUser(self):
-        f = open("Data.json")
-        data = json.load(f)
-        f.close()
+    def test_3DeleteUser(self):
+        # f = open("Data.json")
+        # data = json.load(f)
+        # f.close()
+        
+        
         
         wb = WebDriver()
-        wb.driver.get("http://localhost:3000/users/userid="+data["deleteUserId"])
-        wb.enterSignInCredsValid()
-        wb.pressSignInBtn()
+        latestUserID = wb.getLatestUser()
+        wb.driver.get("http://localhost:3000/users/userid="+latestUserID)
+        # wb.enterSignInCredsValid()
+        # wb.pressSignInBtn()
 
         sleep(3)
         wb.pressDeleteBtn()
@@ -134,14 +139,14 @@ class test_EmployeesModule(unittest.TestCase):
     #     self.assertTrue(isSuccess)
     
     def test_DeleteEmployee(self):
-        f = open("Data.json")
-        data = json.load(f)
-        f.close()
         
         wb = WebDriver()
-        wb.driver.get("http://localhost:3000/employees/employeeid="+data["deleteEmployeeId"])
-        wb.enterSignInCredsValid()
-        wb.pressSignInBtn()
+        
+        employeeId = wb.getLatestEmployee()
+        
+        wb.driver.get("http://localhost:3000/employees/employeeid="+employeeId)
+        # wb.enterSignInCredsValid()
+        # wb.pressSignInBtn()
 
         sleep(3)
         wb.pressDeleteBtn()
