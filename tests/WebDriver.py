@@ -7,7 +7,6 @@ from selenium.webdriver.common.by import By
 
 import json
 
-
 class WebDriver():
 
     def __init__(self):
@@ -18,7 +17,7 @@ class WebDriver():
         self.driver = webdriver.Chrome()
         
         # f = open("Data.json")
-        f = open("tests/Data.json")
+        f = open("Data.json")
         self.data = json.load(f)
         f.close()
     
@@ -41,6 +40,10 @@ class WebDriver():
             
     def enterEditUserDetails(self):
         for key, value in self.data["editUserDetails"].items():
+            self.enterFormByName(key, value)
+
+    def enterAddEmployeeDetails(self):
+        for key, value in self.data["addEmployeeDetails"].items():
             self.enterFormByName(key, value)
 
     # PRESS BUTTONS
@@ -82,10 +85,24 @@ class WebDriver():
         except:
             return False
         
+    def verifyCreateEmployeeSuccess(self):
+        try:
+            toaster = self.driver.find_element(By.CLASS_NAME, "toaster-container")
+            return toaster.text == "Employee Created Successfully"
+        except:
+            return False
+
     def verifyDeleteSuccess(self):
         try:
             toaster = self.driver.find_element(By.CLASS_NAME, "toaster-container")  
             return toaster.text == "User Deleted Successfully"
+        except:
+            return False
+        
+    def verifyEmployeeDeleteSuccess(self):
+        try:
+            toaster = self.driver.find_element(By.CLASS_NAME, "toaster-container")  
+            return toaster.text == "Employee Deleted Successfully"
         except:
             return False
         
