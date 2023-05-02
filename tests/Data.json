@@ -1,7 +1,7 @@
 {
     "validSignInCreds": {
-        "username": "test",
-        "password": "test"
+        "username": "qtpi-tester",
+        "password": "ilovetestes"
     },
 
     "invalidSignInCreds": {
@@ -29,5 +29,19 @@
 
     "editUserId": "10",
 
-    "deleteUserId": "10"
+    "deleteUserId": "10",
+
+
+    "addEmployeeDetails": {
+        "first_name": "test",
+        "middle_name": "test",
+        "last_name": "test",
+        "contact_number": "12345",
+        "address": "test",
+        "position": "test",
+        "rate_unit": "test",
+        "SSS": "123"
+    }, 
+
+    "deleteEmployeeId": "18"
 }
