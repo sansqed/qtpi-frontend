@@ -12,6 +12,7 @@ import Employees from "./Employees";
 
 import "./EmployeeDetails.css"
 import Employee, { emptyEmployee } from "../../Types/Employee";
+import Calendar from "../../Components/Calendar/Calendar";
 
 import icon from "../../Assets/Icons/user-empty-temp.svg"
 
@@ -31,7 +32,7 @@ const EmployeeDetails = () => {
     useEffect(()=>{
         getEmployees(employee_id)
             .then((response) => {
-                console.log(response.data.data.employees[0])
+                console.log(response)
                 setEmployee(response.data.data.employees[0])
             })
     },[])
@@ -47,6 +48,9 @@ const EmployeeDetails = () => {
                 }
             })
     }
+
+    // ATTENDANCE
+
 
     return(
         <div className="grid">
@@ -82,7 +86,11 @@ const EmployeeDetails = () => {
                     </div>
                 </div>
             </div>
-        <div className="c ba"></div>
+        <div className="c ba">
+            <Calendar
+                employee_id={employee_id}
+            />
+        </div>
         <div className="c ca"></div>
         <div className="c da"></div>
         </div>

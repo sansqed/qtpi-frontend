@@ -1,0 +1,106 @@
+.calendar-header-container{
+    width: inherit;
+    display: inline-flex;
+        /* margin-left: auto;
+        margin-right: auto;
+        margin-top: 3vh; */
+    margin: 1rem auto 1.5rem auto;
+}
+
+.calendar-header-container h2{
+    margin: 0 0;
+    width: 13rem;
+}
+
+.calendar-body{
+    padding: 1vh 3vh;
+    /* margin: auto; */
+}
+
+.calendar-daynames-container{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    /* column-gap: ; */
+    row-gap: 0.5rem;
+    column-gap: 0rem;
+    width: 90%;
+    margin: auto;
+    /* margin-bottom: 1vh; */
+}
+
+.calendar-days-container{
+    display: grid;
+    width: 90%;
+    height: 100%;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    column-gap: 0rem;
+    row-gap: 0.5rem;
+    margin: auto;
+}
+
+.calendar-daynames{
+    font-weight: 800;
+}
+
+.calendar-day-wrapper{
+    width: fit-content;
+    margin: auto;
+    display: inline-block;
+}
+
+.calendar-day-wrapper button{
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    color: var(--secondary-color);
+    background-color: white;
+    font-weight: 500;
+    width: 2rem;
+    margin-top: 0 auto;
+}
+
+.calendar-before-month button, .calendar-after-month button{
+    border: 1px solid #C4C4C4;
+    color: #C4C4C4;
+}
+
+.calendar-day-wrapper button:disabled{
+    border: 1px solid #C4C4C4;
+    color: #C4C4C4;
+}
+
+.present button{
+    background-color: var(--secondary-color);
+    color: var(--primary-color)
+}
+
+.halfday button{
+    background-color: #5A768A;
+    color: var(--primary-color)
+}
+
+.absent button{
+    background-color: #8A8A8A;
+    color: var(--primary-color)
+}
+
+.tooltip{
+    background-color: #1f1f1f;
+    color: white;
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+    font-size: small;
+}
+
+.tooltip span::first-letter{
+    text-transform:capitalize;
+}
+
+.calendar-edit-btn-wrapper{
+    margin-top: 3%;
+}
+
+.calendar-prev-month-wrapper{
+    padding-right: 5%;
+}

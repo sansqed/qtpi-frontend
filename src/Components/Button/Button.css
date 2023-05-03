@@ -105,3 +105,18 @@ button{
 .btn-large:hover{
   box-shadow: 0 0 0 0.25rem var(--tertiary-color);
 }
+
+.btn-calendar-edit{
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-right: 1vh;
+  margin-top: 0.5vh;
+}
+
+.btn-calendar-prev-next{
+  border-radius: 10px;
+  padding: 0% 50%;
+  margin-top: 0.5vh;
+  height: 70%;
+  width: fit-content;
+}

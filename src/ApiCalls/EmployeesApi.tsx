@@ -76,3 +76,18 @@ export const deleteEmployee = async(employee_id:string) => {
     }
 }
 
+export const markAttendance = async(employee_id:string, date_of_attendance:string, status:string) => {
+    try {
+        const response = await postAPICall(URL+"attendances/mark", {
+            requester: requester,
+            token: token,
+            employee_id: employee_id,
+            date_of_attendance: date_of_attendance,
+            status: status
+        })
+        return { data: response.data};
+    } catch (error) {
+        return { data: error };
+    }
+}
+

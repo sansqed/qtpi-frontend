@@ -5,11 +5,13 @@ import userDeleteIcon from "../../Assets/Icons/user-delete.svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface ButtonProps{
-  handleClick: () => void;
+  handleClick: Function;
   className?: string,
   type: string,
   children?: React.ReactNode,
   text?: string,
+  value?: string,
+  disable?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,13 +20,15 @@ const Button: React.FC<ButtonProps> = ({
   type,
   children,
   text,
+  value,
+  disable,
   }) =>{
 
     if (type === "add-user"){
       return(
         <button 
           className="btn-user light"
-          onClick = {handleClick}
+          onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-plus"]} className="user-icon"/>
           ADD USER
@@ -36,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({
       return(
         <button 
           className="btn-user light"
-          onClick = {handleClick}
+          onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-plus"]} className="user-icon"/>
           ADD EMPLOYEE
@@ -48,7 +52,7 @@ const Button: React.FC<ButtonProps> = ({
       return(
         <button 
           className="btn-sign-in"
-          onClick = {handleClick}
+          onClick = {e => handleClick(e)}
         >
           <b>SIGN IN</b>
         </button>
@@ -59,7 +63,7 @@ const Button: React.FC<ButtonProps> = ({
         return(
         <button
           className="btn-submit btn-large"
-          onClick = {handleClick}
+          onClick = {e => handleClick(e)}
         >
           SUBMIT
         </button>
@@ -70,7 +74,7 @@ const Button: React.FC<ButtonProps> = ({
       return(
         <button 
           className="btn-user dark"
-          onClick = {handleClick}
+          onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-pen"]} className="user-icon"/>
           Edit
@@ -82,7 +86,7 @@ const Button: React.FC<ButtonProps> = ({
       return(
         <button 
           className="btn-user btn-delete light"
-          onClick = {handleClick}
+          onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>
           <text>Delete</text>
@@ -94,7 +98,7 @@ const Button: React.FC<ButtonProps> = ({
       return(
         <button 
           className="btn-logout light"
-          onClick = {handleClick}
+          onClick = {e => handleClick(e)}
         >
           Logout
         </button>
@@ -105,22 +109,45 @@ const Button: React.FC<ButtonProps> = ({
       return(
         <button 
           className="btn-back btn-large light"
-          onClick = {handleClick}
+          onClick = {e => handleClick(e)}
           name="back"
         >
           Back
         </button>
       )
     }
+    
+    if (type==="calendar-edit"){
+      return(
+        <button 
+          className={"btn-calendar-edit "+className}
+          onClick = {e => handleClick(e)}
+          name="toggle-edit"
+        >
+          {text}
+        </button>
+      )
+    }
 
+    if (type==="calendar-prev-next"){
+      return(
+        <button 
+          className={"btn-calendar-prev-next "+className}
+          onClick = {e => handleClick(e)}
+          name="toggle-edit"
+        >
+          {text}
+        </button>
+      )
+    }
 
     return (
       <button 
-        onClick = {handleClick}
+        onClick = {e => handleClick(e)}
         className = {className}
         // type={type}
       >
-      {children}
+      {text}
       </button>
     );
 };

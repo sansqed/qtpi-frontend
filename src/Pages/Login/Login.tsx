@@ -26,10 +26,10 @@ const Login = () => {
     }
 
     const signIn = async() => {
+        toast.loading("Logging in...")
         const response:any = await LoginApi(username, password)
         console.log(response)
         
-        toast.loading("Logging in...")
         if (response.data.status === 200){
             localStorage.setItem("loggedIn", "1");
             // localStorage.setItem("role", JSON.stringify(response.data.data.role));
@@ -39,9 +39,9 @@ const Login = () => {
             toast.dismiss()
             toast.success('Login Sucess!', toasterConfig);
 
-            setTimeout(()=>{
-                window.location.reload();
-            }, 2000)
+            // setTimeout(()=>{
+            //     window.location.reload();
+            // }, 2000)
         } else {
             toast.dismiss()
             toast.error('Login Failed.', toasterConfig);
