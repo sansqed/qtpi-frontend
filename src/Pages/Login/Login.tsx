@@ -39,9 +39,9 @@ const Login = () => {
             toast.dismiss()
             toast.success('Login Sucess!', toasterConfig);
 
-            // setTimeout(()=>{
-            //     window.location.reload();
-            // }, 2000)
+            setTimeout(()=>{
+                window.location.reload();
+            }, 2000)
         } else {
             toast.dismiss()
             toast.error('Login Failed.', toasterConfig);
