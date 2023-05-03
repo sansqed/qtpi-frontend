@@ -7,7 +7,6 @@ from selenium.webdriver.common.by import By
 
 import json
 
-
 class WebDriver():
 
     def __init__(self):
@@ -41,6 +40,10 @@ class WebDriver():
             
     def enterEditUserDetails(self):
         for key, value in self.data["editUserDetails"].items():
+            self.enterFormByName(key, value)
+
+    def enterAddEmployeeDetails(self):
+        for key, value in self.data["addEmployeeDetails"].items():
             self.enterFormByName(key, value)
 
     # PRESS BUTTONS
@@ -82,10 +85,24 @@ class WebDriver():
         except:
             return False
         
+    def verifyCreateEmployeeSuccess(self):
+        try:
+            toaster = self.driver.find_element(By.CLASS_NAME, "toaster-container")
+            return toaster.text == "Employee Created Successfully"
+        except:
+            return False
+
     def verifyDeleteSuccess(self):
         try:
             toaster = self.driver.find_element(By.CLASS_NAME, "toaster-container")  
             return toaster.text == "User Deleted Successfully"
+        except:
+            return False
+        
+    def verifyEmployeeDeleteSuccess(self):
+        try:
+            toaster = self.driver.find_element(By.CLASS_NAME, "toaster-container")  
+            return toaster.text == "Employee Deleted Successfully"
         except:
             return False
         
@@ -101,7 +118,34 @@ class WebDriver():
             return toaster.text == "Logged out"
         except:
             return False
+    
+    # GET VALUES
+    
+    def getLatestEmployee(self):
+        self.driver.get("http://localhost:3000/employees")
+        self.enterSignInCredsValid()
+        self.pressSignInBtn()
+        sleep(3)
         
+        empployeeList = self.driver.find_elements(By.CLASS_NAME, 'employee-list-link')
+        returnValue = empployeeList[-1].get_attribute("href")[-2:]
+        # print(returnValue)
+        sleep(3)
+        
+        return returnValue
+    
+    def getLatestUser(self):
+        self.driver.get("http://localhost:3000/users")
+        self.enterSignInCredsValid()
+        self.pressSignInBtn()
+        sleep(3)
+        
+        empployeeList = self.driver.find_elements(By.CLASS_NAME, 'user-list-link')
+        returnValue = empployeeList[-1].get_attribute("href")[-2:]
+        # print(returnValue)
+        sleep(3)
+        
+        return returnValue
     def preventClose(self):
         while 1:
             pass

@@ -49,10 +49,14 @@ class Test_Auth(unittest.TestCase):
     
 
 class test_UsersModule(unittest.TestCase):
-    def test_AddUser(self):
+    def test_1AddUser(self):
         wb = WebDriver()
-        wb.driver.get("http://localhost:3000/users/add")
         
+        wb.driver.get("http://localhost:3000/users/add")
+        wb.enterSignInCredsValid()
+        wb.pressSignInBtn()
+
+        sleep(3)
         wb.enterAddUserDetails()
         wb.pressSubmitBtn()
         
@@ -60,14 +64,19 @@ class test_UsersModule(unittest.TestCase):
         isSuccess = wb.verifyCreateUserSuccess()
         self.assertTrue(isSuccess)
         
-    def test_EditUser(self):
-        f = open("tests/Data.json")
-        data = json.load(f)
-        f.close()
+    def test_2EditUser(self):
+        # f = open("Data.json")
+        # data = json.load(f)
+        # f.close()
         
         wb = WebDriver()
-        wb.driver.get("http://localhost:3000/users/edit/userid="+data["editUserId"])
         
+        latestUserID = wb.getLatestUser()
+        wb.driver.get("http://localhost:3000/users/edit/userid="+latestUserID)
+        # wb.enterSignInCredsValid()
+        # wb.pressSignInBtn()
+
+        sleep(3)
         wb.enterEditUserDetails()
         wb.pressSubmitBtn()
         
@@ -75,19 +84,77 @@ class test_UsersModule(unittest.TestCase):
         isSuccess = wb.verifyEditSuccess()
         self.assertTrue(isSuccess)
     
-    def test_DeleteUser(self):
-        f = open("tests/Data.json")
-        data = json.load(f)
-        f.close()
+    def test_3DeleteUser(self):
+        # f = open("Data.json")
+        # data = json.load(f)
+        # f.close()
+        
+        
         
         wb = WebDriver()
-        wb.driver.get("http://localhost:3000/users/userid="+data["deleteUserId"])
-        
+        latestUserID = wb.getLatestUser()
+        wb.driver.get("http://localhost:3000/users/userid="+latestUserID)
+        # wb.enterSignInCredsValid()
+        # wb.pressSignInBtn()
+
+        sleep(3)
         wb.pressDeleteBtn()
         
         sleep(1)
         isSuccess = wb.verifyDeleteSuccess()
         self.assertTrue(isSuccess)
+
+class test_EmployeesModule(unittest.TestCase):
+    def test_AddEmployee(self):
+        wb = WebDriver()
+        
+        wb.driver.get("http://localhost:3000/employees/add")
+        wb.enterSignInCredsValid()
+        wb.pressSignInBtn()
+
+        sleep(3)
+        wb.enterAddEmployeeDetails()
+        wb.pressSubmitBtn()
+        
+        sleep(1)
+        isSuccess = wb.verifyCreateEmployeeSuccess()
+        self.assertTrue(isSuccess)
+        
+    # def test_EditEmployee(self):
+    #     f = open("Data.json")
+    #     data = json.load(f)
+    #     f.close()
+        
+    #     wb = WebDriver()
+    #     wb.driver.get("http://localhost:3000/employees/edit/employeeid="+data["editEmployeeId"])
+    #     wb.enterSignInCredsValid()
+    #     wb.pressSignInBtn()
+
+    #     sleep(3)
+    #     wb.enterEditEmployeeDetails()
+    #     wb.pressSubmitBtn()
+        
+    #     sleep(0.5)
+    #     isSuccess = wb.verifyEditSuccess()
+    #     self.assertTrue(isSuccess)
+    
+    def test_DeleteEmployee(self):
+        
+        wb = WebDriver()
+        
+        employeeId = wb.getLatestEmployee()
+        
+        wb.driver.get("http://localhost:3000/employees/employeeid="+employeeId)
+        # wb.enterSignInCredsValid()
+        # wb.pressSignInBtn()
+
+        sleep(3)
+        wb.pressDeleteBtn()
+        
+        sleep(1)
+        isSuccess = wb.verifyEmployeeDeleteSuccess()
+        self.assertTrue(isSuccess)
+
 
 if __name__ == '__main__':
     unittest.main()
