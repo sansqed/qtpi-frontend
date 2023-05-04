@@ -103,9 +103,11 @@
 
 .calendar-edit-btn-wrapper{
     margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.calendar-prev-month-wrapper{
+.calendar-prev-month-wrapper, .calendar-next-month-wrapper{
     padding-right: 5%;
 }
 

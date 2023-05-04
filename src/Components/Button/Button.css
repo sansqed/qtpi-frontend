@@ -109,7 +109,7 @@ button{
 .btn-calendar-edit{
   border-radius: 10px;
   padding: 5px 10px;
-  margin-right: 1vh;
+  /* margin-right: 1vh; */
   margin-top: 0.5vh;
 }
 
