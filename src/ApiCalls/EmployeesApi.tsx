@@ -91,3 +91,30 @@ export const markAttendance = async(employee_id:string, date_of_attendance:strin
     }
 }
 
+export const getAttendance = async(employee_id:string, date_from:string, date_to:string) => {
+    try {
+        const response = await postAPICall(URL+"attendances/get?employee_id="+employee_id+
+            "&status="+
+            "&date_from="+date_from+
+            "&date_to="+date_to
+        , {
+        })
+        return { data: response.data};
+    } catch (error) {
+        return { data: error };
+    }
+}
+
+export const changeStatus = async(attendance_id:string, status:string) => {
+    try {
+        const response = await postAPICall(URL+"attendances/change_status", {
+            request: requester,
+            token: token,
+            id: attendance_id,
+            status: status
+        })
+        return { data: response.data};
+    } catch (error) {
+        return { data: error };
+    }
+}

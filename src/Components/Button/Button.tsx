@@ -141,6 +141,19 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
+    if(type === "calendar-attendance-status"){
+      return(
+        <button 
+          className={"btn-attendance-status "+className}
+          onClick = {e => handleClick(e)}
+          name={className}
+          value={value}
+        >
+          {text}
+        </button>
+      )
+    }
+
     return (
       <button 
         onClick = {e => handleClick(e)}

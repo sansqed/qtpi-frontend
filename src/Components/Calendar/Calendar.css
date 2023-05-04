@@ -61,8 +61,7 @@
 }
 
 .calendar-before-month button, .calendar-after-month button{
-    border: 1px solid #C4C4C4;
-    color: #C4C4C4;
+    opacity: 25%;
 }
 
 .calendar-day-wrapper button:disabled{
@@ -85,12 +84,17 @@
     color: var(--primary-color)
 }
 
-.tooltip{
-    background-color: #1f1f1f;
-    color: white;
+.tooltip, .popover{
+    background-color: white;
+    color: var(--secondary-color);
     border-radius: 5px;
+    border: 1px solid gray;
     padding: 0.25rem 0.5rem;
     font-size: small;
+}
+
+.popover-arrow{
+    border: #5A768A;
 }
 
 .tooltip span::first-letter{
@@ -103,4 +107,12 @@
 
 .calendar-prev-month-wrapper{
     padding-right: 5%;
+}
+
+.popover{
+    padding: 0rem 0.5rem 1rem;
+}
+
+.today button{
+    box-shadow: 0 0 0 0.2rem #A0B4C3 !important;
 }

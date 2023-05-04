@@ -1,4 +1,5 @@
 import "./Calendar.css"
+import "../../App.css"
 
 import React, { useState, useEffect } from "react"
 import CalendarData from "../../Types/CalendarData"
@@ -6,7 +7,8 @@ import { toast } from "react-hot-toast";
 
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { markAttendance } from "../../ApiCalls/EmployeesApi";
+import Popover from 'react-bootstrap/Popover';
+import { markAttendance, getAttendance, changeStatus } from "../../ApiCalls/EmployeesApi";
 
 import {
     add,
@@ -35,11 +37,13 @@ import {
   } from "date-fns"
 
 import Button from "../Button/Button"
+import { SyntheticEventData } from "react-dom/test-utils";
 
 const Calendar = ({employee_id}:any) => {
 
     // edit mode state
     const [isEdit, setIsEdit] = useState(false)
+    const [showPopover, setShowPopover] = useState(false)
     
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
     const [data, setData] = useState<CalendarData>({
@@ -69,76 +73,132 @@ const Calendar = ({employee_id}:any) => {
         })
 
         // temp data, to be replaced when get attendance api is available
-        const temp = [
-            {
-                date: "2023-05-23",
-                status: "present"
-            },
-            {
-                date: "2023-05-25",
-                status: "halfday"
-            }
-        ]
-
-       setData((prev:any) => ({
-        ...prev,
-        days: days,
-        attendance: temp
-       })) 
-    },[currentMonth])
-    
-    const handleDateClick = (e:any) => {
-        let value = e.target.value.split(" ")
-        let clickedDate = value[0]
-
-        let tempAttendance = data.attendance
-        let attIdx = tempAttendance.findIndex((a:any)=>a.date==clickedDate)
-        let currAttendance = tempAttendance[attIdx]
-
-        // console.log(value[1])
-        if (value[1] === "calendar-before-month")
-            prevMonth()
         
-
-        if (value[1] === "calendar-after-month")
-            nextMonth()
-            if (attIdx === -1){
-                currAttendance = {
-                    date: clickedDate,
-                    status: "present"
-                }
-                tempAttendance.push(currAttendance)
-        }
-        
-        else{
-            if (currAttendance.status === "present")
-                currAttendance.status = "halfday"
-            else if (currAttendance.status === "halfday")
-                currAttendance.status = "absent"
-            else if (currAttendance.status === "absent")
-                currAttendance.status = "present"
-
-            tempAttendance[attIdx] = currAttendance
-        }
-
-        markAttendance(employee_id, clickedDate, currAttendance.status)
+        getAttendance(
+            employee_id, 
+            format(startOfWeek(firstDayCurrentMonth, { weekStartsOn: 0 }), "y-LL-dd"), 
+            format(endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 0 }), "y-LL-dd"))
         .then((response) => {
-            console.log(response, tempAttendance)
-            if (response.data.status===201){
-                setData((prev) => ({...prev, attendance:tempAttendance}))
-                toast.success(response.data.message)
-            } else {
-                toast.success(response.data.message)
-            }
+            console.log(response)
+            setData((prev:any) => ({
+                ...prev,
+                days: days,
+                attendance: response.data.data.attendance
+               })) 
         })
 
+       
+    },[currentMonth])
+    
+    // const handleDateClick = (e:any) => {
+    //     let value = e.target.value.split(" ")
+    //     let clickedDate = value[0]
+
+    //     let tempAttendance = data.attendance
+    //     let attIdx = tempAttendance.findIndex((a:any)=>a.date==clickedDate)
+    //     let currAttendance = tempAttendance[attIdx]
+
+    //     // console.log(value[1])
+    //     if (value[1] === "calendar-before-month")
+    //         prevMonth()
+        
+
+    //     if (value[1] === "calendar-after-month")
+    //         nextMonth()
+    //         if (attIdx === -1){
+    //             currAttendance = {
+    //                 date: clickedDate,
+    //                 status: "present"
+    //             }
+    //             tempAttendance.push(currAttendance)
+    //     }
+        
+    //     else{
+    //         if (currAttendance.status === "present")
+    //             currAttendance.status = "halfday"
+    //         else if (currAttendance.status === "halfday")
+    //             currAttendance.status = "absent"
+    //         else if (currAttendance.status === "absent")
+    //             currAttendance.status = "present"
+
+    //         tempAttendance[attIdx] = currAttendance
+    //     }
+
+    //     markAttendance(employee_id, clickedDate, currAttendance.status)
+    //     .then((response) => {
+    //         console.log(response, tempAttendance)
+    //         if (response.data.status===201){
+    //             setData((prev) => ({...prev, attendance:tempAttendance}))
+    //             toast.success(response.data.message)
+    //         } else {
+    //             toast.success(response.data.message)
+    //         }
+    //     })
+
+    //     // force rerender
+    //     setData((prev) => ({...prev}))
+    // }
+
+    const handleSetAttendance = (e:any) => {
+        let value = e.target.value.split(" ")
+        let date = value[0]
+        let status = value[1]
+
+        let tempAttendance = data.attendance
+        let attIdx = tempAttendance.findIndex((a:any)=>a.date==date && employee_id==a.employee_id)
+        let currAttendance = tempAttendance[attIdx]
+
+        
+
+        if (currAttendance === undefined){
+            currAttendance = {
+                id: "-1",
+                employee_id: employee_id,
+                date: date,
+                status: status
+            }
+            tempAttendance.push(currAttendance)
+
+            markAttendance(employee_id, date, status)
+            .then((response:any) =>{
+                if (response.data.status==="201"){
+                    setData((prev) => ({...prev, attendance:tempAttendance}))
+                    toast.success(response.data.message)
+                } else {
+                    toast.success(response.data.message)
+                }
+            })
+        } else {
+            changeStatus(currAttendance.id, status)
+            .then((response)=>{
+                if (response.data.status==="201"){
+                    currAttendance.status = status
+                    tempAttendance[attIdx] = currAttendance
+                    setData((prev) => ({...prev, attendance:tempAttendance}))
+                    toast.success(response.data.message)
+                } else {
+                    toast.success(response.data.message)
+                }
+
+            })
+        }
+        
         // force rerender
         setData((prev) => ({...prev}))
+        document.body.click()
+
+        if (value[2] === "calendar-before-month")
+            prevMonth()
+        
+        if (value[2] === "calendar-after-month")
+            nextMonth()
+        
     }
 
+    console.log(data)
 
     const getAttendanceStatus = (date: string) => {
-        return data.attendance.find((a)=>a.date===date)?.status || "not-set"
+        return data.attendance.find((a)=>a.date===date && employee_id==a.employee_id)?.status || "unset"
     }
 
     const isWithinMonth = (day: Date) => {
@@ -190,21 +250,47 @@ const Calendar = ({employee_id}:any) => {
                                 <OverlayTrigger
                                     key={i}
                                     placement="top"
-                                    overlay={
+                                    trigger={isEdit? "click":"hover"}
+                                    rootClose
+                                    overlay={isEdit?
+                                        <Popover id="popover-basic" show={showPopover}>
+                                            <Popover.Header as="h4">Attendance: {format(day, "y MMM d")}</Popover.Header>
+                                            <Popover.Body>
+                                                <Button
+                                                    type="calendar-attendance-status"
+                                                    handleClick={(e:any)=>{handleSetAttendance(e)}}
+                                                    text="Present"
+                                                    className="present"
+                                                    value={format(day, "y-LL-dd") + " present" +  isWithinMonth(day)}
+                                                />
+                                                <Button
+                                                    type="calendar-attendance-status"
+                                                    handleClick={(e:any)=>{handleSetAttendance(e)}}
+                                                    text="Halfday"
+                                                    className="halfday"
+                                                    value={format(day, "y-LL-dd") + " halfday" }
+                                                />
+                                                <Button
+                                                    type="calendar-attendance-status"
+                                                    handleClick={(e:any)=>{handleSetAttendance(e)}}
+                                                    text="Absent"
+                                                    className="absent"
+                                                    value={format(day, "y-LL-dd") + " absent" +  isWithinMonth(day)}
+                                                />
+                                            </Popover.Body>
+                                        </Popover>:
                                         <Tooltip id={"tooltip-"+isEdit? "top":"disabled" }>
                                             <span>
-                                                {getAttendanceStatus(format(day, "y-LL-dd")) || "Not set"}
+                                                {getAttendanceStatus(format(day, "y-LL-dd"))}
                                             </span>
                                         </Tooltip>
                                     }
                                 >
                                     <div
                                         key={i}
-                                        className={"calendar-day-wrapper " + getAttendanceStatus(format(day, "y-LL-dd")) + isWithinMonth(day)}
+                                        className={"calendar-day-wrapper " + getAttendanceStatus(format(day, "y-LL-dd")) + isWithinMonth(day) + (isToday(day)? " today":"")}
                                     >
                                         <button
-                                            // disabled={isBefore(day, today)}
-                                            onClick={e => handleDateClick(e)}
                                             value={format(day, "y-LL-dd") + isWithinMonth(day)}
                                             disabled={!isEdit}
                                             style={{ pointerEvents: (!isEdit? "none":"auto") }}

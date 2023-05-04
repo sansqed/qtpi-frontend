@@ -120,3 +120,28 @@ button{
   height: 70%;
   width: fit-content;
 }
+
+.btn-attendance-status{
+  border-radius: 10px;
+  border: 1px solid #003459;
+  margin-right: 0.5rem;
+}
+
+.btn-attendance-status:hover{
+  box-shadow: 0 0 0 0.2rem #A0B4C3 !important;
+}
+
+.btn-attendance-status.present{
+  background-color: #003459 !important;
+  color: #f2f2f2;
+}
+
+.btn-attendance-status+.halfday{
+  background-color: #5A768A;
+  color: #f2f2f2;
+}
+
+.btn-attendance-status+.absent{
+  background-color: #8A8A8A;
+  color: #f2f2f2;
+}
