@@ -1,3 +1,7 @@
+.sidebar-area-container{
+    margin-right: 1vw;
+}
+
 
 .user-details-container{
     background-color: var(--secondary-color);
@@ -15,14 +19,16 @@
 
 .user-details-content-wrapper{
     float: left;
-    margin-left: 15vw;
-    margin-top: 2vw;
-    margin-bottom: 2vw;
+    /* margin-left: 15vw; */
+
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-right: 1.2vw;
     background-color: var(--primary-color);
     border-radius: 10px;
     border-color: transparent;
-    height: 42vw;
-    width: 20vw;
+    height: 84%;
+    width: 100%;
     padding: 2vw 3vw;
     color: var(--secondary-color);
     white-space: pre-wrap;

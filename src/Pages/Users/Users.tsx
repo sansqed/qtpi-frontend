@@ -43,7 +43,7 @@ const Users: React.FC = () => {
                     <div className="user-list-body">
                         {users && users.length? users.map(({id, username, first_name, middle_name, last_name}) => 
                             <div className="user-list-content">
-                                <NavLink to={"/users/userid="+id} className="user-list-link">
+                                <NavLink to={"/users/userid="+id} className="user-list-link" reloadDocument={true}>
                                     <text className="user-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</text>
                                     <text className="user-list-username">{" (" + username + ")"}</text>
                                 </NavLink>

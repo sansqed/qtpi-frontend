@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 import toasterConfig from "../../Helpers/ToasterConfig";
 
 import "./UserDetails.css"
+import Users from "./Users";
 
 const UserDetails = () => {
     const location = useLocation()
@@ -48,7 +49,9 @@ const UserDetails = () => {
 
     return(
         <div className="user-details-container">
-            <Sidebar/>
+            <div className="sidebar-area-container">
+                <Users/>
+            </div>
             <div className="user-details-content-wrapper">
                 <p className="user-details-back"><NavLink to={"/users"} className={"user-details-back"}>&lt; Back to user list</NavLink></p>
 
