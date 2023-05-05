@@ -1,0 +1,38 @@
+
+.user-details-container{
+    background-color: var(--secondary-color);
+    color:var(--primary-color);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+}
+
+.user-details-back:link, .user-details-back:visited{
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.user-details-content-wrapper{
+    float: left;
+    margin-left: 15vw;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border-color: transparent;
+    height: 42vw;
+    width: 20vw;
+    padding: 2vw 3vw;
+    color: var(--secondary-color);
+    white-space: pre-wrap;
+    text-align: left;
+}
+
+.user-details-section{
+    margin: 1vw 0vw;
+}
+
+.user-details-content-wrapper p{
+    margin: 0;
+}
