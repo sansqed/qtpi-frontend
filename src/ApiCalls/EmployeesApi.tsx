@@ -93,7 +93,10 @@ export const markAttendance = async(employee_id:string, date_of_attendance:strin
 
 export const getAttendance = async(employee_id:string, date_from:string, date_to:string) => {
     try {
-        const response = await postAPICall(URL+"attendances/get?employee_id="+employee_id+
+        const response = await getAPICall(URL+"attendances/get?"+
+            "requester="+requester+
+            "&token="+token+
+            "&employee_id="+employee_id+
             "&status="+
             "&date_from="+date_from+
             "&date_to="+date_to

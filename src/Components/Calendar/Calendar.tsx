@@ -80,11 +80,18 @@ const Calendar = ({employee_id}:any) => {
             format(endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 0 }), "y-LL-dd"))
         .then((response) => {
             console.log(response)
-            setData((prev:any) => ({
-                ...prev,
-                days: days,
-                attendance: response.data.data.attendance
-               })) 
+            try{
+                setData((prev:any) => ({
+                    ...prev,
+                    days: days,
+                    attendance: response.data.data.attendance
+                   })) 
+            } catch {
+                
+            }
+        })
+        .catch(()=>{
+
         })
 
        
