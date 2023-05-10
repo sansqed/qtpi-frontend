@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    font-family: "Poppins", sans-serif;
+}
+
+.edit-employees-container {
+    font-family: "Poppins", sans-serif;
+    background-color: #003459;
+    color:white;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+}
+
+.edit-employees-content-wrapper {
+    display: flex;
+}
+
+.edit-employee-form-labels{
+    display:flex;
+    margin-right:vw;
+}
+
+.edit-employee-form-container {
+    /* display:flex; */
+    /* flex-direction: column;
+    justify-content: flex-start; */
+    text-align: left;
+    padding-top: 1vh;
+    padding-left: 3vh;
+    color:#003459;
+    /* display:flex; */
+    margin-left: 30vh;
+    height: 90vh;
+    width: 80vw;
+    background-color: white;
+    border: none;
+    border-radius: 1vh;
+}
+
+.edit-employee-photo-container{
+  background-color: #D9D9D9;
+  width: 14vw;
+  height: 25vh;
+  display: flex;
+  align-items: center;
+  border: none;
+  z-index: 10000000000000000;
+}
+
+.camera-icon{
+  width: 5vw; 
+  height: 10vh;
+  margin-left: 4.5vw;
+}
+
+.edit-employee-header h1{
+    font-size: 2em;
+    margin-bottom:0;
+}
+
+.testing-flex Col{
+    display:flex;
+    flex-direction: row;
+}
+
+.edit-employee-input-box, .edit-employee-address-box{
+    width: 18vw;
+    height: 5vh;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    background-color: #E1E1E1;
+    font-size: 1.0em;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.5px;
+    padding-left: 1vw;
+    margin-right: 1vw;
+}
+
+.edit-employee-address-box{
+  width: 38vw;
+}
+
+.edit-employee-name-container{
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.edit-employee-input-label{
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: 700;
+    display:flex;
+    flex-direction: row;
+    color: #0A1929
+}
+
+.edit-employee-second-row-label{
+    display:flex;
+    flex-direction: row;
+    font-size: 0.8em;
+    color: #0A1929;
+}
+
+.edit-employee-second-row-label h1{
+    font-size: 1.5em;
+}
+
+.edit-employee-second-row-label-contact{
+    margin-right: 13vw;
+}
+
+.edit-employee-third-row-label{
+    display:flex;
+    flex-direction: row;
+    font-size: 0.6em;
+    color: #0A1929;
+}
+
+.edit-employee-third-row-label-position{
+    margin-right: 15.3vw;
+}
+
+.edit-employee-third-row-label-rate{
+    margin-right: 17.5vw;
+}
+
+.edit-employee-rate-menu{
+    width: 19vw;
+    height: 5vh;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    background-color: #E1E1E1;
+    font-size: 1.0em;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.5px;
+    padding-left: 2vh;
+    padding-right: 5vh;
+    margin-right: 1vw;
+}
+
+.edit-employee-fourth-row-label{
+    display:flex;
+    flex-direction: row;
+    font-size: 0.6em;
+    color: #0A1929;
+}
+
+.edit-employee-submit-container{
+    float: right;
+    margin-right: 21vw;
+    margin-top:8vh;
+}
+
