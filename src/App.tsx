@@ -9,6 +9,7 @@ import Employees from './Pages/Employees/Employees'
 import Payroll from './Pages/Payroll/Payroll'
 import Expenses from './Pages/Expenses/Expenses'
 import AddEmployees from './Pages/Employees/AddEmployee'
+import EditEmployee from './Pages/Employees/EditEmployee'
 import Users from './Pages/Users/Users';
 import AddUsers from './Pages/Users/AddUser';
 import UserDetails from './Pages/Users/UserDetails';
@@ -50,6 +51,10 @@ function App() {
           <Route
               path="/employees/add"
               element={isLoggedIn()? <AddEmployees/>:<Login/>}
+          />
+          <Route
+              path="/employees/edit/:employeeid"
+              element={isLoggedIn()? <EditEmployee/>:<Login/>}
           />
           <Route
             path="/users"

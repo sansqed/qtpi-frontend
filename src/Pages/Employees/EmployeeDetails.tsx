@@ -76,7 +76,7 @@ const EmployeeDetails = () => {
                     <div className="employee-details-icons">
                         <Button
                             type="user-edit"
-                            handleClick={()=>{navigate("/employees/edit/userid="+employee_id)}}
+                            handleClick={()=>{navigate("/employees/edit/employeeid="+employee_id)}}
                         />
 
                         <Button
