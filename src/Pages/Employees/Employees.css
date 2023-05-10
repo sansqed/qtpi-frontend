@@ -24,7 +24,7 @@ background: #555;
 
 a:visited { 
     text-decoration: none; 
-    color: var(--secondary-color); 
+    /* color: var(--secondary-color);  */
    }
 
 .employees-container {
