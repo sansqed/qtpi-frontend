@@ -11,7 +11,7 @@ import { getEmployees } from "../../ApiCalls/EmployeesApi";
 
 const Employees: React.FC = () => {
     const [employees, setUsers] = useState<[Employee]>()
-
+    
     // FETCH USERS DATA
     useEffect(()=>{
         getEmployees()
@@ -25,6 +25,7 @@ const Employees: React.FC = () => {
 
 
     return (
+        
         <div className="employees-container">
             <div className="employees-content-wrapper">
                 <Sidebar/>
@@ -41,10 +42,14 @@ const Employees: React.FC = () => {
 
                     <div className="employee-list-body">
                         {employees && employees.length? employees.map(({id, first_name, middle_name, last_name}) => 
+                            
                             <div className="employee-list-content">
+                                
                                 <NavLink to={"/employees/employeeid="+id} className="employee-list-link" reloadDocument= {true}>
+                                    <div>
                                     <text className="employee-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</text>
                                     {/* <text className="employee-list-username">{" (" + username + ")"}</text> */}
+                                    </div>
                                 </NavLink>
                             </div>
                         ):<></>}
