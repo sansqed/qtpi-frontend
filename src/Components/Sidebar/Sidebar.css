@@ -57,10 +57,11 @@
 }
 
 .sidebar-link{
-  color: rgba(242,242,242,0.2); 
+  color: rgba(242,242,242,0.3); 
   transition: color 0.2s;
   text-decoration: none;
 }
+
 
 .sidebar-link:focus,
 .sidebar-menu a.active{
@@ -95,7 +96,7 @@
 .sidebar-user-icon,
 .sidebar-employees-icon{
   /* margin-right: 0.5vw; */
-  color: black;
+  color: white;
 }
 
 .sidebar-employees,
