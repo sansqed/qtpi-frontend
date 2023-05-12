@@ -78,73 +78,24 @@ const Calendar = ({employee_id}:any) => {
             employee_id, 
             format(startOfWeek(firstDayCurrentMonth, { weekStartsOn: 0 }), "y-LL-dd"), 
             format(endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 0 }), "y-LL-dd"))
-        .then((response) => {
+        .then((response:any) => {
             console.log(response)
-            try{
+
+            if (response?.data?.status==="200"){
                 setData((prev:any) => ({
                     ...prev,
                     days: days,
                     attendance: response.data.data.attendance
-                   })) 
-            } catch {
-                
+                }))                 
+            } else {
+                setData((prev:any) => ({
+                    ...prev,
+                    days: days,
+                }))  
             }
         })
-        .catch(()=>{
-
-        })
-
        
     },[currentMonth])
-    
-    // const handleDateClick = (e:any) => {
-    //     let value = e.target.value.split(" ")
-    //     let clickedDate = value[0]
-
-    //     let tempAttendance = data.attendance
-    //     let attIdx = tempAttendance.findIndex((a:any)=>a.date==clickedDate)
-    //     let currAttendance = tempAttendance[attIdx]
-
-    //     // console.log(value[1])
-    //     if (value[1] === "calendar-before-month")
-    //         prevMonth()
-        
-
-    //     if (value[1] === "calendar-after-month")
-    //         nextMonth()
-    //         if (attIdx === -1){
-    //             currAttendance = {
-    //                 date: clickedDate,
-    //                 status: "present"
-    //             }
-    //             tempAttendance.push(currAttendance)
-    //     }
-        
-    //     else{
-    //         if (currAttendance.status === "present")
-    //             currAttendance.status = "halfday"
-    //         else if (currAttendance.status === "halfday")
-    //             currAttendance.status = "absent"
-    //         else if (currAttendance.status === "absent")
-    //             currAttendance.status = "present"
-
-    //         tempAttendance[attIdx] = currAttendance
-    //     }
-
-    //     markAttendance(employee_id, clickedDate, currAttendance.status)
-    //     .then((response) => {
-    //         console.log(response, tempAttendance)
-    //         if (response.data.status===201){
-    //             setData((prev) => ({...prev, attendance:tempAttendance}))
-    //             toast.success(response.data.message)
-    //         } else {
-    //             toast.success(response.data.message)
-    //         }
-    //     })
-
-    //     // force rerender
-    //     setData((prev) => ({...prev}))
-    // }
 
     const handleSetAttendance = (e:any) => {
         let value = e.target.value.split(" ")
@@ -218,6 +169,32 @@ const Calendar = ({employee_id}:any) => {
 
     return(
         <div className="calendar-container">
+            <div className="calendar-title-container">
+                <div className="calendar-title-wrapper">
+                    <h2>
+                        ATTENDANCE
+                    </h2>
+                </div>
+                <div className="calendar-edit-btn-wrapper">
+                    {
+                        !isEdit? 
+                            <Button 
+                                type="calendar-edit"
+                                handleClick={()=>setIsEdit(true)}
+                                className="light"
+                                text="Mark attendance"
+                            />
+                            : 
+                            <Button 
+                                type="calendar-edit"
+                                handleClick={()=>setIsEdit(false)}
+                                className="dark"
+                                text="Done marking"
+                            />
+                    }
+                </div>
+            </div>
+            
             <div className="calendar-header-container">
                 <div className="calendar-prev-month-wrapper">
                     <Button
@@ -226,9 +203,9 @@ const Calendar = ({employee_id}:any) => {
                         text="&lt;"
                     />
                 </div>
-                <h2 className="calendar-curr-month-wrapper">
+                <h3 className="calendar-curr-month-wrapper">
                     {format(firstDayCurrentMonth, " MMMM yyyy")}
-                </h2>
+                </h3>
                 <div className="calendar-next-month-wrapper">
                 <Button
                         type="calendar-prev-next"
@@ -310,24 +287,7 @@ const Calendar = ({employee_id}:any) => {
                     })}
                 </div>
             </div>
-            <div className="calendar-edit-btn-wrapper">
-                {
-                    !isEdit? 
-                        <Button 
-                            type="calendar-edit"
-                            handleClick={()=>setIsEdit(true)}
-                            className="light"
-                            text="Enable edit attendance"
-                        />
-                        : 
-                        <Button 
-                            type="calendar-edit"
-                            handleClick={()=>setIsEdit(false)}
-                            className="dark"
-                            text="Disable edit attendance"
-                        />
-                }
-            </div>
+            
             
         </div>
     )

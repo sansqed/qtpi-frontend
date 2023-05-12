@@ -72,13 +72,16 @@
     border-radius: 1vh;
 }
 
+.employee-details-calendar-container{
+    display: block;
+}
 
 
 
 
 
-.ba{
-    margin-top: 3vh;
+.employee-details-calendar-container{
+    margin-top: 4vh;
     grid-column-start: 3;
 }
 

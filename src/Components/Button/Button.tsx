@@ -154,6 +154,19 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
+    if(type==="add-advance"){
+      return(
+        <button
+          className="btn-add-advance"
+          onClick={e => handleClick(e)}
+          name="add-advance"
+        >
+           <FontAwesomeIcon icon={["fas","plus"]} className="add-icon"/>
+          Add
+        </button>
+      )
+    }
+
     return (
       <button 
         onClick = {e => handleClick(e)}

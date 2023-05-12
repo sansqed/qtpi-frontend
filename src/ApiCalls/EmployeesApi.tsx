@@ -16,7 +16,7 @@ export const getEmployees = async(employee_id?:string)=>{
         const response = await getAPICall(URL+"employees/get?requester="+requester+"&token="+token+"&employee_id="+employee_id, {
         } )
         return { data: response.data};
-    } catch (error) {
+    } catch (error:any) {
         return { data: error };
     }
 }
@@ -38,7 +38,7 @@ export const createEmployee = async(employee:Employee)=>{
             sss: employee.sss,
         })
         return { data: response.data};
-    } catch (error) {
+    } catch (error:any) {
         return { data: error };
     }
 }
@@ -59,7 +59,7 @@ export const updateEmployee = async(employee:Employee)=>{
             // sss: employee.sss,
         })
         return { data: response.data};
-    } catch (error) {
+    } catch (error:any) {
         return { data: error };
     }
 }
@@ -71,7 +71,7 @@ export const deleteEmployee = async(employee_id:string) => {
             token: token,
         })
         return { data: response.data};
-    } catch (error) {
+    } catch (error:any) {
         return { data: error };
     }
 }
@@ -86,7 +86,7 @@ export const markAttendance = async(employee_id:string, date_of_attendance:strin
             status: status
         })
         return { data: response.data};
-    } catch (error) {
+    } catch (error:any) {
         return { data: error };
     }
 }
@@ -103,7 +103,7 @@ export const getAttendance = async(employee_id:string, date_from:string, date_to
         , {
         })
         return { data: response.data};
-    } catch (error) {
+    } catch (error:any) {
         return { data: error };
     }
 }
@@ -117,7 +117,7 @@ export const changeStatus = async(attendance_id:string, status:string) => {
             status: status
         })
         return { data: response.data};
-    } catch (error) {
+    } catch (error:any) {
         return { data: error };
     }
 }

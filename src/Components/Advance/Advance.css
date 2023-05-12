@@ -1,0 +1,45 @@
+
+.advance-container{
+    padding: 5%;
+    display: inline-block;
+    width: 90%;
+}
+
+.advance-header-container{
+    width: 100%;
+    display: inline-block;
+}
+
+.advance-title{
+    float: left;
+    margin: 0;
+}
+
+.advance-add-btn-wrapper{
+    float: right;
+}
+
+.advance-date-range-container{
+    display: flex;
+    float: left;
+    margin-top: 0;
+}
+
+.advance-range-label{
+    line-height: 1;
+    padding-top: 0.3rem;
+    padding-right: 0px;
+    font-size: 14px;
+    opacity: 0.8;
+    /* font-size: small; */
+    /* margin-right: 0.8rem; */
+}
+
+.ant-picker-range-separator{
+    opacity: 0.8;
+}
+
+.advance-table-container{
+    margin-top: 7%;
+    height: 50%;
+}

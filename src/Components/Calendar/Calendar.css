@@ -1,19 +1,46 @@
-.calendar-header-container{
-    width: inherit;
-    display: inline-flex;
-        /* margin-left: auto;
-        margin-right: auto;
-        margin-top: 3vh; */
-    margin: 1rem auto 1.5rem auto;
+.calendar-container{
+    padding: 5%;
 }
 
-.calendar-header-container h2{
-    margin: 0 0;
+.calendar-header-container{
+    /* width: inherit; */
+    /* display: ; */
+    margin: 0.5rem auto 0rem auto;
+}
+
+.calendar-title-container{
+    width: 100%;
+    display: inline-block;
+
+}
+
+.calendar-title-wrapper h2{
+    margin: 0 auto 0 auto;
+    padding: 0;
+    float: left;
+}
+.calendar-edit-btn-wrapper{
+    /* margin-top: 1%; */
+    margin-left: 1rem;
+    /* padding-top: 0.8rem; */
+    padding-left: 1rem;
+    /* margin-right: 50%; */
+    float: right;
+    
+}
+
+.calendar-header-container{
+    display: inline-flex;
+}
+
+.calendar-header-container h3{
+    margin: 1% 0;
     width: 13rem;
+    color: black;
 }
 
 .calendar-body{
-    padding: 1vh 3vh;
+    padding: 0.5vh 5vh;
     /* margin: auto; */
 }
 
@@ -41,7 +68,9 @@
 }
 
 .calendar-daynames{
-    font-weight: 800;
+    font-weight: 400;
+    font-size: smaller;
+    color: black;
 }
 
 .calendar-day-wrapper{
@@ -101,11 +130,7 @@
     text-transform:capitalize;
 }
 
-.calendar-edit-btn-wrapper{
-    margin-top: 3%;
-    margin-left: auto;
-    margin-right: auto;
-}
+
 
 .calendar-prev-month-wrapper, .calendar-next-month-wrapper{
     padding-right: 5%;

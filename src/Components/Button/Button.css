@@ -27,7 +27,7 @@ button{
   background-color: var(--secondary-color);
   color: var(--primary-color);
   padding: 1em 1.5em;
-  border-radius: 10px;
+  border-radius: 16px;
   margin: 1vw;
   border-color: transparent;
 }
@@ -35,7 +35,7 @@ button{
 .btn-submit{
   background-color: var(--secondary-color);
   color: var(--primary-color);;
-  border-radius: 10px;
+  border-radius: 16px;
   border-color: transparent;
   font-size: 20px;
   height: 4vh;
@@ -47,7 +47,7 @@ button{
 }
 
 .btn-user{
-  border-radius: 10px;
+  border-radius: 16px;
   padding: 5px 10px;
   margin-right: 1vh;
   margin-top: 0.5vh;
@@ -73,7 +73,7 @@ button{
   color: var(--secondary-color);
 }
 
-.user-icon{
+.user-icon, .add-icon{
   margin-right: 5px;
 }
 
@@ -96,7 +96,7 @@ button{
   height: 4vh;
   width: 17.5vh;
   border-radius: 1vh;
-  border-radius: 10px;
+  border-radius: 16px;
   font-size: 20px;
   font-weight: 600;
   margin-left: 1vw;
@@ -107,22 +107,25 @@ button{
 }
 
 .btn-calendar-edit{
-  border-radius: 10px;
-  padding: 5px 10px;
+  border-radius: 16px;
+  padding: 0.2rem 10px;
   /* margin-right: 1vh; */
-  margin-top: 0.5vh;
+  /* margin-top: 0.5vh; */
 }
 
 .btn-calendar-prev-next{
+  border: none;
   border-radius: 5px;
-  padding: 0% 50%;
-  margin-top: 0.5vh;
-  height: 70%;
+  padding: 0 50%;
+  margin-top: 0;
+  height: 10 0%;
   width: fit-content;
+  background-color: transparent;
+  font-size: 1.5rem;
 }
 
 .btn-attendance-status{
-  border-radius: 10px;
+  border-radius: 16px;
   border: 1px solid #003459;
   margin-right: 0.5rem;
 }
@@ -144,4 +147,13 @@ button{
 .btn-attendance-status+.absent{
   background-color: #8A8A8A;
   color: #f2f2f2;
+}
+
+.btn-add-advance{
+  border-radius: 16px;
+  border: none;
+  padding: 0.25rem 0.7rem 0.1rem 0.5rem;
+  font-size: 0.8rem;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
