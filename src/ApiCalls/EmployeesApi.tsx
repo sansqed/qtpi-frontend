@@ -111,7 +111,7 @@ export const getAttendance = async(employee_id:string, date_from:string, date_to
 export const changeStatus = async(attendance_id:string, status:string) => {
     try {
         const response = await postAPICall(URL+"attendances/change_status", {
-            request: requester,
+            requester: requester,
             token: token,
             id: attendance_id,
             status: status
