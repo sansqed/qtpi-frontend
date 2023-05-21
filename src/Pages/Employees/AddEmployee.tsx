@@ -61,9 +61,9 @@ const AddEmployees: React.FC = () => {
                         <div className="add-employee-header">
                             <h1>ADD EMPLOYEE</h1>
                         </div>
-                        <div className="add-employee-photo-container">
+                        {/* <div className="add-employee-photo-container">
                           <FontAwesomeIcon icon={["fas","camera"]} className="camera-icon"/>
-                        </div>
+                        </div> */}
                         <Row className="add-employee-name-container">
 
                             <Form.Group>

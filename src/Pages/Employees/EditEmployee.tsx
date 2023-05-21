@@ -65,9 +65,9 @@ const EditEmployee: React.FC = () => {
                         <div className="edit-employee-header">
                             <h1>EDIT EMPLOYEE</h1>
                         </div>
-                        <div className="edit-employee-photo-container">
+                        {/* <div className="edit-employee-photo-container">
                           <FontAwesomeIcon icon={["fas","camera"]} className="camera-icon"/>
-                        </div>
+                        </div> */}
                         <Row className="edit-employee-name-container">
 
                             <Form.Group>
