@@ -31,15 +31,35 @@
     padding-right: 0px;
     font-size: 14px;
     opacity: 0.8;
+    color: black;
     /* font-size: small; */
     /* margin-right: 0.8rem; */
 }
 
 .ant-picker-range-separator{
     opacity: 0.8;
+    color: black;
+}
+
+.advance-date-range-container .ant-picker-input input{
+    color: var(--secondary-color);
+    font-weight: 600;
 }
 
 .advance-table-container{
     margin-top: 7%;
     height: 50%;
+}
+
+.ant-pagination-item-active, .ant-pagination-item-active a{
+    border-color: var(--secondary-color) !important;
+    color: var(--secondary-color) !important;
+}
+
+.advance-operation{
+    margin-right: 0.5rem;
+}
+
+.advance-delete{
+    color: red;
 }

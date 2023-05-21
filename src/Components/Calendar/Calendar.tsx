@@ -234,7 +234,7 @@ const Calendar = ({employee_id}:any) => {
                                 <OverlayTrigger
                                     key={i}
                                     placement="top"
-                                    trigger={isEdit? "click":"hover"}
+                                    trigger={isEdit? "click":["hover", "focus"]}
                                     rootClose
                                     overlay={isEdit?
                                         <Popover id="popover-basic" show={showPopover}>

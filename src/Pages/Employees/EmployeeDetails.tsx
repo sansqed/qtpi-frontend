@@ -14,6 +14,7 @@ import "./EmployeeDetails.css"
 import Employee, { emptyEmployee } from "../../Types/Employee";
 import Calendar from "../../Components/Calendar/Calendar";
 import Advance from "../../Components/Advance/Advance";
+import Salary from "../../Components/Salary/Salary";
 
 import icon from "../../Assets/Icons/user-empty-temp.svg"
 
@@ -92,10 +93,13 @@ const EmployeeDetails = () => {
                 employee_id={employee_id}
             />
         </div>
-        <div className="c ca">
+        <div className="c employee-details-advance-container">
             <Advance/>
         </div>
-        <div className="c da"></div>
+        <div className="c employee-details-salary-container">
+            <Salary/>
+        </div>
+            
         </div>
     )
 }

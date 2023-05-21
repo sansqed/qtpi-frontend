@@ -1,0 +1,65 @@
+.salary-container{
+    padding: 5%;
+    display: inline-block;
+    width: 90%;
+}
+
+.salary-header-container{
+    width: 100%;
+    display: inline-block;
+}
+
+.salary-title{
+    float: left;
+    margin: 0;
+}
+
+.salary-date-range-container{
+    display: flex;
+    float: left;
+    margin-top: 0;
+}
+
+.salary-range-label{
+    line-height: 1;
+    padding-top: 0.3rem;
+    padding-right: 0px;
+    font-size: 14px;
+    opacity: 0.8;
+    color: black;
+    /* font-size: small; */
+    /* margin-right: 0.8rem; */
+}
+
+.ant-picker-range-separator{
+    opacity: 0.8;
+    color: black;
+}
+
+.salary-date-range-container .ant-picker-input input{
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.salary-body{
+    width: 85%;
+    margin: 7% auto;
+}
+
+.salary-body .ant-table-tbody > tr > td, .salary-body .ant-table-summary > tr > td {
+    line-height: 0.9rem;
+    padding: 4px;
+    /* border-color: transparent; */
+}
+
+.salary-body .ant-table-summary{
+    margin-top: 2rem;
+}
+
+.salary-body .ant-table-thead > tr > th{
+    background: transparent !important;
+}
+
+.salary-body .ant-table-thead > tr > th ::before{
+    display: none;
+}

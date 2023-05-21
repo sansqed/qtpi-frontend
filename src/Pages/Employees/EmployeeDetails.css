@@ -85,12 +85,12 @@
     grid-column-start: 3;
 }
 
-.ca{
+.employee-details-advance-container{
     grid-column-start: 2;
     grid-row-start: 2;
 }
 
-.da{
+.employee-details-salary-container{
     grid-column-start: 3;
     grid-row-start: 2;
 }
