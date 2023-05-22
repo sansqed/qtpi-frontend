@@ -1,0 +1,55 @@
+.payroll-container {
+    background-color: #003459;
+    color:white;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+}
+
+.payroll-content-wrapper {
+    display: flex;
+}
+
+.payroll-inner-container {
+    /* display:flex; */
+    /* flex-direction: column;
+    justify-content: flex-start; */
+    text-align: left;
+    padding-top: 1vh;
+    padding-left: 3vh;
+    color:#003459;
+    /* display:flex; */
+    margin-left: 30vh;
+    height: 90vh;
+    width: 83vw;
+    background-color: white;
+    border: none;
+    border-radius: 1vh;
+}
+
+.payroll-header h1{
+    font-size: 2em;
+    margin-bottom:0;
+}
+
+/* .payroll-date-range:p{ */
+/*   padding-top: 0.5vh; */
+/* } */
+
+.payroll-date-range{
+  display:flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+}
+
+.payroll-init-date-container {
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+}
+
+.payroll-end-date-container {
+  margin-left: 0.5vw;
+  margin-right: 1.0vw;
+}

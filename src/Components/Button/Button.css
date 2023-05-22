@@ -158,3 +158,13 @@ button{
   background-color: var(--secondary-color);
   color: var(--primary-color);
 }
+
+.btn-date-range{
+  border-radius: 05px;
+  border: none;
+  font-size: 0.90rem;
+  padding: 0.10rem 0.5rem 0.1rem 0.5rem;
+  color: var(--secondary-color);
+  width: fit-content;
+  height: 3.3vh;
+}

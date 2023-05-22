@@ -167,6 +167,17 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
+    if (type === "date-range"){
+      return(
+        <button 
+          className="btn-date-range"
+          onClick = {e => handleClick(e)}
+        >
+          Select start 
+        </button>
+      )
+    }
+
     return (
       <button 
         onClick = {e => handleClick(e)}
