@@ -30,12 +30,12 @@
 
 .payroll-header h1{
     font-size: 2em;
-    margin-bottom:0;
+    margin-bottom: 0;
 }
 
-/* .payroll-date-range:p{ */
-/*   padding-top: 0.5vh; */
-/* } */
+.payroll-date-range p{
+  font-weight: 600;
+}
 
 .payroll-date-range{
   display:flex;
@@ -52,4 +52,46 @@
 .payroll-end-date-container {
   margin-left: 0.5vw;
   margin-right: 1.0vw;
+}
+
+.payroll-menu-labels{
+    display:flex;
+    flex-direction: row;
+    font-size: 0.6em;
+    color: #0A1929;
+}
+
+.payroll-menu-label-employees{
+    margin-right: 21.3vw;
+}
+
+.payroll-menu-label-position{
+    margin-right: 22.2vw;
+}
+
+.payroll-dropdown-menu{
+    width: 25vw;
+    height: 5vh;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    background-color: #E1E1E1;
+    font-size: 1.0em;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.5px;
+    padding-left: 2vh;
+    padding-right: 5vh;
+    margin-right: 2vw;
+}
+
+.payroll-separator-bar {
+  margin-top: 1vh;
+  background-color: var(--tertiary-color) ;
+  height: 1vh;
+  width: 79vw;
+  border-radius: 5px;
+}
+
+.payroll-details-table {
+  width: 79vw;
 }

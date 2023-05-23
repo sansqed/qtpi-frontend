@@ -1,16 +1,19 @@
 // local imports
 import Button from "../../Components/Button/Button";
 import Sidebar from "../../Components/Sidebar/Sidebar";
+import PayrollTable from "./PayrollTable";
 
 // external imports
 import { Form } from "react-bootstrap"
 import Row from "react-bootstrap/Row"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Table } from 'antd';
+import { useMemo } from 'react'
 
 
 import "./Payroll.css" 
 
-const Payroll: React.FC = () => {
+const Payroll: React.FC = () => {    
 
     return(
 
@@ -54,13 +57,50 @@ const Payroll: React.FC = () => {
 
                     <Form.Group>
 
+                      <div className="payroll-menu-labels">
+                         <h1 className="payroll-menu-label-employees">EMPLOYEES</h1>
+                         <h1 className="payroll-menu-label-position">POSITION</h1>
+                         <h1 className="payroll-menu-label-sss">SSS</h1>
+                      </div>
+
+                      <Form.Select
+                        className="payroll-dropdown-menu"
+                        id="employee"
+                        name="employee"
+                        // onChange{(e) => handleChange(e)}
+                      >
+                        <option value={"EMPTY"}></option>
+                        <option value={"TEMP"}>TEMP</option>
+                      </Form.Select>
+
+                      <Form.Select
+                        className="payroll-dropdown-menu"
+                        id="position"
+                        name="position"
+                        // onChange{(e) => handleChange(e)}
+                      >
+                        <option value={"EMPTY"}></option>
+                        <option value={"TEMP"}>TEMP</option>
+                      </Form.Select>
+
+                      <Form.Select
+                        className="payroll-dropdown-menu"
+                        id="sss"
+                        name="sss"
+                        // onChange{(e) => handleChange(e)}
+                      >
+                        <option value={"EMPTY"}></option>
+                        <option value={"TEMP"}>TEMP</option>
+                      </Form.Select>
+
                     </Form.Group>
-
-
                   </Row>
-
                 </Form>
 
+              </div>
+
+              <div className="payroll-details-table">              
+                <PayrollTable/>
               </div>
 
             </div>
