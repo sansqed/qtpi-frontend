@@ -1,5 +1,7 @@
 import Sidebar from "../../Components/Sidebar/Sidebar";
 
+import './Dashboard.css'
+
 
 const Dashboard = () => {
     return(
