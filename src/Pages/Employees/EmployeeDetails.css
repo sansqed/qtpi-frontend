@@ -1,5 +1,17 @@
+.employee-list-link.active div{
+    padding-left: 10px;
+    border-radius: 25px;
+    height: 25px;
+    width: 90%;
+    background-color: var(--secondary-color);
+}
+
+.employee-list-link.active div text{
+    color: var(--primary-color);
+}
 
 .grid{
+    overflow-x: hidden;
     background-color: var(--secondary-color);
     color:var(--primary-color);
     height: 100vh;
@@ -12,6 +24,8 @@
 }
 
 .employee-details-back{
+    margin-top: 1vh;
+    margin-bottom: 0;
     padding-left: 1vw;
     text-align: left;
 }
@@ -25,7 +39,7 @@
 }
 
 .employee-details-section{
-    margin-top: 5vh;
+    margin-top: 3vh;
     align-items: start;
     justify-content: center;
     height: 100%;
@@ -109,14 +123,3 @@
     margin: 0
 }
 
-.employee-list-link.active div{
-    padding-left: 10px;
-    border-radius: 25px;
-    height: 25px;
-    width: 90%;
-    background-color: var(--secondary-color);
-}
-
-.employee-list-link.active div text{
-    color: var(--primary-color);
-}

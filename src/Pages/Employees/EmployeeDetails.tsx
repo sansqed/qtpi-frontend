@@ -62,7 +62,7 @@ const EmployeeDetails = () => {
             </div>
 
             <div className="employee-details-content-wrapper">
-                {/* <p className="employee-details-back"><NavLink to={"/employees"} className={"user-details-back"}>&lt; Employees </NavLink></p> */}
+                <div className="employee-details-back"><NavLink to={"/employees"} className={"user-details-back"}>&lt; Employees </NavLink></div>
                 
                 <div className="employee-details-section">
                     <div className="employee-details-image">
