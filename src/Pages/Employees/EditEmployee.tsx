@@ -53,7 +53,7 @@ const EditEmployee: React.FC = () => {
     }
 
     const handleBack = () => {
-        navigate("/employees")
+        navigate("/employees/employeeid="+employee_id)
     }
 
     return (

@@ -18,9 +18,28 @@
     width: 100vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 45vh);
-    column-gap: 1vw;
-    row-gap: 4vh;
+    column-gap: .5vw;
+}
+
+.employee-details-boxes-container{
+    /* background-color: white; */
+    display: grid;
+    grid-column-start: 2;
+    grid-column: span 2;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 50vh 50vh;
+    column-gap: .5vw;
+    row-gap: 1vh;
+}
+
+.employee-details-content-container{
+    margin-top: 4vh;
+    background-color: white;
+    color: var(--secondary-color);  
+    border-radius: 1vh;
+    grid-column-start: 1;
+
 }
 
 .employee-details-back{
@@ -30,31 +49,71 @@
     text-align: left;
 }
 
-.employee-details-content-wrapper{
-    margin-top: 4vh;
-    background-color: white;
-    color: var(--secondary-color);  
-    border-radius: 1vh;
-    grid-column-start: 2;
-}
-
-.employee-details-section{
+/* .employee-details-section{
     margin-top: 3vh;
     align-items: start;
     justify-content: center;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: 2fr 1fr;
+} */
+
+.employee-details-header{
+    margin-top: 1vh;
+    margin-left: 1.5vw;
+    display: grid;
+    align-content: start;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: repeat(2, 30%);
+
+}
+
+.employee-details-image{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row: span 2;
+
 }
 
 .employee-details-image img{
-    margin-left: 3vw;
-    width: 70%;
+    margin: 0;
+    /* margin-left: 1vw; */
+    height: 100%;
+    width: 100%;
+}
+
+.employee-details-header .employee-first-name{
+    align-self: flex-end;
+    justify-self: flex-start;
+}
+.employee-details-header .employee-last-name-role{
+    align-self: flex-start;
+    justify-self: flex-start;
+}
+
+.employee-last-name-role .employee-last-name,.employee-role{
+    display: flex;
+    justify-self: flex-start;
+}
+
+
+
+.employee-details-header h1{
+    margin: 0;
+    font-size: 1em;
+}
+.employee-details-header h2{
+    margin: 0;
+    font-size: 1em;
+    font-weight: 500;
 }
 
 .employee-details{
-    display: grid;
+    display: flex;
 }
 
 
@@ -69,10 +128,6 @@
     margin-left: 1vw;
     display: grid;
     justify-self: start;
-}
-.employee-details .employee-details-header{
-    font-size: 30px;
-    font-weight: 1000;
 }
 
 .employee-details-icons{
@@ -96,17 +151,24 @@
 
 .employee-details-calendar-container{
     margin-top: 4vh;
-    grid-column-start: 3;
+    grid-column-start: 2;
+    grid-column: span 3;
 }
 
 .employee-details-advance-container{
-    grid-column-start: 2;
+    grid-column-start: 1;
     grid-row-start: 2;
+
+    grid-column: span 2;
+    margin-bottom: 4vh;
 }
 
 .employee-details-salary-container{
     grid-column-start: 3;
     grid-row-start: 2;
+
+    grid-column: span 2;
+    margin-bottom: 4vh;
 }
 
 
