@@ -63,32 +63,45 @@ const EmployeeDetails = () => {
                 />
             </div>
 
-            <div className="employee-details-content-wrapper">
-                <div className="employee-details-back"><NavLink to={"/employees"} className={"user-details-back"}>&lt; Employees </NavLink></div>
-                
-                <div className="employee-details-section">
-                    <div className="employee-details-image">
-                        <img src={icon}/>
-                    </div>
-                    <div className="employee-details">
-                        <p className="employee-details-header">{employee.first_name} {employee.last_name}</p>
-                        <p className="employee-details-role">NO ROLE</p>
-                        <p className="employee-details-info">Contact no.: {employee.contact_no}</p>
-                        <p className="employee-details-info">Address: {employee.address}</p>
-                        <p className="employee-details-info">Rate: NO RATE</p>
-                    </div>
-                    <div className="employee-details-icons">
-                        <Button
-                            type="user-edit"
-                            handleClick={()=>{navigate("/employees/edit/employeeid="+employee_id)}}
-                        />
+            <div className="employee-details-boxes-container">
 
-                        <Button
-                            type="user-delete"
-                            handleClick={handleDelete}
-                        />
+                <div className="employee-details-content-container">
+                    <div className="employee-details-back"><NavLink to={"/employees"} className={"user-details-back"}>&lt; Employees </NavLink></div>
+                    
+                    <div className="employee-details-section">
+                        <div className="employee-details-header">
+                            <div className="employee-details-image">
+                                <img src={icon}/>
+                            </div>
+
+                            <h1 className="employee-first-name">{employee.first_name}</h1>
+                            <div className="employee-last-name-role">
+                                <h1 className="employee-last-name">{employee.last_name}</h1>
+                                <h2 className="employee-role">NO ROLE</h2>
+                            </div>
+                            
+                        </div>
+                        <div className="employee-details">
+                            <p className="employee-details-header">{employee.first_name} {employee.last_name}</p>
+                            <p className="employee-details-role">NO ROLE</p>
+                            <p className="employee-details-info">Contact no.: <br></br>{employee.contact_no}</p>
+                            <p className="employee-details-info">Address: {employee.address}</p>
+                            <p className="employee-details-info">Rate: NO RATE</p>
+                        </div>
+                        {/* <div className="employee-details-icons">
+                            <Button
+                                type="user-edit"
+                                handleClick={()=>{navigate("/employees/edit/employeeid="+employee_id)}}
+                                />
+
+                            <Button
+                                type="user-delete"
+                                handleClick={handleDelete}
+                                />
+                        </div> */}
                     </div>
                 </div>
+                
             </div>
         <div className="c employee-details-calendar-container">
             <Calendar
