@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import "./Button.css"
 import userEditIcon from "../../Assets/Icons/user-edit.svg"
 import userDeleteIcon from "../../Assets/Icons/user-delete.svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 interface ButtonProps{
   handleClick: Function;
@@ -12,6 +13,7 @@ interface ButtonProps{
   text?: string,
   value?: string,
   disable?: boolean
+  state?: string
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -22,8 +24,9 @@ const Button: React.FC<ButtonProps> = ({
   text,
   value,
   disable,
+  state
   }) =>{
-
+    const [active, setActive] = useState("none")
     if (type === "add-user"){
       return(
         <button 
@@ -151,6 +154,43 @@ const Button: React.FC<ButtonProps> = ({
         >
           {text}
         </button>
+      )
+    }
+
+    
+    if(type === "calendar-attendance-status-v2"){
+
+      return(
+        <div className="btn-attendance-wrapper">
+
+          <button 
+            className={"btn-attendance-status-v2 present" + (state==="present"? " active":"")}
+            onClick = {e => handleClick(e)}
+            name={"present"}
+            value={value + " present"}
+          >
+            <FontAwesomeIcon icon={["fas","check"]} className="attendance-icon"/>
+          </button>
+
+          <button 
+            className={"btn-attendance-status-v2 halfday" + (state==="halfday"? " active":"")}
+            onClick = {e => handleClick(e)}
+            name={"halfday"}
+            value={value + " halfday"}
+          >
+            {/* <FontAwesomeIcon icon={["fa-solid fa-slash-forward"]} /> */}
+            <FontAwesomeIcon icon={["fas","slash"]} className="attendance-icon"/>
+          </button>
+
+          <button 
+            className={"btn-attendance-status-v2 absent" + (state==="absent"? " active":"")}
+            onClick = {e => handleClick(e)}
+            name={"absent"}
+            value={value + " absent"}
+          >
+            <FontAwesomeIcon icon={["fas","circle"]} className="attendance-icon"/>
+          </button>
+        </div>
       )
     }
 

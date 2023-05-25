@@ -1,0 +1,212 @@
+.calendar-gen-container{
+    padding: 5vh 2.5vw;
+    height: 89%;
+}
+
+.calendar-gen-header-container{
+    /* width: 100%; */
+    /* display: ; */
+    display: flex;
+    margin: 0rem auto 0rem auto;
+    /* margin-left: 10vw; */
+    align-items: center;
+    justify-content: center;
+    /* margin-left: 20vw; */
+    /* margin-right: auto; */
+    
+}
+
+.calendar-gen-title-container{
+    /* width: 100%; */
+    display: inline-box;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3vh;
+
+}
+
+.calendar-gen-calendar-grid{
+    border: 1px dashed var(--secondary-color);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.calendar-gen-title-wrapper h2{
+    margin: 0 auto 0 auto;
+    padding: 0;
+    float: left;
+}
+
+.calendar-gen-header-container h3{
+    margin: 1% 0;
+    width: 13rem;
+    color: black;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.calendar-gen-body{
+    padding-top: 2vh;
+    display: flex;
+    /* max-height: 40vh; */
+    width: 100%;
+    height: 100%;
+    
+}
+
+.calendar-gen-calendar-container{
+    width: 60%;
+    height: inherit;
+}
+
+.calendar-gen-daynames-container{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    /* column-gap: ; */
+    row-gap: 0.5rem;
+    column-gap: 0rem;
+    width: 100%;
+    /* margin: auto; */
+    margin-bottom: 2vh;
+    
+    /* margin-bottom: 1vh; */
+}
+
+.calendar-gen-days-container{
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    column-gap: 0rem;
+    /* margin: auto; */
+}
+.calendar-gen-days-container.six-rows{
+    row-gap: 1rem;
+}
+
+.calendar-gen-days-container.five-rows{
+    row-gap: 1.75rem;
+}
+
+.calendar-gen-daynames{
+    font-weight: 400;
+    font-size: smaller;
+    color: black;
+    display: grid;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.calendar-gen-day-wrapper{
+    width: fit-content;
+    margin: auto;
+    display: inline-block;
+}
+
+.calendar-gen-day-wrapper button{
+    border: transparent;
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: large;
+    width: 2rem;
+    margin-top: 0 auto;
+    text-align: center;
+}
+
+.calendar-gen-before-month button, .calendar-gen-after-month button{
+    opacity: 25%;
+}
+
+.clicked button{
+    /* background-color: var(--secondary-color) !important; */
+    /* color: var(--primary-color) !important; */
+    border: 1px dashed var(--secondary-color);
+    border-radius: 32px;
+    /* padding: 0.5rem; */
+}
+.tooltip, .popover{
+    background-color: white;
+    color: var(--secondary-color);
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding: 0.25rem 0.5rem;
+    font-size: small;
+}
+
+.popover-arrow{
+    border: #5A768A;
+}
+
+.tooltip span::first-letter{
+    text-transform:capitalize;
+}
+
+
+
+.calendar-gen-prev-month-wrapper, .calendar-gen-next-month-wrapper{
+    padding-right: 1rem;
+}
+
+.popover{
+    padding: 0rem 0.5rem 1rem;
+}
+
+.today button{
+    /* box-shadow: 0 0 0 0.2rem #A0B4C3 !important; */
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    clip-path: circle(100%);
+    /* shape-outside: circle(50%); */
+    /* padding: 1rem; */
+}
+
+
+.calendar-gen-employees-container{
+    width: 40%;
+    /* height:fit-content; */
+    border-color: #5A768A;
+    border-width: 3px;
+    border-radius: 16px;
+    padding: 1% 0% 2% 2%;
+}
+
+.calendar-gen-employees-body{
+    height: 90%;
+    /* width: 50%; */
+    margin-top: 2%;
+    border-radius: 12px;
+    border: 1px solid var(--secondary-color);
+    padding: 5%;
+    
+}
+
+.calendar-gen-search-container{
+    overflow-y: scroll;
+    height: 93%;
+    margin-top: 1rem;
+    
+}
+
+.calendar-gen-employee-wrapper{
+    display: flex;
+    border-bottom: 1px solid var(--tertiary-color);
+
+    /* padding-left: 5% 10%; */
+}
+
+.calendar-gen-employee-wrapper{
+    margin: 0.5rem 0;
+  }
+  
+.calendar-gen-employee-name{
+    width: 75%;
+    margin: 1%;
+}
+.calendar-gen-attendance-btn-wrapper{
+    margin-top: auto;
+    margin-bottom: auto;
+    /* margin-left: 25%; */
+}

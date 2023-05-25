@@ -8,9 +8,14 @@ import Button from "../../Components/Button/Button";
 import Employee, { emptyEmployee } from "../../Types/Employee";
 
 import { getEmployees } from "../../ApiCalls/EmployeesApi";
+import CalendarGeneral from "../../Components/Calendar/CalendarGeneral";
 
-const Employees: React.FC = () => {
-    const [employees, setUsers] = useState<[Employee]>()
+interface EmployeeProps{
+    type?: "details"|"list",
+  }
+
+const Employees: React.FC<EmployeeProps> = ({type}) => {
+    const [employees, setEmployees] = useState<[Employee]>()
     
     // FETCH USERS DATA
     useEffect(()=>{
@@ -18,14 +23,13 @@ const Employees: React.FC = () => {
             .then((response)=>{
                 console.log(response)
                 console.log(response.data.data.employees)
-                setUsers(response.data.data.employees)
+                setEmployees(response.data.data.employees)
             })
 
     },[])
-
+    
 
     return (
-        
         <div className="employees-container">
             <div className="employees-content-wrapper">
                 <Sidebar/>
@@ -58,8 +62,16 @@ const Employees: React.FC = () => {
                         </div>
                     </div>
 
-
                 </div>
+                { type!=="details"? 
+                    <div className="employee-list-calendar-container">
+                        <CalendarGeneral
+                            employees={employees}
+                        />
+
+                    </div>
+                :<></>}
+                
             </div>
         </div>      
     );

@@ -58,7 +58,9 @@ const EmployeeDetails = () => {
         <div className="grid">
 
             <div className="employee-sidebar-container">
-                <Employees/>
+                <Employees
+                    type="details"
+                />
             </div>
 
             <div className="employee-details-boxes-container">
@@ -99,19 +101,22 @@ const EmployeeDetails = () => {
                         </div> */}
                     </div>
                 </div>
-                <div className="c employee-details-calendar-container">
-                    <Calendar
-                        employee_id={employee_id}
-                        />
-                </div>
-                <div className="c employee-details-advance-container">
-                    <Advance/>
-                </div>
-                <div className="c employee-details-salary-container">
-                    <Salary/>
-                </div>
-                    
+                
             </div>
+        <div className="c employee-details-calendar-container">
+            <Calendar
+                employee_id={employee_id}
+            />
+        </div>
+        <div className="c employee-details-advance-container">
+            <Advance
+                employee_id={employee_id}
+            />
+        </div>
+        <div className="c employee-details-salary-container">
+            <Salary/>
+        </div>
+            
         </div>
     )
 }
