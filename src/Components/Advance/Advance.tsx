@@ -1,27 +1,21 @@
 import "./Advance.css"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import { DatePicker, Table, Form, Input, InputNumber, Popconfirm, Typography } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { numberWithCommas } from "../../Helpers/Util";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type AdvanceType from "../../Types/Advance"
+import { getAdvance, updateAdvance, createAdvance, deleteAdvance } from "../../ApiCalls/AdvanceApi";
 
 import dayjs, { Dayjs } from 'dayjs';
-
-    interface Item {
-        id: string;
-        item: string;
-        date: Dayjs;
-        dateString: string;
-        amount: string;
-    }
 
     interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
         editing: boolean;
         dataIndex: string;
         title: any;
         inputType: 'number' | 'text' | 'date';
-        record: Item;
+        record: AdvanceType;
         index: number;
         children: React.ReactNode;
     }
@@ -63,19 +57,31 @@ import dayjs, { Dayjs } from 'dayjs';
         );
     };
   
-
-const Advance = () => {
+interface AdvanceProps{
+    employee_id: string;
+}
+const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
     const { RangePicker } = DatePicker
     let pageSize = 5
     const [currPage, setCurrPage] = useState(1)
     const [newItemId, setNewItemId] = useState(-1)
+    // const [dateRange, setDateRange] = useState<Dayjs[]>([dayjs().startOf("week"), dayjs().endOf("week")])
+    const [startDate, setStartDate] = useState<Dayjs>(dayjs().startOf("week"))
+    const [endDate, setEndDate] = useState<Dayjs>(dayjs().endOf("week"))
     
     const [form] = Form.useForm();
     const [editingId, setEditingId] = useState('');
-    const isEditing = (record: Item) => record.id === editingId;
+    const isEditing = (record: AdvanceType) => record.id === editingId;
     const [isLoading, setIsLoading] = useState(false)
 
-    const edit = (record: Partial<Item> & { id: string }) => {
+    useEffect(()=>{
+        getAdvance(employee_id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
+        .then((response)=>{
+            console.log(response)
+        })
+    },[])
+
+    const edit = (record: Partial<AdvanceType> & { id: string }) => {
         form.setFieldsValue({ item: '', date: dayjs(), amount: '', ...record });
         setEditingId(String(record.id));
     };
@@ -84,15 +90,17 @@ const Advance = () => {
         setEditingId('');
     };
 
-    const handleDeleteItem = (item:Item) => {
-
+    const handleDeleteItem = async(item:AdvanceType) => {
+        deleteAdvance(item)
+            .then(response=>{
+                console.log(response)
+            })
     }
 
     const save = async (id: string) => {
         try {
-          const row = (await form.validateFields()) as Item
+          let row = (await form.validateFields()) as AdvanceType
             
-          console.log("here")
           const newData = [...data];
           const index = newData.findIndex((item) => id === item.id);
           if (index > -1) {
@@ -101,13 +109,26 @@ const Advance = () => {
               ...item,
               ...row,
             });
+            row.employee_id = employee_id
+            
+            createAdvance(row)
+                .then((response)=>{
+                    console.log(response)
+                })
+
             setData(newData);
             setEditingId('');
-            console.log("here2")
           } else {
+            row.employee_id = employee_id
             newData.push(row);
+            console.log(row)
             setData(newData);
             setEditingId('');
+
+            updateAdvance(row)
+                .then((response)=>{
+                    console.log(response)
+                })
           }
         } catch (errInfo) {
           console.log('Validate Failed:', errInfo);
@@ -117,9 +138,9 @@ const Advance = () => {
 
     const columns: any = [
         {
-            title: 'Item',
-            dataIndex: 'item',
-            key: 'item',
+            title: 'Details',
+            dataIndex: 'details',
+            key: 'details',
             width: 150,
             editable: true,
         },
@@ -143,7 +164,7 @@ const Advance = () => {
             dataIndex: 'operation',
             editable: false,
             align: 'center',
-            render: (_: any, record: Item) => {
+            render: (_: any, record: AdvanceType) => {
               const editable = isEditing(record);
               return editable ? (
                 <span>
@@ -172,58 +193,58 @@ const Advance = () => {
           },
       ];
 
-    const [data, setData] = useState([
-        {
-            id: '1',
-            item: 'Cash',
-            date: dayjs("2023-01-01"),
-            dateString: "Jan 1 2023",
-            amount: '1500',
-        },
-        {
-            id: '2',
-            item: 'Cash',
-            date: dayjs("2023-01-01"),
-            dateString: "Jan 1 2023",
-            amount: '1500'
-        },
-        {
-            id: '3',
-            item: 'Cash',
-            date: dayjs("2023-01-01"),
-            dateString: "Jan 1 2023",
-            amount: '1500'
-        },
-        {
-            id: '4',
-            item: 'Cash',
-            date: dayjs("2023-01-01"),
-            dateString: "Jan 1 2023",
-            amount: '1500'
-        },
-        {
-            id: '5',
-            item: 'Cash',
-            date: dayjs("2023-01-01"),
-            dateString: "Jan 1 2023",
-            amount: '1500'
-        },
-        {
-            id: '6',
-            item: 'Cash',
-            date: dayjs("2023-01-01"),
-            dateString: "Jan 1 2023",
-            amount: '1500'
-        },
+    const [data, setData] = useState<AdvanceType[]>([
+        // {
+        //     id: '1',
+        //     details: 'Cash',
+        //     date: dayjs("2023-01-01"),
+        //     amount: '1500',
+        //     employee_id: employee_id
+        // },
+        // {
+        //     id: '2',
+        //     details: 'Cash',
+        //     date: dayjs("2023-01-01"),
+        //     amount: '1500',
+        //     employee_id: employee_id
+        // },
+        // {
+        //     id: '3',
+        //     details: 'Cash',
+        //     date: dayjs("2023-01-01"),
+        //     amount: '1500',
+        //     employee_id: employee_id
+        // },
+        // {
+        //     id: '4',
+        //     details: 'Cash',
+        //     date: dayjs("2023-01-01"),
+        //     amount: '1500',
+        //     employee_id: employee_id
+        // },
+        // {
+        //     id: '5',
+        //     details: 'Cash',
+        //     date: dayjs("2023-01-01"),
+        //     amount: '1500',
+        //     employee_id: employee_id
+        // },
+        // {
+        //     id: '6',
+        //     details: 'Cash',
+        //     date: dayjs("2023-01-01"),
+        //     amount: '1500',
+        //     employee_id: employee_id
+        // },
     ])
     const [isLastPage, setIsLastPage] = useState(Math.ceil(data.length/pageSize) === currPage)
     const handleAddAdvance = () => {
 
         const newData = {
             id: String(newItemId),
-            item: "",
+            employee_id: employee_id,
+            details: "",
             date: dayjs(),
-            dateString: dayjs().format("MMM DD YYYY"),
             amount: ""
         }
 
@@ -258,7 +279,7 @@ const Advance = () => {
 
         return {
           ...col,
-          onCell: (record: Item) => ({
+          onCell: (record: AdvanceType) => ({
             record,
             inputType: col.dataIndex === 'amount' ? 'number' :  col.dataIndex === 'date' ? 'date':'text',
             dataIndex: col.dataIndex,
@@ -267,13 +288,6 @@ const Advance = () => {
           }),
         };
     });
-
-    const mergedData = data.map((d:Item) => {
-        return{
-            ...d,
-            dateString: d.date.format("MMM DD YYYY")
-        }
-    })
 
     return(
         <div className="advance-container">
@@ -295,7 +309,7 @@ const Advance = () => {
                 <RangePicker 
                     className="advance-rangepicker"
                     size={"small"} 
-                    defaultValue={[dayjs().startOf("week"), dayjs().endOf("week")]}
+                    defaultValue={[startDate, endDate]}
                     style={{ width: '65%'}}
                     format={"MMM DD YYYY"}
                     separator={"to"}
