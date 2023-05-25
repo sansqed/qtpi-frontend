@@ -45,6 +45,7 @@ const Employees: React.FC<EmployeeProps> = ({type}) => {
                     </div>
 
                     <div className="employee-list-body">
+                        <div className="employee-list-body-wrapper">
                         {employees && employees.length? employees.map(({id, first_name, middle_name, last_name}) => 
                             
                             <div className="employee-list-content">
@@ -56,8 +57,9 @@ const Employees: React.FC<EmployeeProps> = ({type}) => {
                                     </div>
                                 </NavLink>
                             </div>
+                            
                         ):<></>}
-
+                        </div>
                     </div>
 
                 </div>

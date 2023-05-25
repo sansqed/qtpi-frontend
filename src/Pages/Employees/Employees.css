@@ -1,27 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-background: var(--secondary-color);
-border-radius: 45px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-background: #555;
-}
-
 a:visited { 
     text-decoration: none; 
     /* color: var(--secondary-color);  */
@@ -90,19 +68,54 @@ a:visited {
 }
 
 .employee-list-body{
-    overflow-y: scroll;
-    
+    /* overflow-y: scroll;
+     */
     height: 80vh;
     margin-right: 2vh;
-    display: block;
+    position: relative;
     /* color: var(--secondary-color); */
 }
 
 
-.employee-list-body::-webkit-scrollbar{
+.employee-list-body-wrapper{
+    height: 99%;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.employee-list-body-wrapper::-webkit-scrollbar {
+    display: block;
+    width: 6px;
+}
+.employee-list-body-wrapper::-webkit-scrollbar-track {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 15px;
+}
+    
+.employee-list-body-wrapper::-webkit-scrollbar-thumb {
+
+    background-color: #003459;
+    border-radius: 15px;
+    border-right: none;
+    border-left: none;
+}
+
+/* .employee-list-body-wrapper::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-bottom: 10px; 
+}
+
+.employee-list-body-wrapper::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-top: 10px;
+} */
+
+/* .employee-list-body::-webkit-scrollbar{
 position: absolute;
    left: 0;
-}
+} */
 
 
 
