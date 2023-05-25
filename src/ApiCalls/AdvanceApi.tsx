@@ -10,6 +10,7 @@ export const getAdvance = async(employee_id:string, date_from:string, date_to:st
         const response = await getAPICall(URL+"advances/get?"+
             "requester="+requester+
             "&token="+token+
+            "&id="+
             "&employee_id="+employee_id+
             "&date_from="+ date_from+
             "&date_to="+ date_to
