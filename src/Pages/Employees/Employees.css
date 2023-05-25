@@ -129,3 +129,18 @@ position: absolute;
     color: var(--secondary-color);
     padding-left: 10px;
 }
+
+.employee-list-calendar-container{
+    
+    /* padding-top: 1vh;
+    padding-left: 3vh; */
+    color: var(--secondary-color);
+    display:block;
+    margin-left: 2.5vh;
+    width: 60vw;
+    height: 92vh;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 1vh;
+    text-align: left;
+}

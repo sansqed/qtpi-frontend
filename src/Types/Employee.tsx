@@ -9,6 +9,7 @@ type Employee = {
     rate: number,
     rate_unit: string,
     sss: number,
+    attendance?: any[],
 };
 
 export type EmployeeError = {

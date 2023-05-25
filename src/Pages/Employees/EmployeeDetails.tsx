@@ -58,11 +58,13 @@ const EmployeeDetails = () => {
         <div className="grid">
 
             <div className="employee-sidebar-container">
-                <Employees/>
+                <Employees
+                    type="details"
+                />
             </div>
 
             <div className="employee-details-content-wrapper">
-                {/* <p className="employee-details-back"><NavLink to={"/employees"} className={"user-details-back"}>&lt; Employees </NavLink></p> */}
+                <p className="employee-details-back"><NavLink to={"/employees"} className={"user-details-back"}>&lt; Employees </NavLink></p>
                 
                 <div className="employee-details-section">
                     <div className="employee-details-image">
@@ -94,7 +96,9 @@ const EmployeeDetails = () => {
             />
         </div>
         <div className="c employee-details-advance-container">
-            <Advance/>
+            <Advance
+                employee_id={employee_id}
+            />
         </div>
         <div className="c employee-details-salary-container">
             <Salary/>

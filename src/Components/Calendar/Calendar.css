@@ -6,6 +6,7 @@
     /* width: inherit; */
     /* display: ; */
     margin: 0.5rem auto 0rem auto;
+    display: inline-flex;
 }
 
 .calendar-title-container{
@@ -27,10 +28,6 @@
     /* margin-right: 50%; */
     float: right;
     
-}
-
-.calendar-header-container{
-    display: inline-flex;
 }
 
 .calendar-header-container h3{

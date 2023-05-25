@@ -100,7 +100,7 @@ const Calendar = ({employee_id}:any) => {
     const handleSetAttendance = (e:any) => {
         let value = e.target.value.split(" ")
         let date = value[0]
-        let status = value[1]
+        let status = value[2]
 
         let tempAttendance = data.attendance
         let attIdx = tempAttendance.findIndex((a:any)=>a.date==date && employee_id==a.employee_id)
@@ -229,6 +229,7 @@ const Calendar = ({employee_id}:any) => {
                 </div>
                 <div className="calendar-days-container">
                     {data.days.map((day:Date, i:number) => {
+                        console.log(getAttendanceStatus(format(day, "y-LL-dd")))
                         return(
                             
                                 <OverlayTrigger
@@ -241,25 +242,10 @@ const Calendar = ({employee_id}:any) => {
                                             <Popover.Header as="h4">Attendance: {format(day, "y MMM d")}</Popover.Header>
                                             <Popover.Body>
                                                 <Button
-                                                    type="calendar-attendance-status"
+                                                    type="calendar-attendance-status-v2"
                                                     handleClick={(e:any)=>{handleSetAttendance(e)}}
-                                                    text="Present"
-                                                    className="present"
-                                                    value={format(day, "y-LL-dd") + " present" +  isWithinMonth(day)}
-                                                />
-                                                <Button
-                                                    type="calendar-attendance-status"
-                                                    handleClick={(e:any)=>{handleSetAttendance(e)}}
-                                                    text="Halfday"
-                                                    className="halfday"
-                                                    value={format(day, "y-LL-dd") + " halfday" }
-                                                />
-                                                <Button
-                                                    type="calendar-attendance-status"
-                                                    handleClick={(e:any)=>{handleSetAttendance(e)}}
-                                                    text="Absent"
-                                                    className="absent"
-                                                    value={format(day, "y-LL-dd") + " absent" +  isWithinMonth(day)}
+                                                    state={getAttendanceStatus(format(day, "y-LL-dd"))}
+                                                    value={format(day, "y-LL-dd") + isWithinMonth(day)}
                                                 />
                                             </Popover.Body>
                                         </Popover>:
