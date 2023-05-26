@@ -27,7 +27,7 @@ export const createUser = async(user:User)=>{
             first_name: user.first_name,
             middle_name: user.middle_name,
             last_name: user.last_name,
-            role_id: 1,
+            role_id: user.role_id,
             contact_no: user.contact_no,
             address: user.address,
             username: user.username,

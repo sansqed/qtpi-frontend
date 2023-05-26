@@ -27,6 +27,7 @@ const AddUsers: React.FC = () => {
         }));
     };
 
+    console.log(user)
     const handleSubmit = () => {
         console.log(user)
         
@@ -153,12 +154,12 @@ const AddUsers: React.FC = () => {
                           </Form.Group>
                           <Form.Select 
                             className="add-user-role-menu"
-                            id="role"
-                            name="role"
+                            id="role_id"
+                            name="role_id"
                             onChange={(e) => handleChange(e)}
                             >
-                            <option value="Admin">Admin</option>
-                            <option value="Employee">Accounting</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Accounting</option>
                           </Form.Select>
                           <Form.Control
                             type="password"

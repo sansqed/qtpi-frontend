@@ -47,6 +47,15 @@ const UserDetails = () => {
             })
     }
 
+    const parseRole = () =>{
+        if (user.role_id === "1")
+            return "Admin"
+        else if (user.role_id === "2")
+            return "Accounting"
+        else
+            return ""
+    }
+
     return(
         <div className="user-details-container">
             <div className="sidebar-area-container">
@@ -57,7 +66,7 @@ const UserDetails = () => {
 
                 <div className="user-details-section">
                     <H1 text={user.first_name + " " + user.middle_name + " " + user.last_name}/>
-                    <p className="user-details-info">{user.role_id}</p>
+                    <p className="user-details-info">{parseRole()}</p>
                 </div>
 
                 <div className="user-details-section">
@@ -80,12 +89,12 @@ const UserDetails = () => {
                 </div>
                 
 
-                <hr className="user-details-hr"/>
+                {/* <hr className="user-details-hr"/>
 
                 <div className="user-details-section">
                     <H2 text="ACCESS LOGS"/>
                     {tempUser.access_logs.map((log)=><p className="user-details-info">{log}</p>)}
-                </div>
+                </div> */}
                 
             
                 
