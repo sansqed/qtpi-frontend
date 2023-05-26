@@ -42,8 +42,9 @@ import { SyntheticEventData } from "react-dom/test-utils";
 const Calendar = ({employee_id}:any) => {
 
     // edit mode state
-    const [isEdit, setIsEdit] = useState(false)
+    const [isEdit, setIsEdit] = useState(true)
     const [showPopover, setShowPopover] = useState(false)
+    const [isChanged, setIsChanged] = useState(false)
     
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
     const [data, setData] = useState<CalendarData>({
@@ -94,66 +95,78 @@ const Calendar = ({employee_id}:any) => {
                 }))  
             }
         })
-       
-    },[currentMonth])
+       setIsChanged(false)
+    },[currentMonth, isChanged])
 
     const handleSetAttendance = (e:any) => {
-        let value = e.target.value.split(" ")
-        let date = value[0]
-        let status = value[2]
+        const status = e.target.name
+        const date = e.target.value
 
-        let tempAttendance = data.attendance
-        let attIdx = tempAttendance.findIndex((a:any)=>a.date==date && employee_id==a.employee_id)
-        let currAttendance = tempAttendance[attIdx]
-
-        
-
-        if (currAttendance === undefined){
-            currAttendance = {
-                id: "-1",
-                employee_id: employee_id,
-                date: date,
-                status: status
-            }
-            tempAttendance.push(currAttendance)
-
+        const attendance = data.attendance.find((a)=>a.date===date)
+        if(attendance === undefined){
             markAttendance(employee_id, date, status)
-            .then((response:any) =>{
-                if (response.data.status==="201"){
-                    setData((prev) => ({...prev, attendance:tempAttendance}))
-                    toast.success(response.data.message)
-                } else {
-                    toast.success(response.data.message)
-                }
-            })
         } else {
-            changeStatus(currAttendance.id, status)
-            .then((response)=>{
-                if (response.data.status==="201"){
-                    currAttendance.status = status
-                    tempAttendance[attIdx] = currAttendance
-                    setData((prev) => ({...prev, attendance:tempAttendance}))
-                    toast.success(response.data.message)
-                } else {
-                    toast.success(response.data.message)
-                }
-
-            })
+            changeStatus(attendance.id, status)
         }
-        
-        // force rerender
-        setData((prev) => ({...prev}))
-        document.body.click()
 
-        if (value[2] === "calendar-before-month")
-            prevMonth()
+        setIsChanged(true)
+
+
+        // let value = e.target.value.split(" ")
+        // let date = value[0]
+        // let status = value[2]
+
+        // let tempAttendance = data.attendance
+        // let attIdx = tempAttendance.findIndex((a:any)=>a.date==date && employee_id==a.employee_id)
+        // let currAttendance = tempAttendance[attIdx]
+
         
-        if (value[2] === "calendar-after-month")
-            nextMonth()
+
+        // if (currAttendance === undefined){
+        //     currAttendance = {
+        //         id: "-1",
+        //         employee_id: employee_id,
+        //         date: date,
+        //         status: status
+        //     }
+        //     tempAttendance.push(currAttendance)
+
+        //     markAttendance(employee_id, date, status)
+        //     .then((response:any) =>{
+        //         if (response.data.status==="201"){
+        //             setData((prev) => ({...prev, attendance:tempAttendance}))
+        //             toast.success(response.data.message)
+        //         } else {
+        //             toast.success(response.data.message)
+        //         }
+        //     })
+        // } else {
+        //     changeStatus(currAttendance.id, status)
+        //     .then((response)=>{
+        //         if (response.data.status==="201"){
+        //             currAttendance.status = status
+        //             tempAttendance[attIdx] = currAttendance
+        //             setData((prev) => ({...prev, attendance:tempAttendance}))
+        //             toast.success(response.data.message)
+        //         } else {
+        //             toast.success(response.data.message)
+        //         }
+
+        //     })
+        // }
+        
+        // // force rerender
+        // setData((prev) => ({...prev}))
+        // document.body.click()
+
+        // if (value[2] === "calendar-before-month")
+        //     prevMonth()
+        
+        // if (value[2] === "calendar-after-month")
+        //     nextMonth()
         
     }
 
-    console.log(data)
 
     const getAttendanceStatus = (date: string) => {
         return data.attendance.find((a)=>a.date===date && employee_id==a.employee_id)?.status || "unset"
@@ -175,43 +188,25 @@ const Calendar = ({employee_id}:any) => {
                         ATTENDANCE
                     </h2>
                 </div>
-                <div className="calendar-edit-btn-wrapper">
-                    {
-                        !isEdit? 
-                            <Button 
-                                type="calendar-edit"
-                                handleClick={()=>setIsEdit(true)}
-                                className="light"
-                                text="Mark attendance"
-                            />
-                            : 
-                            <Button 
-                                type="calendar-edit"
-                                handleClick={()=>setIsEdit(false)}
-                                className="dark"
-                                text="Done marking"
-                            />
-                    }
-                </div>
-            </div>
-            
-            <div className="calendar-header-container">
-                <div className="calendar-prev-month-wrapper">
-                    <Button
-                        type="calendar-prev-next"
-                        handleClick={prevMonth}
-                        text="&lt;"
-                    />
-                </div>
-                <h3 className="calendar-curr-month-wrapper">
-                    {format(firstDayCurrentMonth, " MMMM yyyy")}
-                </h3>
-                <div className="calendar-next-month-wrapper">
-                <Button
-                        type="calendar-prev-next"
-                        handleClick={nextMonth}
-                        text="&gt;"
-                    />
+
+                <div className="calendar-header-container">
+                    <div className="calendar-prev-month-wrapper">
+                        <Button
+                            type="calendar-prev-next"
+                            handleClick={prevMonth}
+                            text="&lt;"
+                        />
+                    </div>
+                    <h3 className="calendar-curr-month-wrapper">
+                        {format(firstDayCurrentMonth, " MMMM yyyy")}
+                    </h3>
+                    <div className="calendar-next-month-wrapper">
+                        <Button
+                            type="calendar-prev-next"
+                            handleClick={nextMonth}
+                            text="&gt;"
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -227,9 +222,8 @@ const Calendar = ({employee_id}:any) => {
                         </div>
                     )})}
                 </div>
-                <div className="calendar-days-container">
+                <div className={"calendar-days-container" + (data.days.length/7===6? " six-rows":" five-rows")}>
                     {data.days.map((day:Date, i:number) => {
-                        console.log(getAttendanceStatus(format(day, "y-LL-dd")))
                         return(
                             
                                 <OverlayTrigger
@@ -238,16 +232,19 @@ const Calendar = ({employee_id}:any) => {
                                     trigger={isEdit? "click":["hover", "focus"]}
                                     rootClose
                                     overlay={isEdit?
-                                        <Popover id="popover-basic" show={showPopover}>
-                                            <Popover.Header as="h4">Attendance: {format(day, "y MMM d")}</Popover.Header>
+                                        <Popover id="popover-contained" show={showPopover} className="calendar-popover">
+                                            <Popover.Header>Set attendance</Popover.Header>
                                             <Popover.Body>
-                                                <Button
-                                                    type="calendar-attendance-status-v2"
-                                                    handleClick={(e:any)=>{handleSetAttendance(e)}}
-                                                    state={getAttendanceStatus(format(day, "y-LL-dd"))}
-                                                    value={format(day, "y-LL-dd") + isWithinMonth(day)}
-                                                />
+                                                <div className="calendar-attendance-btn-wrapper">
+                                                    <Button
+                                                        type="calendar-attendance-status-v2"
+                                                        handleClick={(e:any)=>{handleSetAttendance(e)}}
+                                                        state={getAttendanceStatus(format(day, "y-LL-dd"))}
+                                                        value={format(day, "y-LL-dd")}
+                                                    />
+                                                </div>
                                             </Popover.Body>
+        
                                         </Popover>:
                                         <Tooltip id={"tooltip-"+isEdit? "top":"disabled" }>
                                             <span>
@@ -258,15 +255,17 @@ const Calendar = ({employee_id}:any) => {
                                 >
                                     <div
                                         key={i}
-                                        className={"calendar-day-wrapper " + getAttendanceStatus(format(day, "y-LL-dd")) + isWithinMonth(day) + (isToday(day)? " today":"")}
-                                    >
-                                        <button
-                                            value={format(day, "y-LL-dd") + isWithinMonth(day)}
-                                            disabled={!isEdit}
-                                            style={{ pointerEvents: (!isEdit? "none":"auto") }}
-                                        >
-                                            {format(day, "d")}
-                                        </button>           
+                                        className={"calendar-day-wrapper" + isWithinMonth(day) + (isToday(day)? " today":"") + (!isEdit? " disabled":"")}
+                                    >   
+                                        <div className={"calendar-day-attendance " + getAttendanceStatus(format(day, "y-LL-dd"))}>
+                                            <button
+                                                value={format(day, "y-LL-dd") + isWithinMonth(day)}
+                                                disabled={!isEdit}
+                                                style={{ pointerEvents: (!isEdit? "none":"auto") }}
+                                            >
+                                                {format(day, "d")}
+                                            </button>           
+                                        </div>
                                     </div>              
                                 </OverlayTrigger>
                         )

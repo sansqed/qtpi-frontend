@@ -4,6 +4,12 @@ import userEditIcon from "../../Assets/Icons/user-edit.svg"
 import userDeleteIcon from "../../Assets/Icons/user-delete.svg"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import check from "../../Assets/Icons/check-blue.svg"
+import check_active from "../../Assets/Icons/check-white.svg"
+import slash from "../../Assets/Icons/slash-blue.svg"
+import slash_active from "../../Assets/Icons/slash-white.svg"
+import dashed_circle from "../../Assets/Icons/dashed-circle-blue.svg"
+import dashed_circle_active from "../../Assets/Icons/dashed-circle-white.svg"
 
 interface ButtonProps{
   handleClick: Function;
@@ -163,33 +169,30 @@ const Button: React.FC<ButtonProps> = ({
       return(
         <div className="btn-attendance-wrapper">
 
-          <button 
+          <input
+            type="image"
+            src={state==="present"? check_active:check}
             className={"btn-attendance-status-v2 present" + (state==="present"? " active":"")}
-            onClick = {e => handleClick(e)}
             name={"present"}
-            value={value + " present"}
-          >
-            <FontAwesomeIcon icon={["fas","check"]} className="attendance-icon"/>
-          </button>
-
-          <button 
-            className={"btn-attendance-status-v2 halfday" + (state==="halfday"? " active":"")}
+            value={value}
             onClick = {e => handleClick(e)}
+          />
+          <input
+            type="image"
+            src={state==="halfday"? slash_active:slash}
+            className={"btn-attendance-status-v2 halfday" + (state==="halfday"? " active":"")}
             name={"halfday"}
-            value={value + " halfday"}
-          >
-            {/* <FontAwesomeIcon icon={["fa-solid fa-slash-forward"]} /> */}
-            <FontAwesomeIcon icon={["fas","slash"]} className="attendance-icon"/>
-          </button>
-
-          <button 
-            className={"btn-attendance-status-v2 absent" + (state==="absent"? " active":"")}
+            value={value}
+            onClick = {e => handleClick(e)}
+          />
+          <input
+            type="image"
+            src={state==="absent"? dashed_circle_active:dashed_circle} 
             onClick = {e => handleClick(e)}
             name={"absent"}
-            value={value + " absent"}
-          >
-            <FontAwesomeIcon icon={["fas","circle"]} className="attendance-icon"/>
-          </button>
+            value={value}
+            className={"btn-attendance-status-v2 absent" + (state==="absent"? " active":"")}
+          />
         </div>
       )
     }

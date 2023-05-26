@@ -1,13 +1,14 @@
 
 .advance-container{
-    padding: 5%;
+    padding: 3% 5%;
     display: inline-block;
-    width: 90%;
+    /* width: 90%; */
 }
 
 .advance-header-container{
     width: 100%;
     display: inline-block;
+    align-items: center;
 }
 
 .advance-title{
@@ -58,8 +59,13 @@
 
 .advance-operation{
     margin-right: 0.5rem;
+    font-size: smaller;
 }
 
 .advance-delete{
     color: red;
+}
+
+.advance-date-range-container .ant-picker-suffix, .advance-date-range-container .ant-picker-clear{
+    display: none;
 }

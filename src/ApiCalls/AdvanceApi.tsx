@@ -56,7 +56,7 @@ export const updateAdvance = async(advance:AdvanceType) => {
 
 export const deleteAdvance = async(advance:AdvanceType) => {
     try {
-        const response = await postAPICall(URL+"advances/update/"+advance.id,{
+        const response = await postAPICall(URL+"advances/delete/"+advance.id,{
             requester: requester,
             token: token,
         })

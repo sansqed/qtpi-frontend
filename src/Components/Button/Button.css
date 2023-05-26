@@ -155,41 +155,28 @@ button{
 
 .btn-attendance-wrapper{
   background-color: #dddddd;
-  border-radius: 16px;
+  border-radius: 4px;
+  display: flex;
+  
   /* padding: 0 0.2rem; */
 }
 .btn-attendance-status-v2{
   background-color: transparent;
   border: transparent;
-  padding: 0.2 0.2rem;
+  padding: 0.2rem 0.4rem;
+  /* padding-top: 0.5vh;; */
   font-size: 0.7rem;
-}
-.btn-attendance-status-v2.present{
-  scale: 150% 130%;
-  /* padding-left: ; */
+  border-radius: 4px;
 }
 
-/* .btn-attendance-status-v2.active.present{
-  background-color: #003459 !important;
-  color: #f2f2f2;
-  padding: 0 0.4rem;
-  border-radius: 16px;
+.btn-attendance-status-v2.active.present{
+  background-color: #359C33 !important;
 }
 .btn-attendance-status-v2.active.halfday{
-  background-color: #5A768A !important;
-  color: #f2f2f2;
-  padding: 0 0.4rem;
-  border-radius: 16px;
+  background-color: #CE6225 !important;
 }
 .btn-attendance-status-v2.active.absent{
-  background-color: #8A8A8A !important;
-  color: #f2f2f2;
-  padding: 0 0.4rem;
-  border-radius: 16px;
-} */
-
-.halfday>.attendance-icon{
-  transform: scaleX(-1);
+  background-color: #C5302D !important;
 }
 
 /* .btn-attendance-status-v2.absent{

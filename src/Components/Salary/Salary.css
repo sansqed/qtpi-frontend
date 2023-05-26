@@ -1,7 +1,6 @@
 .salary-container{
-    padding: 5%;
+    padding: 3% 5%;
     display: inline-block;
-    width: 90%;
 }
 
 .salary-header-container{

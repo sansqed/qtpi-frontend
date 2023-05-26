@@ -1,18 +1,19 @@
 .calendar-container{
-    padding: 5%;
+    padding: 3% 5%;
 }
 
 .calendar-header-container{
     /* width: inherit; */
     /* display: ; */
-    margin: 0.5rem auto 0rem auto;
+    /* margin: 0.5rem auto 0rem auto; */
+    margin-left: 4.5vw;
     display: inline-flex;
 }
 
 .calendar-title-container{
     width: 100%;
-    display: inline-block;
-
+    display: inline-flex;
+    align-items: center;
 }
 
 .calendar-title-wrapper h2{
@@ -45,12 +46,12 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    /* column-gap: ; */
     row-gap: 0.5rem;
     column-gap: 0rem;
     width: 90%;
     margin: auto;
-    /* margin-bottom: 1vh; */
+    margin-bottom: 2vh;
+    border-bottom: 1px solid rgb(189, 189, 189);  
 }
 
 .calendar-days-container{
@@ -58,10 +59,18 @@
     width: 90%;
     height: 100%;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     column-gap: 0rem;
-    row-gap: 0.5rem;
+    /* row-gap: 0.5rem; */
     margin: auto;
+}
+
+.calendar-days-container.six-rows{
+    row-gap: 1rem;
+}
+
+.calendar-days-container.five-rows{
+    row-gap: 1.5rem;
 }
 
 .calendar-daynames{
@@ -73,42 +82,59 @@
 .calendar-day-wrapper{
     width: fit-content;
     margin: auto;
-    display: inline-block;
+    /* clip-path: circle(); */
+    /* padding: 0.5rem; */
+    border-radius: 32px;
 }
 
 .calendar-day-wrapper button{
-    border: 1px solid var(--secondary-color);
-    border-radius: 5px;
+    border: transparent;
     color: var(--secondary-color);
-    background-color: white;
+    background-color: transparent;
     font-weight: 500;
+    font-size: medium;
+    height: 2rem;
     width: 2rem;
-    margin-top: 0 auto;
+    /* shape-outside: circle(); */
 }
 
-.calendar-before-month button, .calendar-after-month button{
-    opacity: 25%;
+
+.calendar-day-wrapper.disabled{
+    opacity: 75%;
+}
+.calendar-before-month, .calendar-after-month {
+    opacity: 25% !important;
 }
 
-.calendar-day-wrapper button:disabled{
-    border: 1px solid #C4C4C4;
-    color: #C4C4C4;
+.calendar-day-wrapper.today{
+    box-shadow: 0 0 0px 0.3rem var(--secondary-color) !important;
+    /* background-color: #359C33; */
+    border-radius: 50%;
 }
 
-.present button{
-    background-color: var(--secondary-color);
+.calendar-day-attendance{
+    clip-path: circle();
+    margin: auto;
+}
+.calendar-day-attendance.present{
+    /* border-radius: 16px; */
+    background-color: #359C33;
+    color: white;
+}
+.calendar-day-attendance.halfday{
+    background-color: #e78349;
+    color: white
+}
+.calendar-day-attendance.absent{
+    background-color: #C5302D;
+    /* border: 1px solid #C5302D; */
     color: var(--primary-color)
 }
 
-.halfday button{
-    background-color: #5A768A;
-    color: var(--primary-color)
+.present button, .halfday button, .absent button{
+    color: white;
 }
 
-.absent button{
-    background-color: #8A8A8A;
-    color: var(--primary-color)
-}
 
 .tooltip, .popover{
     background-color: white;
@@ -134,9 +160,10 @@
 }
 
 .popover{
-    padding: 0rem 0.5rem 1rem;
+    padding: 0.5rem 0.25rem 0.75rem 0.25rem;
 }
-
-.today button{
-    box-shadow: 0 0 0 0.2rem #A0B4C3 !important;
+.calendar-attendance-btn-wrapper{
+    width: fit-content;
+    margin: auto;
+    margin-top: 0.5rem;
 }

@@ -10,6 +10,8 @@ import Employee, { emptyEmployee } from "../../Types/Employee";
 import { getEmployees } from "../../ApiCalls/EmployeesApi";
 import CalendarGeneral from "../../Components/Calendar/CalendarGeneral";
 
+
+
 interface EmployeeProps{
     type?: "details"|"list",
   }
@@ -66,7 +68,7 @@ const Employees: React.FC<EmployeeProps> = ({type}) => {
                 { type!=="details"? 
                     <div className="employee-list-calendar-container">
                         <CalendarGeneral
-                            employees={employees}
+                            employees={employees || []}
                         />
 
                     </div>

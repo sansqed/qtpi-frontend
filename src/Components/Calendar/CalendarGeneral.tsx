@@ -43,15 +43,15 @@ import {
 import Button from "../Button/Button"
 
 interface CalendarProps{
-    employees: Employee[] | undefined;
+    employees: Employee[];
 }
 
 const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
     const { Search } = Input;
     const [employeeList, setEmployeeList] = useState(employees)
     const [searchResult, setSearchResult] = useState(employeeList)
-    // edit mode state
-    const [isEdit, setIsEdit] = useState(false)
+    const [searchEntry, setSearchEntry] = useState("")
+    const [isChanged, setIsChanged] = useState(false)
     
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
     const [data, setData] = useState<CalendarData>({
@@ -73,8 +73,6 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
         let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 })
         setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"))
     }
-    
-
 
     // re renders everytime the current month changes
     useEffect(()=>{
@@ -100,13 +98,13 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                     var attendance = response.data.data.attendance.filter(({employee_id}:any)=>employee_id===e.id)                    
                     return({...e, attendance:attendance})
                 })
-                console.log(tempList)
                 setEmployeeList(tempList)
-                console.log("FETCHED ATTENDANCE")
             } 
         })
+
+        setIsChanged(false)
        
-    },[currentMonth])
+    },[isChanged,currentMonth, employees])
     
     const handleDayClick = (e:any) =>{
         setClickedDay(e.target.value.split(" ")[0])
@@ -125,47 +123,31 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
         return " calendar-within-month"
     }
 
-    const onSearch = (value: string) => {
-        if (value.length == 0)
-            setSearchResult(employeeList)
-        else{
-
-            let result:Employee[] = []
-            employeeList?.filter((e:Employee) => {
-                const fullName = getFullName(e.first_name, e.middle_name, e.last_name);
-                if (fullName.toLowerCase().includes(value.toLowerCase())){
-                    
-                    console.log(fullName)
-                    result = result.concat([e])
-                }
-            })
-
-            setSearchResult(result);
-        }
-
+    const onSearch = (e: any) => {
+        setSearchEntry(e)
     };
+    
 
     const handleSetAttendance = (e:any) => {
-        console.log(employeeList)
+        const name = e.target.name
+        const employeeIdx = e.target.value
+        const employeeId = employeeList[employeeIdx].id
+        const attendanceIdx = employeeList?.[employeeIdx]?.attendance?.findIndex(({date})=>(date===clickedDay)) || -1
+        
+        if(attendanceIdx > -1){
+            const attendanceId = employeeList?.[employeeIdx]?.attendance?.[attendanceIdx].id
+            if (employeeList?.[employeeIdx].attendance?.find(({date})=>(date===clickedDay))?.status===name)
+                return
+
+            changeStatus(attendanceId, name)
+        } else {
+            markAttendance(employeeId, clickedDay, name)
+            
+        }
+        setIsChanged(true)
     }
 
-    // console.log(employeeList,format(clickedDay, "y-LL-dd"))
-    // console.log(employeeList)
-    // employeeList?.[0]?.attendance?.find((a)=>{a.date==format(clickedDay, "y-LL-dd")})
-    // console.log(employeeList?.find(e=>e.id==="38"))
-
-    // useEffect(()=>{
-    //     const test = [
-    //         {
-    //             name: "hi"
-    //         },
-    //         {
-    //             name: "ha"
-    //         },
-    //     ]
-
-    //     console.log(test.find(a=>a.name==="hi")?.name)
-    // },[])
+    // console.log(isChanged)
 
     return(
         <div className="calendar-gen-container">
@@ -216,15 +198,18 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                                 return(
                                     <div
                                         key={i}
-                                        className={"calendar-gen-day-wrapper " + isWithinMonth(day) + (isToday(day)? " today":"") + (format(day, "y-LL-dd")===clickedDay? " clicked":"")}
+                                        className={"calendar-gen-day-wrapper " + isWithinMonth(day) + (format(day, "y-LL-dd")===clickedDay? " clicked":"")}
                                     >
-                                        <button
-                                            value={format(day, "y-LL-dd") + isWithinMonth(day)}
-                                            // style={{ pointerEvents: (!isEdit? "none":"auto") }}
-                                            onClick={e=>{handleDayClick(e)}}
-                                        >
-                                            {format(day, "d")}
-                                        </button>           
+                                        <div className={"calendar-gen-today" + (isToday(day)? " today":"")}>
+
+                                            <button
+                                                value={format(day, "y-LL-dd") + isWithinMonth(day)}
+                                                // style={{ pointerEvents: (!isEdit? "none":"auto") }}
+                                                onClick={e=>{handleDayClick(e)}}
+                                            >
+                                                {format(day, "d")}
+                                            </button>           
+                                        </div>
                                     </div>              
                                 )
                             })}
@@ -235,29 +220,27 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                 <div className="calendar-gen-employees-container">
                     <text className="calendar-gen-employees-title">Set attendance for {clickedDay}</text>
                     <div className="calendar-gen-employees-body">
-                        <Search placeholder="Enter employee name" onSearch={onSearch} style={{ width: 200 }} />
+                        <Search placeholder="Enter employee name" onSearch={onSearch} style={{ width: "100%" }} />
                         <div className="calendar-gen-search-container">
                             { 
-                                employeeList?.map((e)=>{
-                                    // const temp = e.attendance?.find((a)=>{a.date===format(clickedDay, "y-LL-dd")})
-                                    console.log(e.id, e.attendance, e.attendance?.find(({date})=>date===clickedDay))
-                                    return(
-                                        <div className="calendar-gen-employee-wrapper">
-                                            <span className="calendar-gen-employee-name">
-                                                {e.first_name + ' ' + e.middle_name + ' ' + e.last_name}
-                                            </span>
-                                            <div className="calendar-gen-attendance-btn-wrapper">
-                                                <Button
-                                                    type="calendar-attendance-status-v2"
-                                                    handleClick={(e:any)=>{handleSetAttendance(e)}}
-                                                    state={e.attendance?.find(({date})=>date==clickedDay)?.status||""}
-                                                    // text="Present"
-                                                    // className="present"
-                                                    // value={format(day, "y-LL-dd") + " present" +  isWithinMonth(day)}
-                                                />
+                                employeeList?.map((e, idx)=>{
+                                    const fullName = getFullName(e.first_name, e.middle_name, e.last_name);
+                                    if (fullName.toLowerCase().includes(searchEntry.toLowerCase()))
+                                        return(
+                                            <div className="calendar-gen-employee-wrapper">
+                                                <span className="calendar-gen-employee-name">
+                                                    {e.first_name + ' ' + e.middle_name + ' ' + e.last_name}
+                                                </span>
+                                                <div className="calendar-gen-attendance-btn-wrapper">
+                                                    <Button
+                                                        type="calendar-attendance-status-v2"
+                                                        handleClick={(e:any)=>{handleSetAttendance(e)}}
+                                                        state={e.attendance?.find(({date})=>date==clickedDay)?.status||""}
+                                                        value={String(idx)}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
+                                        )
                                 })
                             }
                         </div>

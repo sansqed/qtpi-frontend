@@ -102,22 +102,22 @@ const EmployeeDetails = () => {
                     </div>
                 </div>
                 
+            <div className="c employee-details-calendar-container">
+                <Calendar
+                    employee_id={employee_id}
+                    />
             </div>
-        <div className="c employee-details-calendar-container">
-            <Calendar
-                employee_id={employee_id}
-            />
-        </div>
-        <div className="c employee-details-advance-container">
-            <Advance
-                employee_id={employee_id}
-            />
-        </div>
-        <div className="c employee-details-salary-container">
-            <Salary/>
-        </div>
+            <div className="c employee-details-advance-container">
+                <Advance
+                    employee_id={employee_id}
+                />
+            </div>
+            <div className="c employee-details-salary-container">
+                <Salary/>
+            </div>
             
         </div>
+    </div>
     )
 }
 

@@ -19,20 +19,20 @@ const Salary = () => {
             title: 'Item',
             dataIndex: 'item',
             key: 'item',
-            width: 150,
+            width: "35%",
         },
         {
             title: 'Details',
             dataIndex: 'details',
             key: 'details',
-            width: 150,
+            width: "35%",
         },
         {
             title: 'Amount',
             dataIndex: 'amount',
             key: 'amount',
             align: 'right',
-            width: 100,
+            width: "30%",
         },
     ];
 

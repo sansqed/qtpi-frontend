@@ -65,7 +65,6 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
     let pageSize = 5
     const [currPage, setCurrPage] = useState(1)
     const [newItemId, setNewItemId] = useState(-1)
-    // const [dateRange, setDateRange] = useState<Dayjs[]>([dayjs().startOf("week"), dayjs().endOf("week")])
     const [startDate, setStartDate] = useState<Dayjs>(dayjs().startOf("week"))
     const [endDate, setEndDate] = useState<Dayjs>(dayjs().endOf("week"))
     
@@ -73,13 +72,24 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
     const [editingId, setEditingId] = useState('');
     const isEditing = (record: AdvanceType) => record.id === editingId;
     const [isLoading, setIsLoading] = useState(false)
+    const [data, setData] = useState<AdvanceType[]>([])
+    const [isChanged, setIsChanged] = useState(false)
+
 
     useEffect(()=>{
+        setIsLoading(true)
         getAdvance(employee_id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
         .then((response)=>{
-            console.log(response)
+            let advances = response.data.data.advance.map((a:any)=>{
+                return({...a, date: dayjs(a.date)})
+            })
+            setData(advances)
+            setIsChanged(false)
+            setIsLoading(false)
+        }).catch(()=>{
+            setIsLoading(false)
         })
-    },[])
+    },[startDate, endDate, isChanged])
 
     const edit = (record: Partial<AdvanceType> & { id: string }) => {
         form.setFieldsValue({ item: '', date: dayjs(), amount: '', ...record });
@@ -87,13 +97,14 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
     };
 
     const cancel = () => {
+        setIsChanged(true)
         setEditingId('');
     };
 
     const handleDeleteItem = async(item:AdvanceType) => {
         deleteAdvance(item)
             .then(response=>{
-                console.log(response)
+                setIsChanged(true)
             })
     }
 
@@ -103,19 +114,21 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
             
           const newData = [...data];
           const index = newData.findIndex((item) => id === item.id);
-          if (index > -1) {
+          console.log(index, newData)
+          if (index !== newData.length-1) {
             const item = newData[index];
             newData.splice(index, 1, {
               ...item,
               ...row,
             });
             row.employee_id = employee_id
+            row.id = item.id
             
-            createAdvance(row)
+            console.log("UPDATE", row)
+            updateAdvance(row)
                 .then((response)=>{
-                    console.log(response)
+                    setIsChanged(true)
                 })
-
             setData(newData);
             setEditingId('');
           } else {
@@ -123,11 +136,11 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
             newData.push(row);
             console.log(row)
             setData(newData);
-            setEditingId('');
-
-            updateAdvance(row)
+            setEditingId('')
+            console.log("add")
+            createAdvance(row)
                 .then((response)=>{
-                    console.log(response)
+                    setIsChanged(true)
                 })
           }
         } catch (errInfo) {
@@ -141,14 +154,14 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
             title: 'Details',
             dataIndex: 'details',
             key: 'details',
-            width: 150,
+            width: "30%",
             editable: true,
         },
         {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
-            width: 150,
+            width: "30%",
             editable: true,
         },
         {
@@ -156,7 +169,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
             dataIndex: 'amount',
             key: 'amount',
             align: 'right',
-            width: 100,
+            width: "20%",
             editable: true,
         },
         {
@@ -193,50 +206,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
           },
       ];
 
-    const [data, setData] = useState<AdvanceType[]>([
-        // {
-        //     id: '1',
-        //     details: 'Cash',
-        //     date: dayjs("2023-01-01"),
-        //     amount: '1500',
-        //     employee_id: employee_id
-        // },
-        // {
-        //     id: '2',
-        //     details: 'Cash',
-        //     date: dayjs("2023-01-01"),
-        //     amount: '1500',
-        //     employee_id: employee_id
-        // },
-        // {
-        //     id: '3',
-        //     details: 'Cash',
-        //     date: dayjs("2023-01-01"),
-        //     amount: '1500',
-        //     employee_id: employee_id
-        // },
-        // {
-        //     id: '4',
-        //     details: 'Cash',
-        //     date: dayjs("2023-01-01"),
-        //     amount: '1500',
-        //     employee_id: employee_id
-        // },
-        // {
-        //     id: '5',
-        //     details: 'Cash',
-        //     date: dayjs("2023-01-01"),
-        //     amount: '1500',
-        //     employee_id: employee_id
-        // },
-        // {
-        //     id: '6',
-        //     details: 'Cash',
-        //     date: dayjs("2023-01-01"),
-        //     amount: '1500',
-        //     employee_id: employee_id
-        // },
-    ])
+
     const [isLastPage, setIsLastPage] = useState(Math.ceil(data.length/pageSize) === currPage)
     const handleAddAdvance = () => {
 
@@ -260,22 +230,14 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
         Math.ceil(data.length/pageSize)===page? setIsLastPage(true):setIsLastPage(false) 
     }
 
+    const handleDateChange = (range:any) => {
+        setStartDate(range[0])
+        setEndDate(range[1])
+    }
+
     const mergedColumns = columns.map((col:any) => {
         if (!col.editable)
             return {...col}
-        
-        // if (col.dataIndex==="date")
-            console.log(col)
-            // return {
-            //     ...col,
-            //     onCell: (record: Item) => ({
-            //     record,
-            //     inputType: col.dataIndex === 'amount' ? 'number' :  col.dataIndex === 'date' ? 'date':'text',
-            //     dataIndex: col.dataIndex,
-            //     title: col.title,
-            //     editing: isEditing(record),
-            //     }),
-            // };
 
         return {
           ...col,
@@ -295,6 +257,9 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
                 <h2 className="advance-title">
                     ADVANCE
                 </h2>
+
+                
+
                 <div className="advance-add-btn-wrapper">
                     <Button
                         type="add-advance"
@@ -302,19 +267,21 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
                     />
                 </div>
             </div>
+            
             <div className="advance-date-range-container">
-                <text className="advance-range-label">
-                    From
-                </text>
-                <RangePicker 
-                    className="advance-rangepicker"
-                    size={"small"} 
-                    defaultValue={[startDate, endDate]}
-                    style={{ width: '65%'}}
-                    format={"MMM DD YYYY"}
-                    separator={"to"}
-                    bordered={false}
-                />
+                    <text className="advance-range-label">
+                        From
+                    </text>
+                    <RangePicker 
+                        className="advance-rangepicker"
+                        size={"small"} 
+                        defaultValue={[startDate, endDate]}
+                        style={{ width: '65%'}}
+                        format={"MMM DD YYYY"}
+                        separator={"to"}
+                        bordered={false}
+                        onCalendarChange={e=>handleDateChange(e)}
+                    />
             </div>
 
             <div className="advance-table-container">
