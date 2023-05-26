@@ -132,8 +132,10 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
         const name = e.target.name
         const employeeIdx = e.target.value
         const employeeId = employeeList[employeeIdx].id
-        const attendanceIdx = employeeList?.[employeeIdx]?.attendance?.findIndex(({date})=>(date===clickedDay)) || -1
-        
+        const attendanceIdx = employeeList?.[employeeIdx]?.attendance?.findIndex(({date})=>(date===clickedDay))
+
+        if (attendanceIdx===undefined)
+            return
         if(attendanceIdx > -1){
             const attendanceId = employeeList?.[employeeIdx]?.attendance?.[attendanceIdx].id
             if (employeeList?.[employeeIdx].attendance?.find(({date})=>(date===clickedDay))?.status===name)
