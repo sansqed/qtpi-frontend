@@ -4,7 +4,7 @@ button{
   cursor: pointer;
   font-family: "Poppins", sans-serif;
 }
-button:hover{
+.btn-hover-fx:hover{
   box-shadow: 0 0 0 0.25rem var(--tertiary-color);
   transition: ease-in;
   transition-duration: 0.2s;
@@ -203,6 +203,17 @@ button:hover{
 .btn-attendance-status-v2.active.absent{
   background-color: #C5302D !important;
 }
+
+.btn-hover-fx.btn-attendance-status-v2.present:hover{
+  box-shadow: 0 0 0 0.1rem #359c33;
+}
+.btn-hover-fx.btn-attendance-status-v2.halfday:hover{
+  box-shadow: 0 0 0 0.1rem #CE6225;
+}
+.btn-hover-fx.btn-attendance-status-v2.absent:hover{
+  box-shadow: 0 0 0 0.1rem #C5302D;
+}
+
 
 /* .btn-attendance-status-v2.absent{
   height: 100%;

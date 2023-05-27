@@ -35,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "add-user"){
       return(
         <button 
-          className="btn-user light small"
+          className="btn-hover-fx btn-user light small"
           onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-plus"]} className="user-icon"/>
@@ -47,7 +47,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "add-employee"){
       return(
         <button 
-          className="btn-user light"
+          className="btn-hover-fx btn-user light"
           onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-plus"]} className="user-icon"/>
@@ -59,7 +59,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "sign-in"){
       return(
         <button 
-          className="btn-sign-in"
+          className="btn-hover-fx btn-sign-in"
           onClick = {e => handleClick(e)}
         >
           <b>SIGN IN</b>
@@ -70,7 +70,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "submit"){
         return(
         <button
-          className="btn-submit btn-large dark"
+          className="btn-hover-fx btn-submit btn-large dark"
           onClick = {e => handleClick(e)}
         >
           SUBMIT
@@ -80,7 +80,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "user-edit-submit"){
         return(
         <button
-          className="btn-user dark"
+          className="btn-hover-fx btn-user dark"
           onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-pen"]} className="user-icon"/>
@@ -92,7 +92,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "user-edit"){
       return(
         <button 
-          className="btn-user dark"
+          className="btn-hover-fx btn-user dark"
           onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-pen"]} className="user-icon"/>
@@ -104,7 +104,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "user-reset-password"){
       return(
         <button 
-          className="btn-user light"
+          className="btn-hover-fx btn-user light"
           onClick = {e => handleClick(e)}
         >
           {/* <FontAwesomeIcon icon={["fas","user-pen"]} className="user-icon"/> */}
@@ -116,7 +116,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "user-delete"){
       return(
         <button 
-          className="btn-user btn-delete light red"
+          className="btn-hover-fx btn-user btn-delete light red"
           onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>
@@ -128,7 +128,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "logout"){
       return(
         <button 
-          className="btn-logout light"
+          className="btn-hover-fx btn-logout light"
           onClick = {e => handleClick(e)}
         >
           Logout
@@ -139,7 +139,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "back"){
       return(
         <button 
-          className="btn-back btn-large light"
+          className="btn-hover-fx btn-back btn-large light"
           onClick = {e => handleClick(e)}
           name="back"
         >
@@ -148,7 +148,7 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
     
-    if (type==="calendar-edit"){
+    if (type==="btn-hover-fx calendar-edit"){
       return(
         <button 
           className={"btn-calendar-edit "+className}
@@ -160,7 +160,7 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
-    if (type==="calendar-prev-next"){
+    if (type==="btn-hover-fx calendar-prev-next"){
       return(
         <button 
           className={"btn-calendar-prev-next "+className}
@@ -175,7 +175,7 @@ const Button: React.FC<ButtonProps> = ({
     if(type === "calendar-attendance-status"){
       return(
         <button 
-          className={"btn-attendance-status "+className}
+          className={"btn-hover-fx btn-attendance-status "+className}
           onClick = {e => handleClick(e)}
           name={className}
           value={value}
@@ -194,7 +194,7 @@ const Button: React.FC<ButtonProps> = ({
           <input
             type="image"
             src={state==="present"? check_active:check}
-            className={"btn-attendance-status-v2 present" + (state==="present"? " active":"")}
+            className={"btn-hover-fx btn-attendance-status-v2 present" + (state==="present"? " active":"")}
             name={"present"}
             value={value}
             onClick = {e => handleClick(e)}
@@ -202,7 +202,7 @@ const Button: React.FC<ButtonProps> = ({
           <input
             type="image"
             src={state==="halfday"? slash_active:slash}
-            className={"btn-attendance-status-v2 halfday" + (state==="halfday"? " active":"")}
+            className={"btn-hover-fx btn-attendance-status-v2 halfday" + (state==="halfday"? " active":"")}
             name={"halfday"}
             value={value}
             onClick = {e => handleClick(e)}
@@ -213,7 +213,7 @@ const Button: React.FC<ButtonProps> = ({
             onClick = {e => handleClick(e)}
             name={"absent"}
             value={value}
-            className={"btn-attendance-status-v2 absent" + (state==="absent"? " active":"")}
+            className={"btn-hover-fx btn-attendance-status-v2 absent" + (state==="absent"? " active":"")}
           />
         </div>
       )
@@ -222,7 +222,7 @@ const Button: React.FC<ButtonProps> = ({
     if(type==="add-advance"){
       return(
         <button
-          className="btn-add-advance"
+          className="btn-hover-fx btn-add-advance"
           onClick={e => handleClick(e)}
           name="add-advance"
         >
@@ -235,7 +235,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "date-range"){
       return(
         <button 
-          className="btn-date-range"
+          className="btn-hover-fx btn-date-range"
           onClick = {e => handleClick(e)}
         >
           Select start 
