@@ -243,7 +243,7 @@ const EditUser: React.FC<EditUserProps> = ({userArg, setIsChanged}) => {
                     
                     <div className="edit-user-submit-container">
                         <Button 
-                            handleClick={handleDelete}
+                            handleClick={handleSubmit}
                             type= "user-edit-submit"
                         />
                     </div>

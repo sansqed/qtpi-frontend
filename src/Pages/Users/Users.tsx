@@ -42,7 +42,6 @@ const Users: React.FC = () => {
 
     const HandleAction = () => {
         if (action==="details")
-        
             return(<UserDetails user={getUser()} setIsChanged={setIsChanged}/>)
         else if (action === "edit")
             return (
@@ -53,7 +52,10 @@ const Users: React.FC = () => {
             )
         else if (action === "add")
                 return(<AddUsers setIsChanged={setIsChanged}/>)
-        return null
+        else{
+            setSelectedUserId('')
+            return null
+        }
     }
 
 
@@ -76,8 +78,8 @@ const Users: React.FC = () => {
                         {users && users.length? users.map(({id, username, first_name, middle_name, last_name}) => 
                             <div className={"user-list-content" + (id===selectedUserId? " highlight":"")}>
                                 <NavLink to={"/users/details/user_id="+id} className="user-list-link">
-                                    <p className="user-list-username">{username}</p>
                                     <p className="user-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</p>
+                                    <p className="user-list-username">@{username}</p>
                                 </NavLink>
                             </div>
                         ):<></>}

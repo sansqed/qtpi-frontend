@@ -69,6 +69,7 @@
 }
 .user-list-content.highlight{
     padding: 0.5vw;
+    padding-bottom: 0.6vw;
     background-color: var(--secondary-color);
     border-radius: 16px;
 }
