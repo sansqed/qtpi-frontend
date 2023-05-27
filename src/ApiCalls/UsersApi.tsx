@@ -5,13 +5,14 @@ import { getRequester, getToken } from "../Helpers/UserFunctions"
 var token = getToken()
 var requester = getRequester()
 
-export const getUsers = async(user_id?:string)=>{
+export const getUsers = async(user_id?:string, token2?:string)=>{
     // URL+"users/get?requester="+requester+"&token=".concat("",token)+"&user_id="
+    console.log(token)
     if (user_id == undefined)
         user_id = ""
 
     try {
-        const response = await getAPICall(URL+"users/get?requester="+requester+"&token=".concat("",token)+"&user_id=" + user_id,{
+        const response = await getAPICall(URL+"users/get?requester="+requester+"&token="+token+"&user_id=" + user_id,{
         })
         return { data: response.data};
     } catch (error) {

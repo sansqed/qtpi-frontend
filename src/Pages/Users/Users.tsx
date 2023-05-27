@@ -8,11 +8,21 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getUsers } from "../../ApiCalls/UsersApi";
 import User, { emptyUser } from "../../Types/User";
 
+import UserDetails from "./UserDetails";
+import EditUser from "./EditUser";
+import AddUsers from "./AddUser";
+
 
 const Users: React.FC = () => {
+    const location = useLocation()
     const navigate = useNavigate()
+    const paths = location.pathname.split('/')
+    const action = paths[2]
+    const [selectedUserId, setSelectedUserId] = useState("")
+    console.log(paths)
 
     const [users, setUsers] = useState<[User]>()
+    const [isChanged, setIsChanged] = useState(false)
 
     // FETCH USERS DATA
     useEffect(()=>{
@@ -21,8 +31,30 @@ const Users: React.FC = () => {
                 console.log(response.data.data.users)
                 setUsers(response.data.data.users)
             })
+        setIsChanged(false)
+    },[isChanged])
 
-    },[])
+    const getUser = () => {
+        const userId = paths[3].split('=')[1]
+        setSelectedUserId(userId)
+        return users?.find(({id})=>id===userId) || emptyUser
+    }
+
+    const HandleAction = () => {
+        if (action==="details")
+        
+            return(<UserDetails user={getUser()} setIsChanged={setIsChanged}/>)
+        else if (action === "edit")
+            return (
+                <EditUser 
+                    userArg={getUser()}
+                    setIsChanged={setIsChanged}
+                />
+            )
+        else if (action === "add")
+                return(<AddUsers setIsChanged={setIsChanged}/>)
+        return null
+    }
 
 
     return (
@@ -42,16 +74,16 @@ const Users: React.FC = () => {
                     </div>
                     <div className="user-list-body">
                         {users && users.length? users.map(({id, username, first_name, middle_name, last_name}) => 
-                            <div className="user-list-content">
-                                <NavLink to={"/users/userid="+id} className="user-list-link" reloadDocument={true}>
-                                    <text className="user-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</text>
-                                    <text className="user-list-username">{" (" + username + ")"}</text>
+                            <div className={"user-list-content" + (id===selectedUserId? " highlight":"")}>
+                                <NavLink to={"/users/details/user_id="+id} className="user-list-link">
+                                    <p className="user-list-username">{username}</p>
+                                    <p className="user-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</p>
                                 </NavLink>
                             </div>
                         ):<></>}
-
                     </div>
                 </div>
+                <HandleAction/>
             </div>
         </div>      
     );

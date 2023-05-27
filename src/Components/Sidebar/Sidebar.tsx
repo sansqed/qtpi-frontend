@@ -43,35 +43,35 @@ const Sidebar: React.FC = () => {
                 <div className="sidebar-menu-container">
                     <nav id="sidebar" className="sidebar-menu">
 
-                        <NavLink to={"/"} className="sidebar-link" reloadDocument= {true}>
+                        <NavLink to={"/"} className="sidebar-link" reloadDocument= {false}>
                           <div className="sidebar-dashboard">
                             <FontAwesomeIcon icon={["fas","gauge-high"]} className="sidebar-employees-icon"/>
                             Dashboard 
                           </div>
                         </NavLink>                       
 
-                        <NavLink to={"/employees"} className="sidebar-link" reloadDocument= {true}>
+                        <NavLink to={"/employees"} className="sidebar-link" reloadDocument= {false}>
                           <div className="sidebar-employees">
                             <FontAwesomeIcon icon={["fas","users"]} className="sidebar-employees-icon"/>
                             Employees
                           </div>
                         </NavLink>
 
-                        <NavLink to={"/payroll"} className="sidebar-link" reloadDocument= {true}>
+                        <NavLink to={"/payroll"} className="sidebar-link" reloadDocument= {false}>
                           <div className="sidebar-payroll">
                             <FontAwesomeIcon icon={["fas","calculator"]} className="sidebar-employees-icon"/>
                             Payroll 
                           </div>
                         </NavLink>
 
-                        <NavLink to={"/expenses"} className="sidebar-link" reloadDocument= {true}>
+                        <NavLink to={"/expenses"} className="sidebar-link" reloadDocument= {false}>
                           <div className="sidebar-expenses">
                             <FontAwesomeIcon icon={["fas","money-check-dollar"]} className="sidebar-expenses-icon"/>
                             Expenses
                           </div>
                         </NavLink>
 
-                        <NavLink to={"/users"} className="sidebar-link" reloadDocument= {true}>
+                        <NavLink to={"/users"} className="sidebar-link" reloadDocument= {false}>
                           <div className="sidebar-users">
                             <FontAwesomeIcon icon={["fas","user"]} className="sidebar-user-icon"/>
                             Users

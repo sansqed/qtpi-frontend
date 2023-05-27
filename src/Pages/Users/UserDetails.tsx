@@ -7,88 +7,116 @@ import Button from "../../Components/Button/Button";
 import User, { emptyUser } from "../../Types/User";
 import { toast } from "react-hot-toast";
 import toasterConfig from "../../Helpers/ToasterConfig";
+import { OverlayTrigger, Popover } from "react-bootstrap";
 
 import "./UserDetails.css"
 import Users from "./Users";
+import type UserType from "../../Types/User";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const UserDetails = () => {
+interface UserDetailsProps{
+    user: UserType|undefined;
+    setIsChanged: Function;
+}
+
+const UserDetails:React.FC<UserDetailsProps> = ({user, setIsChanged}) => {
     const location = useLocation()
     const navigate = useNavigate()
-    const urlHeader = "/users/userid="
+    const urlHeader = "/users/details/user_id="
     const user_id = String(location.pathname.substring(urlHeader.length));
-    const [user, setUser] = useState<User>(emptyUser)
-    const tempUser = {
-        access_logs: [
-            "December 30, 2022 7:00",
-            "December 31, 2022 7:00",
-        ]
-    }
-
-    useEffect(()=>{
-        getUsers(user_id)
-            .then((response) => {
-                console.log(response.data.data.users[0])
-                setUser(response.data.data.users[0])
-            })
-    },[])
 
     const handleDelete = async() => {
         deleteUser(user_id)
             .then((response)=>{
                 if (response.data.status === "200"){
-                    toast.success(response.data.message, toasterConfig)
+                    toast.success(response.data.status.message, toasterConfig);
 
+                    setIsChanged(true)
                     setTimeout(()=>{
                         navigate("/users")
                     }, 2000)
+
                 } else {
-                    toast.error(response.data.message, toasterConfig)
+                    toast.error(response.data.message, toasterConfig);
                 }
             })
     }
 
     const parseRole = () =>{
-        if (user.role_id === "1")
+        if (user?.role_id === "1")
             return "Admin"
-        else if (user.role_id === "2")
+        else if (user?.role_id === "2")
             return "Accounting"
         else
             return ""
     }
 
+    const deleteConfirmPopup = (
+        <Popover id="popover-basic" className="user-confirm-delete-popover">
+        <Popover.Header className="popover-header">Confirm Delete?</Popover.Header>
+        <Popover.Body>
+            <button className="btn-user cancel light">
+                Cancel
+            </button>
+            <button className="btn-user delete" onClick={handleDelete}>
+                Delete
+            </button>
+        </Popover.Body>
+    </Popover>
+    )
+
     return(
         <div className="user-details-container">
-            <div className="sidebar-area-container">
+            {/* <div className="sidebar-area-container">
                 <Users/>
-            </div>
+            </div> */}
             <div className="user-details-content-wrapper">
                 <p className="user-details-back"><NavLink to={"/users"} className={"user-details-back"}>&lt; Back to user list</NavLink></p>
 
-                <div className="user-details-section">
-                    <H1 text={user.first_name + " " + user.middle_name + " " + user.last_name}/>
-                    <p className="user-details-info">{parseRole()}</p>
-                </div>
-
-                <div className="user-details-section">
-                    <p className="user-details-info">Username: {user.username}</p>
-                    <p className="user-details-info">Address: {user.address}</p>
-                    <p className="user-details-info">Contact No.: {user.contact_no}</p>
-                </div>
-
-                <div className="user-details-section">
-                    <Button
-                        type="user-edit"
-                        handleClick={()=>{navigate("/users/edit/userid="+user_id)}}
-                    />
-
-                    <Button
-                        type="user-delete"
-                        handleClick={handleDelete}
-                    />
-
-                </div>
                 
 
+                <div className="user-details-section">
+                    <H1 text={user?.first_name + " " + user?.middle_name + " " + user?.last_name}/>
+                    <p className="user-details-role">{parseRole()}</p>
+                </div>
+
+                <div className="user-details-section">
+                    <div className="user-details-group">
+                        <p className="user-details-label">Username</p>
+                        <p className="user-details-info">{user?.username}</p>
+                    </div>
+
+                    <div className="user-details-group">
+                        <p className="user-details-label">Address</p>
+                        <p className="user-details-info">{user?.address}</p>
+                    </div>
+
+                    <div className="user-details-group">
+                    <p className="user-details-label">Contact Number</p>
+                    <p className="user-details-info">{user?.contact_no}</p>
+                    </div>
+                </div>
+
+                <div className="user-details-section btn">  
+                    <div className="user-delete-btn-wrapper">
+                        <OverlayTrigger trigger="click" placement="top" overlay={deleteConfirmPopup}>
+                            <button 
+                                className="btn-user btn-delete light red"
+                            >
+                                <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>
+                                <text>Delete</text>
+                            </button>
+                        </OverlayTrigger>
+                    </div>
+
+                    <div className="user-edit-btn-wrapper">
+                        <Button
+                            type="user-edit"
+                            handleClick={()=>{navigate("/users/edit/user_id="+user_id)}}
+                        />
+                    </div>
+
+                </div>
                 {/* <hr className="user-details-hr"/>
 
                 <div className="user-details-section">

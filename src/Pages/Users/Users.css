@@ -20,8 +20,8 @@
     /* display:flex; */
     margin-left: 30vh;
     height: 91vh;
-    width: 25vw;
-    background-color: var(--primary-color);
+    width: 20vw;
+    background-color: white;
     border: none;
     border-radius: 1vh;
     text-align: left;
@@ -51,7 +51,7 @@
 .user-list-body{
     overflow-y: scroll;
     
-    height: 80vh;
+    height: 75vh;
     margin-right: 2vh;
     display: block;
     /* color: var(--secondary-color); */
@@ -64,7 +64,18 @@
 
 .user-list-content{
     margin: 3% 0%;
+    padding-left: 0.5vw;
+    margin-right: 0.5vw;
 }
+.user-list-content.highlight{
+    padding: 0.5vw;
+    background-color: var(--secondary-color);
+    border-radius: 16px;
+}
+.user-list-content.highlight p{
+    color: white;
+}
+
 
 .user-list-link:link, .user-list-link:visited{
     color: var(--secondary-color);  
@@ -73,6 +84,14 @@
 
 .user-list-name{
     font-weight: 700;
+    margin: 0;
+}
+
+.user-list-username{
+    margin: 0;
+    font-size: small;
+    opacity: 80%;
+    font-style: italic;
 }
   
   

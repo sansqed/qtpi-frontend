@@ -6,10 +6,12 @@
 .user-details-container{
     background-color: var(--secondary-color);
     color:var(--primary-color);
-    height: 100vh;
-    width: 100vw;
+    height: fit-content;
+    width: 25vw;
+    /* height: 100%; */
     display: flex;
     align-items: center;
+    margin-left: 1vw;
 }
 
 .user-details-back:link, .user-details-back:visited{
@@ -21,14 +23,14 @@
     float: left;
     /* margin-left: 15vw; */
 
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    margin-right: 1.2vw;
-    background-color: var(--primary-color);
+    /* margin-top: 2vh; */
+    /* margin-bottom: 2vh; */
+    /* margin-right: 1.2vw; */
+    background-color: white;
     border-radius: 10px;
     border-color: transparent;
     height: 84%;
-    /* width: 100%; */
+    width: 35vw;
     padding: 2vw 3vw;
     color: var(--secondary-color);
     white-space: pre-wrap;
@@ -37,8 +39,56 @@
 
 .user-details-section{
     margin: 1vw 0vw;
+    width: 100%;
 }
+
 
 .user-details-content-wrapper p{
     margin: 0;
+}
+
+
+
+.user-details-label{
+    font-size: small;
+}
+
+.user-details-info{
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    height: 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.user-details-group{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.user-delete-btn-wrapper{
+    float: left;
+}
+.user-edit-btn-wrapper{
+    float: right;
+}
+
+.user-confirm-delete-popover{
+    border-radius: 8px !important;
+    border: 1px solid gray
+}
+.user-confirm-delete-popover .popover-header{
+    font-size: medium;
+    font-weight: 600;
+    text-align: center;
+}
+.user-confirm-delete-popover button{
+    font-size: small !important;
+}
+.user-confirm-delete-popover .cancel{
+    border: none;
+}
+.user-confirm-delete-popover .delete{
+    color: white;
+    background-color: #A21818;
+    border: transparent;
 }

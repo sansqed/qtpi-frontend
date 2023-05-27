@@ -56,22 +56,38 @@ function App() {
               path="/employees/edit/:employeeid"
               element={isLoggedIn()? <EditEmployee/>:<Login/>}
           />
+          {/* <Route
+            path={"/users" || "/users/:action" || "/users/:action/:user_id"}
+              element={isLoggedIn()? <Users/>:<Login/>}
+          />  */}
+           {/* <Route path={["/profile", "/"]} 
+            element={isLoggedIn()? <Users/>:<Login/>} 
+            /> */}
           <Route
             path="/users"
-              element={isLoggedIn()? <Users/>:<Login/>}
+            element={isLoggedIn()? <Users/>:<Login/>}
           /> 
           <Route
+            path="/users/:action"
+            element={isLoggedIn()? <Users/>:<Login/>}
+          /> 
+          <Route
+            path="/users/:action/:user_id"
+            element={isLoggedIn()? <Users/>:<Login/>}
+          /> 
+
+          {/* <Route
             path="/users/add"
             element={isLoggedIn()? <AddUsers/>:<Login/>}
           />
           <Route
-            path="/users/:userid"
+            path="/users"
             element={isLoggedIn()? <UserDetails/>:<Login/>}  
           />
           <Route
             path="/users/edit/:userid"
             element={isLoggedIn()? <EditUser/>:<Login/>}  
-          />
+          /> */}
         </Routes>
         
       </BrowserRouter>

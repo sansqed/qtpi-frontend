@@ -1,4 +1,4 @@
-type User = {
+type UserType = {
     id:                 string,
     first_name:         string,
     middle_name:        string,
@@ -50,4 +50,4 @@ export const defaultUserError = {
     confirm_password: false,
 }
 
-export default User;
+export default UserType;

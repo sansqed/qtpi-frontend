@@ -8,12 +8,17 @@ import { createUser } from "../../ApiCalls/UsersApi";
 import User, { emptyUser, defaultUserError, UserError } from "../../Types/User";
 import toasterConfig from "../../Helpers/ToasterConfig";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import ValidateUsers from "../../Helpers/Validations/ValidateUsers"
+import Container from 'react-bootstrap/Container';
 
 import "./AddUser.css"
 
-const AddUsers: React.FC = () => {
+interface AddUserProps{
+    setIsChanged: Function;
+}
+
+const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
     const [user, setUser] = useState<User>(emptyUser);
     const [error, setError] = useState<UserError>(defaultUserError);
 
@@ -37,6 +42,7 @@ const AddUsers: React.FC = () => {
                     if (response.data.status === "201"){
                         toast.success("User Created Successfully", toasterConfig);
 
+                        setIsChanged(true)
                         setTimeout(()=>{
                             navigate("/users")
                         }, 2000)
@@ -58,62 +64,118 @@ const AddUsers: React.FC = () => {
 
     return (
         <div className="add-users-container">
-            <div className="add-users-content-wrapper">
-                <Sidebar/>
+            <div className="add-user-content-wrapper">
+                {/* <div className="add-user-user-list-wrapper">
+                    <Users/>
+                </div> */}
+                    
                 <div className="add-user-form-container">
-                    <Form>
-                        <div className="add-user-header">
-                            <h1>ADD USER</h1>
-                        </div>
-                        <Row className="add-user-name-container">
+                    <div className="add-user-header">
+                        <p className="user-details-back"><NavLink to={"/users/"} className={"user-details-back"}>&lt; Back to user details</NavLink></p>
+                        <h2>ADD USER</h2>
 
+                    </div>
+                    <Container>
+                        <Row>
                             <Form.Group>
-                                <Form.Label className="add-user-input-label">
-                                    NAME
+                                <Form.Label className="add-user-input-label" as={"h4"}>
+                                    <h4>NAME</h4>
                                 </Form.Label>
+
+                                <Form.Control 
+                                    type="text" 
+                                    required={true} 
+                                    id="first_name"
+                                    name="first_name"
+                                    onChange={(e) => handleChange(e)}
+                                    className="add-user-input-box first name"
+                                    placeholder="FIRST NAME"
+                                    defaultValue={user.first_name}
+                                />
                                 
-                                    <Form.Control 
-                                        type="text" 
-                                        required={true} 
-                                        id="first_name"
-                                        name="first_name"
-                                        onChange={(e) => handleChange(e)}
-                                        className="add-user-input-box"
-                                        placeholder="FIRST NAME"
-                                        autoComplete={"off"}
-                                    />
-                                    
-                                    <Form.Control 
-                                        type="text" 
-                                        // required={true} 
-                                        id="middle_name"
-                                        name="middle_name"
-                                        onChange={(e) => handleChange(e)}
-                                        className="add-user-input-box"
-                                        autoComplete={"off"}
-                                        placeholder="MIDDLE NAME"
-                                    />
-                                    <Form.Control 
-                                        type="text" 
-                                        required={true} 
-                                        id="last_name"
-                                        name="last_name"
-                                        onChange={(e) => handleChange(e)}
-                                        className="add-user-input-box"
-                                        placeholder="LAST NAME"
-                                        autoComplete={"off"}
-                                    />
+                                <Form.Control 
+                                    type="text" 
+                                    required={true} 
+                                    id="middle_name"
+                                    name="middle_name"
+                                    onChange={(e) => handleChange(e)}
+                                    className="add-user-input-box middle name"
+                                    placeholder="MIDDLE NAME"
+                                    defaultValue={user.middle_name}
+                                />
+                                <Form.Control 
+                                    type="text" 
+                                    required={true} 
+                                    id="last_name"
+                                    name="last_name"
+                                    onChange={(e) => handleChange(e)}
+                                    className="add-user-input-box last name"
+                                    placeholder="LAST NAME"
+                                    defaultValue={user.last_name}
+                                />
                                 {/* </div> */}
                             </Form.Group>
                         </Row>
 
                         <Row>
-                            <Form.Group>
-                                <div className="add-user-second-row-label">
-                                    <h1 className="add-user-second-row-label-username">USERNAME</h1>
-                                    <h1 className="add-user-second-row-label-contact">CONTACT NO.</h1>
-                                    <h1 className="add-user-second-row-label-address">ADDRESS</h1>
-                                </div>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label className="add-user-input-label" as={"h4"}>
+                                        <h4>Role</h4>
+                                    </Form.Label>
+                                    <Form.Select 
+                                        className="add-user-role-menu"
+                                        id="role_Id"
+                                        name="role_id"
+                                        onChange={(e) => handleChange(e)}
+                                        value={user.role_id}
+                                    >
+                                        <option value="1">Admin</option>
+                                        <option value="2">Accounting</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label className="add-user-input-label" as={"h4"}>
+                                        <h4>Contact Number</h4>
+                                    </Form.Label>
+                                    <Form.Control 
+                                        type="text" 
+                                        required={true} 
+                                        id="contact_no"
+                                        name="contact_no"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box contact-no"
+                                        defaultValue={user.contact_no}
+                                        // bsPrefix={"+63"}
+                                        prefix="+63"
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                            <Row>
+                                <Form.Group>
+                                    <Form.Label className="add-user-input-label" as={"h4"}>
+                                        <h4>Address</h4>
+                                    </Form.Label>
+                                    <Form.Control 
+                                        type="text" 
+                                        required={true} 
+                                        id="address"
+                                        name="address"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box address"
+                                        defaultValue={user.address}
+                                    />
+                                </Form.Group>
+                            </Row>
+                        <hr className="add-user-hr"/>
+                            <Row>
+                                <Form.Group>
+                                    <Form.Label className="add-user-input-label" as={"h4"}>
+                                        <h4>Username</h4>
+                                    </Form.Label>
                                     <Form.Control 
                                         type="text" 
                                         required={true} 
@@ -121,82 +183,53 @@ const AddUsers: React.FC = () => {
                                         name="username"
                                         onChange={(e) => handleChange(e)}
                                         className="add-user-input-box"
-                                        autoComplete={"off"}
+                                        defaultValue={user.username}
+                                        autoComplete="off"
                                     />
-                                <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="contact_no"
-                                    name="contact_no"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-user-input-box"
-                                    autoComplete={"off"}
-                                />
-                                 <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="address"
-                                    name="address"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-user-input-box"
-                                    autoComplete={"off"}
-                                />
-
-                            </Form.Group>
-                        </Row>
-                        <Row>
-                          <Form.Group>
-                            <div className="add-user-third-row-label">
-                               <h1 className="add-user-third-row-label-role">ROLE</h1>
-                               <h1 className="add-user-third-row-label-password">PASSWORD</h1>
-                               <h1 className="add-user-third-row-label-confirm-password">CONFIRM PASSWORD</h1>
-                            </div>
-                          </Form.Group>
-                          <Form.Select 
-                            className="add-user-role-menu"
-                            id="role_id"
-                            name="role_id"
-                            onChange={(e) => handleChange(e)}
-                            >
-                            <option value="1">Admin</option>
-                            <option value="2">Accounting</option>
-                          </Form.Select>
-                          <Form.Control
-                            type="password"
-                            required={true}
-                            id="password"
-                            name="password"
-                            onChange={(e) => handleChange(e)}
-                            className="add-user-input-box"
-                          />
-                          <Form.Control
-                            type="password"
-                            required={true}
-                            id="confirm_password"
-                            name="confirm_password"
-                            onChange={(e) => handleChange(e)}
-                            className="add-user-input-box"
-                          />
-                        </Row>
-
-                    </Form>
-
-                    <div className="add-user-button-container">
-                        <Button
-                            type="back"
-                            handleClick={handleBack}
-                        />
+                                </Form.Group>
+                            </Row>
+                            <Row>
+                                <Form.Group>
+                                    <Form.Label className="add-user-input-label" as={"h4"}>
+                                        <h4>Password</h4>
+                                    </Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        required={true}
+                                        id="password"
+                                        name="password"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box"
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
+                            </Row>
+                            <Row>
+                                <Form.Group>
+                                    <Form.Label className="add-user-input-label" as={"h4"}>
+                                        <h4>Confirm Password</h4>
+                                    </Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        required={true}
+                                        id="confirm_password"
+                                        name="confirm_password"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box"
+                                        autoComplete="off"
+                                    />
+                                </Form.Group>
+                            </Row>
+                    </Container>
+                        
+                    
+                    <div className="add-user-submit-container">
                         <Button 
                             handleClick={handleSubmit}
-                            type= "submit"
-                            
-                        >
-                            SUBMIT
-                        </Button>
+                            type= "user-edit-submit"
+                        />
                     </div>
-
                 </div>
-                {/* sidebar sibling level */}
             </div>
         </div>      
     );

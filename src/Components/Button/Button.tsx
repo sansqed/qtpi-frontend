@@ -32,11 +32,10 @@ const Button: React.FC<ButtonProps> = ({
   disable,
   state
   }) =>{
-    const [active, setActive] = useState("none")
     if (type === "add-user"){
       return(
         <button 
-          className="btn-user light"
+          className="btn-user light small"
           onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-plus"]} className="user-icon"/>
@@ -71,10 +70,21 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "submit"){
         return(
         <button
-          className="btn-submit btn-large"
+          className="btn-submit btn-large dark"
           onClick = {e => handleClick(e)}
         >
           SUBMIT
+        </button>
+        )
+      }
+    if (type === "user-edit-submit"){
+        return(
+        <button
+          className="btn-user dark"
+          onClick = {e => handleClick(e)}
+        >
+          <FontAwesomeIcon icon={["fas","user-pen"]} className="user-icon"/>
+          Submit
         </button>
         )
       }
@@ -91,10 +101,22 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
+    if (type === "user-reset-password"){
+      return(
+        <button 
+          className="btn-user light"
+          onClick = {e => handleClick(e)}
+        >
+          {/* <FontAwesomeIcon icon={["fas","user-pen"]} className="user-icon"/> */}
+          Reset Password
+        </button>
+      )
+    }
+
     if (type === "user-delete"){
       return(
         <button 
-          className="btn-user btn-delete light"
+          className="btn-user btn-delete light red"
           onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>

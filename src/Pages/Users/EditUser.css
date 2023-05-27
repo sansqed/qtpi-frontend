@@ -4,19 +4,25 @@
     font-family: "Poppins", sans-serif;
 }
 
+.edit-user-user-list-wrapper{
+    width: fit-content;
+    margin-right: 1vw;
+}
+
 .edit-users-container {
     font-family: "Poppins", sans-serif;
     background-color: #003459;
     color:white;
-    height: 100vh;
-    width: 100vw;
+    /* max-width: 100vh; */
+    /* width: 100vw; */
     display: flex;
     align-items: center;
-    font-size: 62.5%;
+    margin-left: 1vw;
 }
 
 .edit-users-content-wrapper {
     display: flex;
+    /* max-height: 100vh; */
 }
 
 .edit-user-form-labels{
@@ -24,27 +30,42 @@
     margin-right:vw;
 }
 
+.edit-user-row-container{
+    display: inline-flex;
+}
+.edit-user-row-container .col{
+    width: 10vw;
+}
+
 .edit-user-form-container {
     /* display:flex; */
     /* flex-direction: column;
     justify-content: flex-start; */
     text-align: left;
-    padding-top: 1vh;
-    padding-left: 3vh;
+    padding: 3vh 3vh;
     color:#003459;
     /* display:flex; */
-    margin-left: 30vh;
-    height: 90vh;
-    width: 80vw;
+    /* margin-left: 30vh; */
+    height: 86vh;
+    width: 25vw;
     background-color: white;
     border: none;
     border-radius: 1vh;
+    /* margin-top: 4vh; */
+}
+.edit-user-header{
+    display: inline-block;
+    align-items: center;
+    width: 100%;
+}
+.edit-user-header h2{
+    float: left;
+    margin:0;
+    /* width: fit-content; */
+    /* margin: 0 !important; */
 }
 
-.edit-user-header h1{
-    font-size: 3em;
-    margin-bottom:0;
-}
+
 
 .testing-flex Col{
     display:flex;
@@ -52,19 +73,47 @@
 }
 
 .edit-user-input-box{
-    width: 18vw;
+    width: 22vw;
     height: 5vh;
     border: none;
     background-color: transparent;
-    border-radius: 5px;
-    background-color: #E1E1E1;
-    font-size: 1.5em;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    font-size: 1rem;
     font-family: "Poppins", sans-serif;
     letter-spacing: 0.5px;
     padding-left: 1vw;
     margin-right: 1vw;
 }
 
+.edit-user-input-box.contact-no{
+    width: 10vw;
+}
+
+.edit-user-input-box.name.first{
+    margin-right: 2px;
+    margin-bottom: 1vh;
+    width: 22vw;
+    /* border-radius: 8px 0 0 8px; */
+    /* border-right: 3px solid #d5d5d5; */
+}
+.edit-user-input-box.name.middle{
+    margin-right: 1vw;
+    width: 10vw;
+    /* border-right: 3px solid #d5d5d5; */
+    /* border-radius: 0; */
+}
+.edit-user-input-box.name.last{
+    margin-right: 0vw;
+    width: 10vw;
+    /* border-radius: 0 8px 8px 0; */
+}
+
+.edit-user-form-container h4{
+    font-size: medium;
+    margin-top: 0;
+    margin-bottom: 0;
+}
 
 .edit-user-name-container{
     margin-bottom: 3vh;
@@ -72,7 +121,6 @@
 
 .edit-user-input-label{
     text-align: left;
-    font-size: 2em;
     font-weight: 700;
     display:flex;
     flex-direction: row;
@@ -85,6 +133,7 @@
 
 .edit-user-second-row-label-username{
     margin-right: 14.5vw;
+    /* font-size: medium; */
 }
 
 .edit-user-second-row-label-contact{
@@ -105,16 +154,43 @@
 }
 
 .edit-user-role-menu{
-    width: 19vw;
+    width: 11vw;
     height: 5vh;
     border: none;
     background-color: transparent;
     border-radius: 5px;
-    background-color: #E1E1E1;
-    font-size: 1.5em;
+    background-color: var(--primary-color);
+    font-size: 1em;
     font-family: "Poppins", sans-serif;
     letter-spacing: 0.5px;
     padding-left: 2vh;
     margin-right: 1vw;
 }
 
+.edit-users-content-wrapper .row{
+    display: flex;
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+}
+
+.edit-user-hr{
+    width: 92%;
+    margin-left: 0;
+    opacity: 50%;
+}
+
+.edit-user-header .user-details-back{
+    margin: 0;
+}
+
+.edit-user-submit-container{
+    
+    margin-top: 1vh;
+    float: right;
+    padding-right: 2vw;
+}
+.edit-user-delete-container{
+    margin-top: 1vh;
+    float: left;
+    padding-left: 0.5vw;
+}
