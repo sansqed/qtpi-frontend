@@ -12,6 +12,8 @@ import { markAttendance, getAttendance, changeStatus } from "../../ApiCalls/Empl
 import Employee from "../../Types/Employee";
 import { Input, Space } from 'antd';
 import { getFullName } from "../../Helpers/Util";
+import Form from 'react-bootstrap/Form'
+import InputGroup from 'react-bootstrap/InputGroup';
 
 
 import {
@@ -115,7 +117,7 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
         setCurrentMonth(format(today, "MMM-yyyy"))
     }
 
-
+    let result = ""
     const isWithinMonth = (day: Date) => {
         if (isBefore(day, firstDayCurrentMonth))
             return " calendar-before-month"
@@ -125,7 +127,7 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
     }
 
     const onSearch = (e: any) => {
-        setSearchEntry(e)
+        setSearchEntry(e.target.value)
     };
     
 
@@ -225,7 +227,7 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                 <div className="calendar-gen-employees-container">
                     <text className="calendar-gen-employees-title">Set attendance for {clickedDay}</text>
                     <div className="calendar-gen-employees-body">
-                        <Search placeholder="Enter employee name" onSearch={onSearch} style={{ width: "100%" }} />
+                        <Form.Control placeholder="Enter employee name" defaultValue={searchEntry} onChange={onSearch} className="calendar-gen-search-input"/>
                         <div className="calendar-gen-search-container">
                             { 
                                 employeeList?.map((e, idx)=>{

@@ -194,6 +194,18 @@
     
 }
 
+.calendar-gen-search-input{
+    width: 95%;
+    border-radius: 6px;
+    height: 5%;
+    padding: 1% 2.5%;
+    border: 1px solid gray;
+}
+
+.calendar-gen-search-input:focus-visible{
+    outline: transparent;
+}
+
 .calendar-gen-search-container{
     overflow-y: scroll;
     height: 93%;
