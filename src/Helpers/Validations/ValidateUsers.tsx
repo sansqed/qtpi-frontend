@@ -3,11 +3,19 @@ import { setErrorTrue } from "./Common"
 
 const ValidateUsers = (user:User, setError:Function) => {
     let isValid = true;
-    if (user.confirm_password !== user.password || user.password === ""){
+
+    if (user.password === ""){
         setErrorTrue("password", true, setError);
         isValid = false
     } else {
         setErrorTrue("password", false, setError);
+    }
+
+    if (user.confirm_password !== user.password || user.password === ""){
+        setErrorTrue("confirm_password", true, setError);
+        isValid = false
+    } else {
+        setErrorTrue("confirm_password", false, setError);
     }
     
     if (user.first_name === ""){
@@ -31,15 +39,19 @@ const ValidateUsers = (user:User, setError:Function) => {
         setErrorTrue("username", false, setError);
     }
 
-    // if (user.role_id === ""){
-    //     setErrorTrue("role_id", setError)
-    //     isValid = false
-    // }
+    if (user.role_id === ""){
+        setErrorTrue("role_id", true, setError)
+        isValid = false
+    } else{
+        setErrorTrue("role_id", false, setError)
+    }
 
-    // if (user.contact_no === ""){
-    //     setErrorTrue("contact_no", setError)
-    //     isValid = false
-    // }
+    if (user.contact_no === ""){
+        setErrorTrue("contact_no", true, setError)
+        isValid = false
+    } else{
+        setErrorTrue("contact_no", false, setError)
+    }
 
 
 

@@ -57,11 +57,6 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
         }
     }
 
-    const handleBack = () => {
-        navigate("/users")
-    }
-
-
     return (
         <div className="add-users-container">
             <div className="add-user-content-wrapper">
@@ -79,41 +74,50 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                         <Row>
                             <Form.Group>
                                 <Form.Label className="add-user-input-label" as={"h4"}>
-                                    <h4>NAME</h4>
+                                    <h4>NAME</h4> <span className="input-required">*</span>
                                 </Form.Label>
 
-                                <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="first_name"
-                                    name="first_name"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-user-input-box first name"
-                                    placeholder="FIRST NAME"
-                                    defaultValue={user.first_name}
-                                />
-                                
-                                <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="middle_name"
-                                    name="middle_name"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-user-input-box middle name"
-                                    placeholder="MIDDLE NAME"
-                                    defaultValue={user.middle_name}
-                                />
-                                <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="last_name"
-                                    name="last_name"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-user-input-box last name"
-                                    placeholder="LAST NAME"
-                                    defaultValue={user.last_name}
-                                />
-                                {/* </div> */}
+                                {/* <InputGroup hasValidation> */}
+                                    <Form.Control 
+                                        type="text" 
+                                        required={true} 
+                                        id="first_name"
+                                        name="first_name"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box first name"
+                                        placeholder="FIRST NAME"
+                                        defaultValue={user.first_name}
+                                        isInvalid={error.first_name}
+                                        autoComplete="off"
+                                    />
+                                    
+                                    <Form.Control 
+                                        type="text" 
+                                        required={true} 
+                                        id="middle_name"
+                                        name="middle_name"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box middle name"
+                                        placeholder="MIDDLE NAME"
+                                        defaultValue={user.middle_name}
+                                        autoComplete="off"
+                                    />
+                                    <Form.Control 
+                                        type="text" 
+                                        required={true} 
+                                        id="last_name"
+                                        name="last_name"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-user-input-box last name"
+                                        placeholder="LAST NAME"
+                                        defaultValue={user.last_name}
+                                        isInvalid={error.last_name}
+                                        autoComplete="off"
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        First and last names are required
+                                    </Form.Control.Feedback>
+                                {/* </InputGroup> */}
                             </Form.Group>
                         </Row>
 
@@ -121,7 +125,7 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                             <Col>
                                 <Form.Group>
                                     <Form.Label className="add-user-input-label" as={"h4"}>
-                                        <h4>Role</h4>
+                                        <h4>Role</h4> <span className="input-required">*</span>
                                     </Form.Label>
                                     <Form.Select 
                                         className="add-user-role-menu"
@@ -129,16 +133,21 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                                         name="role_id"
                                         onChange={(e) => handleChange(e)}
                                         value={user.role_id}
+                                        isInvalid={error.role_id}
                                     >
+                                        <option value="" disabled>Select a role</option>
                                         <option value="1">Admin</option>
                                         <option value="2">Accounting</option>
                                     </Form.Select>
+                                    <Form.Control.Feedback type="invalid">
+                                        Role is required
+                                    </Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group>
                                     <Form.Label className="add-user-input-label" as={"h4"}>
-                                        <h4>Contact Number</h4>
+                                        <h4>Contact Number</h4> <span className="input-required">*</span>
                                     </Form.Label>
                                     <Form.Control 
                                         type="text" 
@@ -148,9 +157,12 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                                         onChange={(e) => handleChange(e)}
                                         className="add-user-input-box contact-no"
                                         defaultValue={user.contact_no}
-                                        // bsPrefix={"+63"}
-                                        prefix="+63"
+                                        isInvalid={error.contact_no}
+                                        autoComplete="off"
                                     />
+                                    <Form.Control.Feedback type="invalid">
+                                        Contact number is required
+                                    </Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -167,6 +179,7 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                                         onChange={(e) => handleChange(e)}
                                         className="add-user-input-box address"
                                         defaultValue={user.address}
+                                        autoComplete="off"
                                     />
                                 </Form.Group>
                             </Row>
@@ -174,7 +187,7 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                             <Row>
                                 <Form.Group>
                                     <Form.Label className="add-user-input-label" as={"h4"}>
-                                        <h4>Username</h4>
+                                        <h4>Username</h4> <span className="input-required">*</span>
                                     </Form.Label>
                                     <Form.Control 
                                         type="text" 
@@ -185,13 +198,17 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                                         className="add-user-input-box"
                                         defaultValue={user.username}
                                         autoComplete="off"
+                                        isInvalid={error.username}
                                     />
+                                     <Form.Control.Feedback type="invalid">
+                                        Username is required.
+                                    </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
                             <Row>
                                 <Form.Group>
                                     <Form.Label className="add-user-input-label" as={"h4"}>
-                                        <h4>Password</h4>
+                                        <h4>Password</h4> <span className="input-required">*</span>
                                     </Form.Label>
                                     <Form.Control
                                         type="password"
@@ -201,13 +218,17 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                                         onChange={(e) => handleChange(e)}
                                         className="add-user-input-box"
                                         autoComplete="off"
+                                        isInvalid={error.password}
                                     />
+                                     <Form.Control.Feedback type="invalid">
+                                        Password should be valid
+                                    </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
                             <Row>
                                 <Form.Group>
                                     <Form.Label className="add-user-input-label" as={"h4"}>
-                                        <h4>Confirm Password</h4>
+                                        <h4>Confirm Password</h4> <span className="input-required">*</span>
                                     </Form.Label>
                                     <Form.Control
                                         type="password"
@@ -217,7 +238,11 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                                         onChange={(e) => handleChange(e)}
                                         className="add-user-input-box"
                                         autoComplete="off"
+                                        isInvalid={error.confirm_password}
                                     />
+                                    <Form.Control.Feedback type="invalid">
+                                        Entered passwords are not the same
+                                    </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
                     </Container>

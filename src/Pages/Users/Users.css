@@ -36,10 +36,8 @@
     padding-top: 1vw;
 }
 
-.user-list-header .btn-add{
-    height: fit-content;
-    margin-top: 2.5em;
-    margin-left: 1.5em;
+.users-add-btn-wrapper{
+    width: fit-content;
 }
 
 .user-list-header h1{

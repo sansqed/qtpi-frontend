@@ -57,7 +57,9 @@
 }
 
 .sidebar-link{
-  color: rgba(242,242,242,0.3); 
+  /* color: rgba(242,242,242,0.3);  */
+  color: white;
+  opacity: 0.3;
   transition: color 0.2s;
   text-decoration: none;
 }
@@ -67,6 +69,7 @@
 .sidebar-menu a.active{
   color: rgba(242,242,242,1); 
   outline:none;
+  opacity: 1;
 }
 
 .sidebar-employees-icon,
@@ -97,6 +100,7 @@
 .sidebar-employees-icon{
   /* margin-right: 0.5vw; */
   color: white;
+  
 }
 
 .sidebar-employees,
@@ -104,4 +108,8 @@
 .sidebar-users{
     flex-direction: row;
     cursor: pointer;
+}
+
+.sidebar-item{
+  margin: 1.5vh 0;
 }

@@ -66,7 +66,7 @@ const Users: React.FC = () => {
                 <div className="user-list-container">
                     <div className="user-list-header">
                         <h1>USER LIST</h1>
-                        <NavLink to={"/users/add"}>
+                        <NavLink to={"/users/add"} className={"users-add-btn-wrapper"}>
                             <Button
                                 type="add-user"
                                 handleClick={()=>{}}
