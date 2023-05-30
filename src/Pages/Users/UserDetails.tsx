@@ -55,7 +55,7 @@ const UserDetails:React.FC<UserDetailsProps> = ({user, setIsChanged}) => {
         <Popover id="popover-basic" className="user-confirm-delete-popover">
         <Popover.Header className="popover-header">Confirm Delete?</Popover.Header>
         <Popover.Body>
-            <button className="btn-user cancel light">
+            <button className="btn-user cancel light" onClick={() => document.body.click()}>
                 Cancel
             </button>
             <button className="btn-user delete" onClick={handleDelete}>
@@ -99,7 +99,7 @@ const UserDetails:React.FC<UserDetailsProps> = ({user, setIsChanged}) => {
 
                 <div className="user-details-section btn">  
                     <div className="user-delete-btn-wrapper">
-                        <OverlayTrigger trigger="click" placement="top" overlay={deleteConfirmPopup}>
+                        <OverlayTrigger trigger="click" placement="top" overlay={deleteConfirmPopup} rootClose={true}>
                             <button 
                                 className="btn-user btn-delete light red"
                             >

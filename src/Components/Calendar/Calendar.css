@@ -37,6 +37,11 @@
     color: black;
 }
 
+.calendar-curr-month-wrapper{
+    border: transparent;
+    background-color: transparent;
+}
+
 .calendar-body{
     padding: 0.5vh 5vh;
     /* margin: auto; */

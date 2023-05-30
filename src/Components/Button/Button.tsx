@@ -160,7 +160,7 @@ const Button: React.FC<ButtonProps> = ({
       )
     }
 
-    if (type==="btn-hover-fx calendar-prev-next"){
+    if (type==="calendar-prev-next"){
       return(
         <button 
           className={"btn-calendar-prev-next "+className}

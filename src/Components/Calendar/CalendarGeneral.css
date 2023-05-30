@@ -152,6 +152,9 @@
 .calendar-gen-prev-month-wrapper, .calendar-gen-next-month-wrapper{
     padding-right: 1rem;
 }
+.calendar-gen-curr-month-wrapper{
+    border: transparent;
+}
 
 .popover{
     padding: 0rem 0.5rem 1rem;

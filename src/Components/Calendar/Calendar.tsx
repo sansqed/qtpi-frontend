@@ -110,61 +110,10 @@ const Calendar = ({employee_id}:any) => {
         }
 
         setIsChanged(true)
+    }
 
-
-        // let value = e.target.value.split(" ")
-        // let date = value[0]
-        // let status = value[2]
-
-        // let tempAttendance = data.attendance
-        // let attIdx = tempAttendance.findIndex((a:any)=>a.date==date && employee_id==a.employee_id)
-        // let currAttendance = tempAttendance[attIdx]
-
-        
-
-        // if (currAttendance === undefined){
-        //     currAttendance = {
-        //         id: "-1",
-        //         employee_id: employee_id,
-        //         date: date,
-        //         status: status
-        //     }
-        //     tempAttendance.push(currAttendance)
-
-        //     markAttendance(employee_id, date, status)
-        //     .then((response:any) =>{
-        //         if (response.data.status==="201"){
-        //             setData((prev) => ({...prev, attendance:tempAttendance}))
-        //             toast.success(response.data.message)
-        //         } else {
-        //             toast.success(response.data.message)
-        //         }
-        //     })
-        // } else {
-        //     changeStatus(currAttendance.id, status)
-        //     .then((response)=>{
-        //         if (response.data.status==="201"){
-        //             currAttendance.status = status
-        //             tempAttendance[attIdx] = currAttendance
-        //             setData((prev) => ({...prev, attendance:tempAttendance}))
-        //             toast.success(response.data.message)
-        //         } else {
-        //             toast.success(response.data.message)
-        //         }
-
-        //     })
-        // }
-        
-        // // force rerender
-        // setData((prev) => ({...prev}))
-        // document.body.click()
-
-        // if (value[2] === "calendar-before-month")
-        //     prevMonth()
-        
-        // if (value[2] === "calendar-after-month")
-        //     nextMonth()
-        
+    const handleCurrMonthClick = () =>{
+        setCurrentMonth(format(today, "MMM-yyyy"))
     }
 
 
@@ -197,9 +146,11 @@ const Calendar = ({employee_id}:any) => {
                             text="&lt;"
                         />
                     </div>
-                    <h3 className="calendar-curr-month-wrapper">
-                        {format(firstDayCurrentMonth, " MMMM yyyy")}
-                    </h3>
+                        <button className="calendar-curr-month-wrapper" onClick={handleCurrMonthClick}>
+                            <h3>
+                                {format(firstDayCurrentMonth, " MMMM yyyy")}
+                            </h3>
+                        </button>
                     <div className="calendar-next-month-wrapper">
                         <Button
                             type="calendar-prev-next"

@@ -110,9 +110,10 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
         setClickedDay(e.target.value.split(" ")[0])
 
     }
-    // const getAttendanceStatus = (date: string) => {
-    //     return data.attendance.find((a)=>a.date===date && employee_id==a.employee_id)?.status || "unset"
-    // }
+    
+    const handleCurrMonthClick = () =>{
+        setCurrentMonth(format(today, "MMM-yyyy"))
+    }
 
 
     const isWithinMonth = (day: Date) => {
@@ -172,9 +173,11 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                                 text="&lt;"
                             />
                         </div>
-                        <h3 className="calendar-gen-curr-month-wrapper">
-                            {format(firstDayCurrentMonth, " MMMM yyyy")}
-                        </h3>
+                        <button className="calendar-gen-curr-month-wrapper" onClick={handleCurrMonthClick}>
+                            <h3>
+                                {format(firstDayCurrentMonth, " MMMM yyyy")}
+                            </h3>
+                        </button>
                         <div className="calendar-gen-next-month-wrapper">
                         <Button
                                 type="calendar-prev-next"
