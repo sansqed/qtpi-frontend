@@ -82,6 +82,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
         setIsLoading(true)
         getAdvance(employee_id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
         .then((response)=>{
+            console.log(response)
             let total = 0
             let advances = response.data.data.advance.map((a:any)=>{
                 total += Number(a.amount)

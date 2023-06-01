@@ -7,39 +7,30 @@
 }
 
 .employee-list-link.active div text{
-    color: var(--primary-color);
+    /* color: var(--primary-color); */
 }
 
-.grid{
-    overflow-x: hidden;
-    background-color: var(--secondary-color);
-    color:var(--primary-color);
-    height: 100vh;
-    width: 100vw;
+.employee-details-grid{
+    max-height: 92vh;
+    width: 63.5vw;
+    margin-left: 1vw;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: .5vw;
+    grid-template-columns: repeat(6, 1fr);
+    /* grid-template-rows: repeat(2, 1fr); */
+    grid-template-areas: 
+        "details details calendar calendar calendar calendar"
+        "advance advance advance salary salary salary";
+    column-gap: 1vw;
+    row-gap: 1vw;
 }
-
-.employee-details-boxes-container{
-    /* background-color: white; */
-    display: grid;
-    grid-column-start: 2;
-    grid-column: span 2;
-    width: 100%;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 50vh 50vh;
-    column-gap: .5vw;
-    row-gap: 1vh;
-}
-
 .employee-details-content-container{
-    margin-top: 4vh;
+    grid-area: details;
     background-color: white;
     color: var(--secondary-color);  
-    border-radius: 1vh;
-    grid-column-start: 1;
-
+    border-radius: 8px;
+    padding: 1vh 1vw;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .employee-details-back{
@@ -49,36 +40,17 @@
     text-align: left;
 }
 
-/* .employee-details-section{
-    margin-top: 3vh;
-    align-items: start;
-    justify-content: center;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 2fr 1fr;
-} */
-
-.employee-details-header{
-    margin-top: 1vh;
-    margin-left: 1.5vw;
-    display: grid;
-    align-content: start;
-    grid-template-columns: 40% 60%;
-    grid-template-rows: repeat(2, 30%);
-
+.employee-details-section{
+    width: 100%;
+    text-align: left;
 }
 
 .employee-details-image{
     margin: 0;
-    width: 100%;
-    height: 100%;
-    grid-column-start: 1;
-    grid-row-start: 1;
-    grid-row: span 2;
-
+    width: 6vw;
+    height: 6vw;
+    
 }
-
 .employee-details-image img{
     margin: 0;
     /* margin-left: 1vw; */
@@ -86,102 +58,91 @@
     width: 100%;
 }
 
-.employee-details-header .employee-first-name{
-    align-self: flex-end;
-    justify-self: flex-start;
-}
-.employee-details-header .employee-last-name-role{
-    align-self: flex-start;
-    justify-self: flex-start;
-}
-
-.employee-last-name-role .employee-last-name,.employee-role{
-    display: flex;
-    justify-self: flex-start;
-}
-
-
-
-.employee-details-header h1{
-    margin: 0;
-    font-size: 1em;
-}
-.employee-details-header h2{
-    margin: 0;
-    font-size: 1em;
-    font-weight: 500;
-}
-
-.employee-details{
+.employee-details-section.header{
     display: flex;
 }
-
-
-
-.employee-details p{
-    /* font-family:'Comic Sans MS'; */
-    align-self: self-start;
-    margin: 0;
-}
-
-.employee-details .employee-details-info{
-    margin-left: 1vw;
-    display: grid;
-    justify-self: start;
-}
-
-.employee-details-icons{
-    display: flex;
-    justify-content: flex-end;
-}
-
-.c{
-    background-color: white;
-    color: var(--secondary-color);  
-    border-radius: 1vh;
-}
-
-.employee-details-calendar-container{
+.employee-details-section.name-position{
     display: block;
+    /* margin-left: 1vw; */
+    margin: auto 0 auto 1vw;
+    width: 60%;
+}
+.employee-details-section.header h1{
+    line-height: 0.9;
+    word-wrap:break-word;
+    font-size:x-large;
+}
+.employee-details-section.header h1, 
+.employee-details-section.header p{
+    text-align: left;
+    margin: 0;
+}
+.employee-details-section{
+    margin: 0.5rem;
+    width: 85%;
+}
+.employee-details-label{
+    font-size: smaller;
+    font-weight: 500;
+    margin: 0;
+}
+.employee-details-info{
+    display: flex;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    height: 0.9rem;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 0;
+    width: 100%;
+}
+.employee-details-section.rate-payout{
+    display: flex;
+    /* margin-left: 1vw; */
+    /* margin: auto 0 auto 1vw;
+    width: 60%; */
+}
+.employee-details-subsection.rate{
+    width: 45%;
+    margin-right: 2.5vw;
+}
+.employee-details-subsection.payout{
+    width: 45%;
+    /* margin-left: 1rem; */
 }
 
-
-
-
+.employee-details-section.btns{
+    width: 97%;
+    margin-bottom: 5vh;
+}
+.employee-details-delete-btn{
+    float: left;
+}
+.employee-details-edit-btn{
+    float: right;
+}
 
 .employee-details-calendar-container{
-    margin-top: 4vh;
-    grid-column-start: 2;
-    grid-column: span 3;
+    grid-area: calendar;
+    display: block;
+    background-color: white;
+    border-radius: 8px;
+    height: 45vh;
 }
 
 .employee-details-advance-container{
-    grid-column-start: 1;
-    grid-row-start: 2;
-
-    grid-column: span 2;
+    grid-area: advance;
+    background-color: white;
+    height: 45vh;
+    border-radius: 8px;
     margin-bottom: 4vh;
 }
 
 .employee-details-salary-container{
-    grid-column-start: 3;
-    grid-row-start: 2;
-
-    grid-column: span 2;
+    grid-area: salary;
+    background-color: white;
+    border-radius: 8px;
     margin-bottom: 4vh;
-}
-
-
-.aa, .ba{
-    margin-top: 4vh;
-}
-.empty{
-    background-color: var(--secondary-color);
-    color:var(--primary-color);
-    height: 100vh;
-    width: 100%;
-    grid-column-start: 3;
-    border: 0;
-    margin: 0
 }
 

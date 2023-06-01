@@ -17,28 +17,26 @@ import Advance from "../../Components/Advance/Advance";
 import Salary from "../../Components/Salary/Salary";
 
 import icon from "../../Assets/Icons/user-empty-temp.svg"
+import userEvent from "@testing-library/user-event";
 
-const EmployeeDetails = () => {
+interface EmployeeDetailsProps{
+    employeeArg: Employee;
+}
+
+const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
     const location = useLocation()
     const navigate = useNavigate()
-    const urlHeader = "/employees/employeeid="
-    const employee_id = String(location.pathname.substring(urlHeader.length));
-    const [employee, setEmployee] = useState<Employee>(emptyEmployee)
-    const tempUser = {
-        access_logs: [
-            "December 30, 2022 7:00",
-            "December 31, 2022 7:00",
-        ]
-    }
+    const employee_id = employeeArg.id;
+    const [employee, setEmployee] = useState<Employee>(employeeArg)
 
-    useEffect(()=>{
-        getEmployees(employee_id)
-            .then((response) => {
-                console.log(response)
-                setEmployee(response.data.data.employees[0])
-            })
-    },[])
-
+    // useEffect(()=>{
+    //     getEmployees(employee_id)
+    //         .then((response) => {
+    //             console.log(response)
+    //             setEmployee(response.data.data.employees[0])
+    //         })
+    // },[])
+    console.log(employee)
     const handleDelete = async() => {
         deleteEmployee(employee_id)
             .then((response)=>{
@@ -51,73 +49,76 @@ const EmployeeDetails = () => {
             })
     }
 
-    // ATTENDANCE
-
-
     return(
-        <div className="grid">
+        <div className="employee-details-container">
 
-            <div className="employee-sidebar-container">
-                <Employees
-                    type="details"
-                />
-            </div>
-
-            <div className="employee-details-boxes-container">
+            <div className="employee-details-grid">
 
                 <div className="employee-details-content-container">
                     <div className="employee-details-back"><NavLink to={"/employees"} className={"user-details-back"}>&lt; Employees </NavLink></div>
                     
+                    <div className="employee-details-section header">
+                        <div className="employee-details-image">
+                            <img src={icon}/>
+                        </div>
+                        <div className="employee-details-section name-position">
+                            <h1>{employee.first_name} {employee.middle_name} {employee.last_name}</h1>
+                            <p>{employee.position}</p>
+                        </div>
+                    </div> 
+
                     <div className="employee-details-section">
-                        <div className="employee-details-header">
-                            <div className="employee-details-image">
-                                <img src={icon}/>
-                            </div>
+                        <p className="employee-details-label">Contact Number</p>
+                        <p className="employee-details-info">{employee.contact_no}</p>
+                    </div>
 
-                            <h1 className="employee-first-name">{employee.first_name}</h1>
-                            <div className="employee-last-name-role">
-                                <h1 className="employee-last-name">{employee.last_name}</h1>
-                                <h2 className="employee-role">NO ROLE</h2>
-                            </div>
-                            
-                        </div>
-                        <div className="employee-details">
-                            <p className="employee-details-header">{employee.first_name} {employee.last_name}</p>
-                            <p className="employee-details-role">NO ROLE</p>
-                            <p className="employee-details-info">Contact no.: <br></br>{employee.contact_no}</p>
-                            <p className="employee-details-info">Address: {employee.address}</p>
-                            <p className="employee-details-info">Rate: NO RATE</p>
-                        </div>
-                        {/* <div className="employee-details-icons">
-                            <Button
-                                type="user-edit"
-                                handleClick={()=>{navigate("/employees/edit/employeeid="+employee_id)}}
-                                />
+                    <div className="employee-details-section">
+                        <p className="employee-details-label">Address</p>
+                        <p className="employee-details-info">{employee.address}</p>
+                    </div>
 
+                    <div className="employee-details-section rate-payout">
+                        <div className="employee-details-subsection rate">
+                            <p className="employee-details-label">Rate</p>
+                            <p className="employee-details-info">{employee.rate}</p>
+                        </div>
+                        <div className="employee-details-subsection payout">
+                            <p className="employee-details-label">Payout</p>
+                            <p className="employee-details-info">{employee.payout}</p>
+                        </div>
+                    </div>
+                    <div className="employee-detai  ls-section btns">
+                        <div className="employee-details-delete-btn">
                             <Button
                                 type="user-delete"
                                 handleClick={handleDelete}
-                                />
-                        </div> */}
+                            />
+                        </div>
+                        <div className="employee-details-edit-btn">
+                            <Button
+                                type="user-edit"
+                                handleClick={()=>{navigate("/employees/edit/employeeid="+employee_id)}}
+                            />
+                        </div>
                     </div>
                 </div>
                 
-            <div className="c employee-details-calendar-container">
-                <Calendar
-                    employee_id={employee_id}
+                <div className="employee-details-calendar-container">
+                    <Calendar
+                        employee_id={employee_id}
+                        />
+                </div>
+                <div className="employee-details-advance-container">
+                    <Advance
+                        employee_id={employee_id}
                     />
+                </div>
+                <div className="employee-details-salary-container">
+                    <Salary/>
+                </div>
+                
             </div>
-            <div className="c employee-details-advance-container">
-                <Advance
-                    employee_id={employee_id}
-                />
-            </div>
-            <div className="c employee-details-salary-container">
-                <Salary/>
-            </div>
-            
         </div>
-    </div>
     )
 }
 

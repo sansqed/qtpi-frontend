@@ -34,7 +34,7 @@ export const createEmployee = async(employee:Employee)=>{
             address: employee.address,
             position: employee.position,
             rate: employee.rate,
-            rate_unit: employee.rate_unit,
+            payout: employee.payout,
             sss: employee.sss,
         })
         return { data: response.data};
@@ -55,7 +55,7 @@ export const updateEmployee = async(employee:Employee)=>{
             address: employee.address,
             position: employee.position,
             rate: employee.rate,
-            rate_unit: employee.rate_unit,
+            payout: employee.payout,
             // sss: employee.sss,
         })
         return { data: response.data};

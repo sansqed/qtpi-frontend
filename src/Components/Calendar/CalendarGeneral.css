@@ -1,6 +1,15 @@
 .calendar-gen-container{
-    padding: 5vh 2.5vw;
-    height: 89%;
+    padding: 3vh 2vw;
+    /* height: 89%; */
+    color: var(--secondary-color);
+    display:block;
+    margin-left: 2.5vh;
+    width: 56vw;
+    height: 87vh;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 1vh;
+    text-align: left;
 }
 
 .calendar-gen-header-container{
@@ -154,6 +163,7 @@
 }
 .calendar-gen-curr-month-wrapper{
     border: transparent;
+    font-size: large;
 }
 
 .popover{
@@ -182,12 +192,13 @@
     border-width: 3px;
     border-radius: 16px;
     padding: 1% 0% 2% 2%;
+    height: 80vh;
 }
 
 .calendar-gen-employees-body{
     height: 90%;
     /* width: 50%; */
-    margin-top: 2%;
+    /* margin-top: 2%; */
     border-radius: 12px;
     border: 1px solid var(--secondary-color);
     padding: 5%;
