@@ -21,3 +21,7 @@ export const getToken = () => {
 export const getRequester = () => {
     return localStorage.getItem("requester")
 }
+
+export const getUserFullName = () => {
+    return ("Full Name")
+}
