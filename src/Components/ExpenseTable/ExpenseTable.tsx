@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { getExpenseDetails } from "../../ApiCalls/ExpenseDetails";
 import ExpenseType from "../../Types/Expenses";
 import { DatePicker, Input, InputNumber, Form } from "antd";
-import { numberWithCommas } from "../../Helpers/Util";
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
     editing: boolean;
@@ -44,7 +43,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
         </Form.Item>
         ) : (
             dataIndex==="date"? record.date.format("MMM DD YYYY"):
-                dataIndex==="amount"? "₱"+numberWithCommas(String(children)):
+                // dataIndex==="amount"? "₱"+numberWithCommas(String(children)):
         children
         )}
     </td>
