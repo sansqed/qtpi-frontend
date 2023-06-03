@@ -33,8 +33,8 @@
     margin-bottom: 0;
 }
 
-.payroll-date-range p{
-  font-weight: 600;
+.payroll-date-range-label p{
+  font-weight: bold;
 }
 
 .payroll-date-range{
@@ -82,6 +82,17 @@
     padding-left: 2vh;
     padding-right: 5vh;
     margin-right: 2vw;
+}
+
+.payroll-menus-container {
+  display:flex;
+  flex-direction: row;
+  width: 81vw;
+}
+
+.payroll-menu-employees-dropdown, .payroll-menu-positions-dropdown, .payroll-menu-payouts-dropdown  {
+  width: 30%;
+  margin-right: 3.5%;
 }
 
 .payroll-separator-bar {
