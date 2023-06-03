@@ -20,7 +20,7 @@ interface ButtonProps{
   children?: React.ReactNode,
   text?: string,
   value?: string,
-  disable?: boolean
+  disabled?: boolean
   state?: string
 }
 
@@ -31,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
   text,
   value,
-  disable,
+  disabled,
   state
   }) =>{
     if (type === "add-user"){
@@ -227,6 +227,7 @@ const Button: React.FC<ButtonProps> = ({
             name={"present"}
             value={value}
             onClick = {e => handleClick(e)}
+            disabled={disabled}
           />
           <input
             type="image"
@@ -235,6 +236,7 @@ const Button: React.FC<ButtonProps> = ({
             name={"halfday"}
             value={value}
             onClick = {e => handleClick(e)}
+            disabled={disabled}
           />
           <input
             type="image"
@@ -243,6 +245,7 @@ const Button: React.FC<ButtonProps> = ({
             name={"absent"}
             value={value}
             className={"btn-hover-fx btn-attendance-status-v2 absent" + (state==="absent"? " active":"")}
+            disabled={disabled}
           />
         </div>
       )

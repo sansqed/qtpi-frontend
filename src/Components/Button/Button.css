@@ -52,11 +52,11 @@ button{
 }
 
 .btn-user{
-  border-radius: 16px;
-  padding: 5px 10px;
+  border-radius: 8px;
+  padding: 0.2rem 10px;
   margin-right: 1vh;
   margin-top: 0.5vh;
-  font-size: medium;
+  /* font-size: smaller; */
   align-items: center;
   font-weight: 500;
 }

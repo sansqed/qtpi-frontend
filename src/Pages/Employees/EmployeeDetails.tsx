@@ -16,19 +16,22 @@ import icon from "../../Assets/Icons/user-empty-temp.svg"
 
 interface EmployeeDetailsProps{
     employeeArg: Employee;
+    setIsEmployeesChanged:Function
 }
 
-const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
+const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, setIsEmployeesChanged}) => {
     const location = useLocation()
     const navigate = useNavigate()
     const employee_id = employeeArg.id;
     const [employee, setEmployee] = useState<Employee>(employeeArg)
+    const [isDetailsChanged, setIsDetailsChanged] = useState(false)
 
     const handleDelete = async() => {
         deleteEmployee(employee_id)
             .then((response)=>{
                 if (response.data.status === "200"){
                     toast.success(response.data.message, toasterConfig)
+                    setIsEmployeesChanged(true)
                     navigate("/employees")
                 } else {
                     toast.error(response.data.message, toasterConfig)
@@ -45,12 +48,12 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
                     <div className="employee-details-back"><NavLink to={"/employees"} className={"user-details-back"}>&lt; Employees </NavLink></div>
                     
                     <div className="employee-details-section header">
-                        <div className="employee-details-image">
+                        {/* <div className="employee-details-image">
                             <img src={icon}/>
-                        </div>
+                        </div> */}
                         <div className="employee-details-section name-position">
                             <h1>{employee.first_name} {employee.middle_name} {employee.last_name}</h1>
-                            <p>{employee.position}</p>
+                            <p>{employee.position_name}</p>
                         </div>
                     </div> 
 
@@ -74,7 +77,7 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
                             <p className="employee-details-info">{employee.payout}</p>
                         </div>
                     </div>
-                    <div className="employee-detai  ls-section btns">
+                    <div className="employee-details-section btns">
                         <div className="employee-details-delete-btn">
                             <Button
                                 type="delete-with-confirmation"
@@ -84,7 +87,7 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
                         <div className="employee-details-edit-btn">
                             <Button
                                 type="user-edit"
-                                handleClick={()=>{navigate("/employees/edit/employeeid="+employee_id)}}
+                                handleClick={()=>{navigate("/employees/edit/employee_id="+employee_id)}}
                             />
                         </div>
                     </div>
@@ -93,12 +96,14 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
                 <div className="employee-details-calendar-container">
                     <Calendar
                         employee_id={employee_id}
-                        />
+                        setIsDetailsChanged={setIsDetailsChanged}
+                    />
                 </div>
                 <div className="employee-details-advance-container">
                     <Advance
                         employee_id={employee_id}
                         payout={employee.payout}
+                        setIsDetailsChanged={setIsDetailsChanged}
                     />
                 </div>
                 <div className="employee-details-salary-container">
@@ -106,6 +111,10 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
                         employee_id={employee_id}
                         rate={Number(employee.rate)}
                         payout={employee.payout}
+                        isDetailsChanged={isDetailsChanged}
+                        setIsDetailsChanged={setIsDetailsChanged}
+                        hasSSS={employee.sss==="" || employee.sss===null? false:true}
+                        sss={employee.sss==="" || employee.sss===null? 0:Number(employee.sss)}
                     />
                 </div>
                 

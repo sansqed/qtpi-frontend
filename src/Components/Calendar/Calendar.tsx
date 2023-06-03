@@ -39,12 +39,18 @@ import {
 import Button from "../Button/Button"
 import { SyntheticEventData } from "react-dom/test-utils";
 
-const Calendar = ({employee_id}:any) => {
+interface CalendarProps{
+    employee_id:string;
+    setIsDetailsChanged:Function
+}
+
+const Calendar: React.FC<CalendarProps> = ({employee_id, setIsDetailsChanged}) => {
 
     // edit mode state
     const [isEdit, setIsEdit] = useState(true)
     const [showPopover, setShowPopover] = useState(false)
     const [isChanged, setIsChanged] = useState(false)
+    const [isClicked, setIsClicked] = useState(false)
     
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
     const [data, setData] = useState<CalendarData>({
@@ -74,41 +80,54 @@ const Calendar = ({employee_id}:any) => {
         })
 
         // temp data, to be replaced when get attendance api is available
-        
         getAttendance(
             employee_id, 
             format(startOfWeek(firstDayCurrentMonth, { weekStartsOn: 0 }), "y-LL-dd"), 
             format(endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 0 }), "y-LL-dd"))
-        .then((response:any) => {
-            console.log(response)
+            .then((response:any) => {
+                console.log(response)
 
-            if (response?.data?.status==="200"){
-                setData((prev:any) => ({
-                    ...prev,
-                    days: days,
-                    attendance: response.data.data.attendance
-                }))                 
-            } else {
-                setData((prev:any) => ({
-                    ...prev,
-                    days: days,
-                }))  
-            }
-        })
-       setIsChanged(false)
-    },[currentMonth, isChanged, employee_id])
+                if (response?.data?.status==="200"){
+                    setData((prev:any) => ({
+                        ...prev,
+                        days: days,
+                        attendance: response.data.data.attendance
+                    }))                 
+                } else {
+                    setData((prev:any) => ({
+                        ...prev,
+                        days: days,
+                    }))  
+                }
+                
+                setIsChanged(false)
+            })
+            
+        },[currentMonth, isChanged, employee_id])
 
     const handleSetAttendance = (e:any) => {
         const status = e.target.name
         const date = e.target.value
 
         const attendance = data.attendance.find((a)=>a.date===date)
+        if(isClicked)
+            return
+        
+        setIsClicked(true)
         if(attendance === undefined){
             markAttendance(employee_id, date, status)
+                .then((response)=>{
+                    setIsClicked(false)
+                    setIsDetailsChanged(true)
+                })
         } else {
             changeStatus(attendance.id, status)
+                .then((response)=>{
+                    setIsClicked(false)
+                    setIsDetailsChanged(true)
+                })
         }
-
+        
         setIsChanged(true)
     }
 

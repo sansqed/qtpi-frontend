@@ -32,7 +32,7 @@ export const createEmployee = async(employee:Employee)=>{
             // role_id: 1,
             contact_no: employee.contact_no,
             address: employee.address,
-            position: employee.position,
+            position_id: employee.position_id,
             rate: employee.rate,
             payout: employee.payout,
             sss: employee.sss,
@@ -44,19 +44,19 @@ export const createEmployee = async(employee:Employee)=>{
 }
 
 export const updateEmployee = async(employee:Employee)=>{
-    try {
+    try {   
         const response = await postAPICall(URL+"employees/update/"+String(employee.id), {
             requester: requester,
+            token: token,
             first_name: employee.first_name,
             middle_name: employee.middle_name,
             last_name: employee.last_name,
-            // role_id: 1,
             contact_no: employee.contact_no,
-            address: employee.address,
-            position: employee.position,
+            address: employee.address,  
+            position_id : employee.position_id,
             rate: employee.rate,
             payout: employee.payout,
-            // sss: employee.sss,
+            sss: employee.sss,
         })
         return { data: response.data};
     } catch (error:any) {

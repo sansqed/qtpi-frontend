@@ -15,7 +15,11 @@ import { getPositions } from "../../ApiCalls/EmployeesApi";
 
 import "./AddEmployee.css"
 
-const AddEmployees: React.FC = () => {
+interface AddEmployeesProps{
+    setIsEmployeesChanged: Function;
+}
+
+const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
     const [employee, setEmployee] = useState<Employee>(emptyEmployee);
     const [error, setError] = useState<EmployeeError>(defaultEmployeeError);
     const [positions, setPositions] = useState([])
@@ -45,6 +49,7 @@ const AddEmployees: React.FC = () => {
                     if (response.data.status === "201"){
                         toast.success(response.data.message, toasterConfig);
                         navigate("/employees")
+                        setIsEmployeesChanged(true)
                     } else {
                         toast.error(response.data.message, toasterConfig);
                     }
@@ -65,9 +70,9 @@ const AddEmployees: React.FC = () => {
                         <h2>ADD EMPLOYEE</h2>
                     </div>
                     <Form>
-                        <div className="add-employee-photo-container add-employee-row">
+                        {/* <div className="add-employee-photo-container add-employee-row">
                           <FontAwesomeIcon icon={["fas","camera"]} className="camera-icon"/>
-                        </div>
+                        </div> */}
                         <Row className="add-employee-row">
                             <Form.Group>
                                 <Form.Label className="add-employee-input-label" as={"h4"}>
@@ -162,11 +167,11 @@ const AddEmployees: React.FC = () => {
                                     </Form.Label>
                                     <Form.Select 
                                         className="add-employee-input-box dropdown half-size"
-                                        id="position"
-                                        name="position"
+                                        id="position_id"
+                                        name="position_id"
                                         onChange={(e) => handleChange(e)}
                                         defaultValue={""}
-                                        isInvalid={error.position}
+                                        isInvalid={error.position_id}
                                     >
                                         <option value="" disabled>Select a role</option>
                                         {positions.length? 

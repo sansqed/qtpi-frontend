@@ -1,24 +1,30 @@
 import "./Salary.css"
 import { DatePicker, Table, Form, Input, InputNumber, Popconfirm, Typography } from 'antd';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { Dayjs, } from 'dayjs';
 import { useEffect, useState } from 'react';
 
 import { getAttendance } from "../../ApiCalls/EmployeesApi";
 import { getAdvance } from "../../ApiCalls/AdvanceApi";
+import { formatMoney } from "../../Helpers/Util";
 
 interface SalaryProps{
     employee_id: string;
     rate: number;
     payout: string;
+    isDetailsChanged: boolean;
+    setIsDetailsChanged: Function
+    hasSSS: boolean
+    sss?: number
 }
 
 
-const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout}) => {
+const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout, isDetailsChanged, setIsDetailsChanged, hasSSS, sss}) => {
     const { RangePicker } = DatePicker
     const [isLoading, setIsLoading] = useState(false)
     const [startDate, setStartDate] = useState<Dayjs>(payout==="monthly"?  dayjs().startOf("month"):dayjs().startOf("week"))
     const [endDate, setEndDate] = useState<Dayjs>(dayjs())
     const [salaryEntry, setSalaryEntry] = useState(["",0])
+    const [totalAdvance, setTotalAdvance] = useState(0)
     
     
     const columns: any = [
@@ -45,24 +51,50 @@ const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout}) => {
 
     useEffect(()=>{
         getAttendance(employee_id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
-        .then((response)=>{
-            console.log(response.data.data.attendance)
-            var totalAttendance = 0.0
+            .then((response)=>{
+                console.log(response.data.data.attendance)
+                var totalAttendance = 0.0
 
-            response.data.data.attendance.map((a:any)=>{
-                console.log(a.status)        
-                if(a.status == "present")
-                    totalAttendance += 1
-                else if(a.status === "halfday")
-                    totalAttendance += 0.5
+                response.data.data.attendance.map((a:any)=>{
+                    console.log(a.status)        
+                    if(a.status == "present")
+                        totalAttendance += 1
+                    else if(a.status === "halfday")
+                        totalAttendance += 0.5
+                })
+
+                setSalaryEntry([String(totalAttendance) + " days x " + String(rate), 
+                    totalAttendance*rate])
+                    
+                setIsDetailsChanged(false)
+            })
+            .catch(()=>{
+                setSalaryEntry(["",0])
             })
 
-            console.log(totalAttendance)
-            setSalaryEntry([String(totalAttendance) + " days x " + String(rate), 
-                totalAttendance*rate]) 
-        })
-    },[])
+        getAdvance(employee_id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
+            .then((response)=>{
+                console.log(response.data.data.advance)
+                var total = 0
+                response.data.data.advance.map((a:any)=>{
+                    total += Number(a.amount)
+                })
+                setTotalAdvance(total)
+            })
+            .catch(()=>{
+                setTotalAdvance(0)
+            })
+    },[isDetailsChanged, startDate, endDate])
 
+
+    const handleDateChange = (range:any) => {
+        if (dayjs(range[1]).isAfter(dayjs(range[0]))){
+            setStartDate(range[0])
+            setEndDate(range[1])
+        }
+
+        
+    }
 
     const [summary, setSummary] = useState({
         gross: 2500,
@@ -71,25 +103,35 @@ const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout}) => {
     })
 
     const buildData = () => {
-        return([
+        let tempData = [
             {
                 item: 'Salary',
                 details: salaryEntry[0],
-                amount: Number(salaryEntry[1]),
+                amount: formatMoney(salaryEntry[1]),
                 type: "salary"
-            },
-            {
-                item: 'SSS',
-                details: "",
-                amount: '-1000',
-                type: "less"
             },
             {
                 item: 'Advance',
                 details: "",
-                amount: '-1500',
+                amount: formatMoney(totalAdvance),
                 type: "less"
-            }])
+            }]
+        
+        if (!Number.isNaN(sss))
+            tempData.push({
+                item: 'SSS',
+                details: "",
+                amount: String(sss),
+                type: "less"
+            })
+
+        return(tempData)
+    }
+
+    const buildLess = () => {
+        if(sss)
+            return -(sss+totalAdvance)
+        return -totalAdvance
     }
 
     return(
@@ -107,11 +149,12 @@ const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout}) => {
                 <RangePicker 
                     className="salary-rangepicker"
                     size={"small"} 
-                    defaultValue={[dayjs().startOf("week"), dayjs().endOf("week")]}
+                    defaultValue={[startDate, endDate]}
                     style={{ width: '65%'}}
                     format={"MMM DD YYYY"}
                     separator={"to"}
                     bordered={false}
+                    onCalendarChange={e=>handleDateChange(e)}
                 />
             </div>
 
@@ -128,17 +171,17 @@ const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout}) => {
                             <Table.Summary.Row>
                                 <Table.Summary.Cell index={0}></Table.Summary.Cell>
                                 <Table.Summary.Cell index={1} align="right">Gross</Table.Summary.Cell>
-                                <Table.Summary.Cell index={2} align="right">{summary.gross}</Table.Summary.Cell>
+                                <Table.Summary.Cell index={2} align="right">{formatMoney(salaryEntry[1])}</Table.Summary.Cell>
                             </Table.Summary.Row>
                             <Table.Summary.Row>
                                 <Table.Summary.Cell index={0}></Table.Summary.Cell>
                                 <Table.Summary.Cell index={1} align="right">Less</Table.Summary.Cell>
-                                <Table.Summary.Cell index={2} align="right">{summary.less}</Table.Summary.Cell>
+                                <Table.Summary.Cell index={2} align="right">{formatMoney(buildLess())}</Table.Summary.Cell>
                             </Table.Summary.Row>
                             <Table.Summary.Row>
                                 <Table.Summary.Cell index={0}></Table.Summary.Cell>
                                 <Table.Summary.Cell index={1} align="right"><b>NET SALARY</b></Table.Summary.Cell>
-                                <Table.Summary.Cell index={2} align="right"><b>{summary.net}</b></Table.Summary.Cell>
+                                <Table.Summary.Cell index={2} align="right"><b>{formatMoney(Number(salaryEntry[1])+buildLess())}</b></Table.Summary.Cell>
                             </Table.Summary.Row>
                         </Table.Summary>
                     )} 

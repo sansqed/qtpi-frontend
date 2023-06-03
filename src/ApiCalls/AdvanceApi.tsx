@@ -29,8 +29,7 @@ export const createAdvance = async(advance:AdvanceType) => {
             token: token,
             employee_id: advance.employee_id,
             details: advance.details,
-            date_from: advance.date.format("YYYY-MM-DD"),
-            date_to: advance.date.format("YYYY-MM-DD"),
+            advance_date: advance.advance_date.format("YYYY-MM-DD"),
             amount: String(advance.amount)
         })
         return { data: response.data};
@@ -46,8 +45,7 @@ export const updateAdvance = async(advance:AdvanceType) => {
             token: token,
             employee_id: advance.employee_id,
             details: advance.details,
-            date_from: advance.date.format("YYYY-MM-DD"),
-            date_to: advance.date.format("YYYY-MM-DD"),
+            advance_date: advance.advance_date.format("YYYY-MM-DD"),
             amount: advance.amount
         })
         return { data: response.data};

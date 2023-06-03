@@ -3,65 +3,66 @@ import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import { DatePicker, Table, Form, Input, InputNumber, Popconfirm, Typography } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { numberWithCommas } from "../../Helpers/Util";
+import { formatMoney } from "../../Helpers/Util";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type AdvanceType from "../../Types/Advance"
 import { getAdvance, updateAdvance, createAdvance, deleteAdvance } from "../../ApiCalls/AdvanceApi";
 
 import dayjs, { Dayjs } from 'dayjs';
 
-    interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
-        editing: boolean;
-        dataIndex: string;
-        title: any;
-        inputType: 'number' | 'text' | 'date';
-        record: AdvanceType;
-        index: number;
-        children: React.ReactNode;
-    }
+interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
+    editing: boolean;
+    dataIndex: string;
+    title: any;
+    inputType: 'number' | 'text' | 'date';
+    record: AdvanceType;
+    index: number;
+    children: React.ReactNode;
+}
 
-    const EditableCell: React.FC<EditableCellProps> = ({
-        editing,
-        dataIndex,
-        title,
-        inputType,
-        record,
-        index,
-        children,
-        ...restProps
-    }) => {
-        const inputNode = inputType === 'number' ? 
-            <InputNumber prefix="₱" controls={false}/> : inputType === 'date'? 
-                <DatePicker format={"MMM DD YYYY"}/>:<Input autoComplete="off"/>;
-        return (
-        <td {...restProps}>
-            {editing ? (
-            <Form.Item
-                name={dataIndex}
-                style={{ margin: 0 }}
-                rules={[
-                {
-                    required: true,
-                    message: "",
-                },
-                ]}
-            >
-                {inputNode}
-            </Form.Item>
-            ) : (
-                dataIndex==="date"? record.date.format("MMM DD YYYY"):
-                    dataIndex==="amount"? "₱"+numberWithCommas(String(children)):
-            children
-            )}
-        </td>
-        );
-    };
+const EditableCell: React.FC<EditableCellProps> = ({
+    editing,
+    dataIndex,
+    title,
+    inputType,
+    record,
+    index,
+    children,
+    ...restProps
+}) => {
+    const inputNode = inputType === 'number' ? 
+        <InputNumber prefix="₱" controls={false}/> : inputType === 'date'? 
+            <DatePicker format={"MMM DD YYYY"}/>:<Input autoComplete="off"/>;
+    return (
+    <td {...restProps}>
+        {editing ? (
+        <Form.Item
+            name={dataIndex}
+            style={{ margin: 0 }}
+            rules={[
+            {
+                required: true,
+                message: "",
+            },
+            ]}
+        >
+            {inputNode}
+        </Form.Item>
+        ) : (
+            dataIndex==="advance_date"? record.advance_date.format("MMM DD YYYY"):
+                dataIndex==="amount"?formatMoney(String(children)):
+                    children
+        )}
+    </td>
+    );
+};
   
 interface AdvanceProps{
     employee_id: string;
     payout?: string;
+    setIsDetailsChanged:Function
 }
-const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
+const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChanged}) => {
     const { RangePicker } = DatePicker
     let pageSize = 5
     const [currPage, setCurrPage] = useState(1)
@@ -87,7 +88,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
             let total = 0
             let advances = response.data.data.advance.map((a:any)=>{
                 total += Number(a.amount)
-                return({...a, date: dayjs(a.date)})
+                return({...a, advance_date: dayjs(a.advance_date)})
             })
             setData(advances)
             setIsChanged(false)
@@ -100,7 +101,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
     },[startDate, endDate, isChanged])
 
     const edit = (record: Partial<AdvanceType> & { id: string }) => {
-        form.setFieldsValue({ item: '', date: dayjs(), amount: '', ...record });
+        form.setFieldsValue({ item: '', advance_date: dayjs(), amount: '', ...record });
         setEditingId(String(record.id));
     };
 
@@ -113,6 +114,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
         deleteAdvance(item)
             .then(response=>{
                 setIsChanged(true)
+                setIsDetailsChanged(true)
             })
     }
 
@@ -123,7 +125,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
           const newData = [...data];
           const index = newData.findIndex((item) => id === item.id);
           console.log(index, newData)
-          if (index !== newData.length-1) {
+          if (Number(id)>0) {
             const item = newData[index];
             newData.splice(index, 1, {
               ...item,
@@ -136,6 +138,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
             updateAdvance(row)
                 .then((response)=>{
                     setIsChanged(true)
+                    setIsDetailsChanged(true)
                 })
             setData(newData);
             setEditingId('');
@@ -149,6 +152,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
             createAdvance(row)
                 .then((response)=>{
                     setIsChanged(true)
+                    setIsDetailsChanged(true)
                 })
           }
         } catch (errInfo) {
@@ -167,8 +171,8 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
         },
         {
             title: 'Date',
-            dataIndex: 'date',
-            key: 'date',
+            dataIndex: 'advance_date',
+            key: 'advance_date',
             width: "30%",
             editable: true,
         },
@@ -221,7 +225,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
             id: String(newItemId),
             employee_id: employee_id,
             details: "",
-            date: dayjs(),
+            advance_date: dayjs(),
             amount: ""
         }
 
@@ -250,7 +254,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
           ...col,
           onCell: (record: AdvanceType) => ({
             record,
-            inputType: col.dataIndex === 'amount' ? 'number' :  col.dataIndex === 'date' ? 'date':'text',
+            inputType: col.dataIndex === 'amount' ? 'number' :  col.dataIndex === 'advance_date' ? 'date':'text',
             dataIndex: col.dataIndex,
             title: col.title,
             editing: isEditing(record),
@@ -317,7 +321,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
                             <Table.Summary.Row>
                                 <Table.Summary.Cell index={0}></Table.Summary.Cell>
                                 <Table.Summary.Cell index={1} align="right"><b>Total</b></Table.Summary.Cell>
-                                <Table.Summary.Cell index={2} align="right"><b>₱{numberWithCommas(totalAdvance)}</b></Table.Summary.Cell>
+                                <Table.Summary.Cell index={2} align="right"><b>{formatMoney(totalAdvance)}</b></Table.Summary.Cell>
                             </Table.Summary.Row>
                             </Table.Summary>
                             :null
