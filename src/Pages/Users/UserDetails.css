@@ -72,23 +72,3 @@
     float: right;
 }
 
-.user-confirm-delete-popover{
-    border-radius: 8px !important;
-    border: 1px solid gray
-}
-.user-confirm-delete-popover .popover-header{
-    font-size: medium;
-    font-weight: 600;
-    text-align: center;
-}
-.user-confirm-delete-popover button{
-    font-size: small !important;
-}
-.user-confirm-delete-popover .cancel{
-    border: none;
-}
-.user-confirm-delete-popover .delete{
-    color: white;
-    background-color: #A21818;
-    border: transparent;
-}

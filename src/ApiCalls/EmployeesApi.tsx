@@ -121,3 +121,14 @@ export const changeStatus = async(attendance_id:string, status:string) => {
         return { data: error };
     }
 }
+
+export const getPositions = async()=> {
+    try {
+        const response = await getAPICall(URL+"positions/get?"+
+            "requester=" + requester +
+            "&token="+token,{})
+        return { data: response.data};
+    } catch (error:any) {
+        return { data: error };
+    }
+}

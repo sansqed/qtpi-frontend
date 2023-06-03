@@ -51,20 +51,6 @@ const UserDetails:React.FC<UserDetailsProps> = ({user, setIsChanged}) => {
             return ""
     }
 
-    const deleteConfirmPopup = (
-        <Popover id="popover-basic" className="user-confirm-delete-popover">
-        <Popover.Header className="popover-header">Confirm Delete?</Popover.Header>
-        <Popover.Body>
-            <button className="btn-user cancel light" onClick={() => document.body.click()}>
-                Cancel
-            </button>
-            <button className="btn-user delete" onClick={handleDelete}>
-                Delete
-            </button>
-        </Popover.Body>
-    </Popover>
-    )
-
     return(
         <div className="user-details-container">
             {/* <div className="sidebar-area-container">
@@ -98,15 +84,12 @@ const UserDetails:React.FC<UserDetailsProps> = ({user, setIsChanged}) => {
                 </div>
 
                 <div className="user-details-section btn">  
+
                     <div className="user-delete-btn-wrapper">
-                        <OverlayTrigger trigger="click" placement="top" overlay={deleteConfirmPopup} rootClose={true}>
-                            <button 
-                                className="btn-user btn-delete light red"
-                            >
-                                <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>
-                                <text>Delete</text>
-                            </button>
-                        </OverlayTrigger>
+                        <Button
+                            type="delete-with-confirmation"
+                            handleClick={handleDelete}
+                        />
                     </div>
 
                     <div className="user-edit-btn-wrapper">

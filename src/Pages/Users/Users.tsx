@@ -65,7 +65,7 @@ const Users: React.FC = () => {
                 <Sidebar/>
                 <div className="user-list-container">
                     <div className="user-list-header">
-                        <h1>USER LIST</h1>
+                        <h1>USERS</h1>
                         <NavLink to={"/users/add"} className={"users-add-btn-wrapper"}>
                             <Button
                                 type="add-user"

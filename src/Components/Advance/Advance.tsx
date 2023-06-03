@@ -59,14 +59,15 @@ import dayjs, { Dayjs } from 'dayjs';
   
 interface AdvanceProps{
     employee_id: string;
+    payout?: string;
 }
-const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
+const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
     const { RangePicker } = DatePicker
     let pageSize = 5
     const [currPage, setCurrPage] = useState(1)
     const [newItemId, setNewItemId] = useState(-1)
-    const [startDate, setStartDate] = useState<Dayjs>(dayjs().startOf("week"))
-    const [endDate, setEndDate] = useState<Dayjs>(dayjs().endOf("week"))
+    const [startDate, setStartDate] = useState<Dayjs>(payout==="monthly"?  dayjs().startOf("month"):dayjs().startOf("week"))
+    const [endDate, setEndDate] = useState<Dayjs>(dayjs())
     const [totalAdvance, setTotalAdvance] = useState(0)
     
     const [form] = Form.useForm();

@@ -2,19 +2,23 @@
     padding: 3% 5%;
     /* background-color: white; */
     display: block;
+    /* overflow: scroll; */
+    height: 40vh;
 }
 
 .calendar-header-container{
     /* width: inherit; */
     /* display: ; */
     /* margin: 0.5rem auto 0rem auto; */
-    margin-left: 4.5vw;
-    display: inline-flex;
+    /* margin-left: 4.5vw; */
+    display: flex;
+    float: right;
+    margin-right: 5vw;
 }
 
 .calendar-title-container{
     width: 100%;
-    display: inline-flex;
+    display: inline-block;
     align-items: center;
 }
 
@@ -27,7 +31,7 @@
 }
 
 .calendar-header-container h3{
-    margin: 1% 0;
+    margin: 0 0;
     width: 9rem;
     color: black;
     font-size: larger;
@@ -62,7 +66,6 @@
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
     column-gap: 0rem;
-    /* row-gap: 0.5rem; */
     margin: auto;
 }
 
@@ -71,7 +74,7 @@
 }
 
 .calendar-days-container.five-rows{
-    row-gap: 1.5rem;
+    row-gap: 13%;
 }
 
 .calendar-daynames{
