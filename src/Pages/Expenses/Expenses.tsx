@@ -4,9 +4,13 @@ import Button from "../../Components/Button/Button";
 import {DatePicker, Tabs} from "antd";
 
 import "./Expenses.css" 
-import { useState } from "react";
+import React,{ useState, useEffect  } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Form } from "react-bootstrap";
+import { getClassifications } from "../../ApiCalls/Expenses";
+import ExpenseTable from "../../Components/ExpenseTable/ExpenseTable";
+
+// import ExpenseTable from "../../Components/ExpenseTable/ExpenseTable";
 
 
 
@@ -15,12 +19,21 @@ const Expenses = () => {
 
     const [startDate, setStartDate] = useState<Dayjs>(dayjs().startOf("week"))
     const [endDate, setEndDate] = useState<Dayjs>(dayjs().endOf("week"))
-    
+
     const handleDateChange = (range:any) => {
         setStartDate(range[0])
         setEndDate(range[1])
     }
+    
+    const [classifications, setClassifications] = useState<any[]>([])
 
+    useEffect(()=>{
+        getClassifications()
+        .then((response)=>{
+            console.log(response.data.data.classifications)
+            setClassifications(response.data.data.classifications)
+        })
+    },[])
     return(
         <div className="expenses-container">
 
@@ -59,8 +72,15 @@ const Expenses = () => {
                     </div>
 
                     <div className="expenses-selects-container">
-                        <Tabs defaultActiveKey = "LABOR">
-                            <Tabs.TabPane tab = "LABOR" key = "LABOR">
+                        <Tabs defaultActiveKey = "1">
+                            {classifications? classifications.map(({id, name}) => 
+                                <Tabs.TabPane tab = {name} key = {id}>
+                                    <ExpenseTable
+                                        classification_id={id}
+                                    />
+                                </Tabs.TabPane>
+                            ):<></>}
+                            {/* <Tabs.TabPane tab = "LABOR" key = "LABOR">
                                 <div> test1</div>
                             </Tabs.TabPane>
                             <Tabs.TabPane tab = "CHEMICALS/FLY CONTROL" key = "tab2">
@@ -74,7 +94,7 @@ const Expenses = () => {
                             </Tabs.TabPane>
                             <Tabs.TabPane tab = "SUPPLIES" key = "tab5">
                                 <div> test5</div>
-                            </Tabs.TabPane>
+                            </Tabs.TabPane> */}
                         </Tabs>
                     </div>
                 {/* <Button
