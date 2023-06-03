@@ -66,13 +66,13 @@
     margin:0;
 }
 
+/* REMOVE UP DOWN ARROWS IN INPUT OF TYPE NUMBER */
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
@@ -96,7 +96,7 @@ input[type=number] {
     margin-bottom: 0;
 }
 
-.add-employee-input-box, .add-employee-address-box{
+.add-employee-input-box{
     width: 22.5vw;
     height: 4vh;
     border: none;
@@ -120,10 +120,6 @@ input[type=number] {
     width: 11.5vw;
 }
 
-.add-employee-address-box{
-  width: 38vw;
-}
-
 .add-employee-name-container{
     margin-top: 1vh;
     margin-bottom: 1vh;
@@ -136,58 +132,6 @@ input[type=number] {
     display:flex;
     flex-direction: row;
     color: #0A1929
-}
-
-.add-employee-second-row-label{
-    display:flex;
-    flex-direction: row;
-    font-size: 0.8em;
-    color: #0A1929;
-}
-
-.add-employee-second-row-label h1{
-    font-size: 1.5em;
-}
-
-.add-employee-second-row-label-contact{
-    margin-right: 13vw;
-}
-
-.add-employee-third-row-label{
-    display:flex;
-    flex-direction: row;
-    font-size: 0.6em;
-    color: #0A1929;
-}
-
-.add-employee-third-row-label-position{
-    margin-right: 15.3vw;
-}
-
-.add-employee-third-row-label-rate{
-    margin-right: 17.5vw;
-}
-
-.add-employee-rate-menu{
-    width: 19vw;
-    height: 5vh;
-    border: none;
-    background-color: transparent;
-    border-radius: 5px;
-    background-color: #E1E1E1;
-    font-size: 1.0em;
-    font-family: "Poppins", sans-serif;
-    letter-spacing: 0.5px;
-    padding-left: 2vh;
-    padding-right: 5vh;
-    margin-right: 1vw;
-}
-
-.add-employee-fourth-row-label{
-    display:flex;
-    flex-direction: row;
-    font-size: 0.6em;
-    color: #0A1929;
 }
 
 .add-employee-input-box.is-invalid, 

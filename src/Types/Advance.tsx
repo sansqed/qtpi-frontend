@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 type AdvanceType = {
     id: string;
     details: string;
-    date: Dayjs;
+    advance_date: Dayjs;
     amount: string;
     employee_id: string
 }

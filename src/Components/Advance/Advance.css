@@ -51,6 +51,7 @@
 .advance-table-container{
     margin-top: 7%;
     height: 50%;
+    width: 29vw;
 }
 
 .ant-pagination-item-active, .ant-pagination-item-active a{

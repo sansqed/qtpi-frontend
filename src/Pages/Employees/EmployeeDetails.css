@@ -53,8 +53,9 @@
 .employee-details-section.name-position{
     display: block;
     /* margin-left: 1vw; */
-    margin: auto 0 auto 1vw;
-    width: 60%;
+    /* margin: auto 0 auto 1vw; */
+    margin: 1vh 0 auto 0;
+    /* width: 60%; */
 }
 .employee-details-section.header h1{
     line-height: 0.9;
@@ -104,6 +105,7 @@
 .employee-details-section.btns{
     width: 97%;
     margin-bottom: 5vh;
+    margin-top: 2vh;
 }
 .employee-details-delete-btn{
     float: left;

@@ -20,7 +20,7 @@ const Employees: React.FC= () => {
     const paths = location.pathname.split('/')
     const action = paths[2]
     const [selectedEmployeeId, setSelectedEmployeeId] = useState('')
-    const [isChanged, setIsChanged] = useState(false)
+    const [isEmployeesChanged, setIsEmployeesChanged] = useState(false)
     
     const tempEmployee:Employee = {
         address: "address",
@@ -29,7 +29,8 @@ const Employees: React.FC= () => {
         id: "1",
         middle_name: "mid",
         last_name: "last",
-        position: "pos",
+        position_id: "1",
+        position_name: "secret",
         rate: "123",
         payout: "as",
         sss: "123",
@@ -41,9 +42,10 @@ const Employees: React.FC= () => {
                 console.log(response)
                 console.log(response.data.data.employees)
                 setEmployees(response.data.data.employees)
+                setIsEmployeesChanged(false)
             })
         // setEmployees([tempEmployee])
-    },[])
+    },[isEmployeesChanged])
 
 
     const getSelectedEmployee = () => {
@@ -53,20 +55,30 @@ const Employees: React.FC= () => {
     }
 
     const DisplayRightSide = () => {
-        if (action==="details")
+        if (action==="details"){
             return(
                 <EmployeeDetails
                     employeeArg={getSelectedEmployee()}
+                    setIsEmployeesChanged={setIsEmployeesChanged}
                 />
             )
-        else if (action === "edit")
+        }
+        else if (action === "edit"){
             return (
                 <EditEmployee
-                    employeeArg={tempEmployee}
+                    employeeArg={getSelectedEmployee()}
+                    setIsEmployeesChanged={setIsEmployeesChanged}
                 />
             )
-        else if (action === "add")
-                return <AddEmployees/>
+        }
+        else if (action === "add"){
+            setSelectedEmployeeId('')
+            return (
+                <AddEmployees
+                    setIsEmployeesChanged={setIsEmployeesChanged}
+                />
+            )
+        }
         else{
             setSelectedEmployeeId('')
             return(
@@ -98,7 +110,7 @@ const Employees: React.FC= () => {
                         {employees && employees.length? employees.map(({id, first_name, middle_name, last_name}) => 
                             
                             <div className="employee-list-content">
-                                <NavLink to={"/employees/details/employee_id="+id} className="employee-list-link" reloadDocument= {false}>
+                                <NavLink to={"/employees/details/employee_id="+id} className={"employee-list-link" + (id===selectedEmployeeId? " active":"")} reloadDocument= {false}>
                                     <text className="employee-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</text>
                                 </NavLink>
                             </div>

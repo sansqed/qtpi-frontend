@@ -54,6 +54,7 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
     const [searchResult, setSearchResult] = useState(employeeList)
     const [searchEntry, setSearchEntry] = useState("")
     const [isChanged, setIsChanged] = useState(false)
+    const [isClicked, setIsClicked] = useState(false)
     
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
     const [data, setData] = useState<CalendarData>({
@@ -117,7 +118,6 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
         setCurrentMonth(format(today, "MMM-yyyy"))
     }
 
-    let result = ""
     const isWithinMonth = (day: Date) => {
         if (isBefore(day, firstDayCurrentMonth))
             return " calendar-before-month"
@@ -137,22 +137,30 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
         const employeeId = employeeList[employeeIdx].id
         const attendanceIdx = employeeList?.[employeeIdx]?.attendance?.findIndex(({date})=>(date===clickedDay))
 
-        if (attendanceIdx===undefined)
+        if (attendanceIdx===undefined || isClicked)
             return
         if(attendanceIdx > -1){
             const attendanceId = employeeList?.[employeeIdx]?.attendance?.[attendanceIdx].id
             if (employeeList?.[employeeIdx].attendance?.find(({date})=>(date===clickedDay))?.status===name)
-                return
-
+            return
+            
+            setIsClicked(true)
             changeStatus(attendanceId, name)
+                .then((response)=>{
+                    console.log(response)
+                    setIsClicked(false)
+                })
         } else {
+            setIsClicked(true)
             markAttendance(employeeId, clickedDay, name)
+                .then((response)=>{
+                    setIsClicked(false)
+                })
             
         }
         setIsChanged(true)
     }
 
-    // console.log(isChanged)
 
     return(
         <div className="calendar-gen-container">
@@ -244,6 +252,7 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                                                         handleClick={(e:any)=>{handleSetAttendance(e)}}
                                                         state={e.attendance?.find(({date})=>date==clickedDay)?.status||""}
                                                         value={String(idx)}
+                                                        disabled={isClicked}
                                                     />
                                                 </div>
                                             </div>

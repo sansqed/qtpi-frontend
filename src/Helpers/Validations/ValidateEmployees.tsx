@@ -38,7 +38,7 @@ const ValidateEmployees = (employee:Employee, setError:Function) => {
         setErrorTrue("contact_no", false, setError);
     }
 
-    if (employee.position === ""){
+    if (employee.position_id === ""){
         setErrorTrue("position", true, setError)
         isValid = false
     } else {
