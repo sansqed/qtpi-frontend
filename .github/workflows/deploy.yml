@@ -16,9 +16,12 @@ jobs:
       with:
         node-version: '16'
       
-    - name: 🔨 Build Project
+    - name: 🔨 npm install
       run: |
         npm install
+        
+    - name: 🔨 npm run build
+      run: |
         npm run build
         
     - name: 📂 Sync files
