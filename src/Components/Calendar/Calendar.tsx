@@ -96,7 +96,7 @@ const Calendar = ({employee_id}:any) => {
             }
         })
        setIsChanged(false)
-    },[currentMonth, isChanged])
+    },[currentMonth, isChanged, employee_id])
 
     const handleSetAttendance = (e:any) => {
         const status = e.target.name

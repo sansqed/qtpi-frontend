@@ -40,7 +40,7 @@ function App() {
             path="/expenses"
             element={isLoggedIn()? <Expenses/>:<Login/>}
           />
-          <Route
+          {/* <Route
               path="/employees"
               element={isLoggedIn()? <Employees/>:<Login/>}
           />
@@ -55,7 +55,20 @@ function App() {
           <Route
               path="/employees/edit/:employeeid"
               element={isLoggedIn()? <EditEmployee/>:<Login/>}
+          /> */}
+          <Route
+            path="/employees"
+            element={isLoggedIn()? <Employees/>:<Login/>}
           />
+          <Route
+            path="/employees/:action"
+            element={isLoggedIn()? <Employees/>:<Login/>}
+          />
+          <Route
+            path="/employees/:action/:user_id"
+            element={isLoggedIn()? <Employees/>:<Login/>}
+          />
+
           {/* <Route
             path={"/users" || "/users/:action" || "/users/:action/:user_id"}
               element={isLoggedIn()? <Users/>:<Login/>}

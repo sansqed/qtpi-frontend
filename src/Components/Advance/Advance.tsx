@@ -50,7 +50,7 @@ import dayjs, { Dayjs } from 'dayjs';
             </Form.Item>
             ) : (
                 dataIndex==="date"? record.date.format("MMM DD YYYY"):
-                    dataIndex==="amount"? "₱"+numberWithCommas(children):
+                    dataIndex==="amount"? "₱"+numberWithCommas(String(children)):
             children
             )}
         </td>
@@ -59,14 +59,16 @@ import dayjs, { Dayjs } from 'dayjs';
   
 interface AdvanceProps{
     employee_id: string;
+    payout?: string;
 }
-const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
+const Advance:React.FC<AdvanceProps> = ({employee_id, payout}) => {
     const { RangePicker } = DatePicker
     let pageSize = 5
     const [currPage, setCurrPage] = useState(1)
     const [newItemId, setNewItemId] = useState(-1)
-    const [startDate, setStartDate] = useState<Dayjs>(dayjs().startOf("week"))
-    const [endDate, setEndDate] = useState<Dayjs>(dayjs().endOf("week"))
+    const [startDate, setStartDate] = useState<Dayjs>(payout==="monthly"?  dayjs().startOf("month"):dayjs().startOf("week"))
+    const [endDate, setEndDate] = useState<Dayjs>(dayjs())
+    const [totalAdvance, setTotalAdvance] = useState(0)
     
     const [form] = Form.useForm();
     const [editingId, setEditingId] = useState('');
@@ -74,18 +76,24 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [data, setData] = useState<AdvanceType[]>([])
     const [isChanged, setIsChanged] = useState(false)
+    const [isLastPage, setIsLastPage] = useState(false)
 
 
     useEffect(()=>{
         setIsLoading(true)
         getAdvance(employee_id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
         .then((response)=>{
+            console.log(response)
+            let total = 0
             let advances = response.data.data.advance.map((a:any)=>{
+                total += Number(a.amount)
                 return({...a, date: dayjs(a.date)})
             })
             setData(advances)
             setIsChanged(false)
             setIsLoading(false)
+            setTotalAdvance(total)
+            setIsLastPage(Math.ceil(response.data.data.advance.length/pageSize) === currPage)
         }).catch(()=>{
             setIsLoading(false)
         })
@@ -206,8 +214,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
           },
       ];
 
-
-    const [isLastPage, setIsLastPage] = useState(Math.ceil(data.length/pageSize) === currPage)
+    
     const handleAddAdvance = () => {
 
         const newData = {
@@ -310,7 +317,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id}) => {
                             <Table.Summary.Row>
                                 <Table.Summary.Cell index={0}></Table.Summary.Cell>
                                 <Table.Summary.Cell index={1} align="right"><b>Total</b></Table.Summary.Cell>
-                                <Table.Summary.Cell index={2} align="right"><b>3,000</b></Table.Summary.Cell>
+                                <Table.Summary.Cell index={2} align="right"><b>₱{numberWithCommas(totalAdvance)}</b></Table.Summary.Cell>
                             </Table.Summary.Row>
                             </Table.Summary>
                             :null

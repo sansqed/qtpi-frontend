@@ -18,6 +18,9 @@ a:visited {
 .employees-content-wrapper {
     display: flex;
 }
+
+
+
 /* 
 .employee-list-container {
     padding-top: 1vh;
@@ -38,12 +41,13 @@ a:visited {
     color: var(--secondary-color);
     /* display:flex; */
     margin-left: 30vh;
-    height: 91vh;
-    width: 20vw;
-    background-color: var(--primary-color);
+    height: 92vh;
+    width: 17.5vw;
+    background-color: white;
     border: none;
-    border-radius: 1vh;
+    border-radius: 8px;
     text-align: left;
+    word-wrap: break-word;
 }
 
 .employee-list-header{
@@ -124,13 +128,26 @@ position: absolute;
 }
 
 .employee-list-content{
-    padding-left: 10px;
     margin: 3% 0%;
+    padding-left: 0.5rem;
 }
 
 .employee-list-link:link, .user-list-link:visited{
-    /* color: var(--secondary-color);   */
     text-decoration: none;
+}
+
+
+.employee-list-content:has(.active){
+    display: flex;
+    border-radius: 8px;
+    height: 2rem;
+    background-color: var(--secondary-color);
+    margin-right: 1rem;
+}
+.employee-list-link.active{
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .employee-list-name{
@@ -138,7 +155,7 @@ position: absolute;
 }
   
   
-.employee-list-link div text{
+.employee-list-link{
     color: var(--secondary-color);
     padding-left: 10px;
 }
@@ -152,7 +169,7 @@ position: absolute;
     margin-left: 2.5vh;
     width: 60vw;
     height: 92vh;
-    background-color: var(--primary-color);
+    background-color: white;
     border: none;
     border-radius: 1vh;
     text-align: left;

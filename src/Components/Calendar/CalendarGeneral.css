@@ -1,6 +1,15 @@
 .calendar-gen-container{
-    padding: 5vh 2.5vw;
-    height: 89%;
+    padding: 3vh 2vw;
+    /* height: 89%; */
+    color: var(--secondary-color);
+    display:block;
+    margin-left: 1vw;
+    width: 59.5vw;
+    height: 87vh;
+    background-color: white;
+    border: none;
+    border-radius: 8px;
+    text-align: left;
 }
 
 .calendar-gen-header-container{
@@ -27,6 +36,7 @@
 
 .calendar-gen-calendar-grid{
     border: 1px dashed var(--secondary-color);
+    /* background-color: var(--primary-color); */
     border-radius: 12px;
     padding: 1rem;
 }
@@ -40,7 +50,7 @@
 .calendar-gen-header-container h3{
     margin: 1% 0;
     width: 13rem;
-    color: black;
+    color: var(--secondary-color);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -154,6 +164,8 @@
 }
 .calendar-gen-curr-month-wrapper{
     border: transparent;
+    font-size: large;
+    background-color: transparent;
 }
 
 .popover{
@@ -182,12 +194,13 @@
     border-width: 3px;
     border-radius: 16px;
     padding: 1% 0% 2% 2%;
+    height: 80vh;
 }
 
 .calendar-gen-employees-body{
     height: 90%;
     /* width: 50%; */
-    margin-top: 2%;
+    /* margin-top: 2%; */
     border-radius: 12px;
     border: 1px solid var(--secondary-color);
     padding: 5%;

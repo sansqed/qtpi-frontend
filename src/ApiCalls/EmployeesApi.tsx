@@ -34,7 +34,7 @@ export const createEmployee = async(employee:Employee)=>{
             address: employee.address,
             position: employee.position,
             rate: employee.rate,
-            rate_unit: employee.rate_unit,
+            payout: employee.payout,
             sss: employee.sss,
         })
         return { data: response.data};
@@ -55,7 +55,7 @@ export const updateEmployee = async(employee:Employee)=>{
             address: employee.address,
             position: employee.position,
             rate: employee.rate,
-            rate_unit: employee.rate_unit,
+            payout: employee.payout,
             // sss: employee.sss,
         })
         return { data: response.data};
@@ -116,6 +116,17 @@ export const changeStatus = async(attendance_id:string, status:string) => {
             id: attendance_id,
             status: status
         })
+        return { data: response.data};
+    } catch (error:any) {
+        return { data: error };
+    }
+}
+
+export const getPositions = async()=> {
+    try {
+        const response = await getAPICall(URL+"positions/get?"+
+            "requester=" + requester +
+            "&token="+token,{})
         return { data: response.data};
     } catch (error:any) {
         return { data: error };

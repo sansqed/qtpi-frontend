@@ -8,27 +8,23 @@ import { getEmployees, updateEmployee } from "../../ApiCalls/EmployeesApi";
 import Employee, { emptyEmployee } from "../../Types/Employee";
 import toasterConfig from "../../Helpers/ToasterConfig";
 import { toast } from "react-hot-toast";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./EditEmployee.css"
 
-const EditEmployee: React.FC = () => {
-    const [employee, setEmployee] = useState<Employee>(emptyEmployee);
+interface EditEmployeeProps{
+    employeeArg:Employee;
+}
+
+const EditEmployee: React.FC<EditEmployeeProps> = ({employeeArg}) => {
+    const [employee, setEmployee] = useState<Employee>(employeeArg);
     const location = useLocation()
     const navigate = useNavigate()
     const urlHeader = "/employees/edit/employeeid="
     const employee_id = String(location.pathname.substring(urlHeader.length));
 
     // Fetch employee details
-    useEffect(()=>{
-        getEmployees(employee_id)
-            .then((response)=>{
-                setEmployee(response.data.data.employees[0])
-            })
-    },[])
-
-    
     
     const handleChange = (e: { target: { name: any; value: any } }) => {
         const { name, value } = e.target;
@@ -59,15 +55,13 @@ const EditEmployee: React.FC = () => {
     return (
         <div className="edit-employees-container">
             <div className="edit-employees-content-wrapper">
-                <Sidebar/>
                 <div className="edit-employee-form-container">
-                    <Form>
                         <div className="edit-employee-header">
-                            <h1>EDIT EMPLOYEE</h1>
+                            <div className="employee-details-back">
+                                <NavLink to={"/employees"} className={"user-details-back"}>&lt; Employees </NavLink>
+                            </div>
+                            <h2>EDIT EMPLOYEE</h2>
                         </div>
-                        {/* <div className="edit-employee-photo-container">
-                          <FontAwesomeIcon icon={["fas","camera"]} className="camera-icon"/>
-                        </div> */}
                         <Row className="edit-employee-name-container">
 
                             <Form.Group>
@@ -84,6 +78,7 @@ const EditEmployee: React.FC = () => {
                                         className="edit-employee-input-box"
                                         placeholder="FIRST NAME"
                                         autoComplete={"off"}
+                                        defaultValue={employee.first_name}
                                     />
                                     
                                     <Form.Control 
@@ -95,6 +90,7 @@ const EditEmployee: React.FC = () => {
                                         className="edit-employee-input-box"
                                         autoComplete={"off"}
                                         placeholder="MIDDLE NAME"
+                                        defaultValue={employee.middle_name}
                                     />
                                     <Form.Control 
                                         type="text" 
@@ -105,8 +101,8 @@ const EditEmployee: React.FC = () => {
                                         className="edit-employee-input-box"
                                         placeholder="LAST NAME"
                                         autoComplete={"off"}
+                                        defaultValue={employee.last_name}
                                     />
-                                {/* </div> */}
                             </Form.Group>
                         </Row>
 
@@ -124,6 +120,7 @@ const EditEmployee: React.FC = () => {
                                     onChange={(e) => handleChange(e)}
                                     className="edit-employee-input-box"
                                     autoComplete={"off"}
+                                    defaultValue={employee.contact_no}
                                 />
                                  <Form.Control 
                                     type="text" 
@@ -133,6 +130,7 @@ const EditEmployee: React.FC = () => {
                                     onChange={(e) => handleChange(e)}
                                     className="edit-employee-address-box"
                                     autoComplete={"off"}
+                                    defaultValue={employee.address}
                                 />
 
                             </Form.Group>
@@ -152,7 +150,6 @@ const EditEmployee: React.FC = () => {
                           />
                           </Form.Group>
                         </Row>
-                    </Form> 
                     <div className="edit-employee-submit-container">
                         <Button
                             type="back"

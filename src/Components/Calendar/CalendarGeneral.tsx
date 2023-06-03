@@ -227,7 +227,7 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                 <div className="calendar-gen-employees-container">
                     <text className="calendar-gen-employees-title">Set attendance for {clickedDay}</text>
                     <div className="calendar-gen-employees-body">
-                        <Form.Control placeholder="Enter employee name" defaultValue={searchEntry} onChange={onSearch} className="calendar-gen-search-input"/>
+                        <Form.Control placeholder="Search an employee" defaultValue={searchEntry} onChange={onSearch} className="calendar-gen-search-input"/>
                         <div className="calendar-gen-search-container">
                             { 
                                 employeeList?.map((e, idx)=>{

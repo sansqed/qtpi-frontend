@@ -24,22 +24,41 @@ const ValidateEmployees = (employee:Employee, setError:Function) => {
         setErrorTrue("last_name", false, setError);
     }
 
-    // if (employee.username === ""){
-    //     setErrorTrue("username", true, setError)
-    //     isValid = false
-    // } else {
-    //     setErrorTrue("username", false, setError);
-    // }
+    if (employee.address === ""){
+        setErrorTrue("address", true, setError)
+        isValid = false
+    } else {
+        setErrorTrue("address", false, setError);
+    }
 
-    // if (user.role_id === ""){
-    //     setErrorTrue("role_id", setError)
-    //     isValid = false
-    // }
+    if (employee.contact_no === ""){
+        setErrorTrue("contact_no", true, setError)
+        isValid = false
+    } else {
+        setErrorTrue("contact_no", false, setError);
+    }
 
-    // if (user.contact_no === ""){
-    //     setErrorTrue("contact_no", setError)
-    //     isValid = false
-    // }
+    if (employee.position === ""){
+        setErrorTrue("position", true, setError)
+        isValid = false
+    } else {
+        setErrorTrue("position", false, setError);
+    }
+
+    if (employee.rate === ""){
+        setErrorTrue("rate", true, setError)
+        isValid = false
+    } else {
+        setErrorTrue("rate", false, setError);
+    }
+
+    if (employee.payout === ""){
+        setErrorTrue("payout", true, setError)
+        isValid = false
+    } else {
+        setErrorTrue("payout", false, setError);
+    }
+    
 
 
 

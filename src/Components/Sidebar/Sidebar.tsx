@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 import { NavLink } from "react-router-dom"
 import toasterConfig from '../../Helpers/ToasterConfig';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getUserFullName } from '../../Helpers/UserFunctions';
 
 const Sidebar: React.FC = () => {
     const [currentTime, setCurrentTime] = useState<string>(new Date().toLocaleTimeString(
@@ -80,7 +81,7 @@ const Sidebar: React.FC = () => {
                     
                     </nav>
                 </div>
-
+                <p>{getUserFullName()}</p>
                 <div className="sidebar-logout-container">
                     <Button 
                         type= "logout"

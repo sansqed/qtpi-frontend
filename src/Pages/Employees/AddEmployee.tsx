@@ -1,23 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar"
 import { Form } from "react-bootstrap"
 import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 import Button from "../../Components/Button/Button";
 import { createEmployee } from "../../ApiCalls/EmployeesApi";
 import Employee, { emptyEmployee, defaultEmployeeError, EmployeeError } from "../../Types/Employee";
 import toasterConfig from "../../Helpers/ToasterConfig";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import ValidateEmployees from "../../Helpers/Validations/ValidateEmployees"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getPositions } from "../../ApiCalls/EmployeesApi";
 
 import "./AddEmployee.css"
 
 const AddEmployees: React.FC = () => {
     const [employee, setEmployee] = useState<Employee>(emptyEmployee);
     const [error, setError] = useState<EmployeeError>(defaultEmployeeError);
-
+    const [positions, setPositions] = useState([])
     const navigate = useNavigate()
+
+    useEffect(()=>{
+        getPositions()
+            .then((response)=>{
+                setPositions(response.data.data.positions)
+            })
+    },[])
 
     const handleChange = (e: { target: { name: any; value: any } }) => {
         const { name, value } = e.target;
@@ -26,7 +35,7 @@ const AddEmployees: React.FC = () => {
             [name]: value,
         }));
     };
-
+    
     const handleSubmit = () => {
         console.log(employee)
         
@@ -45,30 +54,24 @@ const AddEmployees: React.FC = () => {
             console.log(error)
         }
     }
-
-    const handleBack = () => {
-        navigate("/employees")
-    }
-
-    console.log(employee.rate)
+    console.log(employee)
   
     return (
         <div className="add-employees-container">
             <div className="add-employees-content-wrapper">
-                <Sidebar/>
                 <div className="add-employee-form-container">
+                    <div className="add-employee-header">
+                        <div className="add-employee-back"><NavLink to={"/employees"}>&lt; Employees </NavLink></div>
+                        <h2>ADD EMPLOYEE</h2>
+                    </div>
                     <Form>
-                        <div className="add-employee-header">
-                            <h1>ADD EMPLOYEE</h1>
-                        </div>
-                        {/* <div className="add-employee-photo-container">
+                        <div className="add-employee-photo-container add-employee-row">
                           <FontAwesomeIcon icon={["fas","camera"]} className="camera-icon"/>
-                        </div> */}
-                        <Row className="add-employee-name-container">
-
+                        </div>
+                        <Row className="add-employee-row">
                             <Form.Group>
-                                <Form.Label className="add-employee-input-label">
-                                    NAME
+                                <Form.Label className="add-employee-input-label" as={"h4"}>
+                                    Name <span className="input-required">*</span>
                                 </Form.Label>
                                 
                                     <Form.Control 
@@ -77,9 +80,10 @@ const AddEmployees: React.FC = () => {
                                         id="first_name"
                                         name="first_name"
                                         onChange={(e) => handleChange(e)}
-                                        className="add-employee-input-box"
+                                        className="add-employee-input-box first-name"
                                         placeholder="FIRST NAME"
                                         autoComplete={"off"}
+                                        isInvalid={error.first_name}
                                     />
                                     
                                     <Form.Control 
@@ -88,7 +92,7 @@ const AddEmployees: React.FC = () => {
                                         id="middle_name"
                                         name="middle_name"
                                         onChange={(e) => handleChange(e)}
-                                        className="add-employee-input-box"
+                                        className="add-employee-input-box half-size"
                                         autoComplete={"off"}
                                         placeholder="MIDDLE NAME"
                                     />
@@ -98,105 +102,153 @@ const AddEmployees: React.FC = () => {
                                         id="last_name"
                                         name="last_name"
                                         onChange={(e) => handleChange(e)}
-                                        className="add-employee-input-box"
+                                        className="add-employee-input-box half-size"
                                         placeholder="LAST NAME"
                                         autoComplete={"off"}
+                                        isInvalid={error.last_name}
                                     />
-                                {/* </div> */}
+                                    <Form.Control.Feedback type="invalid">
+                                        First and last names are required
+                                    </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
-
+                        
                         <Row>
                             <Form.Group>
-                                <div className="add-employee-second-row-label">
-                                    <h1 className="add-employee-second-row-label-contact">CONTACT NO.</h1>
-                                    <h1 className="add-employee-second-row-label-address">ADDRESS</h1>
-                                </div>
-                               <Form.Control 
-                                    type="text" 
-                                    required={true} 
-                                    id="contact_number"
-                                    name="contact_number"
-                                    onChange={(e) => handleChange(e)}
-                                    className="add-employee-input-box"
-                                    autoComplete={"off"}
-                                />
-                                 <Form.Control 
+                                <Form.Label className="add-employee-input-label" as={"h4"}>
+                                    Address <span className="input-required">*</span>
+                                </Form.Label>
+                                <Form.Control 
                                     type="text" 
                                     required={true} 
                                     id="address"
                                     name="address"
                                     onChange={(e) => handleChange(e)}
-                                    className="add-employee-address-box"
+                                    className="add-employee-input-box"
                                     autoComplete={"off"}
+                                    isInvalid={error.address}
                                 />
-
+                                <Form.Control.Feedback type="invalid">
+                                        Address is required
+                                    </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
-                        <Row>
-                          <Form.Group>
-                            <div className="add-employee-third-row-label">
-                               <h1 className="add-employee-third-row-label-position">POSITION</h1>
-                               <h1 className="add-employee-third-row-label-rate">RATE</h1>
-                               <h1 className="add-employee-third-row-label-rate-unit">RATE UNIT</h1>
-                            </div>
-                          <Form.Control
-                            type="position"
-                            required={true}
-                            id="position"
-                            name="position"
-                            onChange={(e) => handleChange(e)}
-                            className="add-employee-input-box"
-                          />
-                          <Form.Select 
-                            className="add-employee-rate-menu"
-                            id="rate"
-                            name="rate"
-                            onChange={(e) => handleChange(e)}
-                            >
-                            <option value={500}>500</option>
-                            <option value={1000}>1000</option>
-                          </Form.Select>
-                          <Form.Control
-                            type="rate_unit"
-                            required={true}
-                            id="rate_unit"
-                            name="rate_unit"
-                            onChange={(e) => handleChange(e)}
-                            className="add-employee-input-box"
-                          />
-                          </Form.Group>
-                        </Row>
-                        <Row>
-                          <Form.Group>
-                            <div className="add-employee-fourth-row-label">
-                              <h1 className="add-employee-fourth-row-label-SSS">SSS</h1>
-                            </div>
-                            <Form.Control
-                              type="SSS"
-                              required={true}
-                              id="SSS"
-                              name="SSS"
-                              onChange={(e) => handleChange(e)}
-                              className="add-employee-input-box"
-                            />
-                          </Form.Group>
+
+                        <Row className="add-employee-row">
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label className="add-employee-input-label" as={"h4"}>
+                                        Contact number <span className="input-required">*</span>
+                                    </Form.Label>
+                                    <Form.Control 
+                                        type="text" 
+                                        required={true} 
+                                        id="contact_no"
+                                        name="contact_no"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-employee-input-box half-size"
+                                        autoComplete={"off"}
+                                        isInvalid={error.contact_no}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        Contact number is required
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label className="add-employee-input-label" as={"h4"}>
+                                        Position <span className="input-required">*</span>
+                                    </Form.Label>
+                                    <Form.Select 
+                                        className="add-employee-input-box dropdown half-size"
+                                        id="position"
+                                        name="position"
+                                        onChange={(e) => handleChange(e)}
+                                        defaultValue={""}
+                                        isInvalid={error.position}
+                                    >
+                                        <option value="" disabled>Select a role</option>
+                                        {positions.length? 
+                                            positions.map(({id, name})=><option value={id}>{name}</option>)
+                                        :null}
+                                    </Form.Select>
+                                    <Form.Control.Feedback type="invalid">
+                                        Position is required
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </Col>
                         </Row>
 
+                        <Row className="add-employee-row">
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label className="add-employee-input-label" as={"h4"}>
+                                        Daily rate <span className="input-required">*</span>
+                                    </Form.Label>
+                                    <Form.Control 
+                                        type="number" 
+                                        required={true} 
+                                        id="rate"
+                                        name="rate"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-employee-input-box half-size"
+                                        autoComplete={"off"}
+                                        isInvalid={error.rate}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        Daily rate is required
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label className="add-employee-input-label" as={"h4"}>
+                                        SSS contribution
+                                    </Form.Label>
+                                    <Form.Control 
+                                        type="number" 
+                                        required={true} 
+                                        id="sss"
+                                        name="sss"
+                                        onChange={(e) => handleChange(e)}
+                                        className="add-employee-input-box half-size"
+                                        autoComplete={"off"}
+                                        isInvalid={error.sss}
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Form.Group>
+                                <Form.Label className="add-employee-input-label" as={"h4"}>
+                                    Payout <span className="input-required">*</span>
+                                </Form.Label>
+                                <Form.Select 
+                                    className="add-employee-input-box dropdown half-size"
+                                    id="payout"
+                                    name="payout"
+                                    onChange={(e) => handleChange(e)}
+                                    defaultValue={""}
+                                    isInvalid={error.payout}
+                                >
+                                    <option value="" disabled>Select payout</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">
+                                        Payout is required
+                                    </Form.Control.Feedback>
+                            </Form.Group>
+                        </Row>
                     </Form>
 
                     <div className="add-employee-button-container">
-                        <Button
-                            type="back"
-                            handleClick={handleBack}
-                        />
                         <Button 
                             handleClick={handleSubmit}
-                            type= "submit"
-                            
-                        >
-                            SUBMIT
-                        </Button>
+                            type= "user-edit-submit"
+                        />
                     </div>
 
                 </div>

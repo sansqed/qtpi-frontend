@@ -10,6 +10,8 @@ import slash from "../../Assets/Icons/slash-blue.svg"
 import slash_active from "../../Assets/Icons/slash-white.svg"
 import dashed_circle from "../../Assets/Icons/dashed-circle-blue.svg"
 import dashed_circle_active from "../../Assets/Icons/dashed-circle-white.svg"
+import { OverlayTrigger, Popover } from "react-bootstrap";
+
 
 interface ButtonProps{
   handleClick: Function;
@@ -47,7 +49,7 @@ const Button: React.FC<ButtonProps> = ({
     if (type === "add-employee"){
       return(
         <button 
-          className="btn-hover-fx btn-user light"
+          className="btn-hover-fx btn-user light small"
           onClick = {e => handleClick(e)}
         >
           <FontAwesomeIcon icon={["fas","user-plus"]} className="user-icon"/>
@@ -122,6 +124,33 @@ const Button: React.FC<ButtonProps> = ({
           <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>
           <text>Delete</text>
         </button>
+      )
+    }
+
+    if (type === "delete-with-confirmation"){
+      const deleteConfirmPopup = (
+        <Popover id="popover-basic" className="confirm-delete-popover">
+          <Popover.Header className="popover-header">Confirm Delete?</Popover.Header>
+          <Popover.Body>
+              <button className="btn-user cancel light btn-hover-fx" onClick={() => document.body.click()}>
+                  Cancel
+              </button>
+              <button className="btn-user delete btn-hover-fx" onClick={e => handleClick(e)}>
+                  Delete
+              </button>
+          </Popover.Body>
+        </Popover>
+      )
+
+      return(
+            <OverlayTrigger trigger="click" placement="top" overlay={deleteConfirmPopup} rootClose={true}>
+                <button 
+                    className="btn-user btn-delete light red"
+                >
+                    <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>
+                    <text>Delete</text>
+                </button>
+            </OverlayTrigger>
       )
     }
 
