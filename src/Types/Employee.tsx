@@ -4,12 +4,12 @@ type Employee = {
     middle_name:        string,
     last_name:          string
     address:            string,
-    contact_no:         number,
+    contact_no:         string,
     position:           string,
-    rate: number,
-    payout: string,
-    sss: number,
-    attendance?: any[],
+    rate:               string,
+    payout:             string,
+    sss:                string,
+    attendance?:        any[],
 };
 
 export type EmployeeError = {
@@ -27,15 +27,15 @@ export type EmployeeError = {
 
 export const emptyEmployee = {
     address: "",
-    contact_no: 0,
+    contact_no: "",
     first_name: "",
     id: "",
     middle_name: "",
     last_name: "",
     position: "",
-    rate: 0,
+    rate: "",
     payout: "",
-    sss: 0,
+    sss: "",
 }
 
 export const defaultEmployeeError = {

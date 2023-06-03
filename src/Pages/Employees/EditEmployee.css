@@ -8,19 +8,15 @@
     font-family: "Poppins", sans-serif;
     background-color: #003459;
     color:white;
-    height: 100vh;
-    width: 100vw;
+    /* width: 100vw; */
     display: flex;
     align-items: center;
-}
-
-.edit-employees-content-wrapper {
-    display: flex;
+    margin-left: 1vw;
 }
 
 .edit-employee-form-labels{
     display:flex;
-    margin-right:vw;
+    /* margin-right:vw; */
 }
 
 .edit-employee-form-container {
@@ -32,9 +28,9 @@
     padding-left: 3vh;
     color:#003459;
     /* display:flex; */
-    margin-left: 30vh;
-    height: 90vh;
-    width: 80vw;
+    /* margin-left: 30vh; */
+    height: 92vh;
+    width: 62vw;
     background-color: white;
     border: none;
     border-radius: 1vh;

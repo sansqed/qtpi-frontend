@@ -11,10 +11,8 @@ import { getEmployees } from "../../ApiCalls/EmployeesApi";
 import CalendarGeneral from "../../Components/Calendar/CalendarGeneral";
 
 import EmployeeDetails from "./EmployeeDetails";
-
-// interface EmployeeProps{
-//     type?: "details"|"list",
-//   }
+import EditEmployee from "./EditEmployee";
+import AddEmployees from "./AddEmployee";
 
 const Employees: React.FC= () => {
     const [employees, setEmployees] = useState<[Employee]>()
@@ -22,8 +20,20 @@ const Employees: React.FC= () => {
     const paths = location.pathname.split('/')
     const action = paths[2]
     const [selectedEmployeeId, setSelectedEmployeeId] = useState('')
-    console.log(action)
+    const [isChanged, setIsChanged] = useState(false)
     
+    const tempEmployee:Employee = {
+        address: "address",
+        contact_no: "contact",
+        first_name: "first",
+        id: "1",
+        middle_name: "mid",
+        last_name: "last",
+        position: "pos",
+        rate: "123",
+        payout: "as",
+        sss: "123",
+    }
     // FETCH USERS DATA
     useEffect(()=>{
         getEmployees()
@@ -32,8 +42,9 @@ const Employees: React.FC= () => {
                 console.log(response.data.data.employees)
                 setEmployees(response.data.data.employees)
             })
-
+        // setEmployees([tempEmployee])
     },[])
+
 
     const getSelectedEmployee = () => {
         const employeeId = paths[3].split('=')[1]
@@ -43,32 +54,25 @@ const Employees: React.FC= () => {
 
     const DisplayRightSide = () => {
         if (action==="details")
-            // return null
             return(
                 <EmployeeDetails
                     employeeArg={getSelectedEmployee()}
                 />
             )
-            // return(<UserDetails user={getUser()} setIsChanged={setIsChanged}/>)
         else if (action === "edit")
             return (
-                // <EditUser 
-                //     userArg={getUser()}
-                //     setIsChanged={setIsChanged}
-                // />
-                null
+                <EditEmployee
+                    employeeArg={tempEmployee}
+                />
             )
         else if (action === "add")
-                // return(<AddUsers setIsChanged={setIsChanged}/>)
-                return null
+                return <AddEmployees/>
         else{
             setSelectedEmployeeId('')
             return(
-                // <div className="employee-list-calendar-container">
                     <CalendarGeneral
                         employees={employees || []}
                     />
-                // </div>
             ) 
         }
     }
@@ -80,7 +84,7 @@ const Employees: React.FC= () => {
                 <Sidebar/>
                 <div className="employee-list-container">
                     <div className="employee-list-header">
-                        <h1>EMPLOYEE LIST</h1>
+                        <h1>EMPLOYEES</h1>
                         <NavLink to={"/employees/add"}>
                             <Button
                                 type="add-employee"
@@ -94,12 +98,8 @@ const Employees: React.FC= () => {
                         {employees && employees.length? employees.map(({id, first_name, middle_name, last_name}) => 
                             
                             <div className="employee-list-content">
-                                
-                                <NavLink to={"/employees/details/employeeid="+id} className="employee-list-link" reloadDocument= {false}>
-                                    <div>
+                                <NavLink to={"/employees/details/employee_id="+id} className="employee-list-link" reloadDocument= {false}>
                                     <text className="employee-list-name" key={id}>{first_name + " " + middle_name + " " + last_name}</text>
-                                    {/* <text className="employee-list-username">{" (" + username + ")"}</text> */}
-                                    </div>
                                 </NavLink>
                             </div>
                             

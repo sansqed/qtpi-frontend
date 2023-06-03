@@ -18,6 +18,9 @@ a:visited {
 .employees-content-wrapper {
     display: flex;
 }
+
+
+
 /* 
 .employee-list-container {
     padding-top: 1vh;
@@ -40,9 +43,9 @@ a:visited {
     margin-left: 30vh;
     height: 92vh;
     width: 17.5vw;
-    background-color: var(--primary-color);
+    background-color: white;
     border: none;
-    border-radius: 1vh;
+    border-radius: 8px;
     text-align: left;
     word-wrap: break-word;
 }
@@ -125,13 +128,26 @@ position: absolute;
 }
 
 .employee-list-content{
-    padding-left: 10px;
     margin: 3% 0%;
+    padding-left: 0.5rem;
 }
 
 .employee-list-link:link, .user-list-link:visited{
-    /* color: var(--secondary-color);   */
     text-decoration: none;
+}
+
+
+.employee-list-content:has(.active){
+    display: flex;
+    border-radius: 8px;
+    height: 2rem;
+    background-color: var(--secondary-color);
+    margin-right: 1rem;
+}
+.employee-list-link.active{
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .employee-list-name{
@@ -139,7 +155,7 @@ position: absolute;
 }
   
   
-.employee-list-link div text{
+.employee-list-link{
     color: var(--secondary-color);
     padding-left: 10px;
 }

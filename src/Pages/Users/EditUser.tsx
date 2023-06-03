@@ -67,20 +67,6 @@ const EditUser: React.FC<EditUserProps> = ({userArg, setIsChanged}) => {
             })
     }
 
-    const deleteConfirmPopup = (
-        <Popover id="popover-basic" className="user-confirm-delete-popover">
-            <Popover.Header className="popover-header">Confirm Delete?</Popover.Header>
-            <Popover.Body>
-                <button className="btn-user cancel light" onClick={() => document.body.click()}>
-                    Cancel
-                </button>
-                <button className="btn-user delete" onClick={handleDelete}>
-                    Delete
-                </button>
-            </Popover.Body>
-        </Popover>
-    )
-
     return (
         <div className="edit-users-container">
             <div className="edit-users-content-wrapper">
@@ -248,14 +234,10 @@ const EditUser: React.FC<EditUserProps> = ({userArg, setIsChanged}) => {
                         />
                     </div>
                     <div className="edit-user-delete-container">
-                            <OverlayTrigger trigger="click" placement="top" overlay={deleteConfirmPopup} rootClose={true}>
-                                <button 
-                                    className="btn-user btn-delete light red"
-                                >
-                                    <FontAwesomeIcon icon={["fas","user-xmark"]} className="user-icon"/>
-                                    <text>Delete</text>
-                                </button>
-                            </OverlayTrigger>
+                        <Button
+                            type="delete-with-confirmation"
+                            handleClick={handleDelete}
+                        />
                     </div>
                 </div>
             </div>

@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { H1,H2 } from "../../Components/Headers/Headers";
-import Sidebar from "../../Components/Sidebar/Sidebar";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { getEmployees, deleteEmployee } from "../../ApiCalls/EmployeesApi";
+import { deleteEmployee } from "../../ApiCalls/EmployeesApi";
 import Button from "../../Components/Button/Button";
 
 import { toast } from "react-hot-toast";
 import toasterConfig from "../../Helpers/ToasterConfig";
-
-import Employees from "./Employees";
 
 import "./EmployeeDetails.css"
 import Employee, { emptyEmployee } from "../../Types/Employee";
@@ -17,7 +13,6 @@ import Advance from "../../Components/Advance/Advance";
 import Salary from "../../Components/Salary/Salary";
 
 import icon from "../../Assets/Icons/user-empty-temp.svg"
-import userEvent from "@testing-library/user-event";
 
 interface EmployeeDetailsProps{
     employeeArg: Employee;
@@ -29,14 +24,6 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
     const employee_id = employeeArg.id;
     const [employee, setEmployee] = useState<Employee>(employeeArg)
 
-    // useEffect(()=>{
-    //     getEmployees(employee_id)
-    //         .then((response) => {
-    //             console.log(response)
-    //             setEmployee(response.data.data.employees[0])
-    //         })
-    // },[])
-    console.log(employee)
     const handleDelete = async() => {
         deleteEmployee(employee_id)
             .then((response)=>{
@@ -90,7 +77,7 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
                     <div className="employee-detai  ls-section btns">
                         <div className="employee-details-delete-btn">
                             <Button
-                                type="user-delete"
+                                type="delete-with-confirmation"
                                 handleClick={handleDelete}
                             />
                         </div>
@@ -111,10 +98,15 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg}) => {
                 <div className="employee-details-advance-container">
                     <Advance
                         employee_id={employee_id}
+                        payout={employee.payout}
                     />
                 </div>
                 <div className="employee-details-salary-container">
-                    <Salary/>
+                    <Salary
+                        employee_id={employee_id}
+                        rate={Number(employee.rate)}
+                        payout={employee.payout}
+                    />
                 </div>
                 
             </div>

@@ -19,11 +19,11 @@
     color: var(--secondary-color);
     /* display:flex; */
     margin-left: 30vh;
-    height: 91vh;
+    height: 92vh;
     width: 20vw;
     background-color: white;
     border: none;
-    border-radius: 1vh;
+    border-radius: 8px;
     text-align: left;
 }
 

@@ -242,3 +242,27 @@ button{
 }
 
 
+.popover-header{
+  margin: 0.5rem 0 0.5rem 0;
+}
+.confirm-delete-popover{
+  border-radius: 8px !important;
+  border: 1px solid gray
+}
+.confirm-delete-popover .popover-header{
+  font-size: medium;
+  font-weight: 600;
+  text-align: center;
+}
+.confirm-delete-popover button{
+  font-size: small !important;
+}
+.confirm-delete-popover .cancel{
+  border: none;
+}
+.confirm-delete-popover .delete{
+  color: white;
+  background-color: #A21818;
+  border: transparent;
+}
+

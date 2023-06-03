@@ -1,31 +1,38 @@
 import "./Salary.css"
 import { DatePicker, Table, Form, Input, InputNumber, Popconfirm, Typography } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-interface Item {
-    item: string;
-    details: string;
-    amount: string;
-    type: string;
+import { getAttendance } from "../../ApiCalls/EmployeesApi";
+import { getAdvance } from "../../ApiCalls/AdvanceApi";
+
+interface SalaryProps{
+    employee_id: string;
+    rate: number;
+    payout: string;
 }
 
-const Salary = () => {
+
+const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout}) => {
     const { RangePicker } = DatePicker
     const [isLoading, setIsLoading] = useState(false)
-
+    const [startDate, setStartDate] = useState<Dayjs>(payout==="monthly"?  dayjs().startOf("month"):dayjs().startOf("week"))
+    const [endDate, setEndDate] = useState<Dayjs>(dayjs())
+    const [salaryEntry, setSalaryEntry] = useState(["",0])
+    
+    
     const columns: any = [
         {
             title: 'Item',
             dataIndex: 'item',
             key: 'item',
-            width: "35%",
+            width: "30%",
         },
         {
             title: 'Details',
             dataIndex: 'details',
             key: 'details',
-            width: "35%",
+            width: "40%",
         },
         {
             title: 'Amount',
@@ -36,38 +43,54 @@ const Salary = () => {
         },
     ];
 
-    const [data, setData] = useState([
-        {
-            item: 'Cash',
-            details: "5 day(s) x ₱700",
-            amount: '3500',
-            type: "salary"
-        },
-        {
-            item: 'Overtime',
-            details: "5 day(s) x ₱700",
-            amount: '3500',
-            type: "salary"
-        },
-        {
-            item: 'SSS',
-            details: "",
-            amount: '-1000',
-            type: "less"
-        },
-        {
-            item: 'Advance',
-            details: "",
-            amount: '-1500',
-            type: "less"
-        },
-    ])
+    useEffect(()=>{
+        getAttendance(employee_id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
+        .then((response)=>{
+            console.log(response.data.data.attendance)
+            var totalAttendance = 0.0
+
+            response.data.data.attendance.map((a:any)=>{
+                console.log(a.status)        
+                if(a.status == "present")
+                    totalAttendance += 1
+                else if(a.status === "halfday")
+                    totalAttendance += 0.5
+            })
+
+            console.log(totalAttendance)
+            setSalaryEntry([String(totalAttendance) + " days x " + String(rate), 
+                totalAttendance*rate]) 
+        })
+    },[])
+
 
     const [summary, setSummary] = useState({
         gross: 2500,
         less: 1000,
         net: 1500
     })
+
+    const buildData = () => {
+        return([
+            {
+                item: 'Salary',
+                details: salaryEntry[0],
+                amount: Number(salaryEntry[1]),
+                type: "salary"
+            },
+            {
+                item: 'SSS',
+                details: "",
+                amount: '-1000',
+                type: "less"
+            },
+            {
+                item: 'Advance',
+                details: "",
+                amount: '-1500',
+                type: "less"
+            }])
+    }
 
     return(
         <div className="salary-container">
@@ -96,7 +119,7 @@ const Salary = () => {
                 <Table
                     loading={isLoading}
                     columns={columns} 
-                    dataSource={data}
+                    dataSource={buildData()}
                     size="small"
                     pagination={false}
                     bordered={false}
