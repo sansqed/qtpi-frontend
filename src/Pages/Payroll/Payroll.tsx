@@ -24,7 +24,7 @@ const Payroll: React.FC = () => {
   const [endDate, setEndDate] = useState<Dayjs>(dayjs().endOf("week"))
 
   const [positions, setPositions] = useState([])
-  const [employees, setEmployees] = useState<[Employee]>()
+  const [employees, setEmployees] = useState<Employee[]>([])
   const [isEmployeesChanged, setIsEmployeesChanged] = useState(false)
 
 
@@ -121,7 +121,7 @@ const Payroll: React.FC = () => {
                 closeMenuOnSelect={false}
                 isMulti
                 components={{ Option: CheckboxOption }}
-                options={employee_options} />
+                options={employees.map(({ id, first_name, middle_name, last_name }) => ({ value: id, label: first_name + ", " + middle_name + ", " + last_name }))} />
 
               <Select
                 className="payroll-menu-positions-dropdown"
