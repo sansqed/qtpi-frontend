@@ -1,6 +1,6 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { useEffect} from 'react';
 import { isLoggedIn } from './Helpers/UserFunctions';
 
 import Login from './Pages/Login/Login';
@@ -12,9 +12,38 @@ import Users from './Pages/Users/Users';
 import { Toaster } from 'react-hot-toast';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { CheckUserSession } from './ApiCalls/AuthApi';
+
+const TokenListener:any =({}) => {
+  const location = useLocation()
+
+  useEffect(() => {
+    // const time = new Date();
+    
+    CheckUserSession()
+        .then((response)=>{
+            console.log(response)
+            if (response.data.status != 200){
+              localStorage.setItem("loggedin", "1")
+              setTimeout(() => {
+                window.location.reload()
+              }, 2000);
+            }else{
+              // console.log(localStorage.getItem("tokenExpiry"))
+              // console.log(moment(localStorage.getItem("tokenExpiry"),"YYYY-MM-DD hh:mm:ss").diff(Date.now(),'seconds'))
+              // time.setSeconds(time.getSeconds()+10)
+              // localStorage.setItem("loggedin", "0")
+            }
+        })
+  }, [location,[]]);
+
+  return(
+    <div></div>
+  )
+}
 
 function App() {  
-  library.add(fas)
+  library .add(fas)
   return (
     <div className="App">
       <div className='toaster-container'>
@@ -96,7 +125,7 @@ function App() {
             element={isLoggedIn()? <EditUser/>:<Login/>}  
           /> */}
         </Routes>
-        
+        <TokenListener/>
       </BrowserRouter>
     </div>
   );
