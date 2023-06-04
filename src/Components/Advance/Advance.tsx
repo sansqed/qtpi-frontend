@@ -242,8 +242,10 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChange
     }
 
     const handleDateChange = (range:any) => {
-        setStartDate(range[0])
-        setEndDate(range[1])
+        if(dayjs(range[1]).isAfter(dayjs(range[0]))){
+            setStartDate(range[0])
+            setEndDate(range[1])
+        }
     }
 
     const mergedColumns = columns.map((col:any) => {
