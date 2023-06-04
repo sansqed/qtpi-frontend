@@ -9,10 +9,11 @@ import Employees from './Pages/Employees/Employees'
 import Payroll from './Pages/Payroll/Payroll'
 import Expenses from './Pages/Expenses/Expenses'
 import Users from './Pages/Users/Users';
-import { Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { CheckUserSession } from './ApiCalls/AuthApi';
+import toasterConfig from './Helpers/ToasterConfig';
 
 const TokenListener:any =({}) => {
   const location = useLocation()
@@ -28,6 +29,7 @@ const TokenListener:any =({}) => {
               // setTimeout(() => {
               //   window.location.reload()
               // }, 2000);
+              toast.error('User Session Expired. Please log in again', toasterConfig);
             }else{
               // console.log(localStorage.getItem("tokenExpiry"))
               // console.log(moment(localStorage.getItem("tokenExpiry"),"YYYY-MM-DD hh:mm:ss").diff(Date.now(),'seconds'))
@@ -35,7 +37,7 @@ const TokenListener:any =({}) => {
               // localStorage.setItem("loggedin", "0")
             }
         })
-  }, [location,[]]);
+  }, [location]);
 
   return(
     <div></div>
