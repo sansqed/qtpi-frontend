@@ -16,10 +16,11 @@ import icon from "../../Assets/Icons/user-empty-temp.svg"
 
 interface EmployeeDetailsProps{
     employeeArg: Employee;
+    isEmployeeChanged:boolean
     setIsEmployeesChanged:Function
 }
 
-const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, setIsEmployeesChanged}) => {
+const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, isEmployeeChanged, setIsEmployeesChanged}) => {
     const location = useLocation()
     const navigate = useNavigate()
     const employee_id = employeeArg.id;
@@ -111,7 +112,7 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, setIsEmplo
                         employee_id={employee_id}
                         rate={Number(employee.rate)}
                         payout={employee.payout}
-                        isDetailsChanged={isDetailsChanged}
+                        isDetailsChanged={isDetailsChanged||isEmployeeChanged}
                         setIsDetailsChanged={setIsDetailsChanged}
                         hasSSS={employee.sss==="" || employee.sss===null? false:true}
                         sss={employee.sss==="" || employee.sss===null? 0:Number(employee.sss)}

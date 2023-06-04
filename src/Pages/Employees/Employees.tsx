@@ -60,6 +60,7 @@ const Employees: React.FC= () => {
                 <EmployeeDetails
                     employeeArg={getSelectedEmployee()}
                     setIsEmployeesChanged={setIsEmployeesChanged}
+                    isEmployeeChanged={isEmployeesChanged}
                 />
             )
         }
