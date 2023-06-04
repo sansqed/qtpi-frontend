@@ -1,6 +1,6 @@
 export const isLoggedIn = () => {
     try {
-        if (localStorage.getItem("token") === null)
+        if (localStorage.getItem("token") === null || localStorage.getItem("loggedin") === "0")
             return false
         else
             return true
