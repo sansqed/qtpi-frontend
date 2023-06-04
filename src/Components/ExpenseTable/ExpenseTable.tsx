@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect } from "react";
 import { getExpenseDetails } from "../../ApiCalls/ExpenseDetails";
 import ExpenseType from "../../Types/Expenses";
