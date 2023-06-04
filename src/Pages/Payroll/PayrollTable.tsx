@@ -109,7 +109,7 @@ const data: PayrollTableData[] = [
     "cash_advance": 500.00,
     "employee_sss": 228.00,
     "net_salary": 3822.00
-  } 
+  }
 ];
 
 
@@ -139,16 +139,15 @@ const PayrollTable: React.FC = () => {
 
   return (
     <div className="payroll-table-container">
-      <div className="payroll-separator-bar"/>
       <div className="payroll-test-table">
         <Table<PayrollTableData> columns={columns} dataSource={data} />
       </div>
-      <div className="payroll-separator-bar"/>
+      <div className="payroll-separator-bar" />
       <div className="payroll-additional-details">
-         <h1 className="payroll-additional-details-gross">TOTAL GROSS</h1>
-         <h1 className="payroll-additional-details-gross-val">{grossSalarySum}</h1>
-         <h1 className="payroll-additional-details-net">TOTAL NET</h1>
-         <h1 className="payroll-additional-details-net-val">{netSalarySum}</h1>
+        <h1 className="payroll-additional-details-gross">TOTAL GROSS</h1>
+        <h1 className="payroll-additional-details-gross-val">{grossSalarySum}</h1>
+        <h1 className="payroll-additional-details-net">TOTAL NET</h1>
+        <h1 className="payroll-additional-details-net-val">{netSalarySum}</h1>
       </div>
     </div>
   );

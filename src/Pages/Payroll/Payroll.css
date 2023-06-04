@@ -35,13 +35,15 @@
 
 .payroll-date-range-label p{
   font-weight: bold;
+  display:flex;
 }
 
-.payroll-date-range{
+.payroll-date-range-container{
   display:flex;
   flex-direction: row;
   justify-items: center;
   align-items: center;
+  width: 30vw;
 }
 
 .payroll-init-date-container {
@@ -84,6 +86,11 @@
     margin-right: 2vw;
 }
 
+.payroll-dropdown-options {
+  display:flex;
+  flex-direction: row;
+}
+
 .payroll-menus-container {
   display:flex;
   flex-direction: row;
@@ -103,6 +110,11 @@
   border-radius: 5px;
 }
 
+.payroll-generate-button-container {
+  margin-bottom: 1vh;
+}
+
 .payroll-details-table {
   width: 79vw;
 }
+
