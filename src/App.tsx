@@ -25,9 +25,9 @@ const TokenListener:any =({}) => {
             console.log(response)
             if (response.data.status != 200){
               localStorage.setItem("loggedin", "1")
-              setTimeout(() => {
-                window.location.reload()
-              }, 2000);
+              // setTimeout(() => {
+              //   window.location.reload()
+              // }, 2000);
             }else{
               // console.log(localStorage.getItem("tokenExpiry"))
               // console.log(moment(localStorage.getItem("tokenExpiry"),"YYYY-MM-DD hh:mm:ss").diff(Date.now(),'seconds'))
