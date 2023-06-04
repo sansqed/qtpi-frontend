@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { LoginApi } from "../../ApiCalls/AuthApi";
 import toast from 'react-hot-toast';
 import toasterConfig from "../../Helpers/ToasterConfig";
-import moment from "moment"
+
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Login = () => {
@@ -32,7 +32,7 @@ const Login = () => {
         console.log(response)
         
         if (response.data.status === 200){
-            localStorage.setItem("loggedIn", "0");
+            localStorage.setItem("loggedin", "0");
             // localStorage.setItem("role", JSON.stringify(response.data.data.role));
             // localStorage.setItem("username", JSON.stringify(response.data.data.role));
             localStorage.setItem("token", JSON.stringify(response.data.data.token));
