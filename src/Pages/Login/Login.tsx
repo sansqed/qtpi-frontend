@@ -32,7 +32,7 @@ const Login = () => {
         console.log(response)
         
         if (response.data.status === 200){
-            localStorage.setItem("loggedin", "0");
+            localStorage.setItem("loggedIn", "0");
             // localStorage.setItem("role", JSON.stringify(response.data.data.role));
             // localStorage.setItem("username", JSON.stringify(response.data.data.role));
             localStorage.setItem("token", JSON.stringify(response.data.data.token));
