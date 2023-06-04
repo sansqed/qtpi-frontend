@@ -81,6 +81,12 @@ button{
   color: var(--secondary-color);
 }
 
+.right{
+  float:right;
+  margin-right:7.0%;
+  margin-top:3.0%;
+}
+
 .light.red{
   background-color: white;
   border-color: #A21818;
@@ -231,7 +237,7 @@ button{
   color: var(--primary-color);
 }
 
-.btn-date-range{
+.btn-payroll{
   border-radius: 05px;
   border: none;
   font-size: 0.90rem;
