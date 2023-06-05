@@ -4,15 +4,14 @@ import { getRequester, getToken } from "../Helpers/UserFunctions"
 var token = getToken()
 var requester = getRequester()
 
-
-
-export const getExpenseDetails = async(expense_id:string,classification_id:string) => {
+export const getExpenses = async(id:string, date_from:string, date_to:string) => {
     try {
-        const response = await getAPICall(URL+"expense_details/get?"+
+        const response = await getAPICall(URL+"expenses/get?"+
             "requester="+requester+
             "&token="+token+
-            "&expense_id="+ expense_id+
-            "&classification_id="+ classification_id
+            "&id="+id+
+            "&date_from="+ date_from+
+            "&date_to="+ date_to
         ,{
         })
         return { data: response.data};

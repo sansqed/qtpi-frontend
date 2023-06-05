@@ -7,11 +7,9 @@ import "./Expenses.css"
 import React,{ useState, useEffect  } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Form } from "react-bootstrap";
-import { getClassifications } from "../../ApiCalls/Expenses";
+import { getClassifications } from "../../ApiCalls/ClassificationsApi";
 import ExpenseTable from "../../Components/ExpenseTable/ExpenseTable";
-
-// import ExpenseTable from "../../Components/ExpenseTable/ExpenseTable";
-
+import { getExpenses } from "../../ApiCalls/ExpensesApi";
 
 
 const Expenses = () => {
@@ -19,21 +17,40 @@ const Expenses = () => {
 
     const [startDate, setStartDate] = useState<Dayjs>(dayjs().startOf("week"))
     const [endDate, setEndDate] = useState<Dayjs>(dayjs().endOf("week"))
+    const [classifications, setClassifications] = useState<any[]>([])
+    const [expenses, setExpenses] = useState<any>([])
+    const [selectedExpenseId, setSelectedExpenseId] = useState<any>("")
+    const [selectedExpense, setSelectedExpense] = useState<any>()
+    const [toRefresh, setToRefresh] = useState(false)
 
     const handleDateChange = (range:any) => {
         setStartDate(range[0])
         setEndDate(range[1])
     }
+
+    const handleExpenseSelect = (e:any)=>{
+        setSelectedExpenseId(e.target.value)
+        const selected:any = expenses.find(({id}:any)=>e.target.value===id)
+        setSelectedExpense(selected)
+        console.log(selected?.date_from)
+        setStartDate(dayjs(selected?.date_from))
+        setEndDate(dayjs(selected?.date_to))
+    }
     
-    const [classifications, setClassifications] = useState<any[]>([])
+    console.log(selectedExpense)
 
     useEffect(()=>{
         getClassifications()
         .then((response)=>{
-            console.log(response.data.data.classifications)
+            console.log(response)
             setClassifications(response.data.data.classifications)
         })
-    },[])
+        getExpenses("","", "")
+            .then((response)=>{
+                console.log(response.data.data.expense)
+                setExpenses(response.data.data.expense)
+            })
+    },[toRefresh])
     return(
         <div className="expenses-container">
 
@@ -47,13 +64,14 @@ const Expenses = () => {
                         <div className="button">
                         <Form.Select     
                             className="grow-menu"
+                            defaultValue={selectedExpenseId}
+                            onChange={e=>handleExpenseSelect(e)}
                         >
-                            <option value="" disabled>Grow</option>
-                            <option value="1">Grow 1</option>
-                            <option value="2">Grow 2</option>
+                            <option value="" disabled>Select grow</option>
+                            {expenses.map(({id}:any)=>{return(<option value={id} id={id}>{"Grow "+ id}</option>)})}
                         </Form.Select>
                         </div>
-                        <h2>Date Range</h2>
+                        {/* <h2>Date Range</h2> */}
                         <div className="advance-date-range-container">
                         <text className="advance-range-label">
                         From
@@ -77,24 +95,11 @@ const Expenses = () => {
                                 <Tabs.TabPane tab = {name} key = {id}>
                                     <ExpenseTable
                                         classification_id={id}
+                                        expense_id={selectedExpenseId}
+                                        setToRefresh={setToRefresh}
                                     />
                                 </Tabs.TabPane>
                             ):<></>}
-                            {/* <Tabs.TabPane tab = "LABOR" key = "LABOR">
-                                <div> test1</div>
-                            </Tabs.TabPane>
-                            <Tabs.TabPane tab = "CHEMICALS/FLY CONTROL" key = "tab2">
-                                <div> test2</div>
-                            </Tabs.TabPane>
-                            <Tabs.TabPane tab = "FUELS & LUBRICANT" key = "tab3">
-                                <div> test3</div>
-                            </Tabs.TabPane>
-                            <Tabs.TabPane tab = "UTILITIES" key = "tab4">
-                                <div> test4</div>
-                            </Tabs.TabPane>
-                            <Tabs.TabPane tab = "SUPPLIES" key = "tab5">
-                                <div> test5</div>
-                            </Tabs.TabPane> */}
                         </Tabs>
                     </div>
                 {/* <Button
@@ -105,10 +110,49 @@ const Expenses = () => {
 
 
 
-                <div className="expenses-dashboard-container">
-                    <div className="expenses-dashboard-container-header">
-                        <h1>TOTAL EXPENSES</h1>
-                        
+                <div className="expenses-summary-container">
+                    <div className="expenses-summary-container-header">
+                        <h2>TOTAL EXPENSES</h2>
+                    </div>
+                    <div className="expenses-summary-section">
+                        <h4 className="expenses-summary-name">Labor</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.labor}</text>
+                    </div>
+                    <div className="expenses-summary-section">
+                        <h4 className="expenses-summary-name">Chemicals/Fly Control</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.chemicals}</text>
+                    </div>
+                    <div className="expenses-summary-section">
+                        <h4 className="expenses-summary-name">Fuels & Lubricants</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.fuels}</text>
+                    </div>
+                    <div className="expenses-summary-section">
+                        <h4 className="expenses-summary-name">Utilities</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.utilities}</text>
+                    </div>
+                    <div className="expenses-summary-section">
+                        <h4 className="expenses-summary-name">Supplies</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.supplies}</text>
+                    </div>
+                    <div className="expenses-summary-section">
+                        <h4 className="expenses-summary-name">Repair & Maintenance</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.repair}</text>
+                    </div>
+                    <div className="expenses-summary-section">
+                        <h4 className="expenses-summary-name">Rentals (Equipments / Vehicle)</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.rentals}</text>
+                    </div>
+                    <div className="expenses-summary-section">
+                        <h4 className="expenses-summary-name">Taxes / Licenses</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.taxes}</text>
+                    </div>
+                    <div className="expenses-summary-section">
+                        <h4 className="expenses-summary-name">Others</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.others}</text>
+                    </div>
+                    <div className="expenses-summary-section total">
+                        <h4 className="expenses-summary-name">TOTAL</h4>
+                        <text className="expenses-summary-value">{selectedExpense?.total_amount}</text>
                     </div>
                 </div>
 

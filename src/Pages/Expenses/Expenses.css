@@ -61,6 +61,8 @@
 
 .expenses-selects-container{
     height: 100%;
+    /* overflow-x: scroll; */
+    width: 55vw;
 
 }
 
@@ -74,18 +76,44 @@
     /* margin-bottom:5%; */
 }
 
-.expenses-dashboard-container{
+.expenses-summary-container{
     border-radius: 10px;
-    display: flex;
-    height: 92vh;
-    width: 97%;
+    display: block;
+    height: 89vh;
+    width: 83%;
     background-color: white;
+    padding: 3% 5%;
+    color: var(--secondary-color);
+    text-align: left;
 }
 
-.expenses-dashboard-container h1{
+.expenses-summary-container h2{
     padding: 0;
     margin: 0;
     padding-left: 1vw;
     color:#003459;
-    font-size: 2em;
+    /* font-size: 2em; */
+}
+.expenses-summary-container-header{
+    margin-bottom: 2vh;
+}
+
+.expenses-summary-section{
+    border-bottom: 3px solid rgb(237, 237, 237);
+    display: inline-flex;
+    width: 21vw;
+    margin: 0.5vh;
+}
+.expenses-summary-name{
+    font-size: medium;
+    width: 80%;
+    margin: 0;
+    margin-bottom: 0.5vh
+}
+.expenses-summary-value{
+    float: right;
+    align-items: center;
+    width: 20%;
+    text-align: right;
+    margin-bottom: 0.5vh;
 }
