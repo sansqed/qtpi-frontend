@@ -2,17 +2,19 @@
 import Button from "../../Components/Button/Button";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import PayrollTable from "./PayrollTable";
-// import { mock_data, headers } from './temp-data.json'
 
 // external imports
-import { Form } from "react-bootstrap"
-import { DatePicker, Table, Input, InputNumber, Popconfirm, Typography } from 'antd';
-import Row from "react-bootstrap/Row"
+import { DatePicker } from 'antd';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMemo } from 'react'
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useState, useEffect } from "react";
-import Select from 'react-select';
+import Select, { components, OptionProps } from 'react-select';
+
+// type imports
+import Employee, { emptyEmployee } from "../../Types/Employee";
+
+// api imports
+import { getEmployees, getPositions } from "../../ApiCalls/EmployeesApi";
 
 import "./Payroll.css"
 
@@ -21,10 +23,34 @@ const Payroll: React.FC = () => {
   const [startDate, setStartDate] = useState<Dayjs>(dayjs().startOf("week"))
   const [endDate, setEndDate] = useState<Dayjs>(dayjs().endOf("week"))
 
+  const [positions, setPositions] = useState([])
+  const [employees, setEmployees] = useState<Employee[]>([])
+  const [isEmployeesChanged, setIsEmployeesChanged] = useState(false)
+
+
   const handleDateChange = (range: any) => {
     setStartDate(range[0])
     setEndDate(range[1])
   }
+
+  useEffect(() => {
+    getEmployees()
+      .then((response) => {
+        console.log(response)
+        console.log(response.data.data.employees)
+        setEmployees(response.data.data.employees)
+        setIsEmployeesChanged(false)
+      })
+    // setEmployees([tempEmployee])
+  }, [isEmployeesChanged])
+
+  useEffect(() => {
+    getPositions()
+      .then((response) => {
+        console.log(response.data.data.positions)
+        setPositions(response.data.data.positions)
+      })
+  }, [])
 
   const employee_options = [
     { value: 'employee1', label: 'Employee 1' },
@@ -32,18 +58,23 @@ const Payroll: React.FC = () => {
     { value: 'employee3', label: 'Employee 3' }
   ]
 
-  const position_options = [
-    { value: 'pos1', label: 'Position 1' },
-    { value: 'pos2', label: 'Position 2' },
-    { value: 'pos3', label: 'Position 3' }
-  ]
-
   const payout_options = [
-    { value: 'pay1', label: 'Payout 1' },
-    { value: 'pay2', label: 'Payout 2' },
-    { value: 'pay3', label: 'Payout 3' }
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'weekly', label: 'Weekly' },
   ]
 
+  const CheckboxOption = (props: OptionProps<any>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      props.selectOption(props.data)
+    }
+
+    return (
+      <div className="payroll-dropdown-options">
+        <input type={"checkbox"} checked={props.isSelected} onChange={handleChange} />
+        <components.Option {...props} />
+      </div>
+    )
+  };
 
   return (
 
@@ -87,59 +118,47 @@ const Payroll: React.FC = () => {
 
               <Select
                 className="payroll-menu-employees-dropdown"
+                closeMenuOnSelect={false}
                 isMulti
-                options={employee_options} />
+                components={{ Option: CheckboxOption }}
+                options={employees.map(({ id, first_name, middle_name, last_name }) => ({ value: id, label: first_name + ", " + middle_name + ", " + last_name }))} />
 
               <Select
                 className="payroll-menu-positions-dropdown"
+                closeMenuOnSelect={false}
                 isMulti
-                options={position_options} />
+                components={{ Option: CheckboxOption }}
+                options={positions.map(({ id, name }) => ({ value: id, label: name }))} />
 
               <Select
                 className="payroll-menu-payouts-dropdown"
+                closeMenuOnSelect={false}
                 isMulti
+                components={{ Option: CheckboxOption }}
                 options={payout_options} />
             </div>
 
-            {/* <Form.Select */}
-            {/*   className="payroll-dropdown-menu" */}
-            {/*   id="employee" */}
-            {/*   name="employee" */}
-            {/*   multiple */}
-            {/* // onChange{(e) => handleChange(e)} */}
-            {/* > */}
-            {/*   <option value={"Employee 1"}>Employee 1</option> */}
-            {/*   <option value={"Employee 2"}>Employee 2</option> */}
-            {/*   <option value={"Employee 3"}>Employee 3</option> */}
-            {/* </Form.Select> */}
-            {/**/}
-            {/* <Form.Select */}
-            {/*   className="payroll-dropdown-menu" */}
-            {/*   id="position" */}
-            {/*   name="position" */}
-            {/*   multiple */}
-            {/* // onChange{(e) => handleChange(e)} */}
-            {/* > */}
-            {/*   <option value={"TEMP"}>TEMP</option> */}
-            {/* </Form.Select> */}
-            {/**/}
-            {/* <Form.Select */}
-            {/*   className="payroll-dropdown-menu" */}
-            {/*   id="sss" */}
-            {/*   name="sss" */}
-            {/*   multiple */}
-            {/* // onChange{(e) => handleChange(e)} */}
-            {/* > */}
-            {/*   <option value={"TEMP"}>TEMP</option> */}
-            {/* </Form.Select> */}
-
           </div>
 
+          <div className="payroll-separator-bar" />
+
+          <div className="payroll-generate-button-container">
+            <Button
+              type={"generate-payroll"}
+              handleClick={() => { }}
+            />
+          </div>
 
           <div className="payroll-details-table">
             <PayrollTable />
           </div>
 
+          <div className="payroll-export-container">
+            <Button
+              type={"export-pdf"}
+              handleClick={() => { }}
+            />
+          </div>
         </div>
 
       </div>
