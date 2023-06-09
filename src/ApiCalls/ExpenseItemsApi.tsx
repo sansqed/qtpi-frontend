@@ -21,7 +21,7 @@ export const getExpenseItems = async(expense_item_id:string, classification_id:s
     }
 }
 
-export const addExpenseItems = async(name:string, classification_id:string) => {
+export const createExpenseItems = async(name:string, classification_id:string) => {
     try {
         const response = await postAPICall(URL+"expense_items/create",{
             requester: requester,

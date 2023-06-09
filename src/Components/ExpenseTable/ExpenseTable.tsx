@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { useEffect, useState } from "react";
 import { DatePicker, Table, Form, Input, InputNumber, Popconfirm, Typography, Select } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import "./ExpenseTable.css"
-import { formatMoney } from '../../Helpers/Util';
+import { formatMoney, moneyFormatter } from '../../Helpers/Util';
+import CreatableSelect from 'react-select/creatable';
+import Button from '../Button/Button';
 
-import { getExpenseItems } from '../../ApiCalls/ExpenseItemsApi';
+import { getExpenseItems, createExpenseItems } from '../../ApiCalls/ExpenseItemsApi';
 import { getExpenseDetails, createExpenseDetails, updateExpenseDetails, deleteExpenseDetails } from "../../ApiCalls/ExpenseDetailsApi";
 
 
 import type ExpenseDetailType from "../../Types/ExpenseDetail";
 import type ExpenseItemType from '../../Types/ExpenseItem';
+import type ExpenseType from '../../Types/Expense';
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
     editing: boolean;
@@ -24,11 +27,11 @@ interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
 
 interface ExpenseProps{
     classification_id: string;
-    expense_id: string;
-    setToRefresh: Function
+    expense: ExpenseType;
+    setExpenseToRefresh: Function;
 }
 
-const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, setToRefresh}) => {
+const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExpenseToRefresh}) => {
     const [form] = Form.useForm();
     const [data, setData] = useState<ExpenseDetailType[]>([])
     const [newItemId, setNewItemId] = useState(-1)
@@ -37,7 +40,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
     const [totalExpense, setTotalExpense] = useState(0)
     const [editMode, setEditMode] = useState("")
     const [items, setItems] = useState<ExpenseItemType[]>([])
-    const [refreshFlag, setRefreshFlag] = useState(0)
+    const [toRefresh, setToRefresh] = useState(false)
 
     const [currPage, setCurrPage] = useState(1)
     const pageSize = 13
@@ -57,25 +60,35 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
                 <InputNumber 
                     prefix="₱" 
                     controls={false}
+                    name='unit-price-form'
                 /> : inputType === 'qty'?
                 <InputNumber 
                     controls={false}
                     className='expense-table-qty-input'
+                    name='qty-form'
                 /> : inputType === 'date'? 
                 <DatePicker 
                     format={"MMM DD YYYY"}
                 /> : inputType==='select'? 
-                <Select 
-                    showSearch 
-                    optionFilterProp="children" 
-                    options={items?.map(({id, name})=>{return {value: id, label: name}})}
-                    filterOption={(input, option) =>
-                        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                    }
+                <CreatableSelect
+                    isClearable
+                    options={buildOptions()}
+                    className='expense-table-dropdown'
+                    styles={{ menuPortal: base => ({ ...base, zIndex: 100000000 }) }}
+                    defaultInputValue={record.expense_item_name}
                 /> : <Input autoComplete="off"/>;
+
+        let qty = Form.useWatch("qty", form)
+        let unit_price = Form.useWatch("unit_price", form)
+        if (inputType==="money" && Array.isArray(children))
+            children = children[1]
+
         return (
         <td {...restProps}>
-            {editing ? (
+            {
+            editing? 
+            dataIndex === "amount"? moneyFormatter.format(qty*unit_price):
+            (
             <Form.Item  
                 name={dataIndex}
                 style={{ margin: 0 }}
@@ -86,40 +99,48 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
                 },
                 ]}
             >
-                {inputNode}
+                {
+                    inputNode
+                }
             </Form.Item>
             ) : (
                 inputType==="date"? record.expense_date.format("MMM DD YYYY"):
-                    inputType==="money"? formatMoney(String(children)):
-            children
+                    dataIndex==="amount"? moneyFormatter.format(Number(children)):
+                    inputType==="money"? moneyFormatter.format(Number(children)): 
+                    inputType==="select"? record.expense_item_name:children
             )}
         </td>
         );
     };
 
+    const buildOptions = () =>{
+        let options = items?.map(({id, name})=>{return {value: id, label: name}})
+        // options.push({value: '-1', label: "Enter to create"})
+        return options
+    }
 
-    
+
 
     const columns: any = [
         {
             title: 'Date',
             dataIndex: 'expense_date',
             key: 'expense_date',
-            width: "15%",
+            width: "17%",
             editable: true,
         },
         {
             title: 'Qty',
             dataIndex: 'qty',
             key: 'qty',
-            width: "5%",
+            width: "8%",
             editable: true,
         },
         {
             title: 'Unit',
             dataIndex: 'unit',
             key: 'unit',
-            align: 'center',
+            align: 'left',
             width: "10%",
             editable: true,
         },
@@ -128,7 +149,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
             dataIndex: 'expense_item_name',
             key: 'expense_item_name',
             align: 'left',
-            width: "40%",
+            width: "30%",
             editable: true,
         },
         {
@@ -136,7 +157,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
             dataIndex: 'unit_price',
             key: 'unit_price',
             align: 'right',
-            width: "10%",
+            width: "15%",
             editable: true,
         },
         {
@@ -144,7 +165,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
             dataIndex: 'amount',
             key: 'amount',
             align: 'right',
-            width: "10%",
+            width: "15%",
             // editable: true,
         },
         {
@@ -157,10 +178,10 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
               const editable = isEditing(record);
               return editable ? (
                 <span>
-                  <Typography.Link onClick={() => save(record.expense_detail_id)} style={{ marginRight: 8 }}>
+                  <Typography.Link onClick={() => save(record.expense_detail_id)} style={{ marginRight: 8 }} className="advance-operation">
                     Save
                   </Typography.Link>
-                  <Typography.Link onClick={cancel} style={{ marginRight: 8 }}>
+                  <Typography.Link onClick={cancel} style={{ marginRight: 8 }} className="advance-operation">
                     Cancel
                   </Typography.Link>
                 </span>
@@ -219,50 +240,90 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
     };
     const handleDeleteItem = async(item:ExpenseDetailType) => {
         console.log(item)
-        deleteExpenseDetails(expense_id, classification_id, item)
-        setRefreshFlag(refreshFlag+1)
-        setEditingId('');
+        deleteExpenseDetails(expense.id, classification_id, item)
         setToRefresh(true)
+        setEditingId('');
+        setExpenseToRefresh(true)
     }
 
     const save = async (id: string) => {
+        console.log("here")
         try{
-            let row = (await form.validateFields()) as ExpenseDetailType
-        
-            if (editMode === "add") {              
-                row.expense_item_id = row.expense_item_name
-                const findItemName = items.find(({id})=>id===row.expense_item_name)?.name
+            let row = (await form.validateFields())
+            console.log(row)
+            let newItemId = -1
 
-                if (findItemName)
-                    row.expense_item_name = String(findItemName)
-
-                console.log("add", row)
-                createExpenseDetails(expense_id, classification_id, row)
-                    .then(response=>{
-                        console.log(response)
+            if (row.expense_item_name?.__isNew__){
+                createExpenseItems(row.expense_item_name.label, classification_id)
+                    .then((response)=>{
+                        newItemId = response.data.expense_item_id
                     })
-                setRefreshFlag(refreshFlag+1)
-                setEditingId('');
-                setToRefresh(true)
-            } else if (editMode === "edit"){
+                    .then(()=>{
+                        if (editMode === "add") {              
+                            row.expense_item_id = newItemId
+                            console.log("add", row)
+                            createExpenseDetails(expense.id, classification_id, row)
+                                .then(response=>{
+                                    console.log(response)
+                                })
+                            setToRefresh(true)
+                            setEditingId('');
+                            setExpenseToRefresh(true)
+                        } else if (editMode === "edit"){
+                            // row.expense_item_id = row.expense_item_name
+                            row.expense_detail_id = editingId
+                            row.expense_item_id = newItemId
+                            console.log(row)
 
-                // row.expense_item_id = row.expense_item_name
-                row.expense_detail_id = editingId
-                const findItemId = items.find(({name})=>name===row.expense_item_name)?.id
-
-                if (findItemId)
-                    row.expense_item_id = String(findItemId)
-
-                console.log(row)
-
-                updateExpenseDetails(expense_id, classification_id, row)
-                    .then(response=>{
-                        console.log(response)
+                            updateExpenseDetails(expense.id, classification_id, row)
+                                .then(response=>{
+                                    console.log(response)
+                                })
+                            setToRefresh(true)
+                            setEditingId('');
+                            setExpenseToRefresh(true)
+                        }
                     })
-                setRefreshFlag(refreshFlag+1)
-                setEditingId('');
-                setToRefresh(true)
+            } else {
+                if (editMode === "add") {              
+                    row.expense_item_id = row.expense_item_name
+                    row.expense_item_name = row.expense_item_name.label
+                    row.expense_item_id = row.expense_item_id.value
+    
+                    console.log("add", row)
+                    createExpenseDetails(expense.id, classification_id, row)
+                        .then(response=>{
+                            console.log(response)
+                        })
+                    setToRefresh(true)
+                    setEditingId('');
+                    setExpenseToRefresh(true)
+                } else if (editMode === "edit"){
+
+                    row.expense_detail_id = editingId
+                    if(typeof row.expense_item_name === "string")
+                        row.expense_item_id = items.find((i)=>{return(i.name===row.expense_item_name)})?.id
+                    else{
+                        row.expense_item_id = row.expense_item_name.value
+                        row.expense_item_name = row.expense_item_name.label
+                    }
+                        
+                    console.log(id, editingId, row)
+                    updateExpenseDetails(expense.id, classification_id, row)
+                        .then(response=>{
+                            console.log(response)
+                        })
+
+                    setToRefresh(true)
+                    setEditingId('');
+                    setExpenseToRefresh(true)
+                }
+                else{
+                    console.log("none")
+                }
             }
+
+        
         } catch (errInfo) {
             console.log('Validate Failed:', errInfo);
         }
@@ -274,44 +335,77 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
     }
 
     useEffect (()=>{
-        getExpenseDetails(expense_id,classification_id)
+        getExpenseDetails(expense.id,classification_id)
             .then((response)=>{
-                console.log(response.data.data)
+                console.log(response)
                 let tempTotal = 0
                 const details = response.data.data.expense_details.map((e:any)=>{
                     tempTotal += Number(e.amount)
                     return({
                         ...e, 
+                        expense_item: {id: e.expense_item_id, name: e.expense_item_name},
                         expense_date: dayjs(e.expense_date),
                         qty: Number(e.qty),
                         unit_price: Number(e.unit_price),
                         amount: Number(e.amount)
                     })
                 })
-
+                console.log(details)
                 setData(details)
                 setTotalExpense(tempTotal)
+                if (details.length <= pageSize)
+                    setIsLastPage(true)
+            })
+            .catch((reason)=>{
+                setData([])
+                setTotalExpense(0)
             })
         getExpenseItems("", classification_id)
             .then((response)=>{
                 console.log(response)
-                setItems(response.data.data.expense_item)
+                let items = response.data.data.expense_item
+                // items.push({id: '', value: "Enter to create item"})
+                setItems(items)
             })
-    },[expense_id, refreshFlag])
+            .catch(()=>{
+                setItems([])
+            })
 
-    
-
-    const onItemChange = (value: string) => {
-        console.log(`selected ${value}`);
-      };
-      
-      const onItemSearch = (value: string) => {
-        console.log('search:', value);
-      };
+        setToRefresh(false)
+    },[expense, toRefresh])
 
     const mergedColumns = columns.map((col:any) => {
+        if(col.dataIndex === "amount")
+            return {
+                ...col,
+                onCell: (record: ExpenseDetailType) => ({
+                record,
+                inputType: 
+                    col.dataIndex === 'amount' || col.dataIndex === 'unit_price' ? 
+                        'money' : col.dataIndex === 'qty'? 
+                            'qty' : col.dataIndex === 'expense_date' ? 
+                            'date': col.dataIndex === 'expense_item_name'? 'select':'text',
+                dataIndex: col.dataIndex,
+                title: col.title,
+                editing: isEditing(record),
+                })
+            }
+
         if (!col.editable)
-            return {...col}
+            return {
+                ...col,
+                onCell: (record: ExpenseDetailType) => ({
+                  record,
+                  inputType: 
+                      col.dataIndex === 'amount' || col.dataIndex === 'unit_price' ? 
+                          'money' : col.dataIndex === 'qty'? 
+                              'qty' : col.dataIndex === 'expense_date' ? 
+                              'date': col.dataIndex === 'expense_item_name'? 'select':'text',
+                  dataIndex: col.dataIndex,
+                  title: col.title,
+                //   editing: false,
+                })
+            }
 
         return {
           ...col,
@@ -331,9 +425,13 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
 
     return(
         <div className={'expense-table-container'}>
-            <button onClick={handleAddItem}>
-                Add item
-            </button>
+            <div className='expenses-add-item-wrapper'>
+                <Button
+                    type='expenses-add-item'
+                    handleClick={handleAddItem}
+                    disabled={expense.isNew}
+                />
+            </div>
             <Form form={form} component={false} className='expense-table-wrapper'>
                 <Table
                     components={{
@@ -342,13 +440,13 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
                         },
                     }}
                     // loading={isLoading}
-                    className="advance-table"
+                    className="expenses-table"
                     columns={mergedColumns} 
                     dataSource={data} 
                     pagination={{ 
                         pageSize: pageSize, 
                         position: ["bottomCenter"],
-                        onChange: (page)=>{handlePageChange(page)},
+                        onChange: (page:any)=>{handlePageChange(page)},
                         current: currPage
                     }}
                     size="small"
@@ -362,7 +460,8 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense_id, set
                             <Table.Summary.Cell index={2}></Table.Summary.Cell>
                             <Table.Summary.Cell index={3}></Table.Summary.Cell>
                             <Table.Summary.Cell index={4} align="right"><b>Total</b></Table.Summary.Cell>
-                            <Table.Summary.Cell index={5} align="right"><b>{totalExpense}</b></Table.Summary.Cell>
+                            <Table.Summary.Cell index={5} align="right"><b>{moneyFormatter.format(totalExpense)}</b></Table.Summary.Cell>
+                            <Table.Summary.Cell index={6}></Table.Summary.Cell>
                         </Table.Summary.Row>
                         </Table.Summary>
                         :null

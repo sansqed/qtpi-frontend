@@ -30,7 +30,8 @@ export const createExpenseDetails = async(expense_id:string,classification_id:st
             token: token,
             expense_id: expense_id,
             classification_id: classification_id,
-            expense_date: [expense.expense_date.format("YYYY-MM-DD")],
+            expense_date_from: [expense.expense_date.format("YYYY-MM-DD")],
+            expense_date_to: [null],
             qty: [expense.qty],
             unit: [expense.unit],
             unit_price: [expense.unit_price],
@@ -51,11 +52,12 @@ export const updateExpenseDetails = async(expense_id:string,classification_id:st
             expense_id: expense_id,
             classification_id: classification_id,
             expense_detail_id: [expense.expense_detail_id],
-            expense_date: [expense.expense_date.format("YYYY-MM-DD")],
+            expense_date_from: [expense.expense_date.format("YYYY-MM-DD")],
+            expense_date_to: [null],
             qty: [expense.qty],
             unit: [expense.unit],
             unit_price: [expense.unit_price],
-            expense_item_id: [expense.expense_item_id]
+            expense_item_id: [Number(expense.expense_item_id)]
             
         })
         return { data: response.data};

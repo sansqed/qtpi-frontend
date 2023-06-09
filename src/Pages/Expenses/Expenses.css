@@ -33,12 +33,13 @@
 }
 
 .expenses-header{
-    margin-left: 2%;
+    /* margin-left: 2%; */
     margin-top: 2%;
-    height: 10%;
+    height: 70%;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: center;
+    width: 71vw;
 }
 
 .expenses-header h1{
@@ -52,11 +53,11 @@
 .expenses-header h2{
     margin: 0;
     padding: 0;
-    padding-right: 1vw;
+    padding-right: 0.5vw;
     padding-left: 1vw;
     color:#003459;
     font-size: 1em;
-    /* margin-bottom:5%; */
+    /* margin-bottom:; */
 }
 
 .expenses-selects-container{
@@ -79,10 +80,10 @@
 .expenses-summary-container{
     border-radius: 10px;
     display: block;
-    height: 89vh;
+    height: 86.5vh;
     width: 83%;
     background-color: white;
-    padding: 3% 5%;
+    padding: 5%;
     color: var(--secondary-color);
     text-align: left;
 }
@@ -101,19 +102,97 @@
 .expenses-summary-section{
     border-bottom: 3px solid rgb(237, 237, 237);
     display: inline-flex;
-    width: 21vw;
+    width: 19vw;
     margin: 0.5vh;
+    margin-left: 1vw;
 }
 .expenses-summary-name{
-    font-size: medium;
+    font-size: 1rem;
+    font-weight: 500;
     width: 80%;
     margin: 0;
-    margin-bottom: 0.5vh
+    margin-bottom: 0.5vh;
+    
 }
 .expenses-summary-value{
     float: right;
+    font-size: 1rem;
     align-items: center;
     width: 20%;
     text-align: right;
     margin-bottom: 0.5vh;
+}
+
+.expenses-grow-menu{
+    border-radius: 4px;
+    height: 3vh;
+    width: 9vw;
+    padding-left: 0.5vw;
+    align-items: center;
+    margin-right: 1vw;
+}
+
+.expenses-date-range-container{
+    display: inline-block;
+    /* float: left; */
+    margin-top: 0;
+    width: 31vw;
+    align-items: center;
+}
+.expenses-rangepicker{
+    margin-top: 0.5vh;
+    align-items: center;
+    float: left;
+}
+
+.expenses-range-label{
+    line-height: 1;
+    padding-top: 0.3rem;
+    padding-right: 0px;
+    font-size: 14px;
+    opacity: 0.8;
+    color: black;
+    float: left;
+    margin-top: 1.25vh;
+    /* font-size: small; */
+    /* margin-right: 0.8rem; */
+}
+
+.ant-picker-range-separator{
+    opacity: 0.8;
+    color: black;
+}
+
+.expenses-date-range-container .ant-picker-input input{
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.expenses-grow-btn-container{
+    display: flex;
+    float: right;
+    /* margin-left: 12vw; */
+}
+
+.expenses-grow-btn-container .btn-delete{
+    margin-right: 1vw;
+}
+
+.expenses-date-range-container .ant-picker-suffix, .expenses-date-range-container .ant-picker-clear{
+    display: none;
+}
+
+.ant-tabs-nav{
+    margin-bottom: 1vh !important;
+}
+
+.expenses-summary-section.total{
+    margin-top: 35vh;
+    border-bottom: none;
+}
+
+.expenses-summary-section.total h4, 
+.expenses-summary-section.total text{
+    font-weight: 800 !important;
+    font-size: medium;
 }

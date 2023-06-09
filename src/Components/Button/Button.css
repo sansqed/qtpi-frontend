@@ -9,6 +9,10 @@ button{
   transition: ease-in;
   transition-duration: 0.2s;
 }
+.btn-hover-fx:hover:disabled{
+  cursor: not-allowed;
+  box-shadow: none;
+}
 
 .btn-add-user{
   border-radius: 5px;
@@ -272,3 +276,21 @@ button{
   border: transparent;
 }
 
+.btn-expenses{
+  border-radius: 8px;
+  padding: 0.2rem 10px;
+  align-items: center;
+  font-weight: 500;
+  /* background-color: ; */
+  /* height: 1.5rem; */
+}
+
+.btn-expenses.btn-delete{
+  border: none;
+  text-decoration: underline;
+}
+
+.btn-expenses:disabled{
+  background-color: gray;
+  
+}
