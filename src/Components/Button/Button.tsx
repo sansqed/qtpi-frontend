@@ -215,6 +215,8 @@ const Button: React.FC<ButtonProps> = ({
   }
 
 
+
+
   if (type === "calendar-attendance-status-v2") {
 
     return (
@@ -286,6 +288,72 @@ const Button: React.FC<ButtonProps> = ({
     )
   }
 
+  if(type === "expenses-set-date"){
+    return(
+      <button
+        className={"btn-hover-fx btn-expenses light "+ className}
+        onClick={e => handleClick(e)}
+        name={"set-date"}
+      >
+        <FontAwesomeIcon icon={["fas", "calendar"]} className="user-icon" />
+        Set Date
+      </button>
+    )
+  }
+
+  if(type === "expenses-create-grow"){
+    return(
+      <button
+        className={"btn-hover-fx btn-expenses dark "+ className}
+        onClick={e => handleClick(e)}
+        name={"set-date"}
+      >
+        <FontAwesomeIcon icon={["fas", "egg"]} className="user-icon" />
+        Create Grow
+      </button>
+    )
+  }
+
+  if(type==="expenses-add-item"){
+    return(
+      <button
+        className={"btn-hover-fx btn-expenses dark "+ className}
+        onClick={e => handleClick(e)}
+        name={"add-item"}
+        disabled={disabled}
+      >
+        <FontAwesomeIcon icon={["fas", "plus"]} className="add-icon" />
+        Add item
+      </button>
+    )
+  }
+
+  if (type === "expense-delete-with-confirmation") {
+    const deleteConfirmPopup = (
+      <Popover id="popover-basic" className="confirm-delete-popover">
+        <Popover.Header className="popover-header">Confirm Delete?</Popover.Header>
+        <Popover.Body>
+          <button className="btn-user cancel light btn-hover-fx" onClick={() => document.body.click()}>
+            Cancel
+          </button>
+          <button className="btn-user delete btn-hover-fx" onClick={e => handleClick(e)}>
+            Delete
+          </button>
+        </Popover.Body>
+      </Popover>
+    )
+
+    return (
+      <OverlayTrigger trigger="click" placement="bottom" overlay={deleteConfirmPopup} rootClose={true}>
+        <button
+          className="btn-expenses btn-delete light red"
+        >
+          <FontAwesomeIcon icon={["fas", "trash-can"]} className="user-icon" />
+          <text>Delete</text>
+        </button>
+      </OverlayTrigger>
+    )
+  }
 
   return (
     <button

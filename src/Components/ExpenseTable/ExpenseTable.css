@@ -7,3 +7,28 @@
 .expense-table-wrapper .expense-table-qty-input input{
     width: 0.1vw;
 }
+
+.ant-table-summary {
+    z-index: 0 !important;
+}
+
+.expenses-add-item-wrapper{
+    float: left;
+    margin-bottom: 0.5vh;
+}
+
+.expense-table-qty-input{
+    width: 95%;
+    padding: 0;
+}
+.expense-table-qty-input input{
+    padding: 0 0.5vw !important;
+}
+
+.ant-input,
+.ant-input-number-input,
+.ant-picker{
+    height: 4.5vh !important;
+    border-radius: 5px !important;
+    border-color: hsl(0, 0%, 80%);
+}
