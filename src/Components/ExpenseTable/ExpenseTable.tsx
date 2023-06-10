@@ -66,14 +66,17 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
             children = children[1]
         const inputNode = inputType === 'money' ?  
                 <InputNumber 
+                    
                     prefix="₱" 
                     controls={false}
                     name='unit-price-form'
+                    status={unit_price<=0? "error":""}
                 /> : inputType === 'qty'?
                 <InputNumber 
                     controls={false}
                     className='expense-table-qty-input'
                     name='qty-form'
+                    status={qty<=0? "error":""}
                 /> : inputType === 'date' && (name==="Labor" || record.expense_item_name==="Labor")? 
                 <RangePicker
                     size={"small"} 
@@ -158,7 +161,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
             editable: true,
         },
         {
-            title: 'Name',
+            title: 'Item',
             dataIndex: 'expense_item_name',
             key: 'expense_item_name',
             align: 'left',
@@ -474,19 +477,14 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                         },
                     }}
                     // loading={isLoading}
+                    scroll={data.length>16? { y:"65vh"}:{}}
                     className="expenses-table"
                     columns={mergedColumns} 
                     dataSource={data} 
-                    pagination={{ 
-                        pageSize: pageSize, 
-                        position: ["bottomCenter"],
-                        onChange: (page:any)=>{handlePageChange(page)},
-                        current: currPage
-                    }}
+                    pagination={false}
                     size="small"
                     sticky
                     summary={() => (
-                        isLastPage?
                         <Table.Summary fixed>
                         <Table.Summary.Row>
                             <Table.Summary.Cell index={0}></Table.Summary.Cell>
@@ -498,7 +496,6 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                             <Table.Summary.Cell index={6}></Table.Summary.Cell>
                         </Table.Summary.Row>
                         </Table.Summary>
-                        :null
                     )}
                 />
             </Form>

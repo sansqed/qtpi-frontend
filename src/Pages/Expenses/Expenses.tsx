@@ -193,6 +193,7 @@ const Expenses = () => {
                             <Button
                                 type="expense-export"
                                 handleClick={()=>{}}
+                                disabled={selectedExpense.isNew}
                                 // handleClick={()=>ExpenseExportExcel()}
                             />
                         </div>
