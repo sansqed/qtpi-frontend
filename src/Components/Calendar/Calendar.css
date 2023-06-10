@@ -20,6 +20,7 @@
     width: 100%;
     display: inline-block;
     align-items: center;
+    
 }
 
 .calendar-title-wrapper h2{
@@ -33,7 +34,7 @@
 .calendar-header-container h3{
     margin: 0 0;
     width: 9rem;
-    color: black;
+    color: var(--secondary-color);
     font-size: larger;
 }
 

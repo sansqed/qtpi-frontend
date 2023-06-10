@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { getAttendance } from "../../ApiCalls/EmployeesApi";
 import { getAdvance } from "../../ApiCalls/AdvanceApi";
-import { formatMoney } from "../../Helpers/Util";
+import { formatMoney, moneyFormatter } from "../../Helpers/Util";
 
 interface SalaryProps{
     employee_id: string;
@@ -14,11 +14,11 @@ interface SalaryProps{
     isDetailsChanged: boolean;
     setIsDetailsChanged: Function
     hasSSS: boolean
-    sss?: number
+    SSS?: number
 }
 
 
-const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout, isDetailsChanged, setIsDetailsChanged, hasSSS, sss}) => {
+const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout, isDetailsChanged, setIsDetailsChanged, hasSSS, SSS}) => {
     const { RangePicker } = DatePicker
     const [isLoading, setIsLoading] = useState(false)
     const [startDate, setStartDate] = useState<Dayjs>(payout==="monthly"?  dayjs().startOf("month"):dayjs().startOf("week"))
@@ -107,21 +107,21 @@ const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout, isDetailsChang
             {
                 item: 'Salary',
                 details: salaryEntry[0],
-                amount: formatMoney(salaryEntry[1]),
+                amount: moneyFormatter.format(Number(salaryEntry[1])),
                 type: "salary"
             },
             {
                 item: 'Advance',
                 details: "",
-                amount: formatMoney(totalAdvance),
+                amount: moneyFormatter.format(totalAdvance),
                 type: "less"
             }]
         
-        if (!Number.isNaN(sss))
+        if (!Number.isNaN(SSS) && Number(SSS)>0)
             tempData.push({
                 item: 'SSS',
                 details: "",
-                amount: String(sss),
+                amount: moneyFormatter.format(Number(SSS)),
                 type: "less"
             })
 
@@ -129,8 +129,8 @@ const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout, isDetailsChang
     }
 
     const buildLess = () => {
-        if(sss)
-            return -(sss+totalAdvance)
+        if(SSS)
+            return -(SSS+totalAdvance)
         return -totalAdvance
     }
 
@@ -171,17 +171,17 @@ const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout, isDetailsChang
                             <Table.Summary.Row>
                                 <Table.Summary.Cell index={0}></Table.Summary.Cell>
                                 <Table.Summary.Cell index={1} align="right">Gross</Table.Summary.Cell>
-                                <Table.Summary.Cell index={2} align="right">{formatMoney(salaryEntry[1])}</Table.Summary.Cell>
+                                <Table.Summary.Cell index={2} align="right">{moneyFormatter.format(Number(salaryEntry[1]))}</Table.Summary.Cell>
                             </Table.Summary.Row>
                             <Table.Summary.Row>
                                 <Table.Summary.Cell index={0}></Table.Summary.Cell>
                                 <Table.Summary.Cell index={1} align="right">Less</Table.Summary.Cell>
-                                <Table.Summary.Cell index={2} align="right">{formatMoney(buildLess())}</Table.Summary.Cell>
+                                <Table.Summary.Cell index={2} align="right">{moneyFormatter.format(buildLess())}</Table.Summary.Cell>
                             </Table.Summary.Row>
                             <Table.Summary.Row>
                                 <Table.Summary.Cell index={0}></Table.Summary.Cell>
                                 <Table.Summary.Cell index={1} align="right"><b>NET SALARY</b></Table.Summary.Cell>
-                                <Table.Summary.Cell index={2} align="right"><b>{formatMoney(Number(salaryEntry[1])+buildLess())}</b></Table.Summary.Cell>
+                                <Table.Summary.Cell index={2} align="right"><b>{moneyFormatter.format(Number(salaryEntry[1])+buildLess())}</b></Table.Summary.Cell>
                             </Table.Summary.Row>
                         </Table.Summary>
                     )} 

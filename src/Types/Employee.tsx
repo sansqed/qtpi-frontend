@@ -9,7 +9,7 @@ type Employee = {
     position_name:      string,
     rate:               string,
     payout:             string,
-    sss:                string,
+    SSS:                string,
     attendance?:        any[],
 };
 
@@ -23,7 +23,7 @@ export type EmployeeError = {
     position_id:        boolean,
     rate:               boolean,
     payout:             boolean,
-    sss:                boolean,
+    SSS:                boolean,
 }
 
 export const emptyEmployee = {
@@ -37,7 +37,7 @@ export const emptyEmployee = {
     position_name: "",
     rate: "",
     payout: "",
-    sss: "",
+    SSS: "",
 }
 
 export const defaultEmployeeError = {
@@ -50,7 +50,7 @@ export const defaultEmployeeError = {
     position_id: false,
     rate: false,
     payout: false,
-    sss: false,
+    SSS: false,
 }
 
 export default Employee;

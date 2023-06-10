@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type AdvanceType from "../../Types/Advance"
 import { getAdvance, updateAdvance, createAdvance, deleteAdvance } from "../../ApiCalls/AdvanceApi";
 
+import { moneyFormatter } from "../../Helpers/Util";
+
 import dayjs, { Dayjs } from 'dayjs';
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
@@ -20,49 +22,14 @@ interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
     children: React.ReactNode;
 }
 
-const EditableCell: React.FC<EditableCellProps> = ({
-    editing,
-    dataIndex,
-    title,
-    inputType,
-    record,
-    index,
-    children,
-    ...restProps
-}) => {
-    const inputNode = inputType === 'number' ? 
-        <InputNumber prefix="₱" controls={false}/> : inputType === 'date'? 
-            <DatePicker format={"MMM DD YYYY"}/>:<Input autoComplete="off"/>;
-    return (
-    <td {...restProps}>
-        {editing ? (
-        <Form.Item
-            name={dataIndex}
-            style={{ margin: 0 }}
-            rules={[
-            {
-                required: true,
-                message: "",
-            },
-            ]}
-        >
-            {inputNode}
-        </Form.Item>
-        ) : (
-            dataIndex==="advance_date"? record.advance_date.format("MMM DD YYYY"):
-                dataIndex==="amount"?formatMoney(String(children)):
-                    children
-        )}
-    </td>
-    );
-};
-  
 interface AdvanceProps{
     employee_id: string;
     payout?: string;
     setIsDetailsChanged:Function
 }
+
 const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChanged}) => {
+
     const { RangePicker } = DatePicker
     let pageSize = 5
     const [currPage, setCurrPage] = useState(1)
@@ -78,7 +45,52 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChange
     const [data, setData] = useState<AdvanceType[]>([])
     const [isChanged, setIsChanged] = useState(false)
     const [isLastPage, setIsLastPage] = useState(false)
+    const [editMode, setEditMode] = useState('')
 
+    const EditableCell: React.FC<EditableCellProps> = ({
+        editing,
+        dataIndex,
+        title,
+        inputType,
+        record,
+        index,
+        children,
+        ...restProps
+    }) => {
+        let amount = Number(Form.useWatch("amount", form))
+        if(dataIndex === "amount" && Array.isArray(children))
+            children = children[1]
+        const inputNode = inputType === 'number' ? 
+            <InputNumber 
+                prefix="₱" 
+                min={1}
+                status= {amount<=0? "error":""}
+                controls={false}
+            /> : inputType === 'date'? 
+                <DatePicker format={"MMM DD YYYY"}/>:<Input autoComplete="off"/>;
+        return (
+        <td {...restProps}>
+            {editing ? (
+            <Form.Item
+                name={dataIndex}
+                style={{ margin: 0 }}
+                rules={[
+                {
+                    required: true,
+                    message: "",
+                },
+                ]}
+            >
+                {inputNode}
+            </Form.Item>
+            ) : (
+                dataIndex==="advance_date"? record.advance_date.format("MMM DD YYYY"):
+                    dataIndex==="amount"?moneyFormatter.format(Number(children)):
+                        children
+            )}
+        </td>
+        );
+    };
 
     useEffect(()=>{
         setIsLoading(true)
@@ -97,17 +109,23 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChange
             setIsLastPage(Math.ceil(response.data.data.advance.length/pageSize) === currPage)
         }).catch(()=>{
             setIsLoading(false)
+            setData([])
+            setTotalAdvance(0)
+            setIsLastPage(false)
         })
     },[startDate, endDate, isChanged])
 
     const edit = (record: Partial<AdvanceType> & { id: string }) => {
         form.setFieldsValue({ item: '', advance_date: dayjs(), amount: '', ...record });
         setEditingId(String(record.id));
+        setEditMode("edit")
     };
 
     const cancel = () => {
         setIsChanged(true)
         setEditingId('');
+        if(editMode === 'add')
+            setData(data.slice(0, -1))
     };
 
     const handleDeleteItem = async(item:AdvanceType) => {
@@ -122,35 +140,23 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChange
         try {
           let row = (await form.validateFields()) as AdvanceType
             
-          const newData = [...data];
-          const index = newData.findIndex((item) => id === item.id);
-          console.log(index, newData)
-          if (Number(id)>0) {
-            const item = newData[index];
-            newData.splice(index, 1, {
-              ...item,
-              ...row,
-            });
+          if (editMode === "edit") {
             row.employee_id = employee_id
-            row.id = item.id
-            
-            console.log("UPDATE", row)
+            row.id = editingId
+
             updateAdvance(row)
                 .then((response)=>{
                     setIsChanged(true)
                     setIsDetailsChanged(true)
+                    setEditingId('');
                 })
-            setData(newData);
-            setEditingId('');
-          } else {
+          } else if(editMode === "add") {
+
             row.employee_id = employee_id
-            newData.push(row);
-            console.log(row)
-            setData(newData);
-            setEditingId('')
-            console.log("add")
+            
             createAdvance(row)
-                .then((response)=>{
+            .then((response)=>{
+                    setEditingId('')
                     setIsChanged(true)
                     setIsDetailsChanged(true)
                 })
@@ -234,6 +240,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChange
         setIsLastPage(true)
         edit(newData)
         setNewItemId(newItemId-1)
+        setEditMode('add')
     }
 
     const handlePageChange = (page:number) => {
@@ -324,6 +331,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChange
                                 <Table.Summary.Cell index={0}></Table.Summary.Cell>
                                 <Table.Summary.Cell index={1} align="right"><b>Total</b></Table.Summary.Cell>
                                 <Table.Summary.Cell index={2} align="right"><b>{formatMoney(totalAdvance)}</b></Table.Summary.Cell>
+                                <Table.Summary.Cell index={3}></Table.Summary.Cell>
                             </Table.Summary.Row>
                             </Table.Summary>
                             :null

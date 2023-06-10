@@ -24,6 +24,5 @@ export const getRequester = () => {
 }
 
 export const getUserFullName = () => {
-    console.log(localStorage.getItem("user-name"))
     return localStorage.getItem("user-name") || ""
 }

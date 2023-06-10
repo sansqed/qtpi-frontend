@@ -129,7 +129,8 @@ position: absolute;
 
 .employee-list-content{
     margin: 3% 0%;
-    padding-left: 0.5rem;
+    padding-left: 0.5vw;
+    word-wrap: break-word;
 }
 
 .employee-list-link:link, .user-list-link:visited{
@@ -140,9 +141,11 @@ position: absolute;
 .employee-list-content:has(.active){
     display: flex;
     border-radius: 8px;
-    height: 2rem;
+    height: fit-content;
     background-color: var(--secondary-color);
     margin-right: 1rem;
+    padding: 0.25vh 0 0.25vh 0.5vw;
+
 }
 .employee-list-link.active{
     color: white;
@@ -157,7 +160,7 @@ position: absolute;
   
 .employee-list-link{
     color: var(--secondary-color);
-    padding-left: 10px;
+    /* padding-left: 10px; */
 }
 
 .employee-list-calendar-container{

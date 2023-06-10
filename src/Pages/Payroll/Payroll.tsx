@@ -140,7 +140,7 @@ const Payroll: React.FC = () => {
 
       const rate = parseInt(employee.rate);
       const grossSalary = totalAttendance * rate;
-      const netSalary = grossSalary - totalAdvance - parseInt(employee.sss ?? "0");
+      const netSalary = grossSalary - totalAdvance - parseInt(employee.SSS ?? "0");
 
       return {
         full_name: `${employee.first_name} ${employee.middle_name} ${employee.last_name}`,
@@ -149,7 +149,7 @@ const Payroll: React.FC = () => {
         rate: employee.rate,
         gross_salary: grossSalary,
         cash_advance: totalAdvance,
-        employee_sss: employee.sss ?? "0",
+        employee_sss: employee.SSS ?? "0",
         net_salary: netSalary
       };
     }));

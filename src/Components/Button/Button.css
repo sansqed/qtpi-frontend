@@ -157,6 +157,7 @@ button{
   width: fit-content;
   background-color: transparent;
   font-size: 1.5rem;
+  color: var(--secondary-color);
 }
 
 .btn-attendance-status{

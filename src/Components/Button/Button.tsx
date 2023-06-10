@@ -214,9 +214,6 @@ const Button: React.FC<ButtonProps> = ({
     )
   }
 
-
-
-
   if (type === "calendar-attendance-status-v2") {
 
     return (

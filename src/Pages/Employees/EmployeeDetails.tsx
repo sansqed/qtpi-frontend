@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { deleteEmployee } from "../../ApiCalls/EmployeesApi";
 import Button from "../../Components/Button/Button";
+import { moneyFormatter } from "../../Helpers/Util";
 
 import { toast } from "react-hot-toast";
 import toasterConfig from "../../Helpers/ToasterConfig";
@@ -71,7 +72,7 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, isEmployee
                     <div className="employee-details-section rate-payout">
                         <div className="employee-details-subsection rate">
                             <p className="employee-details-label">Rate</p>
-                            <p className="employee-details-info">{employee.rate}</p>
+                            <p className="employee-details-info">{moneyFormatter.format(Number(employee.rate))}</p>
                         </div>
                         <div className="employee-details-subsection payout">
                             <p className="employee-details-label">Payout</p>
@@ -114,8 +115,8 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, isEmployee
                         payout={employee.payout}
                         isDetailsChanged={isDetailsChanged||isEmployeeChanged}
                         setIsDetailsChanged={setIsDetailsChanged}
-                        hasSSS={employee.sss==="" || employee.sss===null? false:true}
-                        sss={employee.sss==="" || employee.sss===null? 0:Number(employee.sss)}
+                        hasSSS={employee.SSS==="" || employee.SSS===null? false:true}
+                        SSS={employee.SSS==="" || employee.SSS===null? 0:Number(employee.SSS)}
                     />
                 </div>
                 

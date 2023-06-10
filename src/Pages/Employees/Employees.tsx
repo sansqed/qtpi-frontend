@@ -22,19 +22,6 @@ const Employees: React.FC= () => {
     const [selectedEmployeeId, setSelectedEmployeeId] = useState('')
     const [isEmployeesChanged, setIsEmployeesChanged] = useState(false)
     
-    const tempEmployee:Employee = {
-        address: "address",
-        contact_no: "contact",
-        first_name: "first",
-        id: "1",
-        middle_name: "mid",
-        last_name: "last",
-        position_id: "1",
-        position_name: "secret",
-        rate: "123",
-        payout: "as",
-        sss: "123",
-    }
     // FETCH USERS DATA
     useEffect(()=>{
         getEmployees()
