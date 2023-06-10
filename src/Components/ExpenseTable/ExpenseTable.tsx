@@ -29,9 +29,10 @@ interface ExpenseProps{
     classification_id: string;
     expense: ExpenseType;
     setExpenseToRefresh: Function;
+    setExpenseData?:Function;
 }
 
-const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExpenseToRefresh}) => {
+const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExpenseToRefresh, setExpenseData}) => {
     const [form] = Form.useForm();
     const [data, setData] = useState<ExpenseDetailType[]>([])
     const [newItemId, setNewItemId] = useState(-1)
@@ -45,6 +46,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
     const [currPage, setCurrPage] = useState(1)
     const pageSize = 13
     const [isLastPage, setIsLastPage] = useState(false)
+    const { RangePicker } = DatePicker
 
     const EditableCell: React.FC<EditableCellProps> = ({
         editing,
@@ -56,6 +58,12 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
         children,
         ...restProps
     }) => {
+        let qty=0, unit_price=0, name=""
+        qty = Form.useWatch("qty", form)
+        unit_price = Form.useWatch("unit_price", form)
+        name = Form.useWatch("expense_item_name", form)?.label
+        if (inputType==="money" && Array.isArray(children))
+            children = children[1]
         const inputNode = inputType === 'money' ?  
                 <InputNumber 
                     prefix="₱" 
@@ -66,7 +74,14 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     controls={false}
                     className='expense-table-qty-input'
                     name='qty-form'
-                /> : inputType === 'date'? 
+                /> : inputType === 'date' && (name==="Labor" || record.expense_item_name==="Labor")? 
+                <RangePicker
+                    size={"small"} 
+                    format={"MMM DD YYYY"}
+                    separator=""
+                    className='expense-table-rangepicker'
+                />:
+                inputType === 'date'? 
                 <DatePicker 
                     format={"MMM DD YYYY"}
                 /> : inputType==='select'? 
@@ -78,11 +93,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     defaultInputValue={record.expense_item_name}
                 /> : <Input autoComplete="off"/>;
 
-        let qty = Form.useWatch("qty", form)
-        let unit_price = Form.useWatch("unit_price", form)
-        if (inputType==="money" && Array.isArray(children))
-            children = children[1]
-
+        
         return (
         <td {...restProps}>
             {
@@ -104,7 +115,8 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                 }
             </Form.Item>
             ) : (
-                inputType==="date"? record.expense_date.format("MMM DD YYYY"):
+                inputType==="date" && record.expense_item_name==="Labor"? <>{record.expense_date_from.format("MMM DD YYYY")} - {record.expense_date_to?.format("MMM DD YYYY")}</>:
+                inputType==="date"? record.expense_date_from.format("MMM DD YYYY"):
                     dataIndex==="amount"? moneyFormatter.format(Number(children)):
                     inputType==="money"? moneyFormatter.format(Number(children)): 
                     inputType==="select"? record.expense_item_name:children
@@ -126,7 +138,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
             title: 'Date',
             dataIndex: 'expense_date',
             key: 'expense_date',
-            width: "17%",
+            width: classification_id==="1"? "25%":"17%",
             editable: true,
         },
         {
@@ -157,7 +169,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
             dataIndex: 'unit_price',
             key: 'unit_price',
             align: 'right',
-            width: "15%",
+            width: "13%",
             editable: true,
         },
         {
@@ -165,7 +177,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
             dataIndex: 'amount',
             key: 'amount',
             align: 'right',
-            width: "15%",
+            width: "13%",
             // editable: true,
         },
         {
@@ -206,7 +218,8 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
     const handleAddItem = () => {
         const newData = {
             expense_detail_id: String(newItemId),
-            expense_date: dayjs(),
+            expense_date_from: dayjs(),
+            expense_date_to: null,
             qty: 0,
             unit: "",
             expense_item_id:"",
@@ -289,6 +302,14 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     row.expense_item_id = row.expense_item_name
                     row.expense_item_name = row.expense_item_name.label
                     row.expense_item_id = row.expense_item_id.value
+
+                    if(row.expense_item_name === "Labor"){
+                        row.expense_date_from = row.expense_date[0]
+                        row.expense_date_to = row.expense_date[1]
+                    } else{
+                        row.expense_date_from = row.expense_date
+                        row.expense_date_to = undefined
+                    }
     
                     console.log("add", row)
                     createExpenseDetails(expense.id, classification_id, row)
@@ -306,6 +327,14 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     else{
                         row.expense_item_id = row.expense_item_name.value
                         row.expense_item_name = row.expense_item_name.label
+                    }
+
+                    if(row.expense_item_name === "Labor"){
+                        row.expense_date_from = row.expense_date[0]
+                        row.expense_date_to = row.expense_date[1]
+                    } else{
+                        row.expense_date_from = row.expense_date
+                        row.expense_date_to = undefined
                     }
                         
                     console.log(id, editingId, row)
@@ -344,7 +373,8 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     return({
                         ...e, 
                         expense_item: {id: e.expense_item_id, name: e.expense_item_name},
-                        expense_date: dayjs(e.expense_date),
+                        expense_date_from: dayjs(e.expense_date_from),
+                        expense_date_to: dayjs(e.expense_date_to),
                         qty: Number(e.qty),
                         unit_price: Number(e.unit_price),
                         amount: Number(e.amount)
@@ -353,12 +383,14 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                 console.log(details)
                 setData(details)
                 setTotalExpense(tempTotal)
-                if (details.length <= pageSize)
+                if (details.length < pageSize)
                     setIsLastPage(true)
+                // setExpenseData(prev=>)
             })
             .catch((reason)=>{
                 setData([])
                 setTotalExpense(0)
+                setIsLastPage(false)
             })
         getExpenseItems("", classification_id)
             .then((response)=>{
@@ -369,6 +401,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
             })
             .catch(()=>{
                 setItems([])
+                setIsLastPage(false)
             })
 
         setToRefresh(false)

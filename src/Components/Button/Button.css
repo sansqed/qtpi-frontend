@@ -292,5 +292,8 @@ button{
 
 .btn-expenses:disabled{
   background-color: gray;
-  
+}
+
+.btn-expenses.btn-export{
+  height: 3.5vh;
 }

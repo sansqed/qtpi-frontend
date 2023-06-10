@@ -80,10 +80,10 @@
 .expenses-summary-container{
     border-radius: 10px;
     display: block;
-    height: 86.5vh;
+    height: 84vh;
     width: 83%;
     background-color: white;
-    padding: 5%;
+    padding: 7.5% 5%;
     color: var(--secondary-color);
     text-align: left;
 }
@@ -97,19 +97,25 @@
 }
 .expenses-summary-container-header{
     margin-bottom: 2vh;
+    display: inline-flex;
+    width: 100%;
+}
+.expenses-summary-container-header h2{
+    width: max-content;
 }
 
 .expenses-summary-section{
-    border-bottom: 3px solid rgb(237, 237, 237);
-    display: inline-flex;
+    border-bottom: 1px solid #ececec;
     width: 19vw;
     margin: 0.5vh;
     margin-left: 1vw;
+    margin-bottom: 1vh;
 }
 .expenses-summary-name{
+    display: inline-flex;
     font-size: 1rem;
     font-weight: 500;
-    width: 80%;
+    width: fit-content;
     margin: 0;
     margin-bottom: 0.5vh;
     
@@ -118,9 +124,25 @@
     float: right;
     font-size: 1rem;
     align-items: center;
-    width: 20%;
+    /* width: 20%; */
     text-align: right;
     margin-bottom: 0.5vh;
+}
+
+.expenses-summary-section.total{
+    margin-top: 36vh;
+    border-bottom: none;
+}
+
+.expenses-summary-section.total h4, 
+.expenses-summary-section.total text{
+    font-weight: 800 !important;
+    font-size: large;
+}
+
+.expenses-summary-export-btn-wrapper{
+    float: right;
+    margin-left: 2vw;
 }
 
 .expenses-grow-menu{
@@ -186,13 +208,3 @@
     margin-bottom: 1vh !important;
 }
 
-.expenses-summary-section.total{
-    margin-top: 35vh;
-    border-bottom: none;
-}
-
-.expenses-summary-section.total h4, 
-.expenses-summary-section.total text{
-    font-weight: 800 !important;
-    font-size: medium;
-}
