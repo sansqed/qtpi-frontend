@@ -78,6 +78,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                 <RangePicker
                     size={"small"} 
                     format={"MMM DD YYYY"}
+                    defaultValue={[record.expense_date_from, record?.expense_date_to]}
                     separator=""
                     className='expense-table-rangepicker'
                 />:
