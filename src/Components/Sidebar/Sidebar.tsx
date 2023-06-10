@@ -81,7 +81,9 @@ const Sidebar: React.FC = () => {
                     
                     </nav>
                 </div>
-                <p>{getUserFullName()}</p>
+                <div className='sidebar-user-name-container'>
+                  <span className='sidebar-user-name-greeting'>Hello,</span> <span className='sidebar-user-name'>{getUserFullName()}!</span>
+                </div>
                 <div className="sidebar-logout-container">
                     <Button 
                         type= "logout"
