@@ -11,6 +11,8 @@ import { useNavigate, NavLink } from "react-router-dom";
 import ValidateEmployees from "../../Helpers/Validations/ValidateEmployees"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getPositions } from "../../ApiCalls/EmployeesApi";
+import { Helmet } from "react-helmet";
+import { AppName } from "../../Helpers/Util";
 
 import "./EditEmployee.css"
 
@@ -77,6 +79,9 @@ const EditEmployee: React.FC<EditEmployeeProps> = ({employeeArg, setIsEmployeesC
   
     return (
         <div className="edit-employees-container">
+            <Helmet>
+                <title>Edit Employee - {AppName}</title>
+            </Helmet>
             <div className="edit-employees-content-wrapper">
                 <div className="edit-employee-form-container">
                     <div className="edit-employee-header">

@@ -21,6 +21,8 @@ import { getAdvance } from "../../ApiCalls/AdvanceApi";
 
 import "./Payroll.css"
 
+import { Helmet } from "react-helmet";
+import { AppName } from "../../Helpers/Util";
 
 
 interface PayrollTableData {
@@ -223,6 +225,9 @@ const Payroll: React.FC = () => {
   return (
 
     <div className="payroll-container">
+        <Helmet>
+            <title>Payroll - {AppName}</title>
+        </Helmet>
 
       <div className="payroll-content-wrapper">
         <Sidebar />

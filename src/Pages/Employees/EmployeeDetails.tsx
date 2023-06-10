@@ -13,7 +13,8 @@ import Calendar from "../../Components/Calendar/Calendar";
 import Advance from "../../Components/Advance/Advance";
 import Salary from "../../Components/Salary/Salary";
 
-import icon from "../../Assets/Icons/user-empty-temp.svg"
+import { Helmet } from "react-helmet";
+import { AppName } from "../../Helpers/Util";
 
 interface EmployeeDetailsProps{
     employeeArg: Employee;
@@ -27,6 +28,8 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, isEmployee
     const employee_id = employeeArg.id;
     const [employee, setEmployee] = useState<Employee>(employeeArg)
     const [isDetailsChanged, setIsDetailsChanged] = useState(false)
+
+    const fullName = employee.first_name + " " + (employee.middle_name===""? "":employee.middle_name+" ") + employee.last_name
 
     const handleDelete = async() => {
         deleteEmployee(employee_id)
@@ -43,7 +46,9 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, isEmployee
 
     return(
         <div className="employee-details-container">
-
+            <Helmet>
+                <title>Employee {employee.first_name} {employee.last_name} - {AppName}</title>
+            </Helmet>
             <div className="employee-details-grid">
 
                 <div className="employee-details-content-container">
@@ -54,7 +59,7 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, isEmployee
                             <img src={icon}/>
                         </div> */}
                         <div className="employee-details-section name-position">
-                            <h1>{employee.first_name} {employee.middle_name} {employee.last_name}</h1>
+                            <h1>{fullName}</h1>
                             <p>{employee.position_name}</p>
                         </div>
                     </div> 

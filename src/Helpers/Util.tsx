@@ -25,3 +25,5 @@ export const moneyFormatter = new Intl.NumberFormat('en-US', {
 export const getFullName = (fName:string, mName:string, lName:string) => {
     return fName + (mName.length>0? " "+mName:"") + " " + lName
 }
+
+export const AppName = "QTPi ERP System"

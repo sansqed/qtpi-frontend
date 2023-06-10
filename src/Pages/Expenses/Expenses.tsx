@@ -6,12 +6,14 @@ import toasterConfig from "../../Helpers/ToasterConfig";
 import { moneyFormatter } from "../../Helpers/Util";
 import "./Expenses.css" 
 import ExpenseExportExcel from "../../Components/ExpenseExportExcel/ExpenseExportExcel";
+import { AppName } from "../../Helpers/Util";
 
 import {DatePicker, Tabs} from "antd";
 import React,{ useState, useEffect  } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Form } from "react-bootstrap";
 import { toast } from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 import { getClassifications } from "../../ApiCalls/ClassificationsApi";
 import { getExpenses, createExpenses, deleteExpenses, updateExpenses } from "../../ApiCalls/ExpensesApi";
@@ -111,7 +113,9 @@ const Expenses = () => {
 
     return(
         <div className="expenses-container">
-
+            <Helmet>
+                <title>Grow {selectedExpenseId} - {AppName}</title>
+            </Helmet>
             <div className="expenses-wrapper">            
                 <Sidebar/>
 

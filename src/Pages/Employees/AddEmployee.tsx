@@ -12,6 +12,8 @@ import { useNavigate, NavLink } from "react-router-dom";
 import ValidateEmployees from "../../Helpers/Validations/ValidateEmployees"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getPositions } from "../../ApiCalls/EmployeesApi";
+import { Helmet } from "react-helmet";
+import { AppName } from "../../Helpers/Util";
 
 import "./AddEmployee.css"
 
@@ -63,6 +65,9 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
   
     return (
         <div className="add-employees-container">
+            <Helmet>
+                <title>Add Employee - {AppName}</title>
+            </Helmet>
             <div className="add-employees-content-wrapper">
                 <div className="add-employee-form-container">
                     <div className="add-employee-header">

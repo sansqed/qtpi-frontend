@@ -14,6 +14,8 @@ import Container from 'react-bootstrap/Container';
 import type UserType from "../../Types/User";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Helmet } from "react-helmet";
+import { AppName } from "../../Helpers/Util";
 
 import "./EditUser.css"
 
@@ -69,6 +71,9 @@ const EditUser: React.FC<EditUserProps> = ({userArg, setIsChanged}) => {
 
     return (
         <div className="edit-users-container">
+            <Helmet>
+                <title>Edit User - {AppName}</title>
+            </Helmet>
             <div className="edit-users-content-wrapper">
                 {/* <div className="edit-user-user-list-wrapper">
                     <Users/>

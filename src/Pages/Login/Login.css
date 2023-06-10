@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.login-title{
+    color: var(--secondary-color);
+}
+
 .login-box{
     margin: auto;
     vertical-align: middle;
