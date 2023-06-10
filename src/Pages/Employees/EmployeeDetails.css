@@ -49,6 +49,7 @@
 
 .employee-details-section.header{
     display: flex;
+    width: 100%;
 }
 .employee-details-section.name-position{
     display: block;

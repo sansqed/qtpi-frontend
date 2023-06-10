@@ -1,5 +1,5 @@
 .expense-table-container{
-    width: 95%;
+    width: 102%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -31,4 +31,9 @@
     height: 4.5vh !important;
     border-radius: 5px !important;
     border-color: hsl(0, 0%, 80%);
+}
+
+.expense-table{
+    height: 50vh;
+    /* overflow-y: scroll; */
 }

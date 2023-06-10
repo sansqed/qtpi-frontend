@@ -64,7 +64,7 @@ const Button: React.FC<ButtonProps> = ({
         className="btn-hover-fx btn-sign-in"
         onClick={e => handleClick(e)}
       >
-        <b>SIGN IN</b>
+        <b>LOGIN</b>
       </button>
     )
   }
@@ -293,7 +293,7 @@ const Button: React.FC<ButtonProps> = ({
         name={"set-date"}
       >
         <FontAwesomeIcon icon={["fas", "calendar"]} className="user-icon" />
-        Set Date
+        Set grow period range
       </button>
     )
   }
@@ -357,6 +357,7 @@ const Button: React.FC<ButtonProps> = ({
       <button
         className="btn-export btn-expenses dark btn-hover-fx"
         onClick={e=>handleClick(e)}
+        disabled={disabled}
       >
         <FontAwesomeIcon icon={["fas", "file-export"]} className="user-icon" />
         Export to Excel
