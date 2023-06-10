@@ -11,6 +11,8 @@ import { toast } from "react-hot-toast";
 import { useNavigate, NavLink } from "react-router-dom";
 import ValidateUsers from "../../Helpers/Validations/ValidateUsers"
 import Container from 'react-bootstrap/Container';
+import { Helmet } from "react-helmet";
+import { AppName } from "../../Helpers/Util";
 
 import "./AddUser.css"
 
@@ -59,6 +61,9 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
 
     return (
         <div className="add-users-container">
+            <Helmet>
+                <title>Add User - {AppName}</title>
+            </Helmet>
             <div className="add-user-content-wrapper">
                 {/* <div className="add-user-user-list-wrapper">
                     <Users/>

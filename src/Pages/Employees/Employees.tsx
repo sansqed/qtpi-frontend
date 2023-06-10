@@ -13,6 +13,8 @@ import CalendarGeneral from "../../Components/Calendar/CalendarGeneral";
 import EmployeeDetails from "./EmployeeDetails";
 import EditEmployee from "./EditEmployee";
 import AddEmployees from "./AddEmployee";
+import { Helmet } from "react-helmet";
+import { AppName } from "../../Helpers/Util";
 
 const Employees: React.FC= () => {
     const [employees, setEmployees] = useState<[Employee]>()
@@ -80,6 +82,9 @@ const Employees: React.FC= () => {
 
     return (
         <div className="employees-container">
+            <Helmet>
+                <title>Employees - {AppName}</title>
+            </Helmet>
             <div className="employees-content-wrapper">
                 <Sidebar/>
                 <div className="employee-list-container">

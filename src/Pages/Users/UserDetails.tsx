@@ -13,6 +13,8 @@ import "./UserDetails.css"
 import Users from "./Users";
 import type UserType from "../../Types/User";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Helmet } from "react-helmet";
+import { AppName } from "../../Helpers/Util";
 
 interface UserDetailsProps{
     user: UserType|undefined;
@@ -53,9 +55,9 @@ const UserDetails:React.FC<UserDetailsProps> = ({user, setIsChanged}) => {
 
     return(
         <div className="user-details-container">
-            {/* <div className="sidebar-area-container">
-                <Users/>
-            </div> */}
+            <Helmet>
+                <title>User {user?.first_name} {user?.last_name} - {AppName}</title>
+            </Helmet>
             <div className="user-details-content-wrapper">
                 <p className="user-details-back"><NavLink to={"/users"} className={"user-details-back"}>&lt; Back to user list</NavLink></p>
 

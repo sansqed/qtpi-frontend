@@ -11,7 +11,8 @@ import User, { emptyUser } from "../../Types/User";
 import UserDetails from "./UserDetails";
 import EditUser from "./EditUser";
 import AddUsers from "./AddUser";
-
+import { Helmet } from "react-helmet";
+import { AppName } from "../../Helpers/Util";
 
 const Users: React.FC = () => {
     const location = useLocation()
@@ -61,6 +62,9 @@ const Users: React.FC = () => {
 
     return (
         <div className="users-container">
+            <Helmet>
+                <title>Users - {AppName}</title>
+            </Helmet>
             <div className="users-content-wrapper">
                 <Sidebar/>
                 <div className="user-list-container">
