@@ -21,15 +21,16 @@
     color:#003459;
     /* display:flex; */
     margin-left: 30vh;
-    height: 90vh;
-    width: 83vw;
+    height: 92vh;
+    width: 82vw;
     background-color: white;
     border: none;
-    border-radius: 1vh;
+    border-radius: 8px;
 }
 
 .payroll-header h1{
     font-size: 2em;
+    margin-top: 2vh;
     margin-bottom: 0;
 }
 

@@ -214,9 +214,6 @@ const Button: React.FC<ButtonProps> = ({
     )
   }
 
-
-
-
   if (type === "calendar-attendance-status-v2") {
 
     return (
@@ -352,6 +349,18 @@ const Button: React.FC<ButtonProps> = ({
           <text>Delete</text>
         </button>
       </OverlayTrigger>
+    )
+  }
+
+  if(type === "expense-export"){
+    return(
+      <button
+        className="btn-export btn-expenses dark btn-hover-fx"
+        onClick={e=>handleClick(e)}
+      >
+        <FontAwesomeIcon icon={["fas", "file-export"]} className="user-icon" />
+        Export to Excel
+      </button>
     )
   }
 

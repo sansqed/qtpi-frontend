@@ -5,13 +5,13 @@ import ExpenseTable from "../../Components/ExpenseTable/ExpenseTable";
 import toasterConfig from "../../Helpers/ToasterConfig";
 import { moneyFormatter } from "../../Helpers/Util";
 import "./Expenses.css" 
+import ExpenseExportExcel from "../../Components/ExpenseExportExcel/ExpenseExportExcel";
 
 import {DatePicker, Tabs} from "antd";
 import React,{ useState, useEffect  } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Form } from "react-bootstrap";
 import { toast } from "react-hot-toast";
-
 
 import { getClassifications } from "../../ApiCalls/ClassificationsApi";
 import { getExpenses, createExpenses, deleteExpenses, updateExpenses } from "../../ApiCalls/ExpensesApi";
@@ -185,6 +185,13 @@ const Expenses = () => {
                 <div className="expenses-summary-container">
                     <div className="expenses-summary-container-header">
                         <h2>TOTAL EXPENSES</h2>
+                        <div className="expenses-summary-export-btn-wrapper">
+                            <Button
+                                type="expense-export"
+                                handleClick={()=>{}}
+                                // handleClick={()=>ExpenseExportExcel()}
+                            />
+                        </div>
                     </div>
                     <div className="expenses-summary-section">
                         <h4 className="expenses-summary-name">Labor</h4>

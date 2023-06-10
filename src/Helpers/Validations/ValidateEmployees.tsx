@@ -10,14 +10,21 @@ const ValidateEmployees = (employee:Employee, setError:Function) => {
     //     setErrorTrue("password", false, setError);
     // }
     
-    if (employee.first_name === ""){
+    if (employee.first_name === "" || /\d/.test(employee.first_name)){
         setErrorTrue("first_name", true, setError)
         isValid = false
     } else {
         setErrorTrue("first_name", false, setError);
     }
 
-    if (employee.last_name === ""){
+    if (/\d/.test(employee.middle_name)){
+        setErrorTrue("middle_name", true, setError)
+        isValid = false
+    } else {
+        setErrorTrue("middle_name", false, setError);
+    }
+
+    if (employee.last_name === "" || /\d/.test(employee.last_name)){
         setErrorTrue("last_name", true, setError)
         isValid = false
     } else {
@@ -45,11 +52,18 @@ const ValidateEmployees = (employee:Employee, setError:Function) => {
         setErrorTrue("position", false, setError);
     }
 
-    if (employee.rate === ""){
+    if (employee.rate === "" || Number(employee.rate) <= 0){
         setErrorTrue("rate", true, setError)
         isValid = false
     } else {
         setErrorTrue("rate", false, setError);
+    }
+
+    if (employee.SSS !== null && Number(employee.SSS) <= 0){
+        setErrorTrue("SSS", true, setError)
+        isValid = false
+    } else {
+        setErrorTrue("SSS", false, setError);
     }
 
     if (employee.payout === ""){

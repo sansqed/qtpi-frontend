@@ -164,7 +164,7 @@ const EditEmployee: React.FC<EditEmployeeProps> = ({employeeArg, setIsEmployeesC
                                         Contact number <span className="input-required">*</span>
                                     </Form.Label>
                                     <Form.Control 
-                                        type="text" 
+                                        type="number" 
                                         required={true} 
                                         id="contact_no"
                                         name="contact_no"
@@ -223,7 +223,7 @@ const EditEmployee: React.FC<EditEmployeeProps> = ({employeeArg, setIsEmployeesC
                                         value={employee.rate}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Daily rate is required
+                                        Daily rate is required and should be valid
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
@@ -235,15 +235,18 @@ const EditEmployee: React.FC<EditEmployeeProps> = ({employeeArg, setIsEmployeesC
                                     <Form.Control 
                                         type="number" 
                                         required={true} 
-                                        id="sss"
-                                        name="sss"
+                                        id="SSS"
+                                        name="SSS"
                                         onChange={(e) => handleChange(e)}
                                         className="edit-employee-input-box half-size"
                                         autoComplete={"off"}
-                                        isInvalid={error.sss}
-                                        value={employee.sss}
+                                        isInvalid={error.SSS}
+                                        value={employee.SSS}
                                     />
                                 </Form.Group>
+                                <Form.Control.Feedback type="invalid">
+                                        SSS contribution should be valid
+                                </Form.Control.Feedback>
                             </Col>
                         </Row>
 

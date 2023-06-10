@@ -44,12 +44,12 @@ const Sidebar: React.FC = () => {
                 <div className="sidebar-menu-container">
                     <nav id="sidebar" className="sidebar-menu">
 
-                        <NavLink to={"/"} className="sidebar-link" reloadDocument= {false}>
+                        {/* <NavLink to={"/"} className="sidebar-link" reloadDocument= {false}>
                           <div className="sidebar-item sidebar-dashboard">
                             <FontAwesomeIcon icon={["fas","gauge-high"]} className="sidebar-employees-icon"/>
                             Dashboard 
                           </div>
-                        </NavLink>                       
+                        </NavLink>                        */}
 
                         <NavLink to={"/employees"} className="sidebar-link" reloadDocument= {false}>
                           <div className="sidebar-item sidebar-employees">
@@ -81,7 +81,9 @@ const Sidebar: React.FC = () => {
                     
                     </nav>
                 </div>
-                <p>{getUserFullName()}</p>
+                <div className='sidebar-user-name-container'>
+                  <span className='sidebar-user-name-greeting'>Hello,</span> <span className='sidebar-user-name'>{getUserFullName()}!</span>
+                </div>
                 <div className="sidebar-logout-container">
                     <Button 
                         type= "logout"

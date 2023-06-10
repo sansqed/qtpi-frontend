@@ -9,7 +9,7 @@
     background-color: #003459;
     color:white;
     height: 100vh;
-    width: 100vw;
+    width: 100vw; 
     display: flex;
     /* align-items: center; */
 }
@@ -17,16 +17,16 @@
 .expenses-wrapper{
     display: grid;
     align-items: center;
-    grid-template-columns: 15vw 59vw 26vw;
+    grid-template-columns: 14.95vw 59vw 26vw;
 }
 
 .expenses-main-container{
-    border-radius: 10px;
+    border-radius: 8px;
     display: grid;
     grid-template-rows: 10% 10% 5% 75%;
-    height: 92vh;
-    width: 95%;
-    margin-right: 1vw;
+    height: 93vh;
+    width: calc(100% - 2vw);
+    /* margin-right: 1vw; */
     /* margin-left: 1vw; */
     padding-left: 1vw;
     background-color:white;
@@ -34,7 +34,7 @@
 
 .expenses-header{
     /* margin-left: 2%; */
-    margin-top: 2%;
+    margin-top: 2.3vh;
     height: 70%;
     display: flex;
     /* flex-wrap: wrap; */
@@ -45,7 +45,7 @@
 .expenses-header h1{
     padding: 0;
     margin: 0;
-    padding-left: 1vw;
+    padding-left: 0.5vw;
     color:#003459;
     font-size: 2em;
 }
@@ -78,12 +78,12 @@
 }
 
 .expenses-summary-container{
-    border-radius: 10px;
+    border-radius: 8px;
     display: block;
-    height: 86.5vh;
-    width: 83%;
+    height: 89.75vh;
+    width: 84%;
     background-color: white;
-    padding: 5%;
+    padding: 3% 5%;
     color: var(--secondary-color);
     text-align: left;
 }
@@ -96,20 +96,27 @@
     /* font-size: 2em; */
 }
 .expenses-summary-container-header{
+    margin-top: 1.75vh;
     margin-bottom: 2vh;
+    display: inline-flex;
+    width: 100%;
+}
+.expenses-summary-container-header h2{
+    width: max-content;
 }
 
 .expenses-summary-section{
-    border-bottom: 3px solid rgb(237, 237, 237);
-    display: inline-flex;
+    border-bottom: 1px solid #ececec;
     width: 19vw;
     margin: 0.5vh;
     margin-left: 1vw;
+    margin-bottom: 1vh;
 }
 .expenses-summary-name{
+    display: inline-flex;
     font-size: 1rem;
     font-weight: 500;
-    width: 80%;
+    width: fit-content;
     margin: 0;
     margin-bottom: 0.5vh;
     
@@ -118,13 +125,30 @@
     float: right;
     font-size: 1rem;
     align-items: center;
-    width: 20%;
+    /* width: 20%; */
     text-align: right;
     margin-bottom: 0.5vh;
 }
 
+.expenses-summary-section.total{
+    margin-top: 36vh;
+    border-bottom: none;
+}
+
+.expenses-summary-section.total h4, 
+.expenses-summary-section.total text{
+    font-weight: 800 !important;
+    font-size: large;
+}
+
+.expenses-summary-export-btn-wrapper{
+    margin-top: 0.25vh;
+    float: right;
+    margin-left: 2vw;
+}
+
 .expenses-grow-menu{
-    border-radius: 4px;
+    border-radius: 8px;
     height: 3vh;
     width: 9vw;
     padding-left: 0.5vw;
@@ -153,7 +177,7 @@
     opacity: 0.8;
     color: black;
     float: left;
-    margin-top: 1.25vh;
+    margin-top: 1.5vh;
     /* font-size: small; */
     /* margin-right: 0.8rem; */
 }
@@ -169,6 +193,7 @@
 }
 
 .expenses-grow-btn-container{
+    margin-top: 1vh;
     display: flex;
     float: right;
     /* margin-left: 12vw; */
@@ -186,13 +211,3 @@
     margin-bottom: 1vh !important;
 }
 
-.expenses-summary-section.total{
-    margin-top: 35vh;
-    border-bottom: none;
-}
-
-.expenses-summary-section.total h4, 
-.expenses-summary-section.total text{
-    font-weight: 800 !important;
-    font-size: medium;
-}

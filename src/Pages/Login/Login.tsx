@@ -38,12 +38,15 @@ const Login = () => {
             localStorage.setItem("token", JSON.stringify(response.data.data.token));
             localStorage.setItem("tokenExpiry", JSON.stringify(response.data.data.token_expiry));
             localStorage.setItem("requester", response.data.data.requester);
+            localStorage.setItem("user-name", response.data.data.first_name + " " + 
+                    (response.data.data.middle_name===""? "":response.data.data.middle_name + " ") + 
+                    response.data.data.last_name)
             toast.dismiss()
             toast.success('Login Sucess!', toasterConfig);
 
-            setTimeout(()=>{
-                window.location.reload();
-            }, 2000)
+            // setTimeout(()=>{
+            //     window.location.reload();
+            // }, 2000)
         } else {
             toast.dismiss()
             toast.error('Login Failed.', toasterConfig);

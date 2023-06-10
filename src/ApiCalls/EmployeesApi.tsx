@@ -35,7 +35,7 @@ export const createEmployee = async(employee:Employee)=>{
             position_id: employee.position_id,
             rate: employee.rate,
             payout: employee.payout,
-            sss: employee.sss,
+            SSS: employee.SSS,
         })
         return { data: response.data};
     } catch (error:any) {
@@ -56,7 +56,7 @@ export const updateEmployee = async(employee:Employee)=>{
             position_id : employee.position_id,
             rate: employee.rate,
             payout: employee.payout,
-            sss: employee.sss,
+            SSS: employee.SSS,
         })
         return { data: response.data};
     } catch (error:any) {

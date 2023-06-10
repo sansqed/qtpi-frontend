@@ -157,6 +157,7 @@ button{
   width: fit-content;
   background-color: transparent;
   font-size: 1.5rem;
+  color: var(--secondary-color);
 }
 
 .btn-attendance-status{
@@ -292,5 +293,8 @@ button{
 
 .btn-expenses:disabled{
   background-color: gray;
-  
+}
+
+.btn-expenses.btn-export{
+  height: 3.5vh;
 }

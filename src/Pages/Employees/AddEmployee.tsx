@@ -100,6 +100,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
                                         className="add-employee-input-box half-size"
                                         autoComplete={"off"}
                                         placeholder="MIDDLE NAME"
+                                        isInvalid={error.middle_name}
                                     />
                                     <Form.Control 
                                         type="text" 
@@ -113,7 +114,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
                                         isInvalid={error.last_name}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        First and last names are required
+                                        First and last names are required. All names should not contain any number.
                                     </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
@@ -146,7 +147,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
                                         Contact number <span className="input-required">*</span>
                                     </Form.Label>
                                     <Form.Control 
-                                        type="text" 
+                                        type="number" 
                                         required={true} 
                                         id="contact_no"
                                         name="contact_no"
@@ -202,7 +203,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
                                         isInvalid={error.rate}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Daily rate is required
+                                        Daily rate is required and should be valid
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
@@ -214,13 +215,16 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
                                     <Form.Control 
                                         type="number" 
                                         required={true} 
-                                        id="sss"
-                                        name="sss"
+                                        id="SSS"
+                                        name="SSS"
                                         onChange={(e) => handleChange(e)}
                                         className="add-employee-input-box half-size"
                                         autoComplete={"off"}
-                                        isInvalid={error.sss}
+                                        isInvalid={error.SSS}
                                     />
+                                    <Form.Control.Feedback type="invalid">
+                                        SSS contribution should be valid
+                                    </Form.Control.Feedback>
                                 </Form.Group>
                             </Col>
                         </Row>
