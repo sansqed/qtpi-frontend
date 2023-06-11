@@ -55,32 +55,16 @@ function App() {
         <Routes>
           <Route 
               path="/" 
-              element={isLoggedIn()? <Dashboard/>:<Login/>}  
+              element={1? <Dashboard/>:<Login/>}  
             />
           <Route
             path="/payroll"
-            element={isLoggedIn()? <Payroll/>:<Login/>}
+            element={1? <Payroll/>:<Login/>}
           />
           <Route
             path="/expenses"
             element={isLoggedIn()? <Expenses/>:<Login/>}
           />
-          {/* <Route
-              path="/employees"
-              element={isLoggedIn()? <Employees/>:<Login/>}
-          />
-          <Route
-              path="/employees/:employeeid"
-              element={isLoggedIn()? <EmployeeDetails/>:<Login/>}
-          />
-          <Route
-              path="/employees/add"
-              element={isLoggedIn()? <AddEmployees/>:<Login/>}
-          />
-          <Route
-              path="/employees/edit/:employeeid"
-              element={isLoggedIn()? <EditEmployee/>:<Login/>}
-          /> */}
           <Route
             path="/employees"
             element={isLoggedIn()? <Employees/>:<Login/>}
@@ -93,14 +77,6 @@ function App() {
             path="/employees/:action/:user_id"
             element={isLoggedIn()? <Employees/>:<Login/>}
           />
-
-          {/* <Route
-            path={"/users" || "/users/:action" || "/users/:action/:user_id"}
-              element={isLoggedIn()? <Users/>:<Login/>}
-          />  */}
-           {/* <Route path={["/profile", "/"]} 
-            element={isLoggedIn()? <Users/>:<Login/>} 
-            /> */}
           <Route
             path="/users"
             element={isLoggedIn()? <Users/>:<Login/>}
@@ -113,19 +89,6 @@ function App() {
             path="/users/:action/:user_id"
             element={isLoggedIn()? <Users/>:<Login/>}
           /> 
-
-          {/* <Route
-            path="/users/add"
-            element={isLoggedIn()? <AddUsers/>:<Login/>}
-          />
-          <Route
-            path="/users"
-            element={isLoggedIn()? <UserDetails/>:<Login/>}  
-          />
-          <Route
-            path="/users/edit/:userid"
-            element={isLoggedIn()? <EditUser/>:<Login/>}  
-          /> */}
         </Routes>
         <TokenListener/>
       </BrowserRouter>

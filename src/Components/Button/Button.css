@@ -104,6 +104,10 @@ button{
   transition: ease-in;
   transition-duration: 0.2s;
 }
+.btn-user.red:hover:disabled{
+  cursor: not-allowed;
+  box-shadow: none;
+}
 
 .btn-user.small{
   font-size: small;

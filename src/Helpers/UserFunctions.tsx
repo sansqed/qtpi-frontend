@@ -1,6 +1,6 @@
 export const isLoggedIn = () => {
     try {
-        if (localStorage.getItem("token") === null || localStorage.getItem("loggedin") == "1"){
+        if (localStorage.getItem("token") === null || localStorage.getItem("token") === undefined || localStorage.getItem("loggedin") == "1"){
             return false
         }
         else
@@ -25,4 +25,8 @@ export const getRequester = () => {
 
 export const getUserFullName = () => {
     return localStorage.getItem("user-name") || ""
+}
+
+export const getRoleId = () => {
+    return localStorage.getItem("role_id") || ""
 }

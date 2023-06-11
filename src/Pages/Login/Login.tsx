@@ -35,8 +35,7 @@ const Login = () => {
         
         if (response.data.status === 200){
             localStorage.setItem("loggedin", "0");
-            // localStorage.setItem("role", JSON.stringify(response.data.data.role));
-            // localStorage.setItem("username", JSON.stringify(response.data.data.role));
+            localStorage.setItem("role_id", JSON.stringify(response.data.data.role_id));
             localStorage.setItem("token", JSON.stringify(response.data.data.token));
             localStorage.setItem("tokenExpiry", JSON.stringify(response.data.data.token_expiry));
             localStorage.setItem("requester", response.data.data.requester);

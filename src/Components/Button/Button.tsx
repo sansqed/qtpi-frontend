@@ -39,6 +39,7 @@ const Button: React.FC<ButtonProps> = ({
       <button
         className="btn-hover-fx btn-user light small"
         onClick={e => handleClick(e)}
+        disabled={disabled}
       >
         <FontAwesomeIcon icon={["fas", "user-plus"]} className="user-icon" />
         ADD USER
@@ -51,6 +52,7 @@ const Button: React.FC<ButtonProps> = ({
       <button
         className="btn-hover-fx btn-user light small"
         onClick={e => handleClick(e)}
+        disabled={disabled}
       >
         <FontAwesomeIcon icon={["fas", "user-plus"]} className="user-icon" />
         ADD EMPLOYEE
@@ -96,6 +98,7 @@ const Button: React.FC<ButtonProps> = ({
       <button
         className="btn-hover-fx btn-user dark"
         onClick={e => handleClick(e)}
+        disabled={disabled}
       >
         <FontAwesomeIcon icon={["fas", "user-pen"]} className="user-icon" />
         Edit
@@ -146,6 +149,7 @@ const Button: React.FC<ButtonProps> = ({
       <OverlayTrigger trigger="click" placement="top" overlay={deleteConfirmPopup} rootClose={true}>
         <button
           className="btn-user btn-delete light red"
+          disabled={disabled}
         >
           <FontAwesomeIcon icon={["fas", "user-xmark"]} className="user-icon" />
           <text>Delete</text>
@@ -320,7 +324,7 @@ const Button: React.FC<ButtonProps> = ({
         disabled={disabled}
       >
         <FontAwesomeIcon icon={["fas", "plus"]} className="add-icon" />
-        Add item
+        Add entry
       </button>
     )
   }

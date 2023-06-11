@@ -15,6 +15,7 @@ import type UserType from "../../Types/User";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Helmet } from "react-helmet";
 import { AppName } from "../../Helpers/Util";
+import { getRoleId } from "../../Helpers/UserFunctions";
 
 interface UserDetailsProps{
     user: UserType|undefined;
@@ -26,6 +27,7 @@ const UserDetails:React.FC<UserDetailsProps> = ({user, setIsChanged}) => {
     const navigate = useNavigate()
     const urlHeader = "/users/details/user_id="
     const user_id = String(location.pathname.substring(urlHeader.length));
+    const role_id = getRoleId()
 
     const handleDelete = async() => {
         deleteUser(user_id)
@@ -91,6 +93,7 @@ const UserDetails:React.FC<UserDetailsProps> = ({user, setIsChanged}) => {
                         <Button
                             type="delete-with-confirmation"
                             handleClick={handleDelete}
+                            disabled={role_id!=="1"}
                         />
                     </div>
 
@@ -98,6 +101,7 @@ const UserDetails:React.FC<UserDetailsProps> = ({user, setIsChanged}) => {
                         <Button
                             type="user-edit"
                             handleClick={()=>{navigate("/users/edit/user_id="+user_id)}}
+                            disabled={role_id!=="1"}
                         />
                     </div>
 
