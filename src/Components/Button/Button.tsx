@@ -274,21 +274,21 @@ const Button: React.FC<ButtonProps> = ({
     )
   }
 
-  if (type === "export-pdf") {
+  if (type === "export-csv") {
     return (
       <button
         className="btn-hover-fx btn-user light right"
         onClick={e => handleClick(e)}
       >
-        EXPORT TO PDF
+        EXPORT TO CSV
       </button>
     )
   }
 
-  if(type === "expenses-set-date"){
-    return(
+  if (type === "expenses-set-date") {
+    return (
       <button
-        className={"btn-hover-fx btn-expenses light "+ className}
+        className={"btn-hover-fx btn-expenses light " + className}
         onClick={e => handleClick(e)}
         name={"set-date"}
       >
@@ -298,10 +298,10 @@ const Button: React.FC<ButtonProps> = ({
     )
   }
 
-  if(type === "expenses-create-grow"){
-    return(
+  if (type === "expenses-create-grow") {
+    return (
       <button
-        className={"btn-hover-fx btn-expenses dark "+ className}
+        className={"btn-hover-fx btn-expenses dark " + className}
         onClick={e => handleClick(e)}
         name={"set-date"}
       >
@@ -311,10 +311,10 @@ const Button: React.FC<ButtonProps> = ({
     )
   }
 
-  if(type==="expenses-add-item"){
-    return(
+  if (type === "expenses-add-item") {
+    return (
       <button
-        className={"btn-hover-fx btn-expenses dark "+ className}
+        className={"btn-hover-fx btn-expenses dark " + className}
         onClick={e => handleClick(e)}
         name={"add-item"}
         disabled={disabled}
@@ -352,11 +352,11 @@ const Button: React.FC<ButtonProps> = ({
     )
   }
 
-  if(type === "expense-export"){
-    return(
+  if (type === "expense-export") {
+    return (
       <button
         className="btn-export btn-expenses dark btn-hover-fx"
-        onClick={e=>handleClick(e)}
+        onClick={e => handleClick(e)}
         disabled={disabled}
       >
         <FontAwesomeIcon icon={["fas", "file-export"]} className="user-icon" />
