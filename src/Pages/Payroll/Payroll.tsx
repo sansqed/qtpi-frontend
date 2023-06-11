@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useState, useEffect } from "react";
 import Select, { components, OptionProps } from 'react-select';
+import { ExportToCsv } from 'export-to-csv';
 
 // type imports
 import Employee, { emptyEmployee } from "../../Types/Employee";
@@ -131,6 +132,7 @@ const Payroll: React.FC = () => {
 
       const advanceData = await getAdvance(employee.id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
         .then((response) => {
+          // console.log(response)
           console.log(response.data.data.advance)
           response.data.data.advance.map((a: any) => {
             totalAdvance += Number(a.amount)
@@ -202,6 +204,37 @@ const Payroll: React.FC = () => {
     }
   ];
 
+  const handleExportCSV = () => {
+    // Prepare the CSV data
+    // const csvData = reportData;
+    const csvData: any = reportData.map(item => ({
+      Name: item.full_name,
+      Position: item.position,
+      '# of Days': item.num_days,
+      Rate: item.rate,
+      'Gross Salary': item.gross_salary,
+      CA: item.cash_advance,
+      SSS: item.employee_sss || '0', // Set SSS to '0' if it's null
+      'Net Salary': item.net_salary,
+    }));
+
+    // Define the CSV configuration
+
+    const options = {
+      fieldSeparator: ',',
+      filename: 'payroll_' + startDate.format("YYYY-MM-DD") + '_to_' + endDate.format("YYYY-MM-DD"),
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true,
+      useTextFile: false,
+      useBom: true,
+      useKeysAsHeaders: true,
+    };
+
+    const csvExporter = new ExportToCsv(options);
+
+    csvExporter.generateCsv(csvData);
+  };
 
   const payout_options = [
     { value: 'monthly', label: 'Monthly' },
@@ -221,13 +254,13 @@ const Payroll: React.FC = () => {
     )
   };
 
-  console.log(selectedPayouts)
+  console.log(reportData)
   return (
 
     <div className="payroll-container">
-        <Helmet>
-            <title>Payroll - {AppName}</title>
-        </Helmet>
+      <Helmet>
+        <title>Payroll - {AppName}</title>
+      </Helmet>
 
       <div className="payroll-content-wrapper">
         <Sidebar />
@@ -313,8 +346,8 @@ const Payroll: React.FC = () => {
 
           <div className="payroll-export-container">
             <Button
-              type={"export-pdf"}
-              handleClick={() => { }}
+              type={"export-csv"}
+              handleClick={handleExportCSV}
             />
           </div>
         </div>
