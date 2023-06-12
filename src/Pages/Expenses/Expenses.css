@@ -17,7 +17,7 @@
 .expenses-wrapper{
     display: grid;
     align-items: center;
-    grid-template-columns: 14.95vw 59vw 26vw;
+    grid-template-columns: 30vh 59vw 26vw;
 }
 
 .expenses-main-container{
@@ -220,7 +220,7 @@
 }
 .expenses-main-container .ant-tabs-tab-active{
     background-color: var(--secondary-color);
-    border-radius: 8px;
+    border-radius: px;
     padding: 0.25vh 0.5vw;
     height: 4vh;
     margin-top: 0.5vh !important;

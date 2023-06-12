@@ -285,8 +285,14 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     .then(()=>{
                         if (editMode === "add") {              
                             row.expense_item_id = newItemId
-                            row.expense_date_from = row.expense_date
-                            row.expense_date_to = undefined
+                            
+                            if(row.expense_item_name === "Labor"){
+                                row.expense_date_from = row.expense_date[0]
+                                row.expense_date_to = row.expense_date[1]
+                            } else{
+                                row.expense_date_from = row.expense_date
+                                row.expense_date_to = undefined
+                            }
                             
                             console.log("add new", row)
                             
