@@ -19,7 +19,7 @@ const Expenses2PDF = (data:Array<object>, expense: ExpenseType) => {
     const headerStyle1:any = { halign: 'center', fontStyle: 'bold', fontSize: 18, fillColor: "#bdd6ee", textColor: "#000000" }
     const headerStyle2:any = { halign: 'center', fontStyle: 'bold', fontSize: 15, fillColor: "#bdd6ee", textColor: "#000000", }
     const headerStyle3:any = { halign: 'center', fontStyle: 'bold', fontSize: 13, fillColor: "#f4b083", textColor: "#000000", }
-    const headerStyle4:any = { halign: 'right', valign: 'middle', fontStyle: 'bold', fontSize: 10, fillColor: "#bdd6ee", textColor: "#000000" }
+    const headerStyle4:any = { halign: 'right', valign: 'middle', fontStyle: 'bold', fontSize: 10, fillColor: "#bdd6ee", textColor: "#000000", minCellWidth: 1.9 }
     const headerStyle5:any = { halign: 'left', valign: 'middle', fontStyle: 'bold', fontSize: 10, textColor: "#000000" }
     autoTable(doc, {
         head:[[{ content: "EMGG Poultry", colSpan: 2, rowSpan: 1, styles: headerStyle1 }]],

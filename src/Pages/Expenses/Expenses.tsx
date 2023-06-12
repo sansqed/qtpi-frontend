@@ -32,7 +32,7 @@ const Expenses = () => {
     const [selectedExpenseId, setSelectedExpenseId] = useState<string>("")
     const [selectedExpense, setSelectedExpense] = useState<ExpenseType>(getNewExpense("-1"))
     const [toRefresh, setToRefresh] = useState(false)
-    const [expenseData, setExpenseData] = useState([])
+    const [isExportClicked, setIsExportClicked] = useState(false)
 
     const handleDateChange = (range:any) => {
         setStartDate(range[0])
@@ -131,14 +131,19 @@ const Expenses = () => {
     
 
     const handleExport = async()=>{
+        setIsExportClicked(true)
+
         toast.loading("Generating PDF", toasterConfig)
         let exportData = await retrieveData()
 
-        if (exportData.length === 0)
+        if (exportData.length === 0){
             toast.error("Error generating PDF", toasterConfig)
+            setIsExportClicked(false)
+        }
         else{
             Expenses2PDF(exportData, selectedExpense);
             toast.success("PDF successfully generated", toasterConfig)
+            setIsExportClicked(false)
         }
     }
 
@@ -204,7 +209,6 @@ const Expenses = () => {
                                         classification_id={id}
                                         expense={selectedExpense}
                                         setExpenseToRefresh={setToRefresh}
-                                        setExpenseData={setExpenseData}
                                     />
                                 </Tabs.TabPane>
                             ):<></>}
@@ -220,9 +224,7 @@ const Expenses = () => {
                         <div className="expenses-summary-export-btn-wrapper">
                             <Button
                                 type="expense-export"
-                                // handleClick={()=>{}}
-                                disabled={selectedExpense.isNew}
-                                // handleClick={()=>handleExportExcel()}
+                                disabled={selectedExpense.isNew || isExportClicked}
                                 handleClick={()=>handleExport()}
                             />
                         </div>

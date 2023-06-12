@@ -26,14 +26,9 @@ const TokenListener:any =({}) => {
             console.log(response)
             if (response.data.status != 200){
               localStorage.setItem("loggedin", "0")
-              // setTimeout(() => {
-              //   window.location.reload()
-              // }, 2000);
-              toast.error('User Session Expired. Please log in again', tokenExpiryConfig);
+              if (isLoggedIn())
+                toast.error('User Session Expired. Please log in again', tokenExpiryConfig);
             }else{
-              // console.log(localStorage.getItem("tokenExpiry"))
-              // console.log(moment(localStorage.getItem("tokenExpiry"),"YYYY-MM-DD hh:mm:ss").diff(Date.now(),'seconds'))
-              // time.setSeconds(time.getSeconds()+10)
               localStorage.setItem("loggedin", "1")
             }
         })

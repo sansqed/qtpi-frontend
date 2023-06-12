@@ -211,3 +211,45 @@
     margin-bottom: 1vh !important;
 }
 
+.expenses-main-container .ant-tabs-tab-btn:active,
+.expenses-main-container .ant-tabs-tab-btn:focus,
+.expenses-main-container .ant-tabs-tab:hover{
+    color: var(--secondary-color) !important;
+    /* color: black !important; */
+    /* color: orange !important; */
+}
+.expenses-main-container .ant-tabs-tab-active{
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    padding: 0.25vh 0.5vw;
+    height: 4vh;
+    margin-top: 0.5vh !important;
+}
+.expenses-main-container .ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: white !important;
+    
+}
+
+.expenses-main-container .ant-tabs-ink-bar.ant-tabs-ink-bar-animated{
+    display: none;
+}
+
+.expenses-table .ant-table-body::-webkit-scrollbar{
+    display: block;
+    width: 10px;
+}
+.expenses-table .ant-table-body::-webkit-scrollbar-track{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 15px;
+}
+    
+.expenses-table .ant-table-body::-webkit-scrollbar-thumb {
+
+    background-color: #003459;
+    border-radius: 15px;
+    border-right: none;
+    border-left: none;
+}
+

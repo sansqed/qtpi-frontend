@@ -290,6 +290,10 @@ button{
   /* height: 1.5rem; */
 }
 
+.btn-expense-add{
+  
+}
+
 .btn-expenses.btn-delete{
   border: none;
   text-decoration: underline;
