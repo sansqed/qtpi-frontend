@@ -151,3 +151,7 @@ input[type=number] {
     margin-right: 2.5vw;
 }
 
+.half-size+.invalid-feedback{
+    width: 80%;
+}
+

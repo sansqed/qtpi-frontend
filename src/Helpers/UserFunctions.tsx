@@ -12,7 +12,6 @@ export const IsLoggedIn = async() => {
         if (localStorage.getItem("token") === null || localStorage.getItem("token") === undefined){
             return false
         }
-        
 
         let expiry = JSON.parse(localStorage.getItem("token_expiry") || "")
         if (expiry==="" || dayjs().isAfter(dayjs(expiry))){

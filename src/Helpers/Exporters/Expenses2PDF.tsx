@@ -23,7 +23,7 @@ const Expenses2PDF = (data:Array<object>, expense: ExpenseType) => {
     const headerStyle5:any = { halign: 'left', valign: 'middle', fontStyle: 'bold', fontSize: 10, textColor: "#000000", fillColor: "#ffffff" }
     
     autoTable(doc, {
-        head:[[{ content: "EMGG Poultry", colSpan: 2, rowSpan: 1, styles: headerStyle1 }]],
+        head:[[{ content: "EMGG POULTRY FARM", colSpan: 2, rowSpan: 1, styles: headerStyle1 }]],
         body: [
             [{ content: "OPERATIONAL EXPENSES", colSpan: 2, rowSpan: 1, styles: headerStyle2 }],
             [{ content: "Grow " + expense.id, colSpan: 2, rowSpan: 1, styles: headerStyle3 }],

@@ -37,3 +37,7 @@
     height: 50vh;
     /* overflow-y: scroll; */
 }
+
+.expense-table-container .ant-picker-range-separator{
+    padding: 0 4px;
+}
