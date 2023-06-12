@@ -2,6 +2,7 @@ import autoTable from "jspdf-autotable";
 import jsPDF from "jspdf";
 import { moneyFormatter } from "../Util";
 import { Dayjs } from "dayjs";
+import { CompanyName } from "../ClientSpecificInfo";
 
 const Payroll2PDF = (data: Array<object>, start_date: Dayjs, end_date: Dayjs) => {
 
@@ -21,7 +22,7 @@ const Payroll2PDF = (data: Array<object>, start_date: Dayjs, end_date: Dayjs) =>
   const headerStyle5: any = { halign: 'left', valign: 'middle', fontStyle: 'bold', fontSize: 10, textColor: "#000000", fillColor: "#ffffff" }
 
   autoTable(doc, {
-    head: [[{ content: "EMGG Poultry", colSpan: 2, rowSpan: 1, styles: headerStyle1 }]],
+    head: [[{ content: CompanyName, colSpan: 2, rowSpan: 1, styles: headerStyle1 }]],
     body: [
       [{ content: "PAYROLL", colSpan: 2, rowSpan: 1, styles: headerStyle2 }],
       [{ content: "COVERED PERIOD: ", colSpan: 1, rowSpan: 1, styles: headerStyle4 }, { content: start_date.format("MMM DD YYYY") + " - " + end_date.format("MMM DD YYYY"), colSpan: 1, rowSpan: 1, styles: headerStyle5 }]
@@ -33,13 +34,11 @@ const Payroll2PDF = (data: Array<object>, start_date: Dayjs, end_date: Dayjs) =>
 
   // customize width of every column
   const dateWidthLong = { cellWidth: 1.8 }
-  const dateWidthShort = { cellWidth: 1 }
-  const qtyWidth = { cellWidth: 0.5 }
-  const numWidth = { cellWidth: 0.8 }
-  const unitWidth = { cellWidth: 0.7 }
-  const positionWidth = { cellWidth: 0.9 }
-  const amountWidth = { cellWidth: 1.3 }
-  const netWidth = { cellWidth: 1.4 }
+  const nameWidth = {cellWidth: 3}
+  const daysWidth = { cellWidth: 0.5 }
+  const positionWidth = { cellWidth: 1 }
+  const amountWidth = { cellWidth: 1.1 }
+  const netWidth = { cellWidth: 1 }
 
   const normalStyle: any = { halign: 'left', valign: 'middle', fontSize: 9, textColor: "#000000", cellPadding: 0.1 }
   const normalStyleMoney: any = { halign: 'right', valign: 'middle', fontSize: 9, textColor: "#000000", cellPadding: 0.1 }
@@ -52,21 +51,17 @@ const Payroll2PDF = (data: Array<object>, start_date: Dayjs, end_date: Dayjs) =>
   // CONTENTS
   console.log(data)
   const contents = data.map((d: any) => {
-    let total = Number(d.net_salary);
-    totalSalary += total;
+    totalSalary += Number(d.net_salary);
 
     return [
-      { content: d.full_name, colSpan: 1, rowSpan: 1, styles: normalStyle },
+      { content: d.employee, colSpan: 1, rowSpan: 1, styles: normalStyle },
       { content: d.position, colSpan: 1, rowSpan: 1, styles: normalStyle },
-      { content: d.num_days, colSpan: 1, rowSpan: 1, styles: normalStyle },
+      { content: d.days, colSpan: 1, rowSpan: 1, styles: normalStyle },
       { content: "Php " + moneyFormatter.format(Number(d.rate)).slice(1), colSpan: 1, rowSpan: 1, styles: normalStyleMoney },
       { content: "Php " + moneyFormatter.format(Number(d.gross_salary)).slice(1), colSpan: 1, rowSpan: 1, styles: normalStyleMoney },
-      { content: "Php " + moneyFormatter.format(Number(d.cash_advance)).slice(1), colSpan: 1, rowSpan: 1, styles: normalStyleMoney },
-      { content: "Php " + moneyFormatter.format(Number(d.employee_sss)).slice(1), colSpan: 1, rowSpan: 1, styles: normalStyleMoney },
+      { content: "Php " + moneyFormatter.format(Number(d.advances)).slice(1), colSpan: 1, rowSpan: 1, styles: normalStyleMoney },
+      { content: "Php " + moneyFormatter.format(Number(d.sss)).slice(1), colSpan: 1, rowSpan: 1, styles: normalStyleMoney },
       { content: "Php " + moneyFormatter.format(Number(d.net_salary)).slice(1), colSpan: 1, rowSpan: 1, styles: normalStyleMoney },
-      { content: "", colSpan: 4, rowSpan: 1, styles: emptyCellStyle },
-      { content: "TOTAL", colSpan: 1, rowSpan: 1, styles: totalStyle },
-      { content: "Php " + moneyFormatter.format(total).slice(1), colSpan: 1, rowSpan: 1, styles: totalStyleMoney },
     ];
   });
 
@@ -75,9 +70,9 @@ const Payroll2PDF = (data: Array<object>, start_date: Dayjs, end_date: Dayjs) =>
     styles: { lineWidth: 0.0005, lineColor: "#5C5C5C" },
     head: [
       [
-        { content: "FULL NAME", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...dateWidthLong } },
+        { content: "FULL NAME", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...nameWidth} },
         { content: "POSITION", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...positionWidth } },
-        { content: "# DAYS", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...qtyWidth } },
+        { content: "# DAYS", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...daysWidth } },
         { content: "RATE", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...amountWidth } },
         { content: "GROSS SALARY", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...netWidth } },
         { content: "ADVANCE", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...amountWidth } },

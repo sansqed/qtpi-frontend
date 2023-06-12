@@ -28,23 +28,46 @@
     border-radius: 8px;
 }
 
+.payroll-header{
+  display: inline-block;
+  width: 80vw;
+}
 .payroll-header h1{
+    display: inline-block;
     font-size: 2em;
     margin-top: 2vh;
     margin-bottom: 0;
+    width: fit-content;
+}
+
+.payroll-employee-detail-menus{
+  margin-bottom: 2vh;
+}
+.payroll-export-container {
+  display: inline-flex;
+  margin-top: 3vh;
+}
+.payroll-generate-button-container {
+  display: inline-flex;
+  margin-bottom: 1vh; 
+  margin-right: 1vw;
+}
+.payroll-btns-container{
+  float: right;
 }
 
 .payroll-date-range-label p{
   font-weight: bold;
   display:flex;
+  margin: 0;;
 }
 
 .payroll-date-range-container{
-  display:flex;
-  flex-direction: row;
+  display:inline-flex;
   justify-items: center;
   align-items: center;
   width: 30vw;
+  margin-left: 1vw;
 }
 
 .payroll-init-date-container {
@@ -63,9 +86,37 @@
     font-size: 0.6em;
     color: #0A1929;
 }
+.payroll-menu-dropdown.employees .css-13cymwt-control{
+    overflow-y: auto;
+    max-height: 10vh;
+}
+.payroll-menu-dropdown.position .css-13cymwt-control,
+.payroll-menu-dropdown.payout .css-13cymwt-control{
+  overflow-y: auto;
+  max-height: 10vh;
+}
+.payroll-menu-label{
+    display: inline-flex;
+    margin-bottom: 0;
+    margin-top: 1vh;
+}
+.payroll-menus-section{
+  display: block;
+}
+.payroll-menus-section.employees{
+  width: 65vw;
+}
+.payroll-menus-section.payout{
+  width: 14vw;
+}
 
-.payroll-menu-label-employees{
-    margin-right: 21.3vw;
+
+.payroll-menus-section.half{
+  display: block;
+  width: 39vw;
+}
+.payroll-menus-section.payout{
+  margin-right: 1vw;
 }
 
 .payroll-menu-label-position{
@@ -98,7 +149,7 @@
   width: 81vw;
 }
 
-.payroll-menu-employees-dropdown, .payroll-menu-positions-dropdown, .payroll-menu-payouts-dropdown  {
+.payroll-menu-positions-dropdown, .payroll-menu-payouts-dropdown  {
   width: 30%;
   margin-right: 3.5%;
 }
@@ -111,17 +162,13 @@
   border-radius: 5px;
 }
 
-.payroll-generate-button-container {
-  margin-bottom: 1vh; }
+
 
 .payroll-details-table {
   width: 79vw;
 }
 
-.payroll-export-container {
-  margin-top: 2vh;
-  margin-left: 72vw;
-}
+
 
 .payroll-total-net-salary {
   margin-left: 63vw;
