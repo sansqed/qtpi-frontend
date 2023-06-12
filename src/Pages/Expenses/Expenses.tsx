@@ -137,11 +137,13 @@ const Expenses = () => {
         let exportData = await retrieveData()
 
         if (exportData.length === 0){
+            toast.dismiss()
             toast.error("Error generating PDF", toasterConfig)
             setIsExportClicked(false)
         }
         else{
             Expenses2PDF(exportData, selectedExpense);
+            toast.dismiss()
             toast.success("PDF successfully generated", toasterConfig)
             setIsExportClicked(false)
         }

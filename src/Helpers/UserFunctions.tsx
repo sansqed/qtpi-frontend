@@ -1,20 +1,41 @@
 import dayjs from "dayjs";
 import { Toaster, toast } from 'react-hot-toast';
 import { tokenExpiryConfig } from "./ToasterConfig";
+import { CheckUserSession } from "../ApiCalls/AuthApi";
+import { useState } from "react";
 
-export const IsLoggedIn = () => {
+export const IsLoggedIn = async() => {
+    
+    const [loggedIn, setLoggedIn] = useState(true)
+
     try {
-        if (localStorage.getItem("token") === null || localStorage.getItem("token") === undefined)
+        if (localStorage.getItem("token") === null || localStorage.getItem("token") === undefined){
             return false
+        }
         
 
         let expiry = JSON.parse(localStorage.getItem("token_expiry") || "")
         if (expiry==="" || dayjs().isAfter(dayjs(expiry))){
-            toast.error("Token expired. Please login again", tokenExpiryConfig)
+            toast.dismiss()
+            toast.error("User session expired. \nPlease login again.", tokenExpiryConfig)
             return false
         }
 
-        return true
+        if(loggedIn){
+            CheckUserSession()
+                .then((response)=>{
+                    if (response.data.status !== 200){
+                        toast.dismiss()
+                        toast.error("User session expired. \nPlease login again", tokenExpiryConfig)
+                        setLoggedIn(false)
+                    } 
+                })
+                .catch(()=>{
+                    setLoggedIn(false)
+                })
+        }
+        
+        return loggedIn
         
     }catch(error) {
         return false

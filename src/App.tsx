@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import { useEffect} from 'react';
+import { useEffect, useState} from 'react';
 import { IsLoggedIn } from './Helpers/UserFunctions';
 
 import Login from './Pages/Login/Login';
@@ -17,7 +17,13 @@ import toasterConfig, { tokenExpiryConfig } from './Helpers/ToasterConfig';
 
 function App() {  
   library .add(fas)
-  const loggedIn = IsLoggedIn()
+  const [loggedIn, setloggedIn]  = useState(true)
+
+  IsLoggedIn().
+    then((response)=>{
+      setloggedIn(response)
+    })
+
   return (
     <div className="App">
       <div className='toaster-container'>

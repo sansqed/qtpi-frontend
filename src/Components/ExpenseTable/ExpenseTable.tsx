@@ -299,6 +299,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                             createExpenseDetails(expense.id, classification_id, row)
                                 .then(response=>{
                                     console.log(response)
+                                    toast.dismiss()
                                     toast.success("Entry successfully added", toasterConfig)
                                 })
                             setToRefresh(true)
@@ -314,6 +315,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
 
                             updateExpenseDetails(expense.id, classification_id, row)
                                 .then(response=>{
+                                    toast.dismiss()
                                     toast.success("Entry successfully added", toasterConfig)
                                 })
                             setToRefresh(true)
@@ -339,6 +341,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     createExpenseDetails(expense.id, classification_id, row)
                         .then(response=>{
                             // console.log(response)
+                            toast.dismiss()
                             toast.success("Entry successfully added", toasterConfig)
                         })
                     setToRefresh(true)
@@ -366,6 +369,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     updateExpenseDetails(expense.id, classification_id, row)
                         .then(response=>{
                             // console.log(response)
+                            toast.dismiss()
                             toast.success("Entry successfully added", toasterConfig)
                         })
 
@@ -375,6 +379,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                 }
                 else{
                     // console.log("none")
+                    toast.dismiss()
                     toast.error("Entry details invalid", toasterConfig)
                     
                 }
