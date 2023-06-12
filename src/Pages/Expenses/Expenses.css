@@ -220,7 +220,7 @@
 }
 .expenses-main-container .ant-tabs-tab-active{
     background-color: var(--secondary-color);
-    border-radius: px;
+    border-radius: 8px;
     padding: 0.25vh 0.5vw;
     height: 4vh;
     margin-top: 0.5vh !important;
