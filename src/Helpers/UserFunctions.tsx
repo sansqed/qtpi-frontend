@@ -28,5 +28,5 @@ export const getUserFullName = () => {
 }
 
 export const getRoleId = () => {
-    return localStorage.getItem("role_id") || ""
+    return JSON.parse(localStorage.getItem("role_id")|| "") 
 }
