@@ -29,7 +29,7 @@ interface ExpenseProps{
     classification_id: string;
     expense: ExpenseType;
     setExpenseToRefresh: Function;
-    setExpenseData?:Function;
+    setExpenseData :Function;
 }
 
 const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExpenseToRefresh, setExpenseData}) => {
@@ -389,7 +389,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                 setTotalExpense(tempTotal)
                 if (details.length < pageSize)
                     setIsLastPage(true)
-                // setExpenseData(prev=>)
+                setExpenseData((prev:any)=>({...prev, classification_id: response.data.data.expense_details}))
             })
             .catch((reason)=>{
                 setData([])

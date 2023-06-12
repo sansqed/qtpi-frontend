@@ -5,7 +5,7 @@ import ExpenseTable from "../../Components/ExpenseTable/ExpenseTable";
 import toasterConfig from "../../Helpers/ToasterConfig";
 import { moneyFormatter } from "../../Helpers/Util";
 import "./Expenses.css" 
-import ExpenseExportExcel from "../../Components/ExpenseExportExcel/ExpenseExportExcel";
+import Expenses2PDF from "../../Helpers/Exporters/Expenses2PDF";
 import { AppName } from "../../Helpers/Util";
 
 import {DatePicker, Tabs} from "antd";
@@ -17,6 +17,7 @@ import { Helmet } from "react-helmet";
 
 import { getClassifications } from "../../ApiCalls/ClassificationsApi";
 import { getExpenses, createExpenses, deleteExpenses, updateExpenses } from "../../ApiCalls/ExpensesApi";
+import { getExpenseDetails } from "../../ApiCalls/ExpenseDetailsApi";
 
 import type ExpenseType from "../../Types/Expense";
 
@@ -31,6 +32,7 @@ const Expenses = () => {
     const [selectedExpenseId, setSelectedExpenseId] = useState<string>("")
     const [selectedExpense, setSelectedExpense] = useState<ExpenseType>(getNewExpense("-1"))
     const [toRefresh, setToRefresh] = useState(false)
+    const [expenseData, setExpenseData] = useState([])
 
     const handleDateChange = (range:any) => {
         setStartDate(range[0])
@@ -51,12 +53,10 @@ const Expenses = () => {
     useEffect(()=>{
         getClassifications()
         .then((response)=>{
-            console.log(response)
             setClassifications(response.data.data.classifications)
         })
         getExpenses("","", "")
             .then((response)=>{
-                console.log(response.data.data.expense)
                 let expenseResponse = response.data.data.expense.map((e:any)=>{
                     return({...e, 
                         date_from: dayjs(e.date_from +" 00:00"), 
@@ -83,23 +83,12 @@ const Expenses = () => {
         if(startDate !== undefined && endDate !== undefined){
             createExpenses(startDate.format("YYYY-MM-DD"), "")
                 .then((response)=>{
-                    console.log(response)
                     toast.success(response.data.message, toasterConfig);
                     setToRefresh(true)
                 })
         } else{
             toast.error("Set start date of grow", toasterConfig)
         }
-    }
-
-    const handleDeleteExpense = ()=>{
-        deleteExpenses(selectedExpenseId)
-            .then((response)=>{
-                console.log(response)
-                toast.success(response.data.message, toasterConfig);
-                setToRefresh(true)
-            })
-
     }
 
     const handleUpdateExpense = () => {
@@ -109,6 +98,60 @@ const Expenses = () => {
                 toast.success(response.data.message, toasterConfig);
                 setToRefresh(true)
             })
+    }
+
+    const retrieveData = async() =>{
+        let exportData:any = []
+        
+        for (let i=0; i<classifications.length; i++){
+            const response = await getExpenseDetails(selectedExpenseId, classifications[i].id)
+            try{
+                exportData = [...exportData, 
+                    {
+                        classification_id: classifications[i].id, 
+                        classification_name: classifications[i].name,
+                        expenses: response.data.data.expense_details
+                    }
+                ]
+            } catch {
+                exportData = [...exportData, 
+                    {
+                        classification_id: classifications[i].id, 
+                        classification_name: classifications[i].name,
+                        expenses: []
+                    }
+                ]
+            }
+        }
+
+        return exportData
+    }
+    
+
+    const handleExport = async()=>{
+        let exportData = await retrieveData()
+        // let laborData = exportData[0].expenses?.map((d:any)=>{
+        //     return({
+        //         date: dayjs(d.expense_date_from).format("MMM DD YYYY") + (d.expense_date_to!==null? " - "+dayjs(d.expense_date_to).format("MMM DD YYYY"):""), 
+        //         qty: d.qty, 
+        //         unit: d.unit, 
+        //         item: d.expense_item_name, 
+        //         unit_price: d.unit_price, 
+        //         amount: d.amount
+        //     })
+        // })
+
+        // return([
+        //     dayjs(d.expense_date_from).format("MMM DD YYYY") + (d.expense_date_to!==null? " - "+dayjs(d.expense_date_to).format("MMM DD YYYY"):""),
+        //     d.qty,
+        //     d.unit, 
+        //     d.expense_item_name, 
+        //     d.unit_price, 
+        //     d.amount
+        // ])
+        console.log(exportData)
+        Expenses2PDF(exportData, selectedExpense);
+
     }
 
     return(
@@ -173,15 +216,12 @@ const Expenses = () => {
                                         classification_id={id}
                                         expense={selectedExpense}
                                         setExpenseToRefresh={setToRefresh}
+                                        setExpenseData={setExpenseData}
                                     />
                                 </Tabs.TabPane>
                             ):<></>}
                         </Tabs>
                     </div>
-                {/* <Button
-                    type="add-employee"
-                    handleClick={()=>{}}
-                /> */}
                 </div>
 
 
@@ -192,9 +232,10 @@ const Expenses = () => {
                         <div className="expenses-summary-export-btn-wrapper">
                             <Button
                                 type="expense-export"
-                                handleClick={()=>{}}
+                                // handleClick={()=>{}}
                                 disabled={selectedExpense.isNew}
-                                // handleClick={()=>ExpenseExportExcel()}
+                                // handleClick={()=>handleExportExcel()}
+                                handleClick={()=>handleExport()}
                             />
                         </div>
                     </div>

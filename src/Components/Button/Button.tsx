@@ -364,7 +364,7 @@ const Button: React.FC<ButtonProps> = ({
         disabled={disabled}
       >
         <FontAwesomeIcon icon={["fas", "file-export"]} className="user-icon" />
-        Export to Excel
+        Export to PDF
       </button>
     )
   }
