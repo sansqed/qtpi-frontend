@@ -25,7 +25,7 @@ const TokenListener:any =({}) => {
         .then((response)=>{
             console.log(response)
             if (response.data.status != 200){
-              localStorage.setItem("loggedin", "1")
+              localStorage.setItem("loggedin", "0")
               // setTimeout(() => {
               //   window.location.reload()
               // }, 2000);
@@ -34,7 +34,7 @@ const TokenListener:any =({}) => {
               // console.log(localStorage.getItem("tokenExpiry"))
               // console.log(moment(localStorage.getItem("tokenExpiry"),"YYYY-MM-DD hh:mm:ss").diff(Date.now(),'seconds'))
               // time.setSeconds(time.getSeconds()+10)
-              // localStorage.setItem("loggedin", "0")
+              localStorage.setItem("loggedin", "1")
             }
         })
   }, [location]);
@@ -59,7 +59,7 @@ function App() {
             />
           <Route
             path="/payroll"
-            element={1? <Payroll/>:<Login/>}
+            element={isLoggedIn()? <Payroll/>:<Login/>}
           />
           <Route
             path="/expenses"

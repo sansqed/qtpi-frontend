@@ -6,6 +6,8 @@ import "./ExpenseTable.css"
 import { formatMoney, moneyFormatter } from '../../Helpers/Util';
 import CreatableSelect from 'react-select/creatable';
 import Button from '../Button/Button';
+import { toast } from "react-hot-toast";
+import toasterConfig from "../../Helpers/ToasterConfig";
 
 import { getExpenseItems, createExpenseItems } from '../../ApiCalls/ExpenseItemsApi';
 import { getExpenseDetails, createExpenseDetails, updateExpenseDetails, deleteExpenseDetails } from "../../ApiCalls/ExpenseDetailsApi";
@@ -264,7 +266,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
     }
 
     const save = async (id: string) => {
-        // console.log("here")
+        toast.loading("Saving entry", toasterConfig)
         try{
             let row = (await form.validateFields())
             console.log(row)
@@ -286,6 +288,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                             createExpenseDetails(expense.id, classification_id, row)
                                 .then(response=>{
                                     console.log(response)
+                                    toast.success("Entry successfully added", toasterConfig)
                                 })
                             setToRefresh(true)
                             setEditingId('');
@@ -300,7 +303,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
 
                             updateExpenseDetails(expense.id, classification_id, row)
                                 .then(response=>{
-                                    // console.log(response)
+                                    toast.success("Entry successfully added", toasterConfig)
                                 })
                             setToRefresh(true)
                             setEditingId('');
@@ -324,7 +327,8 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     // console.log("add", row)
                     createExpenseDetails(expense.id, classification_id, row)
                         .then(response=>{
-                            console.log(response)
+                            // console.log(response)
+                            toast.success("Entry successfully added", toasterConfig)
                         })
                     setToRefresh(true)
                     setEditingId('');
@@ -351,6 +355,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     updateExpenseDetails(expense.id, classification_id, row)
                         .then(response=>{
                             // console.log(response)
+                            toast.success("Entry successfully added", toasterConfig)
                         })
 
                     setToRefresh(true)
@@ -359,6 +364,8 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                 }
                 else{
                     // console.log("none")
+                    toast.error("Entry details invalid", toasterConfig)
+                    
                 }
             }
 

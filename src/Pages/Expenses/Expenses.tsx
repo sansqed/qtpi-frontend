@@ -43,7 +43,6 @@ const Expenses = () => {
         setSelectedExpenseId(e.target.value)
         const selected:any = expenses.find(({id}:any)=>e.target.value===id)
         setSelectedExpense(selected)
-        // console.log(selected.date_from)
         setStartDate(selected.date_from)
         setEndDate(selected.date_to)
     }
@@ -132,8 +131,15 @@ const Expenses = () => {
     
 
     const handleExport = async()=>{
+        toast.loading("Generating PDF", toasterConfig)
         let exportData = await retrieveData()
-        Expenses2PDF(exportData, selectedExpense);
+
+        if (exportData.length === 0)
+            toast.error("Error generating PDF", toasterConfig)
+        else{
+            Expenses2PDF(exportData, selectedExpense);
+            toast.success("PDF successfully generated", toasterConfig)
+        }
     }
 
     return(
@@ -246,11 +252,11 @@ const Expenses = () => {
                         <text className="expenses-summary-value">{moneyFormatter.format(Number(selectedExpense?.repair))}</text>
                     </div>
                     <div className="expenses-summary-section">
-                        <h4 className="expenses-summary-name">Rentals (Equipments / Vehicle)</h4>
+                        <h4 className="expenses-summary-name">Rentals (Equipments/Vehicle)</h4>
                         <text className="expenses-summary-value">{moneyFormatter.format(Number(selectedExpense?.rentals))}</text>
                     </div>
                     <div className="expenses-summary-section">
-                        <h4 className="expenses-summary-name">Taxes / Licenses</h4>
+                        <h4 className="expenses-summary-name">Taxes/Licenses</h4>
                         <text className="expenses-summary-value">{moneyFormatter.format(Number(selectedExpense?.taxes))}</text>
                     </div>
                     <div className="expenses-summary-section">
