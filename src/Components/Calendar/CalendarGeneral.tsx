@@ -32,6 +32,7 @@ import {
     isEqual,
     isSameMonth,
     isThisMonth,
+    isThisWeek,
     isToday,
     parse,
     parseISO,
@@ -40,6 +41,7 @@ import {
     startOfToday,
     startOfWeek,
     startOfYesterday,
+    differenceInCalendarDays
   } from "date-fns"
 
 import Button from "../Button/Button"
@@ -55,6 +57,11 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
     const [searchEntry, setSearchEntry] = useState("")
     const [isChanged, setIsChanged] = useState(false)
     const [isClicked, setIsClicked] = useState(false)
+    const [stats, setStats] = useState({
+        today: [0, 0, 0, 0],
+        week:  [0, 0, 0, 0],
+        month: [0, 0, 0, 0],
+    })
     
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
     const [data, setData] = useState<CalendarData>({
@@ -89,20 +96,55 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
             ...prev,
             days: days,
         }))  
-        
+        let today = [0, 0, 0, 0]
+        let week = [0, 0, 0, 0]
+        let month = [0, 0, 0, 0]
+
         getAttendance(
             "", 
             format(startOfWeek(firstDayCurrentMonth, { weekStartsOn: 0 }), "y-LL-dd"), 
             format(endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 0 }), "y-LL-dd"))
-        .then((response:any) => {
+            .then((response:any) => {
 
-            if (response?.data?.status==="200"){
-                var tempList = employees?.map((e)=>{
-                    var attendance = response.data.data.attendance.filter(({employee_id}:any)=>employee_id===e.id)                    
-                    return({...e, attendance:attendance})
-                })
-                setEmployeeList(tempList)
-            } 
+                if (response?.data?.status==="200"){
+                    response.data.data.attendance.forEach(({date, status}:any)=>{
+                        const thisDate = parse(date, "y-LL-dd", new Date())
+                        if (isToday(thisDate)){
+                            if(status === "present")
+                                today[0] += 1
+                            else if (status === "halfday")
+                                today[1] += 1
+                            else if (status === "absent")
+                                today[2] += 1
+                        }
+
+                        if (isThisWeek(thisDate)){
+                            if(status === "present")
+                                week[0] += 1
+                            else if (status === "halfday")
+                                week[1] += 1
+                            else if (status === "absent")
+                                week[2] += 1
+                        }
+
+                        if (isThisMonth(thisDate)){
+                            if(status === "present")
+                                month[0] += 1
+                            else if (status === "halfday")
+                                month[1] += 1
+                            else if (status === "absent")
+                                month[2] += 1
+                        }
+                    })
+
+                    var tempList = employees?.map((e)=>{
+                        var attendance = response.data.data.attendance.filter(({employee_id}:any)=>employee_id===e.id)                    
+                        return({...e, attendance:attendance})
+                    })
+
+                    setEmployeeList(tempList)
+                    setStats({today: today, week: week, month: month})
+                } 
         })
 
         setIsChanged(false)
@@ -110,7 +152,10 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
     },[isChanged,currentMonth, employees])
     
     const handleDayClick = (e:any) =>{
-        setClickedDay(e.target.value.split(" ")[0])
+        const value = e.target.value.split(" ")
+        console.log(value)
+        if (value[2] === "can-click")
+            setClickedDay(e.target.value.split(" ")[0])
 
     }
     
@@ -218,7 +263,7 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                                         <div className={"calendar-gen-today" + (isToday(day)? " today":"")}>
 
                                             <button
-                                                value={format(day, "y-LL-dd") + isWithinMonth(day)}
+                                                value={format(day, "y-LL-dd") + isWithinMonth(day) + (isBefore(day, startOfToday()) || isToday(day)? " can-click":" cannot-click")}
                                                 // style={{ pointerEvents: (!isEdit? "none":"auto") }}
                                                 onClick={e=>{handleDayClick(e)}}
                                             >
@@ -230,7 +275,84 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                             })}
                         </div>
                     </div>
+                    <div className="calendar-gen-stats-container">
+                        <div className="calendar-gen-stats-today">
+                            <h4 className="calendar-gen-stats-header">Today</h4>
+
+                            <div className="calendar-gen-stats-wrapper present today">
+                                <h2>{stats.today[0]}</h2>
+                                {/* <p>Present</p> */}
+                            </div>
+                            <div className="calendar-gen-stats-wrapper non-present today">
+                                <div className="calendar-gen-stats-wrapper halfday today">
+                                    <h2>{stats.today[1]}</h2>
+                                    <p>Halfday</p>
+                                </div>
+                                <div className="calendar-gen-stats-wrapper absent today">
+                                    <h2>{stats.today[2]}</h2>
+                                    <p>Absent</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="calendar-gen-stats-non-today">
+
+                            <div className="calendar-gen-stats-week">
+                                <h4 className="calendar-gen-stats-header">{format(startOfWeek(today, { weekStartsOn: 0 }), "MMMM dd")} - {format(today, "MMMM dd")}</h4>
+                                <div className="calendar-gen-stats-week-values">
+                                    <div className="calendar-gen-stats-wrapper present week">
+                                        <h2>
+                                            {Math.round(stats.week[0] / ((1+differenceInCalendarDays(today, startOfWeek(today, { weekStartsOn: 0 })))*employeeList.length )*100)}%
+                                            </h2>
+                                        <p>Present</p>
+                                    </div>
+
+                                    <div className="calendar-gen-stats-wrapper halfday week">
+                                        <h2>
+                                        {Math.round(stats.week[1] / ((1+differenceInCalendarDays(today, startOfWeek(today, { weekStartsOn: 0 })))*employeeList.length )*100)}%
+                                            </h2>
+                                        <p>Halfday</p>
+                                    </div>
+                                    <div className="calendar-gen-stats-wrapper absent week">
+                                        <h2>
+                                        {Math.round(stats.week[2] / ((1+differenceInCalendarDays(today, startOfWeek(today, { weekStartsOn: 0 })))*employeeList.length )*100)}%
+                                        </h2>
+                                        <p>Absent</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div className="calendar-gen-stats-month">
+                                <h4 className="calendar-gen-stats-header">Month of {format(today, "MMMM")}</h4>
+                                <div className="calendar-gen-stats-month-values">
+                                    <div className="calendar-gen-stats-wrapper present month">
+                                        <h2>
+                                        {Math.round(stats.month[0] / ((1+differenceInCalendarDays(today, firstDayCurrentMonth))*employeeList.length )*100)}%
+                                        </h2>
+                                        <p>Present</p>
+                                    </div>
+
+                                    <div className="calendar-gen-stats-wrapper halfday month">
+                                        <h2>
+                                        {Math.round(stats.month[1] / ((1+differenceInCalendarDays(today, firstDayCurrentMonth))*employeeList.length )*100)}%
+                                        </h2>
+                                        <p>Halfday</p>
+                                    </div>
+                                    <div className="calendar-gen-stats-wrapper absent month">
+                                        <h2>
+                                        {Math.round(stats.month[2] / ((1+differenceInCalendarDays(today, firstDayCurrentMonth))*employeeList.length )*100)}%
+                                        </h2>
+                                        <p>Absent</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            
+                        </div> 
+
                     </div>
+                </div>
 
                 <div className="calendar-gen-employees-container">
                     <text className="calendar-gen-employees-title">Set attendance for {clickedDay}</text>
@@ -261,7 +383,11 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
                             }
                         </div>
                     </div>
+
+
+                    
                 </div> 
+
 
             </div>
 

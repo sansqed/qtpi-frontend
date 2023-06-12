@@ -43,7 +43,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
     };
     
     const handleSubmit = () => {
-        // console.log(employee)
+        console.log(employee)
         
         if (ValidateEmployees(employee, setError)){
             createEmployee(employee)

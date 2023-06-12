@@ -40,10 +40,10 @@ const ValidateEmployees = (employee:Employee, setError:Function) => {
     }
 
     if (employee.position_id === ""){
-        setErrorTrue("position", true, setError)
+        setErrorTrue("position_id", true, setError)
         isValid = false
     } else {
-        setErrorTrue("position", false, setError);
+        setErrorTrue("position_id", false, setError);
     }
 
     if (employee.rate === "" || Number(employee.rate) <= 0){

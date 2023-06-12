@@ -201,7 +201,7 @@ const Calendar: React.FC<CalendarProps> = ({employee_id, setIsDetailsChanged}) =
                                     placement="top"
                                     trigger={isEdit? "click":["hover", "focus"]}
                                     rootClose
-                                    overlay={isEdit?
+                                    overlay={isBefore(day, startOfToday()) || isToday(day)?
                                         <Popover id="popover-contained" show={showPopover} className="calendar-popover">
                                             <Popover.Header>Set attendance</Popover.Header>
                                             <Popover.Body>
@@ -215,12 +215,7 @@ const Calendar: React.FC<CalendarProps> = ({employee_id, setIsDetailsChanged}) =
                                                 </div>
                                             </Popover.Body>
         
-                                        </Popover>:
-                                        <Tooltip id={"tooltip-"+isEdit? "top":"disabled" }>
-                                            <span>
-                                                {getAttendanceStatus(format(day, "y-LL-dd"))}
-                                            </span>
-                                        </Tooltip>
+                                        </Popover>:<></>
                                     }
                                 >
                                     <div
