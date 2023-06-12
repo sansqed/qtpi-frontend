@@ -53,9 +53,11 @@ const ValidateEmployees = (employee:Employee, setError:Function) => {
         setErrorTrue("rate", false, setError);
     }
 
-    if (employee.SSS !== null && Number(employee.SSS) <= 0){
+    if (employee.SSS !== "" && Number(employee.SSS) < 0){
         setErrorTrue("SSS", true, setError)
         isValid = false
+    } else if (employee.SSS === "" || employee.SSS === null || employee.SSS === undefined ){
+        setErrorTrue("SSS", false, setError);
     } else {
         setErrorTrue("SSS", false, setError);
     }
