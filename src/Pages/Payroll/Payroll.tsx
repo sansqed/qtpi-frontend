@@ -13,6 +13,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import React, { useState, useEffect } from "react";
 import Select, { components, OptionProps } from 'react-select';
 import { toast } from "react-hot-toast";
+import makeAnimated from 'react-select/animated';
 
 // type imports
 import Employee, { emptyEmployee } from "../../Types/Employee";
@@ -45,9 +46,6 @@ const Payroll: React.FC = () => {
   const [selectedEmployees, setSelectedEmployees] = useState<string[]>([]);
   const [selectedPositions, setSelectedPositions] = useState<string[]>([]);
   const [selectedPayouts, setSelectedPayouts] = useState<string[]>([]);
-
-  const [isExportClicked, setIsExportClicked] = useState(false)
-
 
   useEffect(() => {
     getEmployees()
@@ -89,6 +87,8 @@ const Payroll: React.FC = () => {
   }
 
   const handleGenerateReport = async () => {
+    toast.loading("Generating Report", toasterConfig)
+
     let selectedEmployeesData;
     if (selectedEmployees.length === 0) {
       selectedEmployeesData = employees
@@ -158,7 +158,8 @@ const Payroll: React.FC = () => {
         net_salary: netSalary
       };
     }));
-
+    toast.dismiss()
+    toast.success("Report successfully generated", toasterConfig)
     setReportData(generatedReport);
     setTotalSalary(generatedReport.reduce((total, item) => total + item.net_salary, 0));
   };
@@ -213,54 +214,19 @@ const Payroll: React.FC = () => {
     },
   ];
 
-  // const handleExportCSV = () => {
-  //   // Prepare the CSV data
-  //   // const csvData = reportData;
-  //   const csvData: any = reportData.map(item => ({
-  //     Name: item.full_name,
-  //     Position: item.position,
-  //     '# of Days': item.num_days,
-  //     Rate: item.rate,
-  //     'Gross Salary': item.gross_salary,
-  //     CA: item.cash_advance,
-  //     SSS: item.employee_sss || '0', // Set SSS to '0' if it's null
-  //     'Net Salary': item.net_salary,
-  //   }));
-  //
-  //   // Define the CSV configuration
-  //
-  //   const options = {
-  //     fieldSeparator: ',',
-  //     filename: 'payroll_' + startDate.format("YYYY-MM-DD") + '_to_' + endDate.format("YYYY-MM-DD"),
-  //     quoteStrings: '"',
-  //     decimalSeparator: '.',
-  //     showLabels: true,
-  //     useTextFile: false,
-  //     useBom: true,
-  //     useKeysAsHeaders: true,
-  //   };
-  //
-  //   const csvExporter = new ExportToCsv(options);
-  //
-  //   csvExporter.generateCsv(csvData);
-  // };
 
   const handleExport = async () => {
-    setIsExportClicked(true)
-
     toast.loading("Generating PDF", toasterConfig)
 
     if (reportData.length === 0) {
       toast.dismiss()
       toast.error("Error generating PDF", toasterConfig)
-      setIsExportClicked(false)
     }
     else {
       // console.log(reportData)
       Payroll2PDF(reportData, startDate, endDate);
       toast.dismiss()
       toast.success("PDF successfully generated", toasterConfig)
-      setIsExportClicked(false)
     }
   }
 
