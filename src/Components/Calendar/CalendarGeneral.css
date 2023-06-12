@@ -284,7 +284,7 @@
 }
 
 .calendar-gen-stats-wrapper.today.present{
-    width: fit-content;
+    width: 11.1vw;
     margin-left: auto;
     margin-right: auto;
 }
@@ -355,7 +355,9 @@
 
 .calendar-gen-stats-wrapper.present.today{
     background-color: white;
-    padding: 2vh 4.5vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    /* padding: 1vh 3vw; */
     border-radius: 0px 0px 16px 16px;
 }
 

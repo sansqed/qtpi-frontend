@@ -273,7 +273,8 @@ const Button: React.FC<ButtonProps> = ({
         className="btn-hover-fx btn-user light"
         onClick={e => handleClick(e)}
       >
-        GENERATE
+        <FontAwesomeIcon icon={["fas", "peso-sign"]} className="user-icon" />
+        Generate Payroll
       </button>
     )
   }

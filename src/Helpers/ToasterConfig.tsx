@@ -5,6 +5,11 @@ export const toasterConfig:any = {
     duration: 2000,
 }
 
+export const longToasterConfig:any = {
+    position: "bottom-center",
+    duration: 10000,
+}
+
 export const tokenExpiryConfig:any = {
     position: "bottom-center",
     duration: 3000,
