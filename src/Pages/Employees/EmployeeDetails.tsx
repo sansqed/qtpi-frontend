@@ -15,6 +15,7 @@ import Salary from "../../Components/Salary/Salary";
 
 import { Helmet } from "react-helmet";
 import { AppName } from "../../Helpers/Util";
+import { getRoleId } from "../../Helpers/UserFunctions";
 
 interface EmployeeDetailsProps{
     employeeArg: Employee;
@@ -28,6 +29,7 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, isEmployee
     const employee_id = employeeArg.id;
     const [employee, setEmployee] = useState<Employee>(employeeArg)
     const [isDetailsChanged, setIsDetailsChanged] = useState(false)
+    const role_id = getRoleId()
 
     const fullName = employee.first_name + " " + (employee.middle_name===""? "":employee.middle_name+" ") + employee.last_name
 
@@ -89,12 +91,14 @@ const EmployeeDetails:React.FC<EmployeeDetailsProps> = ({employeeArg, isEmployee
                             <Button
                                 type="delete-with-confirmation"
                                 handleClick={handleDelete}
+                                disabled={role_id !== "1"}
                             />
                         </div>
                         <div className="employee-details-edit-btn">
                             <Button
                                 type="user-edit"
                                 handleClick={()=>{navigate("/employees/edit/employee_id="+employee_id)}}
+                                disabled={role_id !== "1"}
                             />
                         </div>
                     </div>

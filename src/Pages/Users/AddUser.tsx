@@ -16,6 +16,7 @@ import { AppName } from "../../Helpers/Util";
 
 import "./AddUser.css"
 
+
 interface AddUserProps{
     setIsChanged: Function;
 }
@@ -34,9 +35,9 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
         }));
     };
 
-    console.log(user)
+    // console.log(user)
     const handleSubmit = () => {
-        console.log(user)
+        // console.log(user)
         
         if (ValidateUsers(user, setError)){
             createUser(user)
@@ -55,7 +56,7 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                 })
         } else {
             toast.error("Invalid user details.", toasterConfig);
-            console.log(error)
+            // console.log(error)
         }
     }
 

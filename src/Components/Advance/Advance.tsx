@@ -96,7 +96,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChange
         setIsLoading(true)
         getAdvance(employee_id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
         .then((response)=>{
-            console.log(response)
+            // console.log(response)
             let total = 0
             let advances = response.data.data.advance.map((a:any)=>{
                 total += Number(a.amount)
@@ -162,7 +162,7 @@ const Advance:React.FC<AdvanceProps> = ({employee_id, payout, setIsDetailsChange
                 })
           }
         } catch (errInfo) {
-          console.log('Validate Failed:', errInfo);
+        //   console.log('Validate Failed:', errInfo);
         }
       };
     

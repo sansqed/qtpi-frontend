@@ -92,5 +92,24 @@
     opacity: 80%;
     font-style: italic;
 }
+
+.user-list-body::-webkit-scrollbar{
+    display: block;
+    width: 10px;
+}
+.user-list-body::-webkit-scrollbar-track{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 15px;
+}
+    
+.user-list-body::-webkit-scrollbar-thumb {
+    background-color: #003459;
+    border-radius: 15px;
+    border-right: none;
+    border-left: none;
+}
+
   
   

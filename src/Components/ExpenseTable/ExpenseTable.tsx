@@ -6,6 +6,8 @@ import "./ExpenseTable.css"
 import { formatMoney, moneyFormatter } from '../../Helpers/Util';
 import CreatableSelect from 'react-select/creatable';
 import Button from '../Button/Button';
+import { toast } from "react-hot-toast";
+import toasterConfig from "../../Helpers/ToasterConfig";
 
 import { getExpenseItems, createExpenseItems } from '../../ApiCalls/ExpenseItemsApi';
 import { getExpenseDetails, createExpenseDetails, updateExpenseDetails, deleteExpenseDetails } from "../../ApiCalls/ExpenseDetailsApi";
@@ -29,10 +31,9 @@ interface ExpenseProps{
     classification_id: string;
     expense: ExpenseType;
     setExpenseToRefresh: Function;
-    setExpenseData?:Function;
 }
 
-const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExpenseToRefresh, setExpenseData}) => {
+const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExpenseToRefresh}) => {
     const [form] = Form.useForm();
     const [data, setData] = useState<ExpenseDetailType[]>([])
     const [newItemId, setNewItemId] = useState(-1)
@@ -42,10 +43,9 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
     const [editMode, setEditMode] = useState("")
     const [items, setItems] = useState<ExpenseItemType[]>([])
     const [toRefresh, setToRefresh] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const [currPage, setCurrPage] = useState(1)
     const pageSize = 13
-    const [isLastPage, setIsLastPage] = useState(false)
     const { RangePicker } = DatePicker
 
     const EditableCell: React.FC<EditableCellProps> = ({
@@ -135,6 +135,26 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
         return options
     }
 
+    const handleAddItem = () => {
+        const newData = {
+            expense_detail_id: String(newItemId),
+            expense_date_from: dayjs(),
+            expense_date_to: null,
+            qty: 0,
+            unit: "",
+            expense_item_id:"",
+            expense_item_name:"",
+            unit_price: 0,
+            amount: 0
+        }
+
+        setData(([...data, newData]))
+        form.setFieldsValue({ advance_date: dayjs(), ...newData });
+        setEditingId(String(newData.expense_detail_id));
+        setNewItemId(newItemId-1)
+        setEditMode("add")
+    }
+
 
 
     const columns: any = [
@@ -185,7 +205,14 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
             // editable: true,
         },
         {
-            title: '',
+            title: 
+                (<div className='expenses-add-item-wrapper'>
+                    <Button
+                        type='expenses-add-item'
+                        handleClick={handleAddItem}
+                        disabled={expense.isNew}
+                    />
+                </div>),
             dataIndex: 'operation',
             editable: false,
             align: 'center',
@@ -219,30 +246,10 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
           },
     ]
 
-    const handleAddItem = () => {
-        const newData = {
-            expense_detail_id: String(newItemId),
-            expense_date_from: dayjs(),
-            expense_date_to: null,
-            qty: 0,
-            unit: "",
-            expense_item_id:"",
-            expense_item_name:"",
-            unit_price: 0,
-            amount: 0
-        }
-
-        setData(([...data, newData]))
-        setCurrPage(Math.ceil(data.length+1/pageSize))
-        setIsLastPage(true)
-        form.setFieldsValue({ advance_date: dayjs(), ...newData });
-        setEditingId(String(newData.expense_detail_id));
-        setNewItemId(newItemId-1)
-        setEditMode("add")
-    }
+    
 
     const edit = (record: Partial<ExpenseDetailType>) => {
-        console.log(record)
+        // console.log(record)
         form.setFieldsValue({ item: '', advance_date: dayjs(), amount: '', ...record });
         setEditingId(String(record.id));
         setEditMode("edit")
@@ -256,7 +263,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
         setEditingId('');
     };
     const handleDeleteItem = async(item:ExpenseDetailType) => {
-        console.log(item)
+        // console.log(item)
         deleteExpenseDetails(expense.id, classification_id, item)
         setToRefresh(true)
         setEditingId('');
@@ -264,7 +271,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
     }
 
     const save = async (id: string) => {
-        console.log("here")
+        toast.loading("Saving entry", toasterConfig)
         try{
             let row = (await form.validateFields())
             console.log(row)
@@ -278,23 +285,30 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     .then(()=>{
                         if (editMode === "add") {              
                             row.expense_item_id = newItemId
-                            console.log("add", row)
+                            row.expense_date_from = row.expense_date
+                            row.expense_date_to = undefined
+                            
+                            console.log("add new", row)
+                            
                             createExpenseDetails(expense.id, classification_id, row)
                                 .then(response=>{
                                     console.log(response)
+                                    toast.success("Entry successfully added", toasterConfig)
                                 })
                             setToRefresh(true)
                             setEditingId('');
                             setExpenseToRefresh(true)
                         } else if (editMode === "edit"){
-                            // row.expense_item_id = row.expense_item_name
                             row.expense_detail_id = editingId
                             row.expense_item_id = newItemId
-                            console.log(row)
+                            row.expense_date_from = row.expense_date
+                            row.expense_date_to = undefined
+
+                            // console.log(row)
 
                             updateExpenseDetails(expense.id, classification_id, row)
                                 .then(response=>{
-                                    console.log(response)
+                                    toast.success("Entry successfully added", toasterConfig)
                                 })
                             setToRefresh(true)
                             setEditingId('');
@@ -315,10 +329,11 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                         row.expense_date_to = undefined
                     }
     
-                    console.log("add", row)
+                    // console.log("add", row)
                     createExpenseDetails(expense.id, classification_id, row)
                         .then(response=>{
-                            console.log(response)
+                            // console.log(response)
+                            toast.success("Entry successfully added", toasterConfig)
                         })
                     setToRefresh(true)
                     setEditingId('');
@@ -341,10 +356,11 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                         row.expense_date_to = undefined
                     }
                         
-                    console.log(id, editingId, row)
+                    // console.log(id, editingId, row)
                     updateExpenseDetails(expense.id, classification_id, row)
                         .then(response=>{
-                            console.log(response)
+                            // console.log(response)
+                            toast.success("Entry successfully added", toasterConfig)
                         })
 
                     setToRefresh(true)
@@ -352,25 +368,23 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     setExpenseToRefresh(true)
                 }
                 else{
-                    console.log("none")
+                    // console.log("none")
+                    toast.error("Entry details invalid", toasterConfig)
+                    
                 }
             }
 
         
         } catch (errInfo) {
-            console.log('Validate Failed:', errInfo);
+            // console.log('Validate Failed:', errInfo);
         }
     }
 
-    const handlePageChange = (page:number) => {
-        setCurrPage(page)
-        Math.ceil(data.length/pageSize)===page? setIsLastPage(true):setIsLastPage(false) 
-    }
-
     useEffect (()=>{
+        setIsLoading(true)
         getExpenseDetails(expense.id,classification_id)
             .then((response)=>{
-                console.log(response)
+                // console.log(response)
                 let tempTotal = 0
                 const details = response.data.data.expense_details.map((e:any)=>{
                     tempTotal += Number(e.amount)
@@ -384,31 +398,27 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                         amount: Number(e.amount)
                     })
                 })
-                console.log(details)
+                // console.log(details)
                 setData(details)
                 setTotalExpense(tempTotal)
-                if (details.length < pageSize)
-                    setIsLastPage(true)
-                // setExpenseData(prev=>)
             })
             .catch((reason)=>{
                 setData([])
                 setTotalExpense(0)
-                setIsLastPage(false)
             })
         getExpenseItems("", classification_id)
             .then((response)=>{
-                console.log(response)
+                // console.log(response)
                 let items = response.data.data.expense_item
                 // items.push({id: '', value: "Enter to create item"})
                 setItems(items)
             })
             .catch(()=>{
                 setItems([])
-                setIsLastPage(false)
             })
 
         setToRefresh(false)
+        setIsLoading(false)
     },[expense, toRefresh])
 
     const mergedColumns = columns.map((col:any) => {
@@ -462,13 +472,13 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
 
     return(
         <div className={'expense-table-container'}>
-            <div className='expenses-add-item-wrapper'>
+            {/* <div className='expenses-add-item-wrapper'>
                 <Button
                     type='expenses-add-item'
                     handleClick={handleAddItem}
                     disabled={expense.isNew}
                 />
-            </div>
+            </div> */}
             <Form form={form} component={false} className='expense-table-wrapper'>
                 <Table
                     components={{
@@ -476,7 +486,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                             cell: EditableCell,
                         },
                     }}
-                    // loading={isLoading}
+                    loading={isLoading}
                     scroll={data.length>16? { y:"65vh"}:{}}
                     className="expenses-table"
                     columns={mergedColumns} 

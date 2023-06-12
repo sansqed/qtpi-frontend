@@ -14,13 +14,17 @@ import AddUsers from "./AddUser";
 import { Helmet } from "react-helmet";
 import { AppName } from "../../Helpers/Util";
 
+import { getRoleId } from "../../Helpers/UserFunctions";
+
 const Users: React.FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const paths = location.pathname.split('/')
     const action = paths[2]
     const [selectedUserId, setSelectedUserId] = useState("")
-    console.log(paths)
+    // console.log(paths)
+    const role_id = getRoleId()
+    // console.log(role_id)
 
     const [users, setUsers] = useState<[User]>()
     const [isChanged, setIsChanged] = useState(false)
@@ -29,7 +33,7 @@ const Users: React.FC = () => {
     useEffect(()=>{
         getUsers()
             .then((response)=>{
-                console.log(response.data.data.users)
+                // console.log(response.data.data.users)
                 setUsers(response.data.data.users)
             })
         setIsChanged(false)
@@ -44,14 +48,14 @@ const Users: React.FC = () => {
     const HandleAction = () => {
         if (action==="details")
             return(<UserDetails user={getUser()} setIsChanged={setIsChanged}/>)
-        else if (action === "edit")
+        else if (action === "edit" && role_id=="1")
             return (
                 <EditUser 
                     userArg={getUser()}
                     setIsChanged={setIsChanged}
                 />
             )
-        else if (action === "add")
+        else if (action === "add" && role_id=="1")
                 return(<AddUsers setIsChanged={setIsChanged}/>)
         else{
             setSelectedUserId('')
@@ -74,6 +78,7 @@ const Users: React.FC = () => {
                             <Button
                                 type="add-user"
                                 handleClick={()=>{}}
+                                disabled={(role_id !== "1")}
                             />
                             
                         </NavLink>

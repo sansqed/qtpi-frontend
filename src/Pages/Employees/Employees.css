@@ -87,18 +87,21 @@ a:visited {
     overflow-y: scroll;
 }
 
-.employee-list-body-wrapper::-webkit-scrollbar {
+.employee-list-body-wrapper::-webkit-scrollbar,
+.calendar-gen-search-container::-webkit-scrollbar {
     display: block;
-    width: 6px;
+    width: 10px;
 }
-.employee-list-body-wrapper::-webkit-scrollbar-track {
+.employee-list-body-wrapper::-webkit-scrollbar-track,
+.calendar-gen-search-container::-webkit-scrollbar-track {
     margin-top: 10px;
     margin-bottom: 20px;
     background: rgba(0,0,0,0.05);
     border-radius: 15px;
 }
     
-.employee-list-body-wrapper::-webkit-scrollbar-thumb {
+.employee-list-body-wrapper::-webkit-scrollbar-thumb,
+.calendar-gen-search-container::-webkit-scrollbar-thumb {
 
     background-color: #003459;
     border-radius: 15px;

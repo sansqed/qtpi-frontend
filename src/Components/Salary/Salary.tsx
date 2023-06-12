@@ -52,11 +52,11 @@ const Salary:React.FC<SalaryProps> = ({employee_id, rate, payout, isDetailsChang
     useEffect(()=>{
         getAttendance(employee_id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
             .then((response)=>{
-                console.log(response.data.data.attendance)
+                // console.log(response.data.data.attendance)
                 var totalAttendance = 0.0
 
                 response.data.data.attendance.map((a:any)=>{
-                    console.log(a.status)        
+                    // console.log(a.status)        
                     if(a.status == "present")
                         totalAttendance += 1
                     else if(a.status === "halfday")

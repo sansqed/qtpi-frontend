@@ -15,6 +15,7 @@ import EditEmployee from "./EditEmployee";
 import AddEmployees from "./AddEmployee";
 import { Helmet } from "react-helmet";
 import { AppName } from "../../Helpers/Util";
+import { getRoleId } from "../../Helpers/UserFunctions";
 
 const Employees: React.FC= () => {
     const [employees, setEmployees] = useState<[Employee]>()
@@ -23,13 +24,14 @@ const Employees: React.FC= () => {
     const action = paths[2]
     const [selectedEmployeeId, setSelectedEmployeeId] = useState('')
     const [isEmployeesChanged, setIsEmployeesChanged] = useState(false)
+    const role_id = getRoleId()
     
     // FETCH USERS DATA
     useEffect(()=>{
         getEmployees()
             .then((response)=>{
-                console.log(response)
-                console.log(response.data.data.employees)
+                // console.log(response)
+                // console.log(response.data.data.employees)
                 setEmployees(response.data.data.employees)
                 setIsEmployeesChanged(false)
             })
@@ -53,7 +55,7 @@ const Employees: React.FC= () => {
                 />
             )
         }
-        else if (action === "edit"){
+        else if (action === "edit" && role_id==="1"){
             return (
                 <EditEmployee
                     employeeArg={getSelectedEmployee()}
@@ -61,7 +63,7 @@ const Employees: React.FC= () => {
                 />
             )
         }
-        else if (action === "add"){
+        else if (action === "add" && role_id==="1"){
             setSelectedEmployeeId('')
             return (
                 <AddEmployees
@@ -94,6 +96,7 @@ const Employees: React.FC= () => {
                             <Button
                                 type="add-employee"
                                 handleClick={()=>{}}
+                                disabled={role_id!=="1"}
                             />
                         </NavLink>
                     </div>

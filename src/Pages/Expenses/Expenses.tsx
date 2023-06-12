@@ -5,7 +5,7 @@ import ExpenseTable from "../../Components/ExpenseTable/ExpenseTable";
 import toasterConfig from "../../Helpers/ToasterConfig";
 import { moneyFormatter } from "../../Helpers/Util";
 import "./Expenses.css" 
-import ExpenseExportExcel from "../../Components/ExpenseExportExcel/ExpenseExportExcel";
+import Expenses2PDF from "../../Helpers/Exporters/Expenses2PDF";
 import { AppName } from "../../Helpers/Util";
 
 import {DatePicker, Tabs} from "antd";
@@ -17,6 +17,7 @@ import { Helmet } from "react-helmet";
 
 import { getClassifications } from "../../ApiCalls/ClassificationsApi";
 import { getExpenses, createExpenses, deleteExpenses, updateExpenses } from "../../ApiCalls/ExpensesApi";
+import { getExpenseDetails } from "../../ApiCalls/ExpenseDetailsApi";
 
 import type ExpenseType from "../../Types/Expense";
 
@@ -31,6 +32,7 @@ const Expenses = () => {
     const [selectedExpenseId, setSelectedExpenseId] = useState<string>("")
     const [selectedExpense, setSelectedExpense] = useState<ExpenseType>(getNewExpense("-1"))
     const [toRefresh, setToRefresh] = useState(false)
+    const [isExportClicked, setIsExportClicked] = useState(false)
 
     const handleDateChange = (range:any) => {
         setStartDate(range[0])
@@ -41,22 +43,19 @@ const Expenses = () => {
         setSelectedExpenseId(e.target.value)
         const selected:any = expenses.find(({id}:any)=>e.target.value===id)
         setSelectedExpense(selected)
-        console.log(selected.date_from)
         setStartDate(selected.date_from)
         setEndDate(selected.date_to)
     }
     
-    console.log(selectedExpense)
+    // console.log(selectedExpense)
 
     useEffect(()=>{
         getClassifications()
         .then((response)=>{
-            console.log(response)
             setClassifications(response.data.data.classifications)
         })
         getExpenses("","", "")
             .then((response)=>{
-                console.log(response.data.data.expense)
                 let expenseResponse = response.data.data.expense.map((e:any)=>{
                     return({...e, 
                         date_from: dayjs(e.date_from +" 00:00"), 
@@ -71,10 +70,13 @@ const Expenses = () => {
                     setSelectedExpenseId(lastExpense.id)
                     setStartDate(lastExpense.date_from)
                     setEndDate(lastExpense.date_to)
+                } else {
+                    setSelectedExpense(expenseResponse.find(({id}:any)=>id===selectedExpenseId))
                 }
                 
                 expenseResponse.push(getNewExpense(lastExpense.id))
                 setExpenses(expenseResponse)
+                
             })
         setToRefresh(false)
     },[toRefresh])
@@ -83,7 +85,6 @@ const Expenses = () => {
         if(startDate !== undefined && endDate !== undefined){
             createExpenses(startDate.format("YYYY-MM-DD"), "")
                 .then((response)=>{
-                    console.log(response)
                     toast.success(response.data.message, toasterConfig);
                     setToRefresh(true)
                 })
@@ -92,23 +93,58 @@ const Expenses = () => {
         }
     }
 
-    const handleDeleteExpense = ()=>{
-        deleteExpenses(selectedExpenseId)
-            .then((response)=>{
-                console.log(response)
-                toast.success(response.data.message, toasterConfig);
-                setToRefresh(true)
-            })
-
-    }
-
     const handleUpdateExpense = () => {
         updateExpenses(selectedExpenseId, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
             .then((response)=>{
-                console.log(response)
+                // console.log(response)
                 toast.success(response.data.message, toasterConfig);
                 setToRefresh(true)
             })
+    }
+
+    const retrieveData = async() =>{
+        let exportData:any = []
+        
+        for (let i=0; i<classifications.length; i++){
+            const response = await getExpenseDetails(selectedExpenseId, classifications[i].id)
+            try{
+                exportData = [...exportData, 
+                    {
+                        classification_id: classifications[i].id, 
+                        classification_name: classifications[i].name,
+                        expenses: response.data.data.expense_details
+                    }
+                ]
+            } catch {
+                exportData = [...exportData, 
+                    {
+                        classification_id: classifications[i].id, 
+                        classification_name: classifications[i].name,
+                        expenses: []
+                    }
+                ]
+            }
+        }
+
+        return exportData
+    }
+    
+
+    const handleExport = async()=>{
+        setIsExportClicked(true)
+
+        toast.loading("Generating PDF", toasterConfig)
+        let exportData = await retrieveData()
+
+        if (exportData.length === 0){
+            toast.error("Error generating PDF", toasterConfig)
+            setIsExportClicked(false)
+        }
+        else{
+            Expenses2PDF(exportData, selectedExpense);
+            toast.success("PDF successfully generated", toasterConfig)
+            setIsExportClicked(false)
+        }
     }
 
     return(
@@ -178,10 +214,6 @@ const Expenses = () => {
                             ):<></>}
                         </Tabs>
                     </div>
-                {/* <Button
-                    type="add-employee"
-                    handleClick={()=>{}}
-                /> */}
                 </div>
 
 
@@ -192,9 +224,8 @@ const Expenses = () => {
                         <div className="expenses-summary-export-btn-wrapper">
                             <Button
                                 type="expense-export"
-                                handleClick={()=>{}}
-                                disabled={selectedExpense.isNew}
-                                // handleClick={()=>ExpenseExportExcel()}
+                                disabled={selectedExpense.isNew || isExportClicked}
+                                handleClick={()=>handleExport()}
                             />
                         </div>
                     </div>
@@ -223,11 +254,11 @@ const Expenses = () => {
                         <text className="expenses-summary-value">{moneyFormatter.format(Number(selectedExpense?.repair))}</text>
                     </div>
                     <div className="expenses-summary-section">
-                        <h4 className="expenses-summary-name">Rentals (Equipments / Vehicle)</h4>
+                        <h4 className="expenses-summary-name">Rentals (Equipments/Vehicle)</h4>
                         <text className="expenses-summary-value">{moneyFormatter.format(Number(selectedExpense?.rentals))}</text>
                     </div>
                     <div className="expenses-summary-section">
-                        <h4 className="expenses-summary-name">Taxes / Licenses</h4>
+                        <h4 className="expenses-summary-name">Taxes/Licenses</h4>
                         <text className="expenses-summary-value">{moneyFormatter.format(Number(selectedExpense?.taxes))}</text>
                     </div>
                     <div className="expenses-summary-section">

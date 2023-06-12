@@ -104,6 +104,10 @@ button{
   transition: ease-in;
   transition-duration: 0.2s;
 }
+.btn-user.red:hover:disabled{
+  cursor: not-allowed;
+  box-shadow: none;
+}
 
 .btn-user.small{
   font-size: small;
@@ -284,6 +288,10 @@ button{
   font-weight: 500;
   /* background-color: ; */
   /* height: 1.5rem; */
+}
+
+.btn-expense-add{
+  
 }
 
 .btn-expenses.btn-delete{

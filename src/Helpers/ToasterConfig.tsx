@@ -2,7 +2,7 @@ import { Toast } from "react-hot-toast";
 
 export const toasterConfig:any = {
     position: "bottom-center",
-    duration: 1000,
+    duration: 2000,
 }
 
 export const tokenExpiryConfig:any = {

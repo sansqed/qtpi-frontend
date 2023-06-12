@@ -139,3 +139,21 @@
     margin-bottom: 4vh;
 }
 
+.employee-details-content-container::-webkit-scrollbar{
+    display: block;
+    width: 10px;
+}
+.employee-details-content-container::-webkit-scrollbar-track{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 15px;
+}
+    
+.employee-details-content-container::-webkit-scrollbar-thumb {
+    background-color: #003459;
+    border-radius: 15px;
+    border-right: none;
+    border-left: none;
+}
+
