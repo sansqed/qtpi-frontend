@@ -170,37 +170,42 @@ const Payroll: React.FC = () => {
     {
       title: "Position",
       dataIndex: "position",
-      key: "position"
+      key: "position",
     },
     {
       title: "# of Days",
       dataIndex: "num_days",
-      key: "num_days"
+      key: "num_days",
     },
     {
       title: "Rate",
       dataIndex: "rate",
-      key: "rate"
+      key: "rate",
+      render: (value: number) => moneyFormatter.format(value)
     },
     {
       title: "Gross Salary",
       dataIndex: "gross_salary",
-      key: "gross_salary"
+      key: "gross_salary",
+      render: (value: number) => moneyFormatter.format(value)
     },
     {
       title: "CA",
       dataIndex: "cash_advance",
-      key: "cash_advance"
+      key: "cash_advance",
+      render: (value: number) => moneyFormatter.format(value)
     },
     {
       title: "SSS",
       dataIndex: "employee_sss",
-      key: "employee_sss"
+      key: "employee_sss",
+      render: (value: number) => moneyFormatter.format(value)
     },
     {
       title: "Net Salary",
       dataIndex: "net_salary",
-      key: "net_salary"
+      key: "net_salary",
+      render: (value: number) => moneyFormatter.format(value)
     }
   ];
 
