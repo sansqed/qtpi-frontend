@@ -14,8 +14,6 @@ import dayjs, { Dayjs } from 'dayjs';
 import React, { useState, useEffect, useCallback } from "react";
 import Select, { components, OptionProps } from 'react-select';
 import { toast } from "react-hot-toast";
-import Checkbox from 'react-three-state-checkbox';
-import { render } from "react-dom";
 
 // type imports
 import Employee, { emptyEmployee } from "../../Types/Employee";
@@ -60,7 +58,6 @@ const Payroll: React.FC = () => {
   const forceUpdate = useForceUpdate();
   const [isSelectedEmployeesMixed, setIsSelectedEmployeesMixed] = useState(false)
   const [isGenerateStrict, setIsGenerateStrict] = useState(true)
-  const [payrollData, setPayrollData] = useState([])
 
   useEffect(() => {
     getEmployees()
@@ -188,37 +185,6 @@ const Payroll: React.FC = () => {
     setHasGenerated(true)
     setReportData(payroll);
     setTotalSalary(payroll.reduce((total:number, item:any) => total + Number(item.net_salary), 0));
-    
-    // await Promise.all(selectedEmployeesData.map(async ({id, payout, position_id}:Employee) => {
-        
-    //     getPayroll("", id, "", startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
-    //         .then((getResponse)=>{
-    //             console.log(getResponse)
-    //             if(getResponse.data.status === "201"){
-    //                 payroll.push(getResponse.data.data.salaries[0])
-    //             } else {
-    //                 createPayroll(id, payout, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
-    //                     .then((createResponse)=>{
-    //                         if(createResponse.data.status==="201"){
-    //                             getPayroll("", id, "", startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
-    //                                 .then((getResponse2)=>{
-    //                                     payroll.push(getResponse2.data.data.salaries[0])
-    //                                 })
-    //                         }
-            
-    //                     })
-    //             }
-
-    //         })  
-
-    // }))
-    // .then(()=>{
-    //     console.log(payroll)
-    //     setIsGenerateClicked(false)
-    //     setHasGenerated(true)
-    //     setReportData(payroll);
-    //     setTotalSalary(payroll.reduce((total:number, item:any) => total + Number(item.net_salary), 0));
-    // })
 
   };
 
@@ -273,21 +239,17 @@ const Payroll: React.FC = () => {
   ];
 
   const handleExport = async () => {
-    setIsExportClicked(true)
-
     toast.loading("Generating PDF", toasterConfig)
 
     if (reportData.length === 0) {
       toast.dismiss()
       toast.error("Error generating PDF", toasterConfig)
-      setIsExportClicked(false)
     }
     else {
       // console.log(reportData)
       Payroll2PDF(reportData, startDate, endDate);
       toast.dismiss()
       toast.success("PDF successfully generated", toasterConfig)
-      setIsExportClicked(false)
     }
   }
 
