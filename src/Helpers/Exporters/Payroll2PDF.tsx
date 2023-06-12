@@ -1,17 +1,12 @@
 import autoTable from "jspdf-autotable";
 import jsPDF from "jspdf";
-import type ExpenseType from "../../Types/Expense";
-import type Employee from "../../Types/Employee";
-import dayjs from "dayjs";
-import ExpenseDetailType from "../../Types/ExpenseDetail";
-import PayrollDetailType from "../../Types/PayrollDetail";
 import { moneyFormatter } from "../Util";
 import { Dayjs } from "dayjs";
 
 const Payroll2PDF = (data: Array<object>, start_date: Dayjs, end_date: Dayjs) => {
 
   const doc = new jsPDF({
-    orientation: "portrait",
+    orientation: "landscape",
     unit: "in",
     format: "letter"
   });
@@ -37,19 +32,17 @@ const Payroll2PDF = (data: Array<object>, start_date: Dayjs, end_date: Dayjs) =>
   const headerStyle7: any = { halign: 'center', valign: 'middle', fontStyle: 'bold', fontSize: 8, textColor: "#000000", fillColor: "#E8E8E8", cellPadding: 0.1 }
 
   // customize width of every column
-  const dateWidthLong = { cellWidth: 1.3 }
+  const dateWidthLong = { cellWidth: 1.8 }
   const dateWidthShort = { cellWidth: 1 }
   const qtyWidth = { cellWidth: 0.5 }
-  const rateWidth = { cellWidth: 0.9 }
   const numWidth = { cellWidth: 0.8 }
   const unitWidth = { cellWidth: 0.7 }
-  const itemWidthShort = { cellWidth: 1.9 }
-  const itemWidthLong = { cellWidth: 2.8 }
   const positionWidth = { cellWidth: 0.9 }
-  const amountWidth = { cellWidth: 1.1 }
+  const amountWidth = { cellWidth: 1.3 }
+  const netWidth = { cellWidth: 1.4 }
 
-  const normalStyle: any = { halign: 'left', valign: 'middle', fontSize: 8, textColor: "#000000", cellPadding: 0.1 }
-  const normalStyleMoney: any = { halign: 'right', valign: 'middle', fontSize: 8, textColor: "#000000", cellPadding: 0.1 }
+  const normalStyle: any = { halign: 'left', valign: 'middle', fontSize: 9, textColor: "#000000", cellPadding: 0.1 }
+  const normalStyleMoney: any = { halign: 'right', valign: 'middle', fontSize: 9, textColor: "#000000", cellPadding: 0.1 }
 
   const totalStyle: any = { fontStyle: 'bold', halign: 'right', valign: 'middle', fontSize: 10, textColor: "#000000" }
   const totalStyleMoney: any = { fontStyle: 'bold', halign: 'right', valign: 'middle', fontSize: 10, textColor: "#000000" }
@@ -85,11 +78,11 @@ const Payroll2PDF = (data: Array<object>, start_date: Dayjs, end_date: Dayjs) =>
         { content: "FULL NAME", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...dateWidthLong } },
         { content: "POSITION", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...positionWidth } },
         { content: "# DAYS", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...qtyWidth } },
-        { content: "RATE", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...rateWidth } },
-        { content: "G. SLRY", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...amountWidth } },
-        { content: "CA", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...numWidth } },
-        { content: "SSS", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...numWidth } },
-        { content: "NET SLRY", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...amountWidth } },
+        { content: "RATE", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...amountWidth } },
+        { content: "GROSS SALARY", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...netWidth } },
+        { content: "ADVANCE", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...amountWidth } },
+        { content: "SSS", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...amountWidth } },
+        { content: "NET SALARY", colSpan: 1, rowSpan: 1, styles: { ...headerStyle7, ...netWidth } },
       ]
     ],
     body: contents

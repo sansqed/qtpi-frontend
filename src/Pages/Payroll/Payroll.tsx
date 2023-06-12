@@ -41,6 +41,7 @@ const Payroll: React.FC = () => {
   const [isEmployeesChanged, setIsEmployeesChanged] = useState(false)
 
   const [reportData, setReportData] = useState<PayrollDetailType[]>([])
+  const [totalSalary, setTotalSalary] = useState(0);
   const [selectedEmployees, setSelectedEmployees] = useState<string[]>([]);
   const [selectedPositions, setSelectedPositions] = useState<string[]>([]);
   const [selectedPayouts, setSelectedPayouts] = useState<string[]>([]);
@@ -159,7 +160,10 @@ const Payroll: React.FC = () => {
     }));
 
     setReportData(generatedReport);
+    setTotalSalary(generatedReport.reduce((total, item) => total + item.net_salary, 0));
   };
+
+
 
   const columns: any = [
     {
@@ -206,7 +210,7 @@ const Payroll: React.FC = () => {
       dataIndex: "net_salary",
       key: "net_salary",
       render: (value: number) => moneyFormatter.format(value)
-    }
+    },
   ];
 
   // const handleExportCSV = () => {
@@ -366,6 +370,11 @@ const Payroll: React.FC = () => {
               columns={columns}
               dataSource={reportData}
             />
+          </div>
+
+          <div className="payroll-total-net-salary">
+            <p>Total: {' '}
+              <span>{moneyFormatter.format(totalSalary)}</span> </p>
           </div>
 
           <div className="payroll-export-container">

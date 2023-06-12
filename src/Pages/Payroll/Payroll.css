@@ -122,3 +122,13 @@
   margin-top: 2vh;
   margin-left: 72vw;
 }
+
+.payroll-total-net-salary {
+  margin-left: 63vw;
+  font-weight: bold;
+  color:black;
+}
+
+.payroll-total-net-salary span {
+  margin-left: 4.7vw;
+}
