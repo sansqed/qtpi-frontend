@@ -3,12 +3,6 @@ import { setErrorTrue } from "./Common"
 
 const ValidateEmployees = (employee:Employee, setError:Function) => {
     let isValid = true;
-    // if (user.confirm_password !== user.password || user.password === ""){
-    //     setErrorTrue("password", true, setError);
-    //     isValid = false
-    // } else {
-    //     setErrorTrue("password", false, setError);
-    // }
     
     if (employee.first_name === "" || /\d/.test(employee.first_name)){
         setErrorTrue("first_name", true, setError)

@@ -38,8 +38,10 @@ const Expenses2PDF = (data:Array<object>, expense: ExpenseType) => {
 
     const totalStyle:any = { fontStyle: 'bold', halign: 'right', valign: 'middle', fontSize: 10, textColor: "#000000" }
     const totalStyleMoney:any = { fontStyle: 'bold', halign: 'right', valign: 'middle', fontSize: 10, textColor: "#000000" }
+    
     let grandTotal = 0
 
+    // CONTENTS
     data.forEach((d:any)=>{
         let total = 0
         let contents = d.expenses.map((e:ExpenseDetailType)=>{
@@ -80,6 +82,7 @@ const Expenses2PDF = (data:Array<object>, expense: ExpenseType) => {
 
     })
     
+    // GRAND TOTAL
     const grandTotalStyle:any = { fontStyle: 'bold', halign: 'right', valign: 'middle', fontSize: 10, textColor: "#000000", fillColor: "#ffd965" }
     const grandTotalStyleMoney:any = { fontStyle: 'bold', halign: 'right', valign: 'middle', fontSize: 10, textColor: "#000000", fillColor: "#ffd965" }
     autoTable(doc,{

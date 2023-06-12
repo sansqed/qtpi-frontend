@@ -13,6 +13,7 @@
     bottom: 0;
     width: 14vw;
     padding: 16px;
+    padding-bottom: 5vh;
 }
 
 
@@ -38,7 +39,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 65vh /* subtract the height of the header and footer */
+  height: 60vh /* subtract the height of the header and footer */
 }
 
 .sidebar-menu{
@@ -81,6 +82,9 @@
 }
 .sidebar-logout-container{
     margin-top: auto;
+    position: absolute;
+    bottom: 3.5vh;
+    left: 6vh;
 }
 
 .sidebar-logout-button{
@@ -116,9 +120,13 @@
 
 .sidebar-user-name-container{
   text-align: left;
-  margin-left: 3vw;
-  margin-top: 3vh;
+  margin-left: 2.5vw;
+  /* margin-top: 3vh; */
   margin-bottom: 1vh;
+  padding-right: 2vw;
+  word-wrap: break-word;
+  position: relative;
+  height: 10vh;
 }
 .sidebar-user-name,
 .sidebar-user-name-greeting{
@@ -126,4 +134,9 @@
 }
 .sidebar-user-name{
   font-weight: 700;
+}
+.sidebar-user-name-wrapper{
+  position: absolute;
+  bottom: 0;
+  padding-right: 2vw;
 }

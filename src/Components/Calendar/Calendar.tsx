@@ -85,7 +85,7 @@ const Calendar: React.FC<CalendarProps> = ({employee_id, setIsDetailsChanged}) =
             format(startOfWeek(firstDayCurrentMonth, { weekStartsOn: 0 }), "y-LL-dd"), 
             format(endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 0 }), "y-LL-dd"))
             .then((response:any) => {
-                console.log(response)
+                // console.log(response)
 
                 if (response?.data?.status==="200"){
                     setData((prev:any) => ({

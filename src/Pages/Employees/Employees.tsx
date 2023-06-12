@@ -30,8 +30,8 @@ const Employees: React.FC= () => {
     useEffect(()=>{
         getEmployees()
             .then((response)=>{
-                console.log(response)
-                console.log(response.data.data.employees)
+                // console.log(response)
+                // console.log(response.data.data.employees)
                 setEmployees(response.data.data.employees)
                 setIsEmployeesChanged(false)
             })

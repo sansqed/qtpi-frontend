@@ -22,9 +22,9 @@ const Users: React.FC = () => {
     const paths = location.pathname.split('/')
     const action = paths[2]
     const [selectedUserId, setSelectedUserId] = useState("")
-    console.log(paths)
+    // console.log(paths)
     const role_id = getRoleId()
-    console.log(role_id)
+    // console.log(role_id)
 
     const [users, setUsers] = useState<[User]>()
     const [isChanged, setIsChanged] = useState(false)
@@ -33,7 +33,7 @@ const Users: React.FC = () => {
     useEffect(()=>{
         getUsers()
             .then((response)=>{
-                console.log(response.data.data.users)
+                // console.log(response.data.data.users)
                 setUsers(response.data.data.users)
             })
         setIsChanged(false)

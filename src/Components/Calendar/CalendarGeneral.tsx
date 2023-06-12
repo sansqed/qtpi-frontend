@@ -147,7 +147,7 @@ const CalendarGeneral: React.FC<CalendarProps> = ({employees}) => {
             setIsClicked(true)
             changeStatus(attendanceId, name)
                 .then((response)=>{
-                    console.log(response)
+                    // console.log(response)
                     setIsClicked(false)
                 })
         } else {

@@ -31,7 +31,7 @@ const Login = () => {
     const signIn = async() => {
         toast.loading("Logging in...")
         const response:any = await LoginApi(username, password)
-        console.log(response)
+        // console.log(response)
         
         if (response.data.status === 200){
             localStorage.setItem("loggedin", "0");

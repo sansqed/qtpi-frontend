@@ -242,7 +242,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
     }
 
     const edit = (record: Partial<ExpenseDetailType>) => {
-        console.log(record)
+        // console.log(record)
         form.setFieldsValue({ item: '', advance_date: dayjs(), amount: '', ...record });
         setEditingId(String(record.id));
         setEditMode("edit")
@@ -256,7 +256,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
         setEditingId('');
     };
     const handleDeleteItem = async(item:ExpenseDetailType) => {
-        console.log(item)
+        // console.log(item)
         deleteExpenseDetails(expense.id, classification_id, item)
         setToRefresh(true)
         setEditingId('');
@@ -264,7 +264,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
     }
 
     const save = async (id: string) => {
-        console.log("here")
+        // console.log("here")
         try{
             let row = (await form.validateFields())
             console.log(row)
@@ -278,7 +278,11 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     .then(()=>{
                         if (editMode === "add") {              
                             row.expense_item_id = newItemId
-                            console.log("add", row)
+                            row.expense_date_from = row.expense_date
+                            row.expense_date_to = undefined
+                            
+                            console.log("add new", row)
+                            
                             createExpenseDetails(expense.id, classification_id, row)
                                 .then(response=>{
                                     console.log(response)
@@ -287,14 +291,16 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                             setEditingId('');
                             setExpenseToRefresh(true)
                         } else if (editMode === "edit"){
-                            // row.expense_item_id = row.expense_item_name
                             row.expense_detail_id = editingId
                             row.expense_item_id = newItemId
-                            console.log(row)
+                            row.expense_date_from = row.expense_date
+                            row.expense_date_to = undefined
+
+                            // console.log(row)
 
                             updateExpenseDetails(expense.id, classification_id, row)
                                 .then(response=>{
-                                    console.log(response)
+                                    // console.log(response)
                                 })
                             setToRefresh(true)
                             setEditingId('');
@@ -315,7 +321,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                         row.expense_date_to = undefined
                     }
     
-                    console.log("add", row)
+                    // console.log("add", row)
                     createExpenseDetails(expense.id, classification_id, row)
                         .then(response=>{
                             console.log(response)
@@ -341,10 +347,10 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                         row.expense_date_to = undefined
                     }
                         
-                    console.log(id, editingId, row)
+                    // console.log(id, editingId, row)
                     updateExpenseDetails(expense.id, classification_id, row)
                         .then(response=>{
-                            console.log(response)
+                            // console.log(response)
                         })
 
                     setToRefresh(true)
@@ -352,13 +358,13 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                     setExpenseToRefresh(true)
                 }
                 else{
-                    console.log("none")
+                    // console.log("none")
                 }
             }
 
         
         } catch (errInfo) {
-            console.log('Validate Failed:', errInfo);
+            // console.log('Validate Failed:', errInfo);
         }
     }
 
@@ -370,7 +376,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
     useEffect (()=>{
         getExpenseDetails(expense.id,classification_id)
             .then((response)=>{
-                console.log(response)
+                // console.log(response)
                 let tempTotal = 0
                 const details = response.data.data.expense_details.map((e:any)=>{
                     tempTotal += Number(e.amount)
@@ -384,7 +390,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
                         amount: Number(e.amount)
                     })
                 })
-                console.log(details)
+                // console.log(details)
                 setData(details)
                 setTotalExpense(tempTotal)
                 if (details.length < pageSize)
@@ -398,7 +404,7 @@ const ExpenseTable:React.FC<ExpenseProps> = ({classification_id, expense, setExp
             })
         getExpenseItems("", classification_id)
             .then((response)=>{
-                console.log(response)
+                // console.log(response)
                 let items = response.data.data.expense_item
                 // items.push({id: '', value: "Enter to create item"})
                 setItems(items)

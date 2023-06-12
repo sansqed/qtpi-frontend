@@ -43,12 +43,12 @@ const Expenses = () => {
         setSelectedExpenseId(e.target.value)
         const selected:any = expenses.find(({id}:any)=>e.target.value===id)
         setSelectedExpense(selected)
-        console.log(selected.date_from)
+        // console.log(selected.date_from)
         setStartDate(selected.date_from)
         setEndDate(selected.date_to)
     }
     
-    console.log(selectedExpense)
+    // console.log(selectedExpense)
 
     useEffect(()=>{
         getClassifications()
@@ -71,10 +71,13 @@ const Expenses = () => {
                     setSelectedExpenseId(lastExpense.id)
                     setStartDate(lastExpense.date_from)
                     setEndDate(lastExpense.date_to)
+                } else {
+                    setSelectedExpense(expenseResponse.find(({id}:any)=>id===selectedExpenseId))
                 }
                 
                 expenseResponse.push(getNewExpense(lastExpense.id))
                 setExpenses(expenseResponse)
+                
             })
         setToRefresh(false)
     },[toRefresh])
@@ -94,7 +97,7 @@ const Expenses = () => {
     const handleUpdateExpense = () => {
         updateExpenses(selectedExpenseId, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
             .then((response)=>{
-                console.log(response)
+                // console.log(response)
                 toast.success(response.data.message, toasterConfig);
                 setToRefresh(true)
             })
@@ -130,28 +133,7 @@ const Expenses = () => {
 
     const handleExport = async()=>{
         let exportData = await retrieveData()
-        // let laborData = exportData[0].expenses?.map((d:any)=>{
-        //     return({
-        //         date: dayjs(d.expense_date_from).format("MMM DD YYYY") + (d.expense_date_to!==null? " - "+dayjs(d.expense_date_to).format("MMM DD YYYY"):""), 
-        //         qty: d.qty, 
-        //         unit: d.unit, 
-        //         item: d.expense_item_name, 
-        //         unit_price: d.unit_price, 
-        //         amount: d.amount
-        //     })
-        // })
-
-        // return([
-        //     dayjs(d.expense_date_from).format("MMM DD YYYY") + (d.expense_date_to!==null? " - "+dayjs(d.expense_date_to).format("MMM DD YYYY"):""),
-        //     d.qty,
-        //     d.unit, 
-        //     d.expense_item_name, 
-        //     d.unit_price, 
-        //     d.amount
-        // ])
-        console.log(exportData)
         Expenses2PDF(exportData, selectedExpense);
-
     }
 
     return(

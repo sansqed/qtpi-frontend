@@ -35,9 +35,9 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
         }));
     };
 
-    console.log(user)
+    // console.log(user)
     const handleSubmit = () => {
-        console.log(user)
+        // console.log(user)
         
         if (ValidateUsers(user, setError)){
             createUser(user)
@@ -56,7 +56,7 @@ const AddUsers: React.FC<AddUserProps> = ({setIsChanged}) => {
                 })
         } else {
             toast.error("Invalid user details.", toasterConfig);
-            console.log(error)
+            // console.log(error)
         }
     }
 

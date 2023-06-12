@@ -43,12 +43,12 @@ const EditEmployee: React.FC<EditEmployeeProps> = ({employeeArg, setIsEmployeesC
     };
     
     const handleSubmit = () => {
-        console.log(employee)
+        // console.log(employee)
         
         if (ValidateEmployees(employee, setError)){
             updateEmployee(employee)
                 .then((response)=>{
-                    console.log(response)
+                    // console.log(response)
                     if (response.data.status === "200"){
                         toast.success(response.data.message, toasterConfig);
                         setIsEmployeesChanged(true)
@@ -59,7 +59,7 @@ const EditEmployee: React.FC<EditEmployeeProps> = ({employeeArg, setIsEmployeesC
                 })
         } else {
             toast.error("Invalid employee details.", toasterConfig);
-            console.log(error)
+            // console.log(error)
         }
     }
 

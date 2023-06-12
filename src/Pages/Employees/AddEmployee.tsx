@@ -43,7 +43,7 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
     };
     
     const handleSubmit = () => {
-        console.log(employee)
+        // console.log(employee)
         
         if (ValidateEmployees(employee, setError)){
             createEmployee(employee)
@@ -58,10 +58,10 @@ const AddEmployees: React.FC<AddEmployeesProps> = ({setIsEmployeesChanged}) => {
                 })
         } else {
             toast.error("Invalid employee details.", toasterConfig);
-            console.log(error)
+            // console.log(error)
         }
     }
-    console.log(employee)
+    // console.log(employee)
   
     return (
         <div className="add-employees-container">
