@@ -1,17 +1,18 @@
 // local imports
 import Button from "../../Components/Button/Button";
 import Sidebar from "../../Components/Sidebar/Sidebar";
+import PayrollDetailType from "../../Types/PayrollDetail";
+import Payroll2PDF from "../../Helpers/Exporters/Payroll2PDF";
 
 // helper imports
-import { formatMoney } from "../../Helpers/Util";
+import { moneyFormatter } from "../../Helpers/Util";
 
 // external imports
 import { DatePicker, Table } from 'antd';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useState, useEffect } from "react";
 import Select, { components, OptionProps } from 'react-select';
-import { ExportToCsv } from 'export-to-csv';
+import { toast } from "react-hot-toast";
 
 // type imports
 import Employee, { emptyEmployee } from "../../Types/Employee";
@@ -20,22 +21,15 @@ import Employee, { emptyEmployee } from "../../Types/Employee";
 import { getEmployees, getPositions, getAttendance, } from "../../ApiCalls/EmployeesApi";
 import { getAdvance } from "../../ApiCalls/AdvanceApi";
 
+
+// helper imports
+import toasterConfig from "../../Helpers/ToasterConfig";
+
 import "./Payroll.css"
 
 import { Helmet } from "react-helmet";
 import { AppName } from "../../Helpers/Util";
-
-
-interface PayrollTableData {
-  name: string;
-  position: string;
-  num_days: number;
-  rate: string;
-  gross_salary: number;
-  cash_advance: number;
-  employee_sss: string;
-  net_salary: number;
-};
+import { report } from "process";
 
 const Payroll: React.FC = () => {
   const { RangePicker } = DatePicker
@@ -46,18 +40,18 @@ const Payroll: React.FC = () => {
   const [employees, setEmployees] = useState<Employee[]>([])
   const [isEmployeesChanged, setIsEmployeesChanged] = useState(false)
 
-
-  const [reportData, setReportData] = useState<any[]>([])
+  const [reportData, setReportData] = useState<PayrollDetailType[]>([])
   const [selectedEmployees, setSelectedEmployees] = useState<string[]>([]);
   const [selectedPositions, setSelectedPositions] = useState<string[]>([]);
   const [selectedPayouts, setSelectedPayouts] = useState<string[]>([]);
+
+  const [isExportClicked, setIsExportClicked] = useState(false)
 
 
   useEffect(() => {
     getEmployees()
       .then((response) => {
-        console.log(response)
-        console.log(response.data.data.employees)
+        // console.log(response.data.data.employees)
         setEmployees(response.data.data.employees)
         setIsEmployeesChanged(false)
       })
@@ -67,7 +61,7 @@ const Payroll: React.FC = () => {
   useEffect(() => {
     getPositions()
       .then((response) => {
-        console.log(response.data.data.positions)
+        // console.log(response.data.data.positions)
         setPositions(response.data.data.positions)
       })
   }, [])
@@ -94,7 +88,13 @@ const Payroll: React.FC = () => {
   }
 
   const handleGenerateReport = async () => {
-    const selectedEmployeesData = employees.filter((employee) => selectedEmployees.includes(employee.id));
+    let selectedEmployeesData;
+    if (selectedEmployees.length === 0) {
+      selectedEmployeesData = employees
+    } else {
+      selectedEmployeesData = employees.filter((employee) => selectedEmployees.includes(employee.id));
+    }
+
     let filteredEmployeesData = selectedEmployeesData;
 
     if (selectedPositions.length > 0) {
@@ -115,10 +115,10 @@ const Payroll: React.FC = () => {
 
       const attendanceData = await getAttendance(employee.id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
         .then((response) => {
-          console.log(response.data.data.attendance)
+          // console.log(response.data.data.attendance)
 
           response.data.data.attendance.map((a: any) => {
-            console.log(a.status)
+            // console.log(a.status)
             if (a.status == "present")
               totalAttendance += 1
             else if (a.status === "halfday")
@@ -133,7 +133,7 @@ const Payroll: React.FC = () => {
       const advanceData = await getAdvance(employee.id, startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"))
         .then((response) => {
           // console.log(response)
-          console.log(response.data.data.advance)
+          // console.log(response.data.data.advance)
           response.data.data.advance.map((a: any) => {
             totalAdvance += Number(a.amount)
           });
@@ -170,71 +170,95 @@ const Payroll: React.FC = () => {
     {
       title: "Position",
       dataIndex: "position",
-      key: "position"
+      key: "position",
     },
     {
       title: "# of Days",
       dataIndex: "num_days",
-      key: "num_days"
+      key: "num_days",
     },
     {
       title: "Rate",
       dataIndex: "rate",
-      key: "rate"
+      key: "rate",
+      render: (value: number) => moneyFormatter.format(value)
     },
     {
       title: "Gross Salary",
       dataIndex: "gross_salary",
-      key: "gross_salary"
+      key: "gross_salary",
+      render: (value: number) => moneyFormatter.format(value)
     },
     {
       title: "CA",
       dataIndex: "cash_advance",
-      key: "cash_advance"
+      key: "cash_advance",
+      render: (value: number) => moneyFormatter.format(value)
     },
     {
       title: "SSS",
       dataIndex: "employee_sss",
-      key: "employee_sss"
+      key: "employee_sss",
+      render: (value: number) => moneyFormatter.format(value)
     },
     {
       title: "Net Salary",
       dataIndex: "net_salary",
-      key: "net_salary"
+      key: "net_salary",
+      render: (value: number) => moneyFormatter.format(value)
     }
   ];
 
-  const handleExportCSV = () => {
-    // Prepare the CSV data
-    // const csvData = reportData;
-    const csvData: any = reportData.map(item => ({
-      Name: item.full_name,
-      Position: item.position,
-      '# of Days': item.num_days,
-      Rate: item.rate,
-      'Gross Salary': item.gross_salary,
-      CA: item.cash_advance,
-      SSS: item.employee_sss || '0', // Set SSS to '0' if it's null
-      'Net Salary': item.net_salary,
-    }));
+  // const handleExportCSV = () => {
+  //   // Prepare the CSV data
+  //   // const csvData = reportData;
+  //   const csvData: any = reportData.map(item => ({
+  //     Name: item.full_name,
+  //     Position: item.position,
+  //     '# of Days': item.num_days,
+  //     Rate: item.rate,
+  //     'Gross Salary': item.gross_salary,
+  //     CA: item.cash_advance,
+  //     SSS: item.employee_sss || '0', // Set SSS to '0' if it's null
+  //     'Net Salary': item.net_salary,
+  //   }));
+  //
+  //   // Define the CSV configuration
+  //
+  //   const options = {
+  //     fieldSeparator: ',',
+  //     filename: 'payroll_' + startDate.format("YYYY-MM-DD") + '_to_' + endDate.format("YYYY-MM-DD"),
+  //     quoteStrings: '"',
+  //     decimalSeparator: '.',
+  //     showLabels: true,
+  //     useTextFile: false,
+  //     useBom: true,
+  //     useKeysAsHeaders: true,
+  //   };
+  //
+  //   const csvExporter = new ExportToCsv(options);
+  //
+  //   csvExporter.generateCsv(csvData);
+  // };
 
-    // Define the CSV configuration
+  const handleExport = async () => {
+    setIsExportClicked(true)
 
-    const options = {
-      fieldSeparator: ',',
-      filename: 'payroll_' + startDate.format("YYYY-MM-DD") + '_to_' + endDate.format("YYYY-MM-DD"),
-      quoteStrings: '"',
-      decimalSeparator: '.',
-      showLabels: true,
-      useTextFile: false,
-      useBom: true,
-      useKeysAsHeaders: true,
-    };
+    toast.loading("Generating PDF", toasterConfig)
 
-    const csvExporter = new ExportToCsv(options);
-
-    csvExporter.generateCsv(csvData);
-  };
+    if (reportData.length === 0) {
+      toast.dismiss()
+      toast.error("Error generating PDF", toasterConfig)
+      setIsExportClicked(false)
+    }
+    else {
+      // console.log(reportData)
+      Payroll2PDF(reportData, startDate, endDate);
+      toast.dismiss()
+      toast.success("PDF successfully generated", toasterConfig)
+      setIsExportClicked(false)
+    }
+  }
 
   const payout_options = [
     { value: 'monthly', label: 'Monthly' },
@@ -254,7 +278,7 @@ const Payroll: React.FC = () => {
     )
   };
 
-  console.log(reportData)
+  // console.log(reportData)
   return (
 
     <div className="payroll-container">
@@ -346,8 +370,8 @@ const Payroll: React.FC = () => {
 
           <div className="payroll-export-container">
             <Button
-              type={"export-csv"}
-              handleClick={handleExportCSV}
+              type="expense-export"
+              handleClick={() => handleExport()}
             />
           </div>
         </div>

@@ -112,10 +112,13 @@
 }
 
 .payroll-generate-button-container {
-  margin-bottom: 1vh;
-}
+  margin-bottom: 1vh; }
 
 .payroll-details-table {
   width: 79vw;
 }
 
+.payroll-export-container {
+  margin-top: 2vh;
+  margin-left: 72vw;
+}
